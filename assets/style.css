@@ -1,0 +1,57 @@
+#login-form {
+  margin:auto;
+  max-width:100%;
+}
+.profile-img {
+	width: 80px;
+	margin: 0 auto 20px;
+	display: block;
+	-moz-border-radius:50%;
+	-webkit-border-radius:50%;
+	border-radius:50%;
+}
+
+/* dashboard */
+#wrapper{
+  margin-top: 50px;
+  width: 100%;
+}
+.container {
+    max-width: 100%;
+  width: 100%;
+}
+.page-header{padding-bottom:9px;margin:20px 0 20px;border-bottom:1px solid #eee}
+.alert{margin: 15px;}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+.container .text-muted {
+  margin: 20px 0;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+code {
+  font-size: 80%;
+}
