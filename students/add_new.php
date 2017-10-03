@@ -43,7 +43,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -79,28 +79,149 @@
         <!-- Main Screen -->
         <main class="col-sm-12 offset-sm-4 col-md-12 offset-md-4 pt-5">
         <div id="page-content-wrapper">
-            <div class="container">
+        <div class="container">
     
-    	          <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">Add New Student Record</h1>
-                    </div>
-                </div>
-                <!-- End of Page Heading -->
-        
+    	  <!-- Page Heading -->
         <div class="row">
           <div class="col-lg-12">
-            <h3>Insert form here ...</h3>
+            <h1 class="page-header">Add New Student Record</h1>
           </div>
         </div>
+        <!-- End of Page Heading -->
+        
+        <!-- Start of Form -->
+        <form>
+
+        <div class="row">
+          <div class="col-lg-12">     
+
+                <div class="form-group row">   
+                  <div class="col-lg-3">          
+                    <label class="col-2 col-form-label" for="inlineFormInput">Surname</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput" placeholder="Dela Cruz">
+                  </div>
+                  <div class="col-lg-3">
+                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Juan">
+                  </div>
+                  <div class="col-lg-2">
+                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Magdayao">
+                  </div>
+                  <div class="col-lg-2">
+                    <label class="col-2 col-form-label" for="inlineFormInput">Extended Name</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Jr.">  
+                  </div>        
+                  <div class="col-lg-2">
+                    <label for="example-number-input" class="col-2 col-form-label">Student No.</label>
+                    <input class="form-control" type="text" id="inlineFormInput" placeholder="000-0000">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Program</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. BSIT)">
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Year</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. 1st)">
+                  </div>
+                  <div class="form-group col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Semester</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. 2nd)">
+                  </div>
+                  <div class="form-group col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="2017-2018">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Civil Status</label>
+                    <select class="form-control" id="exampleSelect1">
+                      <option selected>Choose...</option>
+                      <option value="1">Single</option>
+                      <option value="2">Married</option>
+                      <option value="3">Widow</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Birthday</label>
+                    <input type="date" class="form-control" id="inlineFormInput" placeholder="(e.g. 1st)">
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Birthplace</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Sta. Cruz, Laguna">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Regligion</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Roman Catholic">
+                  </div>
+                  <div class="col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Gender</label>
+                    <select class="form-control" id="exampleSelect1">
+                      <option selected>Choose...</option>
+                      <option value="1">Male</option>
+                      <option value="2">Female</option>
+                    </select>
+                  </div>
+                  <div class="form-group col-lg-3">
+                    <label for="example-date-input" class="col-2 col-form-label">Contact No.</label>
+                    <input class="form-control" type="tel" placeholder="09358306457" id="example-tel-input">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Guardian</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. BSIT)">
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Address</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. 1st)">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Father</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Ramon B. Dela Cruz">
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Occupation</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Janitor">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Mother</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Ramona A. Dela Cruz">
+                  </div>
+                  <div class="col-lg-6">
+                    <label for="example-date-input" class="col-2 col-form-label">Occupation</label>
+                    <input type="text" class="form-control" id="inlineFormInput" placeholder="Teacher">
+                  </div>
+                </div>
+
+          </div>
+        </div>
+
+        </form>
+        <!-- End of Form -->
     
         </div>  
         </div>
         </main>
         <!-- End of Main Screen -->
 
-  </div></div>
+  </div>
+  </div>
   <!-- End of Content -->
 
 <footer class="footer">
