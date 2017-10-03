@@ -1,1 +1,1 @@
-# lu_clinic
+# Medical Records Management System using PHP/MySQL
