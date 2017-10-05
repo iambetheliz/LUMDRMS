@@ -112,7 +112,7 @@
 <link rel="icon" href="images/favicon.ico">
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
-<link rel="stylesheet" href="assets/style.css" type="text/css" />
+<link rel="stylesheet" href="assets/css/style.css" type="text/css" />
 </head>
 <body>
 

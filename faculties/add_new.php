@@ -43,7 +43,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -68,7 +68,7 @@
                         <li>
                             <a href="/lu_clinic/students/add_new.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
                         </li>
                     </ul>
