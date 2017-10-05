@@ -43,17 +43,16 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="assets/css/style.css" rel="stylesheet" type="text/css">
+<link href="assets/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<!-- Navbar -->
+  <!-- Navbar -->
   <?php include 'header.php'; ?>
-<!-- End of Navbar -->
+  <!-- End of Navbar -->
 
   <!-- Content -->
 	<div id="wrapper" class="toggled">
-	<div class="container">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
@@ -76,11 +75,9 @@
         </div>  
         <!-- End of Sidebar --> 
 
-        <!-- Main Screen -->
-        <main class="col-sm-12 offset-sm-4 col-md-12 offset-md-4 pt-5">
+	      <!-- Begin Main Screen -->
         <div id="page-content-wrapper">
-            <div class="container">
-    
+            <div class="container-fluid">    
     	          <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -93,29 +90,28 @@
                     </div>
                 </div>
                 <!-- End of Page Heading -->
-        
-        <div class="row">
-          <div class="col-lg-12">
-            <h3>Insert badges/charts here ...</h3>
-          </div>
+                <!-- Additionals -->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <h3>Insert badges/charts here ...</h3>
+                  </div>
+                </div>
+                <!-- End -->
+            </div>  
         </div>
-    
-        </div>  
-        </div>
-        </main>
         <!-- End of Main Screen -->
-
-  </div></div>
+  
+  </div>
   <!-- End of Content -->
 
-<footer class="footer">
+  <footer class="footer">
     <div class="container">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
-</footer>
+  </footer>
     
-<script src="assets/js/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
     
 </body>
 </html>

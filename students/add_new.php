@@ -43,7 +43,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/css/style.css" rel="stylesheet" type="text/css">
+<link href="../assets/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -53,7 +53,6 @@
 
   <!-- Content -->
 	<div id="wrapper" class="toggled">
-	<div class="container">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
@@ -74,12 +73,11 @@
                 </li>
             </ul>
         </div>  
-        <!-- End of Sidebar --> 
-
-        <!-- Main Screen -->
-        <main class="col-sm-12 offset-sm-4 col-md-12 offset-md-4 pt-5">
+        <!-- End of Sidebar -->
+	      
+        <!-- Start of Main Screen -->
         <div id="page-content-wrapper">
-        <div class="container">
+        <div class="container-fluid">
     
     	  <!-- Page Heading -->
         <div class="row">
@@ -217,18 +215,16 @@
     
         </div>  
         </div>
-        </main>
         <!-- End of Main Screen -->
 
   </div>
-  </div>
   <!-- End of Content -->
 
-<footer class="footer">
+  <footer class="footer">
     <div class="container">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
-</footer>
+  </footer>
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>

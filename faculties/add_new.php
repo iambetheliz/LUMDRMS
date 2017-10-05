@@ -43,7 +43,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/css/style.css" rel="stylesheet" type="text/css">
+<link href="../assets/style.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
@@ -54,7 +54,6 @@
 
   <!-- Content -->
 	<div id="wrapper" class="toggled">
-	<div class="container">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
@@ -76,9 +75,7 @@
             </ul>
         </div>  
         <!-- End of Sidebar --> 
-
-        <!-- Main Screen -->
-        <main class="col-sm-12 offset-sm-4 col-md-12 offset-md-4 pt-5">
+	
         <div id="page-content-wrapper">
             <div class="container">
     
@@ -97,11 +94,10 @@
         </div>
     
         </div>  
-        </div>
-        </main>
+      </div>
         <!-- End of Main Screen -->
 
-  </div></div>
+  </div>
   <!-- End of Content -->
 
 <footer class="footer">
