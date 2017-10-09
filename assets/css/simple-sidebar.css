@@ -28,7 +28,7 @@ body {
     height: 100%;
     margin-left: -250px;
     overflow-y: auto;
-    background: #000;
+    background: #335628;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
@@ -60,6 +60,7 @@ body {
     margin: 0;
     padding: 0;
     list-style: none;
+    background-color: #335628;
 }
 
 .sidebar-nav li {
@@ -70,18 +71,26 @@ body {
 .sidebar-nav li a {
     display: block;
     text-decoration: none;
-    color: #999999;
+    color: #fff;
 }
 
+.sidebar-nav> li.active> a:hover,
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #fff;
     background: rgba(255, 255, 255, 0.2);
 }
 
+.sidebar-nav> li.active> a,
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
+    background-color: #014421;
+    color: #f3a22c;
+}
+
+.sidebar-nav>.active>a {
+    color: white;
+    background-color: #014421;
 }
 
 .sidebar-nav > .sidebar-brand {
