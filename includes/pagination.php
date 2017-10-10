@@ -1,16 +1,13 @@
 <?php
-$db_username = 'root'; // Your MYSQL Username.
-$db_password = ''; // Your MYSQL Password.
-$db_name = 'ovcaa'; // Your Database name.
-$db_host = 'localhost';
- 
-$conDB = mysqli_connect($db_host, $db_username, $db_password,$db_name)or die('Error: Could not connect to database.');
+    require_once '../dbconnect.php';
+
+    $DB_con = new mysqli("localhost", "root", "", "records");
 
 // Pagination Function
 function pagination($query,$per_page=10,$page=1,$url='?'){   
-    global $conDB; 
+    global $DB_con; 
     $query = "SELECT COUNT(*) as `num` FROM {$query}";
-    $row = mysqli_fetch_array(mysqli_query($conDB,$query));
+    $row = mysqli_fetch_array(mysqli_query($DB_con,$query));
     $total = $row['num'];
     $adjacents = "2"; 
      
