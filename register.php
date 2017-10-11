@@ -1,8 +1,9 @@
 <?php
 	ob_start();
-	session_start();
 	include_once 'header.php';
 	include_once 'dbconnect.php';
+	if(empty($_SESSION)) // if the session not yet started 
+   		session_start();
 	
 	if( isset($_SESSION['user'])!="" ){
 		header("Location: home.php");

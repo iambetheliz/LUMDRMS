@@ -1,12 +1,17 @@
 <?php
   ob_start();
-  session_start();
   require_once 'dbconnect.php';
+  if(empty($_SESSION)) // if the session not yet started 
+   session_start();
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: index.php");
+    header("Location: index.php?attempt");
     exit;
+  }
+
+  if (isset($_GET['loginSuccess'])) {
+    $successMSG = "Hello, <strong>Admin!</strong> You have been signed in successfully!";
   }
 
   $DB_con = new mysqli("localhost", "root", "", "records");
@@ -83,11 +88,17 @@
                     <div class="col-lg-12">
                         <h1 class="page-header">Welcome to your dashboard!</h1>
                     </div>
-                </div>
-                <div class="row">                    
-                    <div class="alert alert-warning" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span></button><p>Displaying total numbers of patients who visited per day, week, month and year</p>
-                    </div>
+                </div>  
+                <?php 
+                if (isset($_GET['loginSuccess'])) {?>  
+                <div class="alert alert-success success-login" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <?php echo $successMSG; ?>
+                </div>              
+                <?php }?>
+                <div class="alert alert-warning" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <p>Displaying total numbers of patients who visited per day, week, month and year</p>
                 </div>
                 <!-- End of Page Heading -->
                 <!-- Additionals -->
@@ -112,6 +123,13 @@
     
   <script src="assets/js/jquery.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+    window.setTimeout(function() {
+      $(".success-login").fadeTo(500, 0).slideUp(500, function(){
+        $(this).remove(); 
+      });
+    }, 4000);
+  </script>
     
 </body>
 </html>
