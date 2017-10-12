@@ -25,13 +25,30 @@
   	$first_name = $_POST['first_name'];
   	$middle_name = $_POST['middle_name'];
   	$age = $_POST['age'];
+  	$sex = $_POST['sexOption'];
+  	$program = $_POST['program'];
+  	$yearLevel = $_POST['yearLevel'];
+  	$sem = $_POST['semOption'];
+  	$acadYear = $_POST['acadYear'];
+  	$address = $_POST['address'];
+  	$cperson = $_POST['cperson'];
+  	$cphone = $_POST['cphone'];
+  	$tphone = $_POST['tphone'];
+
+  	if (empty($cphone)) {
+  		$cphone = 'none';
+  	}
+
+  	if (empty($tphone)) {
+  		$tphone = 'none';
+  	}
 
   }
 
   // if there's no error, continue to signup
   if( !$error ) {
-  	$stmt = $DB_con->prepare("INSERT INTO students(last_name,first_name,middle_name,age) VALUES('$last_name','$first_name','$middle_name','$age')");
-   	$stmt->bind_param($last_name,$first_name,$middle_name,$age);
+  	$stmt = $DB_con->prepare("INSERT INTO students(last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')");
+   	$stmt->bind_param($last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
 
    	if (!$stmt) {
       $errMSG = "Something went wrong, try again later..."; 

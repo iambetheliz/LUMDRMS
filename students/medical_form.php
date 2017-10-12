@@ -97,13 +97,13 @@
             <!-- Basic Info -->
             <div class="panel panel-success">
               <div class="panel-heading">
-                BASIC INFORMATION
+                BASIC INFORMATION 
               </div>
               <div class="panel-body">
                 <div class="form-group row">   
                   <div class="col-lg-3">          
                     <label class="col-2 col-form-label" for="inlineFormInput">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" autofocus="">
                   </div>
                   <div class="col-lg-3">
                     <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
@@ -119,10 +119,10 @@
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                    <select class="form-control" id="exampleSelect1">
-                      <option selected>Choose...</option>
-                      <option value="1">Male</option>
-                      <option value="2">Female</option>
+                    <select class="form-control" name="sexOption">
+                      <option value="undefined">Choose...</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
                     </select>
                   </div>
                 </div>
@@ -130,51 +130,60 @@
                 <div class="form-group row">
                   <div class="col-lg-6">
                     <label for="example-date-input" class="col-2 col-form-label">Program</label>
-                    <input type="text" class="form-control" id="inlineFormInput" placeholder="(e.g. BSIT)">
+                    <input type="text" class="form-control" name="program" placeholder="(e.g. BSIT)">
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control">
-                      <option selected>Choose...</option>
-                      <option value="1">1st Year</option>
-                      <option value="2">2nd Year</option>
-                      <option value="2">3rd Year</option>
-                      <option value="2">4th Year</option>
+                    <select class="form-control" name="yearLevel">
+                      <option value="undefined">Choose...</option>
+                      <option value="1st">1st Year</option>
+                      <option value="2nd">2nd Year</option>
+                      <option value="3rd">3rd Year</option>
+                      <option value="4th">4th Year</option>
                     </select>
                   </div>
                   <div class="form-group col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Semester</label>
-                    <select class="form-control">
-                      <option selected>Choose...</option>
-                      <option value="1">1st</option>
-                      <option value="2">2nd</option>
+                    <select class="form-control" name="semOption">
+                      <option value="undefined">Choose...</option>
+                      <option value="1st">1st</option>
+                      <option value="2nd">2nd</option>
                     </select>
                   </div>
                   <div class="form-group col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
-                    <input type="text" class="form-control" id="inlineFormInput" placeholder="2017-2018">
+                    <?php
+                      $currently_selected = date('Y'); 
+                      $earliest_year = 2006; 
+                      $latest_year = date('Y'); ?>
+                    <select class="form-control" name="acadYear">
+                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
+                    }
+                      print '</select>';
+                    ?>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-12">
                     <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="address">
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-6">
                     <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                    <input type="text" class="form-control">
+                    <input type="text" class="form-control" name="cperson">
                   </div>
                   <div class="form-group col-lg-3">
                     <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
-                    <input class="form-control" type="tel" placeholder="09358306457">
+                    <input type="text" name="cphone" class="form-control" placeholder="09358306457">
                   </div>
                   <div class="form-group col-lg-3">
                     <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                    <input class="form-control" type="tel" placeholder="536-1234">
+                    <input type="text" name="tphone" class="form-control" placeholder="536-1234">
                   </div>
                 </div>
               </div>
@@ -469,7 +478,7 @@
   <!-- End of Content -->
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-fluid">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
   </footer>

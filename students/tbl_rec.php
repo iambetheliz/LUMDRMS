@@ -41,7 +41,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dashboard | Laguna University - Clinic | Medical Records System</title>
-<link rel="icon" href="images/favicon.ico">
+<link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
@@ -90,17 +90,17 @@
                 
                 <!-- Buttons -->
                 <div class="row">
-                    <div class="col col-xs-4">
+                    <div class="col-xs-4">
                     	<a href="medical_form.php" class="btn btn-success">Add New</a>
                     </div>
-                    <div class="col col-xs-3"></div>
-                    <div class="col col-xs-2 text-right">
+                    <div class="col-xs-3"></div>
+                    <div class="col-xs-2">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
                             </button>
                             <?php 
-                                $table_data='last_name';
+                                $table_data='id';
                                 $sort='DESC';
                                 if(isset($_GET['sorting']))
                                     {
@@ -116,26 +116,30 @@
                                             { 
                                                 $table_data = "age";  
                                             }
-                                        elseif($_GET['table_data']=='last_name')
+                                        if($_GET['table_data']=='last_name')
                                             { 
-                                                $table_data="last_name"; 
+                                                $table_data = "last_name";  
+                                            }
+                                        elseif($_GET['table_data']=='id')
+                                            { 
+                                                $table_data="id"; 
                                                 $sort="ASC";
                                             }
                                     }
                             ?>
                             <ul class="dropdown-menu">
-                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=age">Age</a></li>
                                 <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
                             </ul>
                         </div>
                     </div>
                     <form action="" method="get">
-                    <div class="col col-xs-3 text-right">
+                    <div class="col-xs-3 text-right">
                         <div class="input-group">
                             <input type="text" name="search" class="form-control" placeholder="Search for terms..">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
                         </div>
                     </div>
+                	</form>
                 </div>
                 <!-- End of Buttons -->
                 <br>
@@ -156,10 +160,10 @@
     						$search = $DB_con->real_escape_string($search);
     
         					if (empty($search)) {
-            					$output1 = "<div class='row alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
+            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
         					}
         					else {
-            					$output1 = '<div class="row alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
+            					$output1 = '<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
         					}
     
     						$startpoint = ($page * $per_page) - $per_page;
@@ -172,20 +176,21 @@
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}"); 
 						}
                 ?>
-                <div class="row">
                 <?php if (isset($_GET['search'])) {
     				echo $output1;
 				}  ?>
-				</div>
                 <div class="row">
                 	<div class="col-lg-12">
-                	<table class="table table-responsive table-striped table-bordered">
-                		<thead>
+                	<table class="table sortable table-responsive table-striped table-bordered">
+                		<thead style="background-color:#eee;cursor: pointer;">
                 			<tr>
                 				<th>Surname</th>
                 				<th>First Name</th>
                 				<th>Middle Name</th>
-                				<th>Age</th>
+                				<th>Gender</th>
+                				<th>Program</th>
+                				<th>Year Level</th>
+                				<th>Academic Year</th>
                 				<th>Action</th>
                 			</tr>
                 		</thead>
@@ -199,19 +204,20 @@
                 				<td><?php echo $row['last_name']; ?></td>
                 				<td><?php echo $row['first_name']; ?></td>
                 				<td><?php echo $row['middle_name']; ?></td>
-                				<td><?php echo $row['age']; ?></td>
-                				<td><a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
-                				 <?php
-    						}
+                				<td><?php echo $row['sex']; ?></td>
+                				<td><?php echo $row['program'];?></td>
+                				<td><?php echo $row['yearLevel'];?></td>
+                				<td><?php echo $row['acadYear'];?></td>
+                				<td><a href="#" class="btn btn-default">View</a> <a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
+                			<?php }
  						} 
 						else {
      						$errMSG = "No files to display.";
 						}
-						?>
-                		<?php
+
                     	if(isset($errMSG)){
                 		?>
-                    		<td colspan="5" class="alert alert-danger">
+                    		<td colspan="8">
                         	<span class="glyphicon glyphicon-info-sign"></span> <?php echo $errMSG; ?>
                     		</td>
                 		<?php
@@ -233,13 +239,14 @@
   <!-- End of Content -->
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-fluid">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
   </footer>
     
   <script src="../assets/js/jquery.min.js"></script>
   <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/sorttable.js"></script>
     
 </body>
 </html>

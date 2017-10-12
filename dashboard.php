@@ -10,10 +10,6 @@
     exit;
   }
 
-  if (isset($_GET['loginSuccess'])) {
-    $successMSG = "Hello, <strong>Admin!</strong> You have been signed in successfully!";
-  }
-
   $DB_con = new mysqli("localhost", "root", "", "records");
 
     if ($DB_con->connect_errno) {
@@ -25,6 +21,10 @@
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
   $userRow = $result->fetch_array(MYSQLI_BOTH);
+
+  if (isset($_GET['loginSuccess'])) {
+    $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
+  }
     
     //Render facebook profile data
     $output = '';
@@ -116,7 +116,7 @@
   <!-- End of Content -->
 
   <footer class="footer">
-    <div class="container">
+    <div class="container-fluid">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
   </footer>

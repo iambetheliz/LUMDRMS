@@ -64,3 +64,11 @@ body > .container {
 code {
   font-size: 80%;
 }
+
+/* Sortable tables */
+table.sortable thead {
+    background-color:#eee;
+    color:#666666;
+    font-weight: bold;
+    cursor: pointer;
+}
