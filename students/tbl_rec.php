@@ -153,7 +153,7 @@
                 	$page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
     				
     				if ($page <= 0) $page = 1;
-    				$per_page = 10; // Set how many records do you want to display per page.
+    					$per_page = 10; // Set how many records do you want to display per page.
     
     					if (isset($_GET['search'])) {
     						$search = $_GET['search'];
@@ -187,7 +187,7 @@
                 				<th>Surname</th>
                 				<th>First Name</th>
                 				<th>Middle Name</th>
-                				<th>Gender</th>
+                				<th>Student No</th>
                 				<th>Program</th>
                 				<th>Year Level</th>
                 				<th>Academic Year</th>
@@ -204,11 +204,11 @@
                 				<td><?php echo $row['last_name']; ?></td>
                 				<td><?php echo $row['first_name']; ?></td>
                 				<td><?php echo $row['middle_name']; ?></td>
-                				<td><?php echo $row['sex']; ?></td>
+                				<td><?php echo $row['studentNo']; ?></td>
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td><a href="#" class="btn btn-default">View</a> <a href="#" class="btn btn-primary">Edit</a> <a href="#" class="btn btn-danger">Delete</a></td>
+                				<td><a href="view_record.php?id=<?php echo $row['id']; ?>" class="btn btn-default">View</a> <a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a> <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a></td>
                 			<?php }
  						} 
 						else {

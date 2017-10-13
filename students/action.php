@@ -21,6 +21,7 @@
 
   if ( isset($_POST['btn-add']) ) {
 
+  	$studentNo = $_POST['studentNo'];
   	$last_name = $_POST['last_name'];
   	$first_name = $_POST['first_name'];
   	$middle_name = $_POST['middle_name'];
@@ -47,8 +48,8 @@
 
   // if there's no error, continue to signup
   if( !$error ) {
-  	$stmt = $DB_con->prepare("INSERT INTO students(last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')");
-   	$stmt->bind_param($last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+  	$stmt = $DB_con->prepare("INSERT INTO students(studentNo,last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')");
+   	$stmt->bind_param($studentNo,$last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
 
    	if (!$stmt) {
       $errMSG = "Something went wrong, try again later..."; 

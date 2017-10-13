@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add New Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>View Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -79,17 +79,31 @@
         <!-- Start of Main Screen -->
         <div id="page-content-wrapper">
         <div class="container-fluid">
-          
-        <!-- Start of Form -->
-        <form action="action.php" method="post">
     
     	  <!-- Page Heading -->
         <div class="row">
-          <div class="col-lg-12 form-inline">
-            <h1 class="page-header">Student's Medical Form <input type="text" class="form-control pull-right" placeholder="Student No" name="studentNo"></h1>
+          <div class="col-lg-12">
+            <h1 class="page-header">Student's Medical Record <a href="edit_record.php?id=<?php echo $row['id'];?>" class="btn btn-primary pull-right">Edit</a></h1>              
           </div>
         </div>
-        <!-- End of Page Heading -->        
+        <!-- End of Page Heading -->
+        <?php 
+          require_once '../dbconnect.php';
+
+          $DB_con = new mysqli("localhost", "root", "", "records");
+
+          if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
+
+            $id = $_GET['id'];
+            $res = "SELECT * FROM students WHERE id=".$_GET['id'];
+            $result = $DB_con->query($res);
+            $row = $result->fetch_array(MYSQLI_BOTH);
+            
+            if(!empty($row)){
+        ?>
+        
+        <!-- Start of Form -->
+        <form action="action.php" method="post">
 
         <div class="row">
           <div class="col-lg-12">     
@@ -101,89 +115,48 @@
               </div>
               <div class="panel-body">
                 <div class="form-group row">   
-                  <div class="col-lg-3">          
-                    <label class="col-2 col-form-label" for="inlineFormInput">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" autofocus="">
-                  </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
-                    <input type="text" class="form-control" placeholder="Juan" name="first_name">
+                  <div class="col-lg-6">          
+                    <label class="col-2 col-form-label">Name:</label>
+                    <?php echo $row['last_name'];?>, <?php echo $row['first_name'];?> <?php echo $row['middle_name'];?>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
-                    <input type="text" class="form-control" placeholder="Magdayao" name="middle_name">
-                  </div>      
-                  <div class="col-lg-2">
-                    <label for="example-number-input" class="col-2 col-form-label">Age</label>
-                    <input class="form-control" type="text" placeholder="00" name="age">
+                    <label class="col-2 col-form-label">Age:</label> <?php echo $row['age'];?>
                   </div>
                   <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                    <select class="form-control" name="sexOption">
-                      <option value="undefined">Choose...</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
+                    <label class="col-2 col-form-label">Sex:</label> <?php echo $row['sex'];?>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <label for="example-date-input" class="col-2 col-form-label">Program</label>
-                    <input type="text" class="form-control" name="program" placeholder="(e.g. BSIT)">
+                    <label class="col-2 col-form-label">Program:</label> <?php echo $row['program'];?>
                   </div>
                   <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control" name="yearLevel">
-                      <option value="undefined">Choose...</option>
-                      <option value="1st">1st Year</option>
-                      <option value="2nd">2nd Year</option>
-                      <option value="3rd">3rd Year</option>
-                      <option value="4th">4th Year</option>
-                    </select>
+                    <label class="col-2 col-form-label">Year Level:</label> <?php echo $row['yearLevel'];?>
                   </div>
-                  <div class="form-group col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Semester</label>
-                    <select class="form-control" name="semOption">
-                      <option value="undefined">Choose...</option>
-                      <option value="1st">1st</option>
-                      <option value="2nd">2nd</option>
-                    </select>
+                  <div class="col-lg-2">
+                    <label class="col-2 col-form-label">Semester</label> <?php echo $row['sem'];?>
                   </div>
-                  <div class="form-group col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
-                    <?php
-                      $currently_selected = date('Y'); 
-                      $earliest_year = 2006; 
-                      $latest_year = date('Y'); ?>
-                    <select class="form-control" name="acadYear">
-                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?>
+                  <div class="col-lg-2">
+                    <label class="col-2 col-form-label">Academic Year:</label> <?php echo $row['acadYear'];?>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-12">
-                    <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                    <input type="text" class="form-control" name="address">
+                    <label class="col-2 col-form-label">Address:</label> <?php echo $row['address'];?>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                    <input type="text" class="form-control" name="cperson">
+                    <label class="col-2 col-form-label">Contact Person in case of Emergency:</label> <?php echo $row['cperson'];?>
                   </div>
-                  <div class="form-group col-lg-3">
-                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
-                    <input type="text" name="cphone" class="form-control" placeholder="09358306457">
+                  <div class="col-lg-3">
+                    <label class="col-2 col-form-label">Cellphone No.:</label> <?php echo $row['cphone'];?>
                   </div>
-                  <div class="form-group col-lg-3">
-                    <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                    <input type="text" name="tphone" class="form-control" placeholder="536-1234">
+                  <div class="col-lg-3">
+                    <label class="col-2 col-form-label">Telephone No.:</label> <?php echo $row['tphone'];?>
                   </div>
                 </div>
               </div>
@@ -469,6 +442,8 @@
 
         </form>
         <!-- End of Form -->
+
+        <?php }}?>
     
         </div>  
         </div>
