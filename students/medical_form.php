@@ -79,7 +79,7 @@
         <!-- Start of Main Screen -->
         <div id="page-content-wrapper">
         <div class="container-fluid">
-          
+
         <!-- Start of Form -->
         <form action="action.php" method="post">
     
@@ -459,7 +459,8 @@
                   </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary" name="btn-add">Add Record</button>
+                <input type="hidden" name="action_type" value="add"/>
+                <input type="submit" class="btn btn-primary" name="btn-add" value="Add Record" />
 
               </div>
             </div>

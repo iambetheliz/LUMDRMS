@@ -32,6 +32,11 @@
         header("Refresh:3; logout.php?logout");
     }
 
+    if (isset($_GET['success'])) {
+    	$successMSG = "<span class='glyphicon glyphicon-ok'></span> Data added successfully!";
+    	header('Refresh:3; tbl_rec.php');
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -83,18 +88,19 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Students Medical Records</h1>
+                        <h1 class="page-header">Students Medical Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
                 
                 <!-- Buttons -->
                 <div class="row">
-                    <div class="col-xs-4">
+                  <div class="col-lg-12">
+                	<div class="form-group row">
+                    <div class="col-lg-7">
                     	<a href="medical_form.php" class="btn btn-success">Add New</a>
                     </div>
-                    <div class="col-xs-3"></div>
-                    <div class="col-xs-2">
+                    <div class="col-lg-2 text-right">
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                                 <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
@@ -112,13 +118,17 @@
                                     }
                                 if(isset($_GET['table_data']))
                                     {
-                                        if($_GET['table_data']=='age')
-                                            { 
-                                                $table_data = "age";  
-                                            }
                                         if($_GET['table_data']=='last_name')
                                             { 
                                                 $table_data = "last_name";  
+                                            }
+                                        elseif($_GET['table_data']=='program')
+                                            { 
+                                                $table_data = "program";  
+                                            }
+                                        elseif($_GET['table_data']=='yearLevel')
+                                            { 
+                                                $table_data = "yearLevel";  
                                             }
                                         elseif($_GET['table_data']=='id')
                                             { 
@@ -129,18 +139,22 @@
                             ?>
                             <ul class="dropdown-menu">
                                 <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
+                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=program">Program</a></li>
+                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=yearLevel">Year Level</a></li>
                             </ul>
                         </div>
                     </div>
                     <form action="" method="get">
-                    <div class="col-xs-3 text-right">
+                    <div class="col-lg-3">
                         <div class="input-group">
-                            <input type="text" name="search" class="form-control" placeholder="Search for terms..">
+                            <input type="text" name="search" class="form-control" placeholder="Search">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
                         </div>
                     </div>
                 	</form>
                 </div>
+            	</div>
+            	</div>
                 <!-- End of Buttons -->
                 <br>
                 <!-- Table -->
@@ -208,7 +222,7 @@
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td><a href="view_record.php?id=<?php echo $row['id']; ?>" class="btn btn-default">View</a> <a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-primary">Edit</a> <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger">Delete</a></td>
+                				<td><a href="view_record.php?id=<?php echo $row['id']; ?>" class="btn btn-default"> <span class="glyphicon glyphicon-eye-open"></span> View</a> <a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			<?php }
  						} 
 						else {
