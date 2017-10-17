@@ -38,6 +38,9 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$cphone = $_POST['cphone'];
   		$tphone = $_POST['tphone'];
 
+      //checkbox
+      $sysRev = implode(',', $_POST['sysRev_list']);
+
   		if (empty($cphone)) {
   			$cphone = 'none';
   		}
@@ -48,13 +51,22 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
   		// if there's no error, continue to signup
   		if( !$error ) {
-  			$stmt = $DB_con->prepare("INSERT INTO students(studentNo,last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')");
-   			$stmt->bind_param($studentNo,$last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+        $query1 = "INSERT INTO students_info(studentNo,last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query2 = "INSERT INTO students_med(id,studentNo,sysRev) VALUES('$id','$studentNo','" . $sysRev . "')";
 
-   			if (!$stmt) {
+  			$stmt1 = $DB_con->prepare($query1);
+        $stmt2 = $DB_con->prepare($query2);
+
+   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+        $stmt2->bind_param($id,$studentNo,$sysRev);
+
+   			if (!$stmt1 || !$stmt2){
       			$errMSG = "Something went wrong, try again later..."; 
    			} else {
-      			$stmt->execute();
+          BEGIN;
+      			$stmt1->execute();
+            $stmt2->execute();
+          COMMIT;
         			header("Location: tbl_rec.php?success");
   			} 
   		}
@@ -83,14 +95,35 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			if (empty($tphone)) {
   				$tphone = 'none';
   			}
+
+        // if everything is fine, update the record in the database
+        if ($stmt = $DB_con->prepare("UPDATE students_info SET last_name = ?, first_name = ? WHERE id=?")) {
+          $stmt->bind_param($firstname, $lastname, $id);
+          $stmt->execute();
+          $stmt->close();
+        }
+        // show an error message if the query has an error
+        else {
+          echo "ERROR: could not prepare SQL statement.";
+        }
 		}
 	}
 	elseif($_REQUEST['action_type'] == 'delete'){
 		if(!empty($_GET['id'])){
 
-		}
-	}
+      $id = $_GET['id'];
 
+      if( !$error ) {
+        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE id=".$_GET['id']);
+        $stmt->bindParam($id);
+        $stmt->execute();
+      }
+    }
+    else {
+      // if the 'id' variable isn't set, redirect the user
+      header("Location: tbl_rec.php");
+    }
+	}
 }
 
 ?>

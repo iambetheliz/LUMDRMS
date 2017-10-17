@@ -86,7 +86,7 @@
     	  <!-- Page Heading -->
         <div class="row">
           <div class="col-lg-12 form-inline">
-            <h1 class="page-header">Student's Medical Form <input type="text" class="form-control pull-right" placeholder="Student No" name="studentNo"></h1>
+            <h1 class="page-header">Student's Medical Form <input type="text" class="form-control pull-right" placeholder="Student No" name="studentNo" autofocus=""></h1>
           </div>
         </div>
         <!-- End of Page Heading -->        
@@ -103,7 +103,7 @@
                 <div class="form-group row">   
                   <div class="col-lg-3">          
                     <label class="col-2 col-form-label" for="inlineFormInput">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" autofocus="">
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name">
                   </div>
                   <div class="col-lg-3">
                     <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
@@ -198,47 +198,47 @@
               <div class="panel-body">
                 <div class="col-lg-4">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Recurrent Headache
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> Recurrent Headache
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Blurring of Vision
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> Blurring of Vision
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Abdominal Pain
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> Abdominal Pain
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cough and colds
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Chest pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LOC/Seizure
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy fatigability
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy bruisability
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Other"> Other <input type="text" class="form-control" name="">
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Fever
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> Chest pain
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Vomiting
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> LOC/Seizure
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LBM
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> Easy fatigability
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Dysuria
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> Easy bruisability
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> Fever
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
                   </div>
                 </div>
               </div>
@@ -253,38 +253,38 @@
               <div class="panel-body">
                 <div class="col-lg-4">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bronchial Asthma
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Bronchial Asthma"> Bronchial Asthma
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> PTB
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="PTB"> PTB
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Allergy
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Allergy"> Allergy
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Hypertension
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> UTI
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Surgery
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Other"> Other <input type="text" class="form-control" name="">
                   </div>
                 </div>
                 <div class="col-lg-4">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cardiovascular DSE
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Hypertension"> Hypertension
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bleeding Disorder
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="UTI"> UTI
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Skin Disorder
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Surgery"> Surgery
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Cardiovascular DSE"> Cardiovascular DSE
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Bleeding Disorder"> Bleeding Disorder
+                  </div>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Skin Disorder"> Skin Disorder
                   </div>
                 </div>
               </div>

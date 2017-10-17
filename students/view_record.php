@@ -88,7 +88,7 @@
           if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
 
             $id = $_GET['id'];
-            $res = "SELECT * FROM students WHERE id=".$_GET['id'];
+            $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
             $result = $DB_con->query($res);
             $row = $result->fetch_array(MYSQLI_BOTH);
             
@@ -116,48 +116,90 @@
               </div>
               <div class="panel-body">
                 <div class="form-group row">   
-                  <div class="col-lg-6">          
-                    <label class="col-2 col-form-label">Name:</label>
-                    <?php echo $row['last_name'];?>, <?php echo $row['first_name'];?> <?php echo $row['middle_name'];?>
+                  <div class="col-lg-3">          
+                    <label class="col-2 col-form-label">Surname</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<?php echo $row['last_name'];?>" name="last_name" readonly>                    
+                  </div>
+                  <div class="col-lg-3">
+                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
+                    <input type="text" class="form-control" value="<?php echo $row['first_name'];?>" name="first_name" readonly>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Age:</label> <?php echo $row['age'];?>
+                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
+                    <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" readonly>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Sex:</label> <?php echo $row['sex'];?>
+                    <label for="example-number-input" class="col-2 col-form-label">Age</label>
+                    <input class="form-control" type="text" value="<?php echo $row['age'];?>" name="age" readonly>
+                  </div>
+                  <div class="col-lg-2">
+                    <label for="example-date-input" class="col-2 col-form-label">Sex</label>
+                    <select class="form-control" name="sexOption" readonly>
+                      <option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Program:</label> <?php echo $row['program'];?>
+                    <label class="col-2 col-form-label">Program</label>
+                    <input type="text" class="form-control" name="program" value="<?php echo $row['program'];?>" readonly>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Year Level:</label> <?php echo $row['yearLevel'];?>
+                    <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
+                    <select class="form-control" name="yearLevel" readonly>
+                      <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?></option>
+                      <option value="1st">1st Year</option>
+                      <option value="2nd">2nd Year</option>
+                      <option value="3rd">3rd Year</option>
+                      <option value="4th">4th Year</option>
+                    </select>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Semester</label> <?php echo $row['sem'];?>
+                    <label class="col-2 col-form-label">Semester</label> 
+                    <select class="form-control" name="semOption" readonly>
+                      <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
+                      <option value="1st">1st</option>
+                      <option value="2nd">2nd</option>
+                    </select>
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Academic Year:</label> <?php echo $row['acadYear'];?>
+                    <label class="col-2 col-form-label">Academic Year:</label>                     
+                    <?php
+                      $currently_selected = date('Y'); 
+                      $earliest_year = 2006; 
+                      $latest_year = date('Y'); ?>
+                    <select class="form-control" name="acadYear" readonly>
+                      <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
+                      <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
+                    }
+                      print '</select>';
+                    ?>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-12">
-                    <label class="col-2 col-form-label">Address:</label> <?php echo $row['address'];?>
+                    <label class="col-2 col-form-label">Address:</label> 
+                    <input type="text" class="form-control" name="address" value="<?php echo $row['address'];?>" readonly>
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Contact Person in case of Emergency:</label> <?php echo $row['cperson'];?>
+                    <label class="col-2 col-form-label">Contact Person in case of Emergency:</label>
+                    <input type="text" class="form-control" name="cperson" value="<?php echo $row['cperson'];?>" readonly> 
                   </div>
                   <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Cellphone No.:</label> <?php echo $row['cphone'];?>
+                    <label class="col-2 col-form-label">Cellphone No.:</label> 
+                    <input type="text" name="cphone" class="form-control" value="<?php echo $row['cphone'];?>" readonly>
                   </div>
                   <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Telephone No.:</label> <?php echo $row['tphone'];?>
+                    <label class="col-2 col-form-label">Telephone No.:</label> 
+                    <input type="text" name="tphone" class="form-control" value="<?php echo $row['tphone'];?>" readonly>
                   </div>
                 </div>
               </div>

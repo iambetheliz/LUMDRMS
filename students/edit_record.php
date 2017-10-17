@@ -88,7 +88,7 @@
           if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
 
             $id = $_GET['id'];
-            $res = "SELECT * FROM students WHERE id=".$_GET['id'];
+            $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
             $result = $DB_con->query($res);
             $row = $result->fetch_array(MYSQLI_BOTH);
             
@@ -214,19 +214,19 @@
               <div class="panel-body">
                 <div class="col-lg-4">
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Recurrent Headache
+                    <input type="checkbox" class="form-check-input" name="check_list[]"> Recurrent Headache
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Blurring of Vision
+                    <input type="checkbox" class="form-check-input" name="check_list[]"> Blurring of Vision
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Abdominal Pain
+                    <input type="checkbox" class="form-check-input" name="check_list[]"> Abdominal Pain
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cough and colds
+                    <input type="checkbox" class="form-check-input" name="check_list[]"> Cough and colds
                   </div>
                   <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
+                    <input type="checkbox" class="form-check-input" name="check_list[]"> Other <input type="text" class="form-control" name="">
                   </div>
                 </div>
                 <div class="col-lg-4">

@@ -25,7 +25,7 @@
     //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'</a>';
+        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
         $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -70,7 +70,7 @@
                 <li class="active">
                     <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Tables &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="collapse in">
-                        <li>
+                        <li class="active">
                             <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li>
@@ -181,18 +181,22 @@
         					}
     
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students` WHERE CONCAT(`id`, `last_name`,`first_name`, `middle_name`,`age`) LIKE '%".$search."%'";
+    						$statement = "`students_info` WHERE CONCAT(`id`, `last_name`,`first_name`, `middle_name`,`age`) LIKE '%".$search."%'";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
 						}
 						else {
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students` WHERE CONCAT(`id`, `last_name`,`first_name`, `middle_name`, `age`)";
+    						$statement = "`students_info` WHERE CONCAT(`id`, `last_name`,`first_name`, `middle_name`, `age`)";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}"); 
 						}
                 ?>
                 <?php if (isset($_GET['search'])) {
     				echo $output1;
 				}  ?>
+
+                <?php
+                if ($result->num_rows != 0) { ?>
+                <!-- Start of Table -->
                 <div class="row">
                 	<div class="col-lg-12">
                 	<table class="table sortable table-responsive table-striped table-bordered">
@@ -208,8 +212,6 @@
                 				<th>Action</th>
                 			</tr>
                 		</thead>
-                		<?php
-						if ($result->num_rows != 0) { ?>
                 		<tbody>
                 			<?php 
     						// displaying records.
@@ -222,27 +224,28 @@
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td><a href="view_record.php?id=<?php echo $row['id']; ?>" class="btn btn-default"> <span class="glyphicon glyphicon-eye-open"></span> View</a> <a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger"> <span class="glyphicon glyphicon-trash"></span></a></td>
-                			<?php }
- 						} 
-						else {
-     						$errMSG = "No files to display.";
-						}
-
-                    	if(isset($errMSG)){
-                		?>
-                    		<td colspan="8">
-                        	<span class="glyphicon glyphicon-info-sign"></span> <?php echo $errMSG; ?>
-                    		</td>
-                		<?php
-                		}
-                		?>
+                				<td><a href="view_record.php?id=<?php echo $row['id']; ?>" class="btn btn-default"> <span class="glyphicon glyphicon-eye-open"></span> View</a> <a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-primary"> <span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-danger" onclick="return confirm('Are you sure?');"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			</tr>
+                            <?php }
+                                } 
+                            else {
+                                $errMSG = "No files to display.";
+                            }?>
                 		</tbody>
                 	</table>
+                    <?php 
+                        if(isset($errMSG)){ ?>
+
+                        <div class="alert alert-warning">
+                            <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
+                        </div>
+                            
+                    <?php }
+                    ?>
                 	</div>
                 </div>
                 <!-- End of Table -->
+
                 <?php echo pagination($statement,$per_page,$page,$url='?');?>
 
             </div>  
