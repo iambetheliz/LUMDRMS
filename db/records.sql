@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 13, 2017 at 08:29 PM
+-- Generation Time: Oct 17, 2017 at 01:49 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -37,10 +37,10 @@ CREATE TABLE `faculties` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students`
+-- Table structure for table `students_info`
 --
 
-CREATE TABLE `students` (
+CREATE TABLE `students_info` (
   `id` int(11) NOT NULL,
   `studentNo` varchar(8) NOT NULL,
   `last_name` varchar(20) NOT NULL,
@@ -59,11 +59,30 @@ CREATE TABLE `students` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `students`
+-- Dumping data for table `students_info`
 --
 
-INSERT INTO `students` (`id`, `studentNo`, `last_name`, `first_name`, `middle_name`, `age`, `sex`, `program`, `yearLevel`, `sem`, `acadYear`, `address`, `cperson`, `cphone`, `tphone`) VALUES
-(1, '132-0001', 'Punzalan', 'Elizabeth', 'Elec', 24, 'Female', 'BS Information Technology', '4th', '1st', '2017', 'Pili St., Makiling Subd., Anos, Los Banos, Laguna', 'Anabelle E. Punzalan', '09358306457', 'none');
+INSERT INTO `students_info` (`id`, `studentNo`, `last_name`, `first_name`, `middle_name`, `age`, `sex`, `program`, `yearLevel`, `sem`, `acadYear`, `address`, `cperson`, `cphone`, `tphone`) VALUES
+(1, '132-0001', '', '', '', 0, 'undefined', '', 'undefined', 'undefined', '2017', '', '', 'none', 'none');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students_med`
+--
+
+CREATE TABLE `students_med` (
+  `id` int(11) NOT NULL,
+  `studentNo` varchar(8) NOT NULL,
+  `sysRev` varchar(500) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `students_med`
+--
+
+INSERT INTO `students_med` (`id`, `studentNo`, `sysRev`) VALUES
+(1, '132-0001', '');
 
 -- --------------------------------------------------------
 
@@ -96,11 +115,18 @@ ALTER TABLE `faculties`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `students`
+-- Indexes for table `students_info`
 --
-ALTER TABLE `students`
+ALTER TABLE `students_info`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `studentNo` (`studentNo`);
+
+--
+-- Indexes for table `students_med`
+--
+ALTER TABLE `students_med`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `FK_StudentMed` (`studentNo`);
 
 --
 -- Indexes for table `users`
@@ -119,15 +145,30 @@ ALTER TABLE `users`
 ALTER TABLE `faculties`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT for table `students`
+-- AUTO_INCREMENT for table `students_info`
 --
-ALTER TABLE `students`
+ALTER TABLE `students_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `students_med`
+--
+ALTER TABLE `students_med`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `students_med`
+--
+ALTER TABLE `students_med`
+  ADD CONSTRAINT `FK_StudentMed` FOREIGN KEY (`studentNo`) REFERENCES `students_info` (`studentNo`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
