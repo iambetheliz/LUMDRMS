@@ -163,21 +163,20 @@
                     <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
                     <div class="form-inline"> 
                     <?php
-                      $currently_selected = date('Y'); 
-                      $earliest_year = 2006; 
-                      $latest_year = date('Y'); ?>
+                      $year_built_min = 2006;
+                      $year_built_max = date("Y"); ?>
                     <select class="form-control" style="width: 110px;" name="acadYears[]">
-                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?> 
+                    <?php // Generate minimum years 
+                      foreach (range($year_built_min, $year_built_max) as $year) { ?>
+                        <option value="<?php echo($year); ?>"><?php echo($year); ?></option>
+                    <?php } ?>
+                    </select>
                     <select class="form-control" style="width: 110px;" name="acadYears[]">
-                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.(($i++) === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?>
+                    <?php // Generate max years 
+                      foreach (range($year_built_max, $year_built_min) as $year) { ?>
+                        <option value="<?php echo($year); ?>"><?php echo($year); ?></option>
+                    <?php } ?>
+                    </select>
                     </div>
                   </div>
                 </div>
