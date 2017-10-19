@@ -32,7 +32,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$program = $_POST['program'];
   		$yearLevel = $_POST['yearLevel'];
   		$sem = $_POST['semOption'];
-  		$acadYear = $_POST['acadYear'];
+  		$acadYear = implode('-', $_POST['acadYears']);
   		$address = $_POST['address'];
   		$cperson = $_POST['cperson'];
   		$cphone = $_POST['cphone'];
@@ -61,7 +61,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         $stmt2->bind_param($id,$studentNo,$sysRev);
 
    			if (!$stmt1 || !$stmt2){
-      			$errMSG = "Something went wrong, try again later..."; 
+          header("Location: tbl_rec.php?error");
    			} else {
           BEGIN;
       			$stmt1->execute();
@@ -73,7 +73,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 	}
 	elseif($_REQUEST['action_type'] == 'edit'){
 		if(!empty($_POST['id'])){
-			$studentNo = $_POST['studentNo'];
+			  $studentNo = $_POST['studentNo'];
   			$last_name = $_POST['last_name'];
   			$first_name = $_POST['first_name'];
   			$middle_name = $_POST['middle_name'];
@@ -87,6 +87,10 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$cperson = $_POST['cperson'];
   			$cphone = $_POST['cphone'];
   			$tphone = $_POST['tphone'];
+
+        if (empty($studentNo)) {
+          $studentNo = 'none';
+        }
 
   			if (empty($cphone)) {
   				$cphone = 'none';
@@ -111,17 +115,21 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 	elseif($_REQUEST['action_type'] == 'delete'){
 		if(!empty($_GET['id'])){
 
-      $id = $_GET['id'];
-
       if( !$error ) {
-        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE id=".$_GET['id']);
-        $stmt->bindParam($id);
-        $stmt->execute();
+        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE id =?");
+        $stmt->bind_param('i', $_GET['id']);
+
+        if (!$stmt){
+            $errMSG = "Something went wrong, try again later..."; 
+        } else {
+          $stmt->execute();
+          header("Location: tbl_rec.php?deleteSuccess");
+        }
       }
     }
     else {
       // if the 'id' variable isn't set, redirect the user
-      header("Location: tbl_rec.php");
+      header("Location: tbl_rec.php?deleteError");
     }
 	}
 }

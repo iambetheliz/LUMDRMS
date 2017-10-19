@@ -23,9 +23,10 @@
   $userRow = $result->fetch_array(MYSQLI_BOTH);
     
     //Render facebook profile data
+    //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'</a>';
+        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
         $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -89,7 +90,7 @@
             <h1 class="page-header">Student's Medical Form <input type="text" class="form-control pull-right" placeholder="Student No" name="studentNo" autofocus=""></h1>
           </div>
         </div>
-        <!-- End of Page Heading -->        
+        <!-- End of Page Heading -->  
 
         <div class="row">
           <div class="col-lg-12">     
@@ -102,20 +103,20 @@
               <div class="panel-body">
                 <div class="form-group row">   
                   <div class="col-lg-3">          
-                    <label class="col-2 col-form-label" for="inlineFormInput">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name">
+                    <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> <span class="text-danger pull-right" id="errmsg"></span>
+                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="lettersOnly">
                   </div>
                   <div class="col-lg-3">
-                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
-                    <input type="text" class="form-control" placeholder="Juan" name="first_name">
+                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                    <input type="text" class="form-control" placeholder="Juan" name="first_name" id="lettersOnly">
                   </div>
                   <div class="col-lg-2">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
-                    <input type="text" class="form-control" placeholder="Magdayao" name="middle_name">
+                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                    <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="lettersOnly">
                   </div>      
                   <div class="col-lg-2">
-                    <label for="example-number-input" class="col-2 col-form-label">Age</label>
-                    <input class="form-control" type="text" placeholder="00" name="age">
+                    <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
+                    <input class="form-control" type="text" placeholder="00" name="age" id="numbersOnly" maxlength="2">
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Sex</label>
@@ -128,9 +129,17 @@
                 </div>
 
                 <div class="form-group row">
-                  <div class="col-lg-6">
+                  <div class="col-lg-5">
                     <label for="example-date-input" class="col-2 col-form-label">Program</label>
-                    <input type="text" class="form-control" name="program" placeholder="(e.g. BSIT)">
+                    <select class="form-control" name="program">
+                      <option value="undefined">Choose...</option>
+                      <option value="BS Accountancy">BS Accountancy</option>
+                      <option value="BS Computer Science">BS Computer Science</option>
+                      <option value="BS Communication Arts">BS Communication Arts</option>
+                      <option value="BS Education">BS Education</option>
+                      <option value="BS Entrepreneurship">BS Entrepreneurship</option>
+                      <option value="BS Information Technology">BS Information Technology</option>
+                    </select>
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
@@ -150,18 +159,26 @@
                       <option value="2nd">2nd</option>
                     </select>
                   </div>
-                  <div class="form-group col-lg-2">
+                  <div class="form-group col-lg-3">
                     <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                    <div class="form-inline"> 
                     <?php
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 
                       $latest_year = date('Y'); ?>
-                    <select class="form-control" name="acadYear">
+                    <select class="form-control" style="width: 110px;" name="acadYears[]">
                     <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
                       print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
                     }
                       print '</select>';
+                    ?> 
+                    <select class="form-control" style="width: 110px;" name="acadYears[]">
+                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                      print '<option value="'.$i.'"'.(($i++) === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
+                    }
+                      print '</select>';
                     ?>
+                    </div>
                   </div>
                 </div>
 
@@ -486,6 +503,28 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#numbersOnly").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+  $("#lettersOnly").keypress(function(event){
+        var inputValue = event.which;
+        // allow letters and whitespaces only.
+        if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+          //display error message
+          $("#errmsg").html("Letters Only").show().fadeOut("slow");
+               return false;
+        }
+    });
+});
+</script>
     
 </body>
 </html>

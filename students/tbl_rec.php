@@ -36,6 +36,18 @@
     	$successMSG = "<span class='glyphicon glyphicon-ok'></span> Data added successfully!";
     	header('Refresh:3; tbl_rec.php');
     }
+    elseif (isset($_GET['error'])) {
+        $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
+        header('Refresh:3; tbl_rec.php');
+    }
+    elseif (isset($_GET['deleteSuccess'])) {
+        $successMSG = "<span class='glyphicon glyphicon-ok'></span> Data successfully deleted!";
+        header('Refresh:3; tbl_rec.php');
+    }
+    elseif (isset($_GET['deleteError'])) {
+        $errorMSG = 'At least one checkbox Must be Selected !!!';
+        header('Refresh:3; tbl_rec.php');
+    }
 
 ?>
 
@@ -88,7 +100,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Students Medical Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; ?></small></h1>
+                        <h1 class="page-header">Students Medical Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
@@ -156,7 +168,7 @@
             	</div>
             	</div>
                 <!-- End of Buttons -->
-                <br>
+
                 <!-- Table -->
                 <?php 
   					require_once '../dbconnect.php';
@@ -199,9 +211,16 @@
                 <!-- Start of Table -->
                 <div class="row">
                 	<div class="col-lg-12">
-                	<table class="table sortable table-responsive table-striped table-bordered">
+                    <form method="post" name="frm">
+                    <label><input type="checkbox" class="select-all" /> Check / Uncheck All</label>
+                    <label id="actions">
+                    <span style="word-spacing:normal;"> | With selected :</span>
+                    <span><a class="text-danger" href="#" onClick="delete_records();" alt="delete"><span class="glyphicon glyphicon-trash"></span> Delete</a></span>
+                    </label><br><br>
+                	<table class="table table-responsive table-striped table-bordered">
                 		<thead style="background-color:#eee;cursor: pointer;">
                 			<tr>
+                                <th></th>
                 				<th>Surname</th>
                 				<th>First Name</th>
                 				<th>Middle Name</th>
@@ -217,6 +236,7 @@
     						// displaying records.
     						while ($row = $result->fetch_assoc()){ ?>
                 			<tr>
+                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['id']; ?>"  /></td>
                 				<td><?php echo $row['last_name']; ?></td>
                 				<td><?php echo $row['first_name']; ?></td>
                 				<td><?php echo $row['middle_name']; ?></td>
@@ -229,7 +249,7 @@
                             <?php }
                                 } 
                             else {
-                                $errMSG = "No files to display.";
+                                $errMSG = "No records found.";
                             }?>
                 		</tbody>
                 	</table>
@@ -242,6 +262,7 @@
                             
                     <?php }
                     ?>
+                    </form>
                 	</div>
                 </div>
                 <!-- End of Table -->
@@ -267,4 +288,7 @@
     
 </body>
 </html>
+
+<script src="jquery.js" type="text/javascript"></script>
+<script src="js-script.js" type="text/javascript"></script>
 <?php ob_end_flush(); ?>
