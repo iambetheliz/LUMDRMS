@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2017 at 01:49 PM
+-- Generation Time: Oct 20, 2017 at 08:29 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -58,13 +58,6 @@ CREATE TABLE `students_info` (
   `tphone` varchar(8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `students_info`
---
-
-INSERT INTO `students_info` (`id`, `studentNo`, `last_name`, `first_name`, `middle_name`, `age`, `sex`, `program`, `yearLevel`, `sem`, `acadYear`, `address`, `cperson`, `cphone`, `tphone`) VALUES
-(1, '132-0001', '', '', '', 0, 'undefined', '', 'undefined', 'undefined', '2017', '', '', 'none', 'none');
-
 -- --------------------------------------------------------
 
 --
@@ -76,13 +69,6 @@ CREATE TABLE `students_med` (
   `studentNo` varchar(8) NOT NULL,
   `sysRev` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `students_med`
---
-
-INSERT INTO `students_med` (`id`, `studentNo`, `sysRev`) VALUES
-(1, '132-0001', '');
 
 -- --------------------------------------------------------
 
@@ -148,12 +134,12 @@ ALTER TABLE `faculties`
 -- AUTO_INCREMENT for table `students_info`
 --
 ALTER TABLE `students_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `students_med`
 --
 ALTER TABLE `students_med`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `users`
 --
@@ -167,7 +153,7 @@ ALTER TABLE `users`
 -- Constraints for table `students_med`
 --
 ALTER TABLE `students_med`
-  ADD CONSTRAINT `FK_StudentMed` FOREIGN KEY (`studentNo`) REFERENCES `students_info` (`studentNo`);
+  ADD CONSTRAINT `FK_StudentMed` FOREIGN KEY (`studentNo`) REFERENCES `students_info` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
