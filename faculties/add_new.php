@@ -53,7 +53,7 @@
   <!-- End of Navbar -->
 
   <!-- Content -->
-	<div id="wrapper" class="toggled">
+	<div id="wrapper">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
@@ -62,10 +62,10 @@
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
                 <li class="active">
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Tables &nbsp;&nbsp;<span class="caret"></span></a>
+                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="collapse in">
                         <li>
-                            <a href="/lu_clinic/students/add_new.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                            <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li class="active">
                             <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
@@ -108,6 +108,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/index.js"></script>
     
 </body>
 </html>

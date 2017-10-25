@@ -50,447 +50,479 @@
 <body>
 
   <!-- Navbar -->
-    <?php include 'header.php'; ?>
+  <?php include 'header.php'; ?>
   <!-- End of Navbar -->
 
   <!-- Content -->
-	<div id="wrapper" class="toggled">
+	<div id="wrapper">
 
-        <!-- Sidebar Menu Items -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">                    
-                <li>
-                    <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-                </li>
-                <li class="active">
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Tables &nbsp;&nbsp;<span class="caret"></span></a>
-                    <ul id="demo" class="collapse in">
-                        <li>
-                            <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-                        </li>
-                        <li>
-                            <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
-                        </li>
-                    </ul>
-                </li>
+    <!-- Sidebar Menu Items -->
+    <div id="sidebar-wrapper">
+      <nav id="spy">
+        <ul class="sidebar-nav" role="menu">                    
+          <li>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+          </li>
+          <li>
+            <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+          </li>
+          <li class="active have-child" role="presentation">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+            <ul id="demo" class="panel-collapse collapse in">
+              <li class="active">
+                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
             </ul>
-        </div>  
-        <!-- End of Sidebar -->
+          </li>
+        </ul>
+      </nav>
+    </div>  
+    <!-- End of Sidebar -->
 	      
-        <!-- Start of Main Screen -->
-        <div id="page-content-wrapper">
+    <!-- Start of Main Screen -->
+    <div id="page-content-wrapper">
+      <div class="page-content">
         <div class="container-fluid">
 
-        <!-- Start of Form -->
-        <form action="action.php" method="post">
+          <!-- Start of Form -->
+          <form action="action.php" method="post" autocomplete="">
     
-    	  <!-- Page Heading -->
-        <div class="row">
-          <div class="col-lg-12 form-inline">
-            <h1 class="page-header">Student's Medical Form <input type="text" class="form-control pull-right" placeholder="Student No" name="studentNo" autofocus=""></h1>
-          </div>
-        </div>
-        <!-- End of Page Heading -->  
-
-        <div class="row">
-          <div class="col-lg-12">     
-
-            <!-- Basic Info -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                BASIC INFORMATION 
+    	      <!-- Page Heading -->
+            <div class="row">
+              <div class="col-lg-12">             
+                <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"></span></h1>
               </div>
-              <div class="panel-body">
+            </div>
+            <!-- End of Page Heading -->  
+
+            <!-- Student Status Form -->
+            <div class="row">
+              <div class="col-lg-12">
                 <div class="form-group row">   
-                  <div class="col-lg-3">          
-                    <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> <span class="text-danger pull-right" id="errmsg"></span>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="lettersOnly">
+                  <div class="col-lg-2"> 
+                    <label>Student No.</label>
+                    <input type="text" class="form-control" placeholder="Student No" name="studentNo" id="studentNo" maxlength="8" autofocus="">
                   </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                    <input type="text" class="form-control" placeholder="Juan" name="first_name" id="lettersOnly">
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                    <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="lettersOnly">
-                  </div>      
-                  <div class="col-lg-2">
-                    <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
-                    <input class="form-control" type="text" placeholder="00" name="age" id="numbersOnly" maxlength="2">
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                    <select class="form-control" name="sexOption">
-                      <option value="undefined">Choose...</option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
+                  <div class="col-lg-6"></div>
+                  <div class="col-lg-2"> 
+                    <label>Medical Status</label>
+                    <select class="form-control" name="med" id="med">
+                      <option value="Pending">Pending</option>
+                      <option value="Ok">OK</option>
                     </select>
+                  </div> 
+                  <div class="col-lg-2"> 
+                    <label>Dental Status</label>
+                      <select class="form-control" name="dent" id="dent">
+                        <option value="Pending">Pending</option>
+                        <option value="Ok">OK</option>
+                      </select>
                   </div>
                 </div>
+              </div>
+            </div>
+            <!-- End of Student Status-->
+    
+            <div class="row">
+              <div class="col-lg-12"> 
+                <!-- Basic Info -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">BASIC INFORMATION</div>
+                  <div class="panel-body">
+                    <div class="form-group row">   
+                      <div class="col-lg-3">          
+                        <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> 
+                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="lettersOnly">
+                      </div>
+                      <div class="col-lg-3">
+                        <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                        <input type="text" class="form-control" placeholder="Juan" name="first_name" id="lettersOnly">
+                      </div>
+                      <div class="col-lg-2">
+                        <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                        <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="lettersOnly">
+                      </div>     
+                      <div class="col-lg-1">
+                        <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
+                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2">
+                      </div>   
+                      <div class="col-lg-1">
+                        <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errormsg"></span>
+                        <input class="form-control" type="text" placeholder="00" name="age" id="numbersOnly" maxlength="2">
+                      </div>
+                      <div class="col-lg-2">
+                        <label for="example-date-input" class="col-2 col-form-label">Sex</label>
+                          <select class="form-control" name="sexOption">
+                            <option value="undefined">Choose...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                      </div>
+                    </div>
 
-                <div class="form-group row">
-                  <div class="col-lg-5">
-                    <label for="example-date-input" class="col-2 col-form-label">Program</label>
-                    <select class="form-control" name="program">
-                      <option value="undefined">Choose...</option>
-                      <option value="BS Accountancy">BS Accountancy</option>
-                      <option value="BS Computer Science">BS Computer Science</option>
-                      <option value="BS Communication Arts">BS Communication Arts</option>
-                      <option value="BS Education">BS Education</option>
-                      <option value="BS Entrepreneurship">BS Entrepreneurship</option>
-                      <option value="BS Information Technology">BS Information Technology</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control" name="yearLevel">
-                      <option value="undefined">Choose...</option>
-                      <option value="1st">1st Year</option>
-                      <option value="2nd">2nd Year</option>
-                      <option value="3rd">3rd Year</option>
-                      <option value="4th">4th Year</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Semester</label>
-                    <select class="form-control" name="semOption">
-                      <option value="undefined">Choose...</option>
-                      <option value="1st">1st</option>
-                      <option value="2nd">2nd</option>
-                    </select>
-                  </div>
-                  <div class="form-group col-lg-3">
-                    <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
-                    <div class="form-inline"> 
-                    <?php
-                      $currently_selected = date('Y'); 
-                      $earliest_year = 2006; 
-                      $latest_year = date('Y'); ?>
-                    <select class="form-control" style="width: 110px;" name="acadYears[]">
-                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?> 
-                    <select class="form-control" style="width: 110px;" name="acadYears[]">
-                    <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.(($i++) === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?>
+                    <div class="form-group row">
+                      <div class="col-lg-5">
+                        <label for="example-date-input" class="col-2 col-form-label">Program</label>
+                        <select class="form-control" name="program">
+                          <option value="undefined">Choose...</option>
+                          <option value="BS Accountancy">BS Accountancy</option>
+                          <option value="BS Computer Science">BS Computer Science</option>
+                          <option value="BS Communication Arts">BS Communication Arts</option>
+                          <option value="BS Education">BS Education</option>
+                          <option value="BS Entrepreneurship">BS Entrepreneurship</option>
+                          <option value="BS Information Technology">BS Information Technology</option>
+                        </select>
+                      </div>
+                      <div class="col-lg-2">
+                        <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
+                        <select class="form-control" name="yearLevel">
+                          <option value="undefined">Choose...</option>
+                          <option value="1st">1st Year</option>
+                          <option value="2nd">2nd Year</option>
+                          <option value="3rd">3rd Year</option>
+                          <option value="4th">4th Year</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-lg-2">
+                        <label for="example-date-input" class="col-2 col-form-label">Semester</label>
+                        <select class="form-control" name="semOption">
+                          <option value="undefined">Choose...</option>
+                          <option value="1st">1st</option>
+                          <option value="2nd">2nd</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-lg-3">
+                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                        <div class="form-inline"> 
+                          <?php
+                            $currently_selected = date('Y'); 
+                            $earliest_year = 2006; 
+                            $latest_year = date('Y');
+                            $next_year = $latest_year + 1;
+                            $nextLate_year = $earliest_year + 1; 
+                          ?>
+                          <select class="form-control" name="acadYears[]" id="current_year">
+                            <?php 
+                              foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                                print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
+                              }
+                              print '</select>';
+                            ?> 
+                          <label>To</label>
+                          <select class="form-control" name="acadYears[]" id="next_year">
+                            <?php 
+                              foreach ( range( $next_year, $nextLate_year ) as $i ) {
+                                print '<option value="'.$i.'"'.($i === $next_year ? 'selected="selected"' : '').'>'.$i.'</option>';
+                              }
+                              print '</select>';
+                            ?>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-lg-12">
+                        <label for="example-date-input" class="col-2 col-form-label">Address</label>
+                        <input type="text" class="form-control" name="address">
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-lg-6">
+                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
+                        <input type="text" class="form-control" name="cperson">
+                      </div>
+                      <div class="form-group col-lg-3">
+                        <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
+                        <input type="text" name="cphone" class="form-control" placeholder="09358306457">
+                      </div>
+                      <div class="form-group col-lg-3">
+                        <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
+                        <input type="text" name="tphone" class="form-control" placeholder="536-1234">
+                      </div>
                     </div>
                   </div>
                 </div>
+                <!-- End of Basic Infor -->
 
-                <div class="form-group row">
-                  <div class="col-lg-12">
-                    <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                    <input type="text" class="form-control" name="address">
+                <!-- Review of System -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">REVIEW OF SYSTEM</div>
+                  <div class="panel-body">
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> Recurrent Headache
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> Blurring of Vision
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> Abdominal Pain
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="otherCheckBox"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherTextBoxId" disabled="">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> Chest pain
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> LOC/Seizure
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> Easy fatigability
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> Easy bruisability
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> Fever
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <!-- End Review of System -->
 
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                    <input type="text" class="form-control" name="cperson">
-                  </div>
-                  <div class="form-group col-lg-3">
-                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
-                    <input type="text" name="cphone" class="form-control" placeholder="09358306457">
-                  </div>
-                  <div class="form-group col-lg-3">
-                    <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                    <input type="text" name="tphone" class="form-control" placeholder="536-1234">
+                <!-- Past Medical History -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">PAST MEDICAL HISTORY</div>
+                  <div class="panel-body">
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bronchial Asthma"> Bronchial Asthma
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="PTB"> PTB
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergy"> Allergy
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="otherCheckBox"> Other <input type="text" class="form-control" name="medHis_list" id="otherTextBoxId">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Hypertension"> Hypertension
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="UTI"> UTI
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Surgery"> Surgery
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Cardiovascular DSE"> Cardiovascular DSE
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bleeding Disorder"> Bleeding Disorder
+                      </div>
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Skin Disorder"> Skin Disorder
+                      </div>
+                    </div>
                   </div>
                 </div>
+                <!-- End Past Medical History -->
               </div>
             </div>
-            <!-- End of Basic Infor -->
 
-            <!-- Review of System -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                REVIEW OF SYSTEM
+            <div class="row">
+              <div class="col-lg-6">
+                <!-- Personal and Social -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">PERSONAL AND SOCIAL HISTORY</div>
+                  <div class="panel-body">
+                    <div class="form-check">
+                      <table width="100%">
+                        <tr>
+                          <td><label class="form-check-label">Alcoholic Drinker: </label></td>
+                          <td><input type="checkbox" class="form-check-input" name="drinker" value="Yes"> Yes</td>
+                          <td><input type="checkbox" class="form-check-input" name="drinker" value="No"> No</td>
+                        </tr>     
+                        <tr>
+                          <td><label class="form-check-label">Smoker: </label></td>
+                          <td><input type="checkbox" class="form-check-input" name="smoker" value="Yes"> Yes</td>
+                          <td><input type="checkbox" class="form-check-input" name="smoker" value="No"> No</td>
+                        </tr>
+                        <tr>
+                          <td><label class="form-check-label">Use of Illicit Drugs: </label></td>
+                          <td><input type="checkbox" class="form-check-input" name="drug_user" value="Yes"> Yes</td>
+                          <td><input type="checkbox" class="form-check-input" name="drug_user" value="No"> No</td>
+                        </tr>
+                      </table>
+                      <br>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> Recurrent Headache
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> Blurring of Vision
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> Abdominal Pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Other"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> Chest pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> LOC/Seizure
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> Easy fatigability
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> Easy bruisability
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> Fever
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
+              <div class="col-lg-6">
+                <div class="panel panel-success">
+                  <div class="panel-heading">OB/GYNE HISTORY</div>
+                  <div class="panel-body">
+                    <div class="form-check">
+                      <table width="100%">
+                        <tr>
+                          <td><input class="form-check-input" type="checkbox"> Regular</td>
+                          <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
+                        </tr>
+                        <tr>
+                          <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
+                        </tr>
+                      </table>  
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <!-- End -->
 
-            <!-- Past Medical History -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PAST MEDICAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Bronchial Asthma"> Bronchial Asthma
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="PTB"> PTB
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Allergy"> Allergy
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Other"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Hypertension"> Hypertension
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="UTI"> UTI
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Surgery"> Surgery
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Cardiovascular DSE"> Cardiovascular DSE
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Bleeding Disorder"> Bleeding Disorder
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]" value="Skin Disorder"> Skin Disorder
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
+            <div class="row">
+              <div class="col-lg-12">
+                <!-- Physical Exam -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">PHYSICAL EXAMINATION</div>
+                  <div class="panel-body">
+                    <div class="form-group row">
+                      <div class="col-lg-3">
+                        <label>Weight:</label>  
+                        <input type="text" class="form-control"> 
+                      </div>
+                      <div class="col-lg-3">
+                        <label>Height:</label> 
+                        <input type="text" class="form-control"> 
+                      </div>
+                      <div class="col-lg-3">
+                        <label>BMI:</label> 
+                        <input type="text" class="form-control"> 
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <div class="col-lg-3">
+                        <label>BP:</label> 
+                        <input type="text" class="form-control"> 
+                      </div>
+                      <div class="col-lg-3">
+                        <label>CR:</label>
+                        <input type="text" class="form-control"> 
+                      </div>
+                      <div class="col-lg-3">
+                        <label>RR:</label>
+                        <input type="text" class="form-control"> 
+                      </div>
+                      <div class="col-lg-3">
+                        <label>T:</label>
+                        <input type="text" class="form-control"> 
+                      </div>
+                    </div>    
+                    <br>     
 
-          </div>
-        </div>
+                    <table class="table table-bordered table-responsive">
+                      <thead>
+                        <tr>
+                          <td></td>
+                          <td>Normal</td>
+                          <td>Abnormal</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>General Survey</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Skin</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>HEENT</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Lungs</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Heart</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Abdomen</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                        <tr>
+                          <td>Extremities</td>
+                          <td></td>
+                          <td></td>
+                        </tr>
+                      </tbody>
+                    </table>
 
-        <!-- -->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PERSONAL AND SOCIAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><label class="form-check-label">Alcoholic Drinker: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>     
-                    <tr>
-                    <td><label class="form-check-label">Smoker: </label></td>
-                    <td><input class="form-check-input" type="checkbox"> Yes</td>
-                    <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                    <tr>
-                      <td><label class="form-check-label">Use of Illicit Drugs: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                OB/GYNE HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Regular</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
-                    </tr>
-                    <tr>
-                      <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
-                    </tr>
-                  </table>  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
+                    <div class="form-inline">
+                      <label>Chest X ray:</label> <input type="text" class="form-control" name="">
+                    </div>
+                    <br>
+                    <div class="form-inline">
+                      <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name=""> <label>fit</label>  <input type="checkbox" class="form-check" name=""> <label>unfit</label> at the same time of examination
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                      <div class="col-lg-6">
+                        <label>Plan/Recommendation:</label> 
+                        <input type="text" class="form-control" name="">
+                      </div>
+                    </div>
 
-        <!-- Physical Exam -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PHYSICAL EXAMINATION
-              </div>
-              <div class="panel-body">
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>Weight:</label>  
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>Height:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>BMI:</label> 
-                    <input type="text" class="form-control"> 
+                    <input type="hidden" name="action_type" value="add"/>
+                    <input type="submit" class="btn btn-primary" name="btn-add" value="Add Record" />
+
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>BP:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>CR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>RR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>T:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                </div>    
-                <br>     
-
-                <table class="table table-bordered table-responsive">
-                  <thead>
-                    <tr>
-                      <td></td>
-                      <td>Normal</td>
-                      <td>Abnormal</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>General Survey</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Skin</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>HEENT</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Lungs</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Heart</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Abdomen</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Extremities</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div class="form-inline">
-                  <label>Chest X ray:</label> <input type="text" class="form-control" name="">
-                </div>
-                <br>
-                <div class="form-inline">
-                  <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name=""> <label>fit</label>  <input type="checkbox" class="form-check" name=""> <label>unfit</label> at the same time of examination
-                </div>
-                <br>
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label>Plan/Recommendation:</label> 
-                    <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-
-                <input type="hidden" name="action_type" value="add"/>
-                <input type="submit" class="btn btn-primary" name="btn-add" value="Add Record" />
-
+                <!-- End -->
               </div>
             </div>
-          </div>
-        </div>
-        <!-- End -->
 
-        </form>
-        <!-- End of Form -->
+          </form>
+          <!-- End of Form -->
     
         </div>  
-        </div>
-        <!-- End of Main Screen -->
+      </div>
+    </div>
+    <!-- End of Main Screen -->
 
   </div>
   <!-- End of Content -->
@@ -503,28 +535,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-  //called when key is pressed in textbox
-  $("#numbersOnly").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Digits Only").show().fadeOut("slow");
-               return false;
-    }
-   });
-  $("#lettersOnly").keypress(function(event){
-        var inputValue = event.which;
-        // allow letters and whitespaces only.
-        if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-          //display error message
-          $("#errmsg").html("Letters Only").show().fadeOut("slow");
-               return false;
-        }
-    });
-});
-</script>
+<script src="../assets/js/index.js"></script>
     
 </body>
 </html>

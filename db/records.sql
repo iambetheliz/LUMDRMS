@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.1
+-- version 3.4.5
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 20, 2017 at 08:29 AM
--- Server version: 10.1.16-MariaDB
--- PHP Version: 5.6.24
+-- Host: localhost
+-- Generation Time: Oct 25, 2017 at 01:25 PM
+-- Server version: 5.5.16
+-- PHP Version: 5.3.8
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
 -- Database: `records`
@@ -26,13 +26,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `faculties`
 --
 
-CREATE TABLE `faculties` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `faculties` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_no` int(7) NOT NULL,
   `first_name` varchar(20) NOT NULL,
   `last_name` varchar(20) NOT NULL,
-  `age` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `age` int(2) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -40,12 +41,13 @@ CREATE TABLE `faculties` (
 -- Table structure for table `students_info`
 --
 
-CREATE TABLE `students_info` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `students_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `studentNo` varchar(8) NOT NULL,
   `last_name` varchar(20) NOT NULL,
   `first_name` varchar(20) NOT NULL,
   `middle_name` varchar(20) NOT NULL,
+  `ext` varchar(4) NOT NULL,
   `age` int(2) NOT NULL,
   `sex` varchar(9) NOT NULL,
   `program` varchar(50) NOT NULL,
@@ -55,8 +57,10 @@ CREATE TABLE `students_info` (
   `address` varchar(100) NOT NULL,
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
-  `tphone` varchar(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `tphone` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `studentNo` (`studentNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -64,11 +68,32 @@ CREATE TABLE `students_info` (
 -- Table structure for table `students_med`
 --
 
-CREATE TABLE `students_med` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `students_med` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `sysRev` varchar(500) NOT NULL,
+  `medHis` varchar(500) NOT NULL,
+  `drinker` varchar(3) NOT NULL,
+  `smoker` varchar(3) NOT NULL,
+  `drug_user` varchar(3) NOT NULL,
   `studentNo` varchar(8) NOT NULL,
-  `sysRev` varchar(500) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id`),
+  KEY `FK_StudentMed` (`studentNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students_stats`
+--
+
+CREATE TABLE IF NOT EXISTS `students_stats` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `med` varchar(7) NOT NULL,
+  `dent` varchar(7) NOT NULL,
+  `studentNo` varchar(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `studentNo` (`studentNo`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -76,12 +101,14 @@ CREATE TABLE `students_med` (
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `userId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(30) NOT NULL,
   `userEmail` varchar(60) NOT NULL,
-  `userPass` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `userPass` varchar(255) NOT NULL,
+  PRIMARY KEY (`userId`),
+  UNIQUE KEY `userEmail` (`userEmail`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `users`
@@ -91,61 +118,6 @@ INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPass`) VALUES
 (1, 'admin', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb');
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `faculties`
---
-ALTER TABLE `faculties`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `students_info`
---
-ALTER TABLE `students_info`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `studentNo` (`studentNo`);
-
---
--- Indexes for table `students_med`
---
-ALTER TABLE `students_med`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `FK_StudentMed` (`studentNo`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`userId`),
-  ADD UNIQUE KEY `userEmail` (`userEmail`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `faculties`
---
-ALTER TABLE `faculties`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `students_info`
---
-ALTER TABLE `students_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `students_med`
---
-ALTER TABLE `students_med`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
 -- Constraints for dumped tables
 --
 
@@ -154,6 +126,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `students_med`
   ADD CONSTRAINT `FK_StudentMed` FOREIGN KEY (`studentNo`) REFERENCES `students_info` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `students_stats`
+--
+ALTER TABLE `students_stats`
+  ADD CONSTRAINT `students_stats_ibfk_1` FOREIGN KEY (`studentNo`) REFERENCES `students_med` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

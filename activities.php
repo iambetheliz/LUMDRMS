@@ -44,7 +44,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboard | Laguna University - Clinic | Medical Records System</title>
+<title>Activities | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="images/favicon.ico">
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -54,7 +54,7 @@
 <body>
 
   <!-- Navbar -->
-  <?php include 'header.php'; ?>
+    <?php include 'header.php'; ?>
   <!-- End of Navbar -->
 
   <!-- Content -->
@@ -64,10 +64,10 @@
         <div id="sidebar-wrapper">
           <nav id="spy">
             <ul class="sidebar-nav" role="menu">                    
-                <li class="active">
+                <li>
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
-                <li>
+                <li class="active">
                     <a href="activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
                 </li>
                 <li role="presentation" class="have-child">
@@ -93,16 +93,9 @@
     	          <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Welcome to your dashboard!</h1>
+                        <h1 class="page-header">Calendar Activities</h1>
                     </div>
                 </div>  
-                <?php 
-                if (isset($_GET['loginSuccess'])) {?>  
-                <div class="alert alert-success success-login" role="alert">
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <?php echo $successMSG; ?>
-                </div>              
-                <?php }?>
                 <div class="alert alert-warning" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                   <p>Displaying total numbers of patients who visited per day, week, month and year</p>

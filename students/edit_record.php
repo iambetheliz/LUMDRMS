@@ -25,7 +25,7 @@
     //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'</a>';
+        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
         $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>View Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -49,68 +49,103 @@
 <body>
 
   <!-- Navbar -->
-    <?php include 'header.php'; ?>
+  <?php include 'header.php'; ?>
   <!-- End of Navbar -->
 
   <!-- Content -->
-	<div id="wrapper" class="toggled">
+	<div id="wrapper">
 
-        <!-- Sidebar Menu Items -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">                    
-                <li>
-                    <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-                </li>
-                <li class="active">
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Tables &nbsp;&nbsp;<span class="caret"></span></a>
-                    <ul id="demo" class="collapse in">
-                        <li>
-                            <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-                        </li>
-                        <li>
-                            <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
-                        </li>
-                    </ul>
-                </li>
+    <!-- Sidebar Menu Items -->
+    <div id="sidebar-wrapper">
+      <nav id="spy">
+        <ul class="sidebar-nav">                    
+          <li>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+          </li>
+          <li>
+            <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+          </li>
+          <li class="active have-child" role="presentation">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+            <ul id="demo" class="panel-collapse collapse in">
+              <li class="active">
+                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
             </ul>
-        </div>  
-        <!-- End of Sidebar -->
+          </li>
+        </ul>
+      </nav>
+    </div>  
+    <!-- End of Sidebar -->
 	      
-        <!-- Start of Main Screen -->
-        <div id="page-content-wrapper">
+    <!-- Start of Main Screen -->
+    <div id="page-content-wrapper">
+      <div class="page-content">
         <div class="container-fluid">
 
-        <?php 
-          require_once '../dbconnect.php';
+          <?php 
+            require_once '../dbconnect.php';
 
-          $DB_con = new mysqli("localhost", "root", "", "records");
+            $DB_con = new mysqli("localhost", "root", "", "records");
 
-          if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
+            if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
 
-            $id = $_GET['id'];
-            $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
-            $result = $DB_con->query($res);
-            $row = $result->fetch_array(MYSQLI_BOTH);
-            
-            if(!empty($row)){
-        ?>
+              $id = $_GET['id'];
+              $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
+              $result = $DB_con->query($res);
+              $row = $result->fetch_array(MYSQLI_BOTH);
+           
+              if(!empty($row)){
+          ?>
 
-        <!-- Start of Form -->
-        <form action="action.php" method="post">
+          <!-- Start of Form -->
+          <form action="action.php" method="post">
     
-    	  <!-- Page Heading -->
-        <div class="row">
-          <div class="col-lg-12 form-inline">
-            <h1 class="page-header">Edit Student's Medical Record <input type="text" class="form-control pull-right" value="Student No.: <?php echo $row['studentNo'];?>" name="studentNo" readonly></h1>             
-          </div>
-        </div>
-        <!-- End of Page Heading -->
+    	      <!-- Page Heading -->
+            <div class="row">
+              <div class="col-lg-12">
+                <h1 class="page-header">Edit Student's Medical Record <span class="text-danger pull-right" id="errmsg"></span></h1>             
+              </div>
+            </div>
+            <!-- End of Page Heading -->
 
-        <div class="row">
-          <div class="col-lg-12">     
+            <!-- Student Status Form -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="form-group row">   
+                  <div class="col-lg-2"> 
+                    <label>Student No.</label>
+                    <input type="text" class="form-control pull-right" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly>
+                  </div>
+                  <div class="col-lg-6"></div>
+                  <div class="col-lg-2"> 
+                    <label>Medical Status</label>
+                    <select class="form-control" name="med" id="med">
+                      <option value="<?php echo $row['med'];?>"><?php echo $row['med'];?></option>
+                      <option value="Pending">Pending</option>
+                      <option value="Ok">OK</option>
+                    </select>
+                  </div> 
+                  <div class="col-lg-2"> 
+                    <label>Dental Status</label>
+                      <select class="form-control" name="dent" id="dent">
+                        <option value="<?php echo $row['dent'];?>"><?php echo $row['dent'];?></option>
+                        <option value="Pending">Pending</option>
+                        <option value="Ok">OK</option>
+                      </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End of Student Status-->
 
-            <!-- Basic Info -->
-            <div class="panel panel-success">
+            <div class="row">
+              <div class="col-lg-12">     
+                <!-- Basic Info -->
+                <div class="panel panel-success">
               <div class="panel-heading">
                 BASIC INFORMATION 
               </div>
@@ -492,6 +527,7 @@
     
         </div>  
         </div>
+      </div>
         <!-- End of Main Screen -->
 
   </div>
@@ -505,6 +541,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/index.js" type="text/javascript"></script>
     
 </body>
 </html>

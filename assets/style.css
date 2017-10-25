@@ -1,11 +1,12 @@
-#wrapper {
-  min-height: calc(100vh - 56px);
-  padding-top: 50px; }
-}
+/*CUSTOM STYLES*/
 .container .text-muted {
   margin: 0;
 }
-.page-header{padding-bottom:9px;margin:20px 0 20px;border-bottom:1px solid #eee}
+.page-header {
+  padding-bottom:9px;
+  margin:20px 0 20px;
+  border-bottom:1px solid #eee
+}
 
 /*For Login Page*/
 .auth-form {
@@ -18,12 +19,17 @@
 .profile-img
 {
     width: 80px;
-    margin: 0 auto 10px;
     display: block;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
 }
+
+/* Style to reverse the caret icon from pointing downwards to upwards */
+  .caret.caret-up {
+    border-top-width: 0;
+    border-bottom: 4px solid #fff;
+  }
 
 /* For pagination function. */
 ul.pagination>li>a {
@@ -71,4 +77,13 @@ table.sortable thead {
     color:#666666;
     font-weight: bold;
     cursor: pointer;
+}
+
+.table-borderless > tbody > tr > td,
+.table-borderless > tbody > tr > th,
+.table-borderless > tfoot > tr > td,
+.table-borderless > tfoot > tr > th,
+.table-borderless > thead > tr > td,
+.table-borderless > thead > tr > th {
+    border: none;
 }

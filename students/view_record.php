@@ -25,7 +25,7 @@
     //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'</a>';
+        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
         $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -53,18 +53,22 @@
   <!-- End of Navbar -->
 
   <!-- Content -->
-	<div id="wrapper" class="toggled">
+	<div id="wrapper">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
+          <nav id="spy">
             <ul class="sidebar-nav">                    
                 <li>
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
-                <li class="active">
-                    <a href="javascript:;" data-toggle="collapse" data-target="#demo"><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp; Tables &nbsp;&nbsp;<span class="caret"></span></a>
-                    <ul id="demo" class="collapse in">
-                        <li>
+                <li>
+                    <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+                </li>
+                <li class="active have-child" role="presentation">
+                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+                    <ul id="demo" class="panel-collapse collapse in">
+                        <li class="active">
                             <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li>
@@ -73,11 +77,13 @@
                     </ul>
                 </li>
             </ul>
+          </nav>
         </div>  
         <!-- End of Sidebar -->
 	      
         <!-- Start of Main Screen -->
         <div id="page-content-wrapper">
+          <div class="page-content">
         <div class="container-fluid">
 
         <?php 
@@ -149,7 +155,7 @@
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control" name="yearLevel" readonly>
+                    <select class="form-control" name="yearLevel" disabled="">
                       <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?></option>
                       <option value="1st">1st Year</option>
                       <option value="2nd">2nd Year</option>
@@ -159,7 +165,7 @@
                   </div>
                   <div class="col-lg-2">
                     <label class="col-2 col-form-label">Semester</label> 
-                    <select class="form-control" name="semOption" readonly>
+                    <select class="form-control" name="semOption" disabled="">
                       <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
                       <option value="1st">1st</option>
                       <option value="2nd">2nd</option>
@@ -171,7 +177,7 @@
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 
                       $latest_year = date('Y'); ?>
-                    <select class="form-control" name="acadYear" readonly>
+                    <select class="form-control" name="acadYear" disabled="">
                       <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
                       <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
                       print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
@@ -489,7 +495,7 @@
         <?php }}?>
     
         </div>  
-        </div>
+        </div></div>
         <!-- End of Main Screen -->
 
   </div>
@@ -503,6 +509,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/index.js"></script>
     
 </body>
 </html>

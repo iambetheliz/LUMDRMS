@@ -27,6 +27,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$last_name = $_POST['last_name'];
   		$first_name = $_POST['first_name'];
   		$middle_name = $_POST['middle_name'];
+      $ext = $_POST['ext'];
   		$age = $_POST['age'];
   		$sex = $_POST['sexOption'];
   		$program = $_POST['program'];
@@ -38,9 +39,6 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$cphone = $_POST['cphone'];
   		$tphone = $_POST['tphone'];
 
-      //checkbox
-      $sysRev = implode(',', $_POST['sysRev_list']);
-
   		if (empty($cphone)) {
   			$cphone = 'none';
   		}
@@ -49,23 +47,37 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$tphone = 'none';
   		}
 
+      //checkbox
+      $sysRev = implode(', ', $_POST['sysRev_list']);
+      $medHis = implode(', ', $_POST['medHis_list']);
+      $drinker = $_POST['drinker'];
+      $smoker = $_POST['smoker'];
+      $drug_user = $_POST['drug_user'];
+
+      $med = $_POST['med'];
+      $dent = $_POST['dent'];
+
   		// if there's no error, continue to signup
   		if( !$error ) {
-        $query1 = "INSERT INTO students_info(studentNo,last_name,first_name,middle_name,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query2 = "INSERT INTO students_med(id,studentNo,sysRev) VALUES('$id','$studentNo','" . $sysRev . "')";
+        $query1 = "INSERT INTO students_info(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query2 = "INSERT INTO students_med(studentNo,sysRev,medHis,drinker,smoker,drug_user) VALUES('$studentNo','" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user')";
+        $query3 = "INSERT INTO students_stats(studentNo,med,dent) VALUES('$studentNo','$med','$dent')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt2 = $DB_con->prepare($query2);
+        $stmt3 = $DB_con->prepare($query3);
 
-   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
-        $stmt2->bind_param($id,$studentNo,$sysRev);
+   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+        $stmt2->bind_param($studentNo,$sysRev,$medHis,$drinker,$smoker,$drug_user);
+        $stmt3->bind_param($studentNo,$med,$dent);
 
-   			if (!$stmt1 || !$stmt2){
+   			if (!$stmt1 || !$stmt2 || !$stmt3){
           header("Location: tbl_rec.php?error");
    			} else {
           BEGIN;
       			$stmt1->execute();
             $stmt2->execute();
+            $stmt3->execute();
           COMMIT;
         			header("Location: tbl_rec.php?success");
   			} 

@@ -38,7 +38,7 @@
 		// basic name validation
 		if (empty($name)) {
 			$error = true;
-      $nameError = "Username cannot be empty.";
+      		$nameError = "Username cannot be empty.";
 		} else if (strlen($name) < 3) {
 			$error = true;
 			$nameError = "Username must have atleat 3 characters.";
@@ -66,20 +66,23 @@
 			$row = $result->fetch_array(MYSQLI_BOTH);
 			$count = $result->num_rows; // if uname/pass correct it returns must be 1 row
 			  
-      if( $count == 1 && $row['userPass']==$password ) {
-        $_SESSION['user'] = $row['userId'];
-        header("Location: dashboard.php?loginSuccess");
-      } 
-    }
+      		if( $count == 1 && $row['userName']==$name && $row['userPass']==$password ) {
+        		$_SESSION['user'] = $row['userId'];
+        		header("Location: dashboard.php?loginSuccess");
+      		} 
+      		else {
+      			header("Location: index.php?loginError");
+      		}
+    	}
 		else {
-      header("Location: index.php?loginError");
-    }	
+      		header("Location: index.php?loginError");
+    	}	
 				
 	}		
 
-  if (isset($_GET['loginError'])) {
-    $errMSG = "Incorrect Username or Password.";
-  }
+  	if (isset($_GET['loginError'])) {
+    	$errMSG = "Incorrect Username or Password.";
+  	}
 	
 ?>
 <!DOCTYPE html>
@@ -94,22 +97,27 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
-<body style="background-color: #f9f9f9;">
+<body style="background-color: #dbfcd1;">
 
 <!-- Main Screen -->
 <div class="container">
 
 	<!-- Login Form -->
-    <div class="row vertical-offset-100">
-      <a href="/lu_clinic"><img class="profile-img" src="images/logo.png" alt=""></a>
-      <div class="auth-form">
-        <center><h3 style="padding-bottom: 10px;">Sign in to <br>Laguna University Clinic</h3></center>
-              <?php
-                if ( isset($errMSG) ) {?>
-              <div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <?php echo $errMSG; ?>
-              </div>
-              <?php }?>
+    <div class="row vertical-offset-100">      
+      <div class="auth-form well">
+      		<table class="table table-borderless">
+      			<tr>
+      				<td><a href="/lu_clinic"><img class="profile-img" src="images/logo.png" alt=""></a></td>
+      				<td><h3 style="padding-bottom: 10px;">Laguna University Clinic</h3></td>
+      			</tr>
+      		</table>
+        <?php
+            if (isset($errMSG)) { ?>
+              	<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            	<?php echo $errMSG; ?>
+              	</div>
+         	<?php }
+        ?>
         <div class="panel panel-default">
           <div class="panel-body">
             <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" autocomplete />
@@ -117,13 +125,13 @@
               <div class="form-group">
                 <label>Username</label>
             	  <input type="text" name="name" class="form-control" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>" maxlength="40" autofocus />
-                <span class="text-danger"><?php echo $nameError; ?></span>
+                <small><span class="text-danger"><?php echo $nameError; ?></span></small>
               </div>
             
               <div class="form-group">
                 <label>Password</label>
             	  <input type="password" name="pass" class="form-control" value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"]; } ?>"  maxlength="15" />
-                <span class="text-danger"><?php echo $passError; ?></span>
+                <small><span class="text-danger"><?php echo $passError; ?></span></small>
               </div>
             
               <div class="form-group">

@@ -1,4 +1,3 @@
-  
 $("input[type=password]").keyup(function(){
     var ucase = new RegExp("[A-Z]+");
 	var lcase = new RegExp("[a-z]+");
@@ -86,3 +85,94 @@ $(document).ready(function() {
 	});    
     
 });
+
+
+$(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#age").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+  $("#lettersOnly").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $('#studentNo').keyup(function () {
+    var cctlength = $(this).val().length; // get character length
+
+    switch (cctlength) {
+        case 3:
+            var cctVal = $(this).val();
+            var cctNewVal = cctVal + '-';
+            $(this).val(cctNewVal);
+            break;
+        case 9:
+            var cctVal = $(this).val();
+            var cctNewVal = cctVal + '-';
+            $(this).val(cctNewVal);
+            break;
+        default:
+            break;
+    }
+  });
+  $("#studentNo").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if((inputValue >= 65 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        return false;
+      }
+  });
+  $(function(){
+    $('#current_year').change(function(){ // when one changes
+      $('#next_year').val( $(this).val() ) // they all change
+    })
+  })
+  $('#otherCheckBox').change(function(){
+    $("#otherTextBoxId").prop("disabled", !$(this).is(':checked'));
+  });
+});
+
+$(document).ready(function() {  
+    /*Menu-toggle*/
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    $("#close").on("click", function () {
+    	window.open("tbl_rec.php", "_self");
+	});
+});
+
+// Menu Collapse
+$(document).ready(function () {
+    $('ul[role="menu"]')
+        .on('show.bs.collapse', function (e) {
+        $(e.target).prev('a[role="menuitem"]').addClass('active');
+    })
+        .on('hide.bs.collapse', function (e) {
+        $(e.target).prev('a[role="menuitem"]').removeClass('active');
+    });
+
+    $('a[data-toggle="collapse"]').click(function (event) {
+
+        event.stopPropagation();
+        event.preventDefault();
+
+        var drop = $(this).closest(".dropdown");
+        $(drop).addClass("open");
+
+        $('.collapse.in').collapse('hide');
+        var col_id = $(this).attr("href");
+        $(col_id).collapse('toggle');
+
+    });
+  });
