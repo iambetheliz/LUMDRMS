@@ -195,18 +195,18 @@
         					if (empty($search)) {
             					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
         					}
-        					else {
-            					$output1 = '<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
-        					}
+                            else {
+                                $output1 = '<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
+                            }
     
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_info` WHERE CONCAT(`id`, `studentNo`,`last_name`,`first_name`, `middle_name`,`ext`,`age`,`program`,`yearLevel`,`sex`) LIKE '%".$search."%'";
+    						$statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,'studentNo')  LIKE '%".$search."%'";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
 						}
 						else {
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_info` WHERE CONCAT(`id`, `last_name`,`first_name`, `middle_name`, `age`)";
-    						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}"); 
+                            $statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo`";
+    						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
 						}
                 ?>
                 <br>

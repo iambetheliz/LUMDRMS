@@ -56,6 +56,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
       $med = $_POST['med'];
       $dent = $_POST['dent'];
+      $id = $_POST['StatID'];
 
   		// if there's no error, continue to signup
   		if( !$error ) {
