@@ -104,7 +104,7 @@
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
                     <label>Student No.</label>
-                    <input type="text" class="form-control" placeholder="Student No" name="studentNo" id="studentNo" maxlength="8" autofocus="">
+                    <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
                   </div>
                   <div class="col-lg-6"></div>
                   <div class="col-lg-2"> 
@@ -135,23 +135,23 @@
                     <div class="form-group row">   
                       <div class="col-lg-3">          
                         <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> 
-                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="lettersOnly">
+                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="last_name">
                       </div>
                       <div class="col-lg-3">
                         <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Juan" name="first_name" id="lettersOnly">
+                        <input type="text" class="form-control" placeholder="Juan" name="first_name" id="first_name">
                       </div>
                       <div class="col-lg-2">
                         <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="lettersOnly">
+                        <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
                       </div>     
                       <div class="col-lg-1">
                         <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2">
+                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2" id="ext">
                       </div>   
                       <div class="col-lg-1">
                         <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errormsg"></span>
-                        <input class="form-control" type="text" placeholder="00" name="age" id="numbersOnly" maxlength="2">
+                        <input class="form-control" type="text" placeholder="00" name="age" id="age" maxlength="2">
                       </div>
                       <div class="col-lg-2">
                         <label for="example-date-input" class="col-2 col-form-label">Sex</label>
@@ -226,22 +226,22 @@
                     <div class="form-group row">
                       <div class="col-lg-12">
                         <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                        <input type="text" class="form-control" name="address">
+                        <input type="text" class="form-control" name="address" id="address">
                       </div>
                     </div>
 
                     <div class="form-group row">
                       <div class="col-lg-6">
                         <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                        <input type="text" class="form-control" name="cperson">
+                        <input type="text" class="form-control" name="cperson" id="cperson">
                       </div>
                       <div class="form-group col-lg-3">
                         <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
-                        <input type="text" name="cphone" class="form-control" placeholder="09358306457">
+                        <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
                       </div>
                       <div class="form-group col-lg-3">
                         <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                        <input type="text" name="tphone" class="form-control" placeholder="536-1234">
+                        <input type="text" name="tphone" id="tphone" class="form-control" placeholder="536-1234">
                       </div>
                     </div>
                   </div>

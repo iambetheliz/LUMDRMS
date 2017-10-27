@@ -10,8 +10,9 @@
 
 /*For Login Page*/
 .auth-form {
-    width: 340px;
+    width: 350px;
     margin: 0 auto;
+    margin-top: 20px;
 }
 .vertical-offset-100{
     padding-top:10px;

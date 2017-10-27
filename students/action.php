@@ -56,21 +56,22 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
       $med = $_POST['med'];
       $dent = $_POST['dent'];
-      $id = $_POST['StatID'];
+
+      $StudentID = $_POST['StudentID'];
 
   		// if there's no error, continue to signup
   		if( !$error ) {
         $query1 = "INSERT INTO students_info(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query2 = "INSERT INTO students_med(studentNo,sysRev,medHis,drinker,smoker,drug_user) VALUES('$studentNo','" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user')";
-        $query3 = "INSERT INTO students_stats(studentNo,med,dent) VALUES('$studentNo','$med','$dent')";
+        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,StudentID) VALUES('" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user','$StudentID')";
+        $query3 = "INSERT INTO students_stats(med,dent,StudentID) VALUES('$med','$dent','$StudentID')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt2 = $DB_con->prepare($query2);
         $stmt3 = $DB_con->prepare($query3);
 
    			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
-        $stmt2->bind_param($studentNo,$sysRev,$medHis,$drinker,$smoker,$drug_user);
-        $stmt3->bind_param($studentNo,$med,$dent);
+        $stmt2->bind_param($sysRev,$medHis,$drinker,$smoker,$drug_user,$StudentID);
+        $stmt3->bind_param($med,$dent,$StudentID);
 
    			if (!$stmt1 || !$stmt2 || !$stmt3){
           header("Location: tbl_rec.php?error");
@@ -85,7 +86,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		}
 	}
 	elseif($_REQUEST['action_type'] == 'edit'){
-		if(!empty($_POST['id'])){
+		if(!empty($_POST['StudentID'])){
 			  $studentNo = $_POST['studentNo'];
   			$last_name = $_POST['last_name'];
   			$first_name = $_POST['first_name'];
@@ -114,8 +115,8 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			}
 
         // if everything is fine, update the record in the database
-        if ($stmt = $DB_con->prepare("UPDATE students_info SET last_name = ?, first_name = ? WHERE id=?")) {
-          $stmt->bind_param($firstname, $lastname, $id);
+        if ($stmt = $DB_con->prepare("UPDATE students_info SET last_name = ?, first_name = ? WHERE StudentID=?")) {
+          $stmt->bind_param($firstname, $lastname, $StudentID);
           $stmt->execute();
           $stmt->close();
         }
@@ -126,11 +127,11 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 		}
 	}
 	elseif($_REQUEST['action_type'] == 'delete'){
-		if(!empty($_GET['id'])){
+		if(!empty($_GET['StudentID'])){
 
       if( !$error ) {
-        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE id =?");
-        $stmt->bind_param('i', $_GET['id']);
+        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE StudentID =?");
+        $stmt->bind_param('i', $_GET['StudentID']);
 
         if (!$stmt){
             $errMSG = "Something went wrong, try again later..."; 
@@ -141,7 +142,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       }
     }
     else {
-      // if the 'id' variable isn't set, redirect the user
+      // if the 'StudentID' variable isn't set, redirect the user
       header("Location: tbl_rec.php?deleteError");
     }
 	}

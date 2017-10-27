@@ -23,26 +23,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculties`
---
-
-CREATE TABLE IF NOT EXISTS `faculties` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `id_no` int(7) NOT NULL,
-  `first_name` varchar(20) NOT NULL,
-  `last_name` varchar(20) NOT NULL,
-  `age` int(2) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `students_info`
 --
 
 CREATE TABLE IF NOT EXISTS `students_info` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `StudentID` int(11) NOT NULL AUTO_INCREMENT,
   `studentNo` varchar(8) NOT NULL,
   `last_name` varchar(20) NOT NULL,
   `first_name` varchar(20) NOT NULL,
@@ -58,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
   `tphone` varchar(8) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (StudentID),
   UNIQUE KEY `studentNo` (`studentNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -69,15 +54,15 @@ CREATE TABLE IF NOT EXISTS `students_info` (
 --
 
 CREATE TABLE IF NOT EXISTS `students_med` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MedID` int(11) NOT NULL AUTO_INCREMENT,
   `sysRev` varchar(500) NOT NULL,
   `medHis` varchar(500) NOT NULL,
   `drinker` varchar(3) NOT NULL,
   `smoker` varchar(3) NOT NULL,
   `drug_user` varchar(3) NOT NULL,
-  `studentNo` varchar(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_StudentMed` (`studentNo`)
+  `StudentID` int,
+  PRIMARY KEY (MedID),
+  FOREIGN KEY (StudentID) REFERENCES students_info(StudentID) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -87,12 +72,12 @@ CREATE TABLE IF NOT EXISTS `students_med` (
 --
 
 CREATE TABLE IF NOT EXISTS `students_stats` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MedID` int(11) NOT NULL AUTO_INCREMENT,
   `med` varchar(7) NOT NULL,
   `dent` varchar(7) NOT NULL,
-  `studentNo` varchar(8) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `studentNo` (`studentNo`)
+  `StudentID` int,
+  PRIMARY KEY (MedID),
+  FOREIGN KEY (StudentID) REFERENCES students_info(StudentID) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -120,18 +105,6 @@ INSERT INTO `users` (`userId`, `userName`, `userEmail`, `userPass`) VALUES
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `students_med`
---
-ALTER TABLE `students_med`
-  ADD CONSTRAINT `FK_StudentMed` FOREIGN KEY (`studentNo`) REFERENCES `students_info` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `students_stats`
---
-ALTER TABLE `students_stats`
-  ADD CONSTRAINT `students_stats_ibfk_1` FOREIGN KEY (`studentNo`) REFERENCES `students_med` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

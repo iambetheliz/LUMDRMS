@@ -124,7 +124,7 @@
                                 <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
                             </button>
                             <?php 
-                                $table_data='id';
+                                $table_data='StudentID';
                                 $sort='DESC';
                                 if(isset($_GET['sorting']))
                                     {
@@ -148,9 +148,9 @@
                                             { 
                                                 $table_data = "yearLevel";  
                                             }
-                                        elseif($_GET['table_data']=='id')
+                                        elseif($_GET['table_data']=='StudentID')
                                             { 
-                                                $table_data="id"; 
+                                                $table_data="StudentID"; 
                                                 $sort="ASC";
                                             }
                                     }
@@ -200,7 +200,7 @@
                             }
     
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,'studentNo')  LIKE '%".$search."%'";
+    						$statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,`students_info`.`studentNo`) LIKE '%".$search."%'";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
 						}
 						else {
@@ -248,7 +248,7 @@
     						// displaying records.
     						while ($row = $result->fetch_assoc()){ ?>
                 			<tr>
-                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['id']; ?>"  /></td>
+                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
                                 <td><?php echo $row['med']; ?></td>
                                 <td><?php echo $row['dent']; ?></td>
                 				<td><?php echo $row['last_name']; ?></td>
@@ -259,7 +259,7 @@
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td width="100px"><a href="edit_record.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-primary"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&id=<?php echo $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');"> <span class="glyphicon glyphicon-trash"></span></a></td>
+                				<td width="100px"><a href="edit_record.php?id=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&id=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			</tr>
                             <?php }
                                 } 
