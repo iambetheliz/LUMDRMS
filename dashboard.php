@@ -1,6 +1,7 @@
 <?php
   ob_start();
   require_once 'dbconnect.php';
+  include 'includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
   
@@ -48,6 +49,7 @@
 <link rel="icon" href="images/favicon.ico">
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="assets/css/dashboard.css" rel="stylesheet" type="text/css">
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="assets/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -90,6 +92,7 @@
         <div id="page-content-wrapper">
           <div class="page-content">
             <div class="container-fluid">    
+
     	          <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
@@ -108,13 +111,107 @@
                   <p>Displaying total numbers of patients who visited per day, week, month and year</p>
                 </div>
                 <!-- End of Page Heading -->
-                <!-- Additionals -->
+
+                <!-- Notification Badges -->
                 <div class="row">
-                  <div class="col-lg-12">
-                    <h3>Insert badges/charts here ...</h3>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-success">
+                      <div class="shape">
+                        <?php    
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW()) AND MONTH(date_created) = MONTH(NOW()) AND DAY(date_created) = DAY(NOW())");     
+                          $count = $stmt->num_rows;
+                        ?>
+                        <div class="shape-text">
+                          <p><?php echo $count; ?></p>                         
+                        </div>
+                      </div>
+                      <div class="offer-content">
+                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> Today</h3>
+                        <?php 
+                          if ($count != 0) {?> 
+                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files today.</p>
+                            <?php    }
+                          else {?>
+                            <p>You haven't uploaded any files today.</p>
+                          <?php    }
+                        ?>
+                      </div>
+                    </div>
                   </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-info">
+                      <div class="shape">
+                        <?php    
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE WEEKOFYEAR(date_created) = WEEKOFYEAR(NOW())");
+                          $count = $stmt->num_rows;
+                        ?>
+                        <div class="shape-text">
+                          <p><?php echo $count; ?></p>                         
+                        </div>
+                      </div>
+                      <div class="offer-content">
+                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Week</h3>
+                        <?php 
+                          if ($count != 0) {?> 
+                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this week.</p>
+                          <?php    }
+                          else {?>
+                            <p>You haven't uploaded any files this week.</p>
+                          <?php    }
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-warning">
+                      <div class="shape">
+                        <?php    
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW()) AND MONTH(date_created)=MONTH(NOW())");
+                          $count = $stmt->num_rows;
+                        ?>
+                        <div class="shape-text">
+                          <p><?php echo $count; ?></p>                         
+                        </div>
+                      </div>
+                      <div class="offer-content">
+                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Month</h3>
+                        <?php 
+                          if ($count != 0) {?> 
+                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this month.</p>
+                          <?php    }
+                          else {?>
+                            <p>You haven't uploaded any files this.</p>
+                          <?php    }
+                        ?>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                    <div class="offer offer-danger">
+                      <div class="shape">
+                        <?php    
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW())");
+                          $count = $stmt->num_rows;
+                        ?>
+                        <div class="shape-text">
+                          <p><?php echo $count; ?></p>                         
+                        </div>
+                      </div>
+                      <div class="offer-content">
+                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Year</h3>
+                        <?php 
+                          if ($count != 0) {?> 
+                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this year.</p>
+                          <?php    }
+                          else {?>
+                            <p>You haven't uploaded any files this year.</p>
+                          <?php    }
+                        ?>
+                      </div>
+                    </div>
+                  </div>  
                 </div>
-                <!-- End -->
+                <!-- End of Badges -->
             </div>  
           </div>
         </div>

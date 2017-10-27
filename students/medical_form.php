@@ -33,6 +33,11 @@
         header("Refresh:3; logout.php?logout");
     }
 
+  if (isset($_GET['error'])) {
+        $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
+        header('Refresh:3; medical_form.php');
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -93,7 +98,7 @@
     	      <!-- Page Heading -->
             <div class="row">
               <div class="col-lg-12">             
-                <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"></span></h1>
+                <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
               </div>
             </div>
             <!-- End of Page Heading -->  
@@ -266,7 +271,7 @@
                         <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherCheckBox"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherTextBoxId" disabled="">
+                        <input type="checkbox" class="form-check-input" id="otherSysRevCheck"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" disabled="">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -316,7 +321,7 @@
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergy"> Allergy
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherCheckBox"> Other <input type="text" class="form-control" name="medHis_list" id="otherTextBoxId">
+                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list" id="otherMedHis" disabled="">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -440,7 +445,7 @@
                       </div>
                       <div class="col-lg-3">
                         <label>T:</label>
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="t"> 
                       </div>
                     </div>    
                     <br>     
@@ -456,7 +461,7 @@
                       <tbody>
                         <tr>
                           <td>General Survey</td>
-                          <td></td>
+                          <td contenteditable="true"></td>
                           <td></td>
                         </tr>
                         <tr>
@@ -497,18 +502,18 @@
                     </div>
                     <br>
                     <div class="form-inline">
-                      <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name=""> <label>fit</label>  <input type="checkbox" class="form-check" name=""> <label>unfit</label> at the same time of examination
+                      <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name="assess" value="fit"> <label>fit</label>  <input type="checkbox" class="form-check" name="assess" value="unfit"> <label>unfit</label> at the same time of examination
                     </div>
                     <br>
                     <div class="form-group row">
                       <div class="col-lg-6">
                         <label>Plan/Recommendation:</label> 
-                        <input type="text" class="form-control" name="">
+                        <input type="text" class="form-control" name="plan">
                       </div>
                     </div>
 
                     <input type="hidden" name="action_type" value="add"/>
-                    <input type="submit" class="btn btn-primary" name="btn-add" value="Add Record" />
+                    <input type="submit" class="btn btn-primary" id="add" name="btn-add" value="Add Record" />
 
                   </div>
                 </div>
@@ -536,6 +541,14 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
+<script type="text/javascript">
+  $('#otherSysRevCheck').change(function(){
+    $("#otherSysRev").prop("disabled", !$(this).is(':checked'));
+  });
+  $('#otherMedHisCheck').change(function(){
+    $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
+  });
+</script>
     
 </body>
 </html>

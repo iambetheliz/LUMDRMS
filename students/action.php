@@ -53,28 +53,41 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $drinker = $_POST['drinker'];
       $smoker = $_POST['smoker'];
       $drug_user = $_POST['drug_user'];
+      $weight = $_POST['weight'];
+      $height = $_POST['height'];
+      $bmi = $_POST['bmi'];
+      $bp = $_POST['bp'];
+      $cr = $_POST['cr'];
+      $rr = $_POST['rr'];
+      $t = $_POST['t'];
+      $xray = $_POST['xray'];
+      $assess = $_POST['assess'];
+      $plan = $_POST['plan'];
 
       $med = $_POST['med'];
       $dent = $_POST['dent'];
 
       $StudentID = $_POST['StudentID'];
+      $MedID = $_POST['MedID'];
+      $StatsID = $_POST['StatsID'];
 
-  		// if there's no error, continue to signup
+      // if there's no error, continue to signup
   		if( !$error ) {
-        $query1 = "INSERT INTO students_info(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,StudentID) VALUES('" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user','$StudentID')";
-        $query3 = "INSERT INTO students_stats(med,dent,StudentID) VALUES('$med','$dent','$StudentID')";
+
+        $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo) VALUES('" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo')";
+        $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt2 = $DB_con->prepare($query2);
         $stmt3 = $DB_con->prepare($query3);
 
    			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
-        $stmt2->bind_param($sysRev,$medHis,$drinker,$smoker,$drug_user,$StudentID);
-        $stmt3->bind_param($med,$dent,$StudentID);
+        $stmt2->bind_param($sysRev,$medHis,$drinker,$smoker,$drug_user,$weight,$height,$bmi,$bp,$cr,$rr,$t,$xray,$assess,$plan);
+        $stmt3->bind_param($med,$dent);
 
    			if (!$stmt1 || !$stmt2 || !$stmt3){
-          header("Location: tbl_rec.php?error");
+          header("Location: medical_form.php?error");
    			} else {
           BEGIN;
       			$stmt1->execute();
@@ -115,7 +128,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			}
 
         // if everything is fine, update the record in the database
-        if ($stmt = $DB_con->prepare("UPDATE students_info SET last_name = ?, first_name = ? WHERE StudentID=?")) {
+        if ($stmt = $DB_con->prepare("UPDATE students SET last_name = ?, first_name = ? WHERE StudentID=?")) {
           $stmt->bind_param($firstname, $lastname, $StudentID);
           $stmt->execute();
           $stmt->close();
@@ -130,7 +143,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 		if(!empty($_GET['StudentID'])){
 
       if( !$error ) {
-        $stmt = $DB_con->prepare("DELETE FROM students_info WHERE StudentID =?");
+        $stmt = $DB_con->prepare("DELETE FROM students WHERE StudentID =?");
         $stmt->bind_param('i', $_GET['StudentID']);
 
         if (!$stmt){

@@ -26,7 +26,7 @@ SET time_zone = "+00:00";
 -- Table structure for table `students_info`
 --
 
-CREATE TABLE IF NOT EXISTS `students_info` (
+CREATE TABLE IF NOT EXISTS `students` (
   `StudentID` int(11) NOT NULL AUTO_INCREMENT,
   `studentNo` varchar(8) NOT NULL,
   `last_name` varchar(20) NOT NULL,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `students_info` (
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
   `tphone` varchar(8) NOT NULL,
-  PRIMARY KEY (StudentID),
+  PRIMARY KEY (StudentID,studentNo),
   UNIQUE KEY `studentNo` (`studentNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -60,9 +60,12 @@ CREATE TABLE IF NOT EXISTS `students_med` (
   `drinker` varchar(3) NOT NULL,
   `smoker` varchar(3) NOT NULL,
   `drug_user` varchar(3) NOT NULL,
-  `StudentID` int,
-  PRIMARY KEY (MedID),
-  FOREIGN KEY (StudentID) REFERENCES students_info(StudentID) ON DELETE CASCADE
+  `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `studentNo` varchar(8) NOT NULL,
+  PRIMARY KEY (MedID,studentNo),
+  UNIQUE KEY `studentNo` (`studentNo`),
+  CONSTRAINT fk_med_id
+  FOREIGN KEY (studentNo) REFERENCES students(studentNo) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -72,12 +75,15 @@ CREATE TABLE IF NOT EXISTS `students_med` (
 --
 
 CREATE TABLE IF NOT EXISTS `students_stats` (
-  `MedID` int(11) NOT NULL AUTO_INCREMENT,
+  `StatsID` int(11) NOT NULL AUTO_INCREMENT,
   `med` varchar(7) NOT NULL,
   `dent` varchar(7) NOT NULL,
-  `StudentID` int,
-  PRIMARY KEY (MedID),
-  FOREIGN KEY (StudentID) REFERENCES students_info(StudentID) ON DELETE CASCADE
+  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `studentNo` varchar(8) NOT NULL,
+  PRIMARY KEY (StatsID,studentNo),
+  UNIQUE KEY `studentNo` (`studentNo`),
+  CONSTRAINT fk_stats_id
+  FOREIGN KEY (studentNo) REFERENCES students(studentNo) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

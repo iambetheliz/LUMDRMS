@@ -200,13 +200,14 @@
                             }
     
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,`students_info`.`studentNo`) LIKE '%".$search."%'";
+    						$statement = "`students_info` JOIN `students_stats` ON `students_stats`.`StudentID`=`students_info`.`StudentID` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,`students_info`.`studentNo`) LIKE '%".$search."%'";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
 						}
 						else {
     						$startpoint = ($page * $per_page) - $per_page;
-                            $statement = "`students_info` JOIN `students_stats` ON `students_stats`.`studentNo`=`students_info`.`studentNo`";
+                            $statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`";
     						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
+                            $count = $result->num_rows;
 						}
                 ?>
                 <br>
@@ -224,7 +225,9 @@
                     <label id="actions">
                     <span style="word-spacing:normal;"> | With selected :</span>
                     <span><a class="text-danger" href="#" onClick="delete_records();" alt="delete"><span class="glyphicon glyphicon-trash"></span> Delete</a></span>
-                    </label><br>
+                    </label>
+                    <label class="pull-right">Total rows: <?php echo $count; ?></label>
+                    <br>
                     <div class="table-responsive">
                 	<table class="table  table-striped table-bordered" id="myTable">
                 		<thead style="background-color:#eee;cursor: pointer;">
@@ -259,7 +262,7 @@
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td width="100px"><a href="edit_record.php?id=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&id=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');"> <span class="glyphicon glyphicon-trash"></span></a></td>
+                				<td width="100px"><a href="edit_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			</tr>
                             <?php }
                                 } 

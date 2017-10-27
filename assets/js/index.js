@@ -102,9 +102,6 @@ $(document).ready(function () {
       $('#next_year').val( $(this).val() ) // they all change
     })
   })
-  $('#otherCheckBox').change(function(){
-    $("#otherTextBoxId").prop("disabled", !$(this).is(':checked'));
-  });
 });
 
 $(document).ready(function() {  
