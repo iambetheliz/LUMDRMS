@@ -419,29 +419,29 @@
                     <div class="form-group row">
                       <div class="col-lg-3">
                         <label>Weight:</label>  
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="weight"> 
                       </div>
                       <div class="col-lg-3">
                         <label>Height:</label> 
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="height"> 
                       </div>
                       <div class="col-lg-3">
                         <label>BMI:</label> 
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="bmi"> 
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-lg-3">
                         <label>BP:</label> 
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="bp"> 
                       </div>
                       <div class="col-lg-3">
                         <label>CR:</label>
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="cr"> 
                       </div>
                       <div class="col-lg-3">
                         <label>RR:</label>
-                        <input type="text" class="form-control"> 
+                        <input type="text" class="form-control" name="rr"> 
                       </div>
                       <div class="col-lg-3">
                         <label>T:</label>
@@ -498,7 +498,7 @@
                     </table>
 
                     <div class="form-inline">
-                      <label>Chest X ray:</label> <input type="text" class="form-control" name="">
+                      <label>Chest X ray:</label> <input type="text" class="form-control" name="xray">
                     </div>
                     <br>
                     <div class="form-inline">
