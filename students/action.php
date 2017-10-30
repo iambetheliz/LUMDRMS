@@ -33,7 +33,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$program = $_POST['program'];
   		$yearLevel = $_POST['yearLevel'];
   		$sem = $_POST['semOption'];
-  		$acadYear = implode('-', $_POST['acadYears']);
+  		$acadYear = $_POST['acadYear'];
   		$address = $_POST['address'];
   		$cperson = $_POST['cperson'];
   		$cphone = $_POST['cphone'];
@@ -64,8 +64,8 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
 
-      $med = $_POST['med'];
-      $dent = $_POST['dent'];
+      $med = 'Pending';
+      $dent = 'Pending';
 
       $StudentID = $_POST['StudentID'];
       $MedID = $_POST['MedID'];
@@ -75,7 +75,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		if( !$error ) {
 
         $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo) VALUES('" . $sysRev . "','$medHis','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo')";
+        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo) VALUES('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo')";
         $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
 
   			$stmt1 = $DB_con->prepare($query1);

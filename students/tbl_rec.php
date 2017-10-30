@@ -114,7 +114,7 @@
                 
                 <!-- Buttons -->
                 <div class="row">
-                  <div class="col-lg-8">
+                  <div class="col-lg-12">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
                     	<a href="medical_form.php" class="btn btn-success">Add New</a>
@@ -162,16 +162,16 @@
                             </ul>
                         </div>
                         <!-- End Sort button -->
-                    </div>
-                    <!-- End btn-toolbar -->
-                  </div>
-                  <div class="col-lg-4">
-                    <form action="" method="get">
-                        <div class="input-group">
+                        <!-- Search Button -->
+                        <form action="" method="get">
+                        <div class="input-group pull-right" style="width: 300px;">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
                         </div>
-                    </form>
+                        </form>
+                        <!-- End of Search Button -->
+                    </div>
+                    <!-- End btn-toolbar -->
                   </div>
             	</div>
                 <!-- End of Buttons -->
@@ -186,7 +186,7 @@
                 	$page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
     				
     				if ($page <= 0) $page = 1;
-    					$per_page = 10; // Set how many records do you want to display per page.
+    					$per_page = 5; // Set how many records do you want to display per page.
     
     					if (isset($_GET['search'])) {
     						$search = $_GET['search'];
@@ -298,7 +298,7 @@
 
     <footer class="footer">
         <div class="container-fluid">
-            <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+            <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
         </div>
     </footer>
 

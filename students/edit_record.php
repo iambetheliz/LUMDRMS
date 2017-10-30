@@ -91,10 +91,10 @@
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
-            if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
+            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
-              $id = $_GET['id'];
-              $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
+              $StudentID = $_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -205,14 +205,16 @@
                     <?php
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 
-                      $latest_year = date('Y'); ?>
-                    <select class="form-control" name="acadYear">
-                      <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
-                      <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
+                      $latest_year = date('Y');
                     ?>
+                    <select class="form-control" name="acadYear" id="acadYear">
+                    <?php 
+                      foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                        print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
+                        print '</option>';
+                      }
+                        print '</select>';
+                    ?> 
                   </div>
                 </div>
 

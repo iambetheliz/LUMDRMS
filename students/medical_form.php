@@ -111,21 +111,6 @@
                     <label>Student No.</label>
                     <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
                   </div>
-                  <div class="col-lg-6"></div>
-                  <div class="col-lg-2"> 
-                    <label>Medical Status</label>
-                    <select class="form-control" name="med" id="med">
-                      <option value="Pending">Pending</option>
-                      <option value="Ok">OK</option>
-                    </select>
-                  </div> 
-                  <div class="col-lg-2"> 
-                    <label>Dental Status</label>
-                      <select class="form-control" name="dent" id="dent">
-                        <option value="Pending">Pending</option>
-                        <option value="Ok">OK</option>
-                      </select>
-                  </div>
                 </div>
               </div>
             </div>
@@ -169,7 +154,7 @@
                     </div>
 
                     <div class="form-group row">
-                      <div class="col-lg-5">
+                      <div class="col-lg-6">
                         <label for="example-date-input" class="col-2 col-form-label">Program</label>
                         <select class="form-control" name="program">
                           <option value="undefined">Choose...</option>
@@ -191,7 +176,7 @@
                           <option value="4th">4th Year</option>
                         </select>
                       </div>
-                      <div class="form-group col-lg-2">
+                      <div class="col-lg-2">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label>
                         <select class="form-control" name="semOption">
                           <option value="undefined">Choose...</option>
@@ -199,32 +184,21 @@
                           <option value="2nd">2nd</option>
                         </select>
                       </div>
-                      <div class="form-group col-lg-3">
+                      <div class="col-lg-2">
                         <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
-                        <div class="form-inline"> 
                           <?php
                             $currently_selected = date('Y'); 
                             $earliest_year = 2006; 
                             $latest_year = date('Y');
-                            $next_year = $latest_year + 1;
-                            $nextLate_year = $earliest_year + 1; 
                           ?>
-                          <select class="form-control" name="acadYears[]" id="current_year">
+                          <select class="form-control" name="acadYear" id="acadYear">
                             <?php 
                               foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                                print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
+                                print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
+                                print '</option>';
                               }
                               print '</select>';
                             ?> 
-                          <label>To</label>
-                          <select class="form-control" name="acadYears[]" id="next_year">
-                            <?php 
-                              foreach ( range( $next_year, $nextLate_year ) as $i ) {
-                                print '<option value="'.$i.'"'.($i === $next_year ? 'selected="selected"' : '').'>'.$i.'</option>';
-                              }
-                              print '</select>';
-                            ?>
-                        </div>
                       </div>
                     </div>
 
