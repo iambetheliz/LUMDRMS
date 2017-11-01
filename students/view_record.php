@@ -39,463 +39,332 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>View Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">  
+.col-2 {
+  padding-right: 20px;
+}
+</style>
 </head>
 <body>
 
   <!-- Navbar -->
-    <?php include 'header.php'; ?>
+  <?php include 'header.php'; ?>
   <!-- End of Navbar -->
 
   <!-- Content -->
 	<div id="wrapper">
 
-        <!-- Sidebar Menu Items -->
-        <div id="sidebar-wrapper">
-          <nav id="spy">
-            <ul class="sidebar-nav">                    
-                <li>
-                    <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-                </li>
-                <li>
-                    <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
-                </li>
-                <li class="active have-child" role="presentation">
-                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
-                    <ul id="demo" class="panel-collapse collapse in">
-                        <li class="active">
-                            <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-                        </li>
-                        <li>
-                            <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
-                        </li>
-                    </ul>
-                </li>
+    <!-- Sidebar Menu Items -->
+    <div id="sidebar-wrapper">
+      <nav id="spy">
+        <ul class="sidebar-nav">                    
+          <li>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+          </li>
+          <li>
+            <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+          </li>
+          <li class="active have-child" role="presentation">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+            <ul id="demo" class="panel-collapse collapse in">
+              <li class="active">
+                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
             </ul>
-          </nav>
-        </div>  
-        <!-- End of Sidebar -->
+          </li>
+        </ul>
+      </nav>
+    </div>  
+    <!-- End of Sidebar -->
 	      
-        <!-- Start of Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
+    <!-- Start of Main Screen -->
+    <div id="page-content-wrapper">
+      <div class="page-content">
         <div class="container-fluid">
 
-        <?php 
-          require_once '../dbconnect.php';
+          <?php 
+            require_once '../dbconnect.php';
 
-          $DB_con = new mysqli("localhost", "root", "", "records");
+            $DB_con = new mysqli("localhost", "root", "", "records");
 
-          if (isset($_GET['id']) && is_numeric($_GET['id']) && $_GET['id'] > 0) {
+            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
-            $id = $_GET['id'];
-            $res = "SELECT * FROM students_info WHERE id=".$_GET['id'];
-            $result = $DB_con->query($res);
-            $row = $result->fetch_array(MYSQLI_BOTH);
-            
-            if(!empty($row)){
-        ?>
+              $StudentID = $_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $result = $DB_con->query($res);
+              $row = $result->fetch_array(MYSQLI_BOTH);
+           
+              if(!empty($row)){
+          ?>
     
-    	  <!-- Page Heading -->
-        <div class="row">
-          <div class="col-lg-12">
-            <h1 class="page-header">Student's Medical Record <div class="form-inline pull-right"><a href="edit_record.php?id=<?php echo $row['id'];?>" class="btn btn-primary ">Edit</a> <a href="tbl_rec.php" class="btn btn-success ">Back</a></div></h1>              
-          </div>
-        </div>
-        <!-- End of Page Heading -->
-        
-        <!-- Start of Form -->
-        <form action="action.php" method="post">
-
-        <div class="row">
-          <div class="col-lg-12">     
-
-            <!-- Basic Info -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                BASIC INFORMATION 
+    	      <!-- Page Heading -->
+            <div class="row">
+              <div class="col-lg-12">
+                <h1 class="page-header">Student's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
               </div>
-              <div class="panel-body">
+            </div>
+            <!-- End of Page Heading -->
+
+            <!-- Student Status Form -->
+            <div class="container-fluid">
+              <div class="row">
                 <div class="form-group row">   
-                  <div class="col-lg-3">          
-                    <label class="col-2 col-form-label">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<?php echo $row['last_name'];?>" name="last_name" readonly>                    
+                  <div class="col-lg-2"> 
+                    <label>Student No.:</label>
+                    <?php echo $row['studentNo'];?>
                   </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
-                    <input type="text" class="form-control" value="<?php echo $row['first_name'];?>" name="first_name" readonly>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
-                    <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" readonly>
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-number-input" class="col-2 col-form-label">Age</label>
-                    <input class="form-control" type="text" value="<?php echo $row['age'];?>" name="age" readonly>
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                    <select class="form-control" name="sexOption" readonly>
-                      <option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
+                  <div class="col-lg-5"></div>
+                  <div class="col-lg-3"> 
+                    <label>Medical Status: </label>
+                    <?php echo $row['med'];?>
+                  </div> 
+                  <div class="col-lg-2"> 
+                    <label>Dental Status:</label>
+                    <?php echo $row['dent'];?>
                   </div>
                 </div>
+              </div>
+            </div>
+            <!-- End of Student Status-->
 
-                <div class="form-group row">
+            <div class="row">
+              <div class="container-fluid">     
+                <!-- Basic Info -->
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    BASIC INFORMATION 
+                  </div>
+                  <div class="panel-body">
+
+                  <div class="col-lg-6">   
+                    <div class="form-group row">          
+                      <label class="col-2">Full Name: </label>
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['first_name'];?> <?php echo $row['middle_name'];?> <?php echo $row['last_name'];?></span>
+                    </div>
+                  </div>
                   <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Program</label>
-                    <input type="text" class="form-control" name="program" value="<?php echo $row['program'];?>" readonly>
+                    <div class="form-group row">
+                      <label class="col-2">Age: </label>
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['age'];?> years old</span>
+                      <label class="col-2">Sex: </label>
+                      <span style="text-decoration: underline;"><?php echo $row['sex'];?></span>
+                    </div>
                   </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control" name="yearLevel" disabled="">
-                      <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?></option>
-                      <option value="1st">1st Year</option>
-                      <option value="2nd">2nd Year</option>
-                      <option value="3rd">3rd Year</option>
-                      <option value="4th">4th Year</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Semester</label> 
-                    <select class="form-control" name="semOption" disabled="">
-                      <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
-                      <option value="1st">1st</option>
-                      <option value="2nd">2nd</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Academic Year:</label>                     
-                    <?php
-                      $currently_selected = date('Y'); 
-                      $earliest_year = 2006; 
-                      $latest_year = date('Y'); ?>
-                    <select class="form-control" name="acadYear" disabled="">
-                      <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
-                      <?php foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                      print '<option value="'.$i.'"'.($i === $currently_selected ? 'selected="selected"' : '').'>'.$i.'</option>';
-                    }
-                      print '</select>';
-                    ?>
-                  </div>
-                </div>
 
-                <div class="form-group row">
+                  <div class="col-lg-6">
+                    <div class="form-group row">
+                      <label class="col-2">Program: </label>
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['program'];?></span>
+                      <label for="example-date-input" class="col-2">Year Level: </label>
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['yearLevel'];?> Year</span>
+                    </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group row">
+                      <label class="col-2 col-form-label">Semester: </label> 
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['sem'];?> Semester</span>
+                      <label class="col-2 col-form-label">Academic Year:</label> 
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['acadYear'];?> </span>
+                    </div>
+                  </div>
+
                   <div class="col-lg-12">
-                    <label class="col-2 col-form-label">Address:</label> 
-                    <input type="text" class="form-control" name="address" value="<?php echo $row['address'];?>" readonly>
+                    <div class="form-group row">
+                      <label class="col-2">Address:</label> 
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['address'];?></span>
+                    </div>
                   </div>
-                </div>
 
-                <div class="form-group row">
                   <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Contact Person in case of Emergency:</label>
-                    <input type="text" class="form-control" name="cperson" value="<?php echo $row['cperson'];?>" readonly> 
+                    <div class="form-group row">
+                      <label class="col-2">Contact Person in case of Emergency:</label>
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['cperson'];?></span> 
+                    </div>
                   </div>
                   <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Cellphone No.:</label> 
-                    <input type="text" name="cphone" class="form-control" value="<?php echo $row['cphone'];?>" readonly>
+                    <div class="form-group row">
+                      <label class="col-2">Cellphone No.:</label> 
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['cphone'];?></span>
+                    </div>
                   </div>
                   <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Telephone No.:</label> 
-                    <input type="text" name="tphone" class="form-control" value="<?php echo $row['tphone'];?>" readonly>
+                    <div class="form-group row">
+                      <label class="col-2">Telephone No.:</label> 
+                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['tphone'];?></span>
+                    </div>
                   </div>
-                </div>
               </div>
             </div>
             <!-- End of Basic Infor -->
 
-            <!-- Review of System -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                REVIEW OF SYSTEM
-              </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Recurrent Headache
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Blurring of Vision
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Abdominal Pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cough and colds
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Chest pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LOC/Seizure
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy fatigability
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy bruisability
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Fever
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Vomiting
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LBM
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Dysuria
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
-            <!-- Past Medical History -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PAST MEDICAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bronchial Asthma
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> PTB
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Allergy
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Hypertension
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> UTI
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Surgery
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cardiovascular DSE
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bleeding Disorder
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Skin Disorder
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
           </div>
         </div>
-
-        <!-- -->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PERSONAL AND SOCIAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><label class="form-check-label">Alcoholic Drinker: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>     
-                    <tr>
-                    <td><label class="form-check-label">Smoker: </label></td>
-                    <td><input class="form-check-input" type="checkbox"> Yes</td>
-                    <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                    <tr>
-                      <td><label class="form-check-label">Use of Illicit Drugs: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                OB/GYNE HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Regular</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
-                    </tr>
-                    <tr>
-                      <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
-                    </tr>
-                  </table>  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
 
         <!-- Physical Exam -->
         <div class="row">
           <div class="col-lg-12">
             <div class="panel panel-success">
-              <div class="panel-heading">
-                PHYSICAL EXAMINATION
-              </div>
+              <div class="panel-heading">Previous Checkups</div>
               <div class="panel-body">
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>Weight:</label>  
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>Height:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>BMI:</label> 
-                    <input type="text" class="form-control"> 
+                
+                
+                <!-- Buttons -->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <!-- Start btn-toolbar -->
+                    <div class="btn-toolbar">
+                        <a href="new_medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                        <!-- Sort button -->
+                        <div class="btn-group" style="display: none;">
+                            <button type="button" id="sort" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
+                            </button>
+                            <?php 
+                                $table_data='StudentID';
+                                $sort='DESC';
+                                if(isset($_GET['sorting']))
+                                    {
+                                        if($_GET['sorting']=='ASC')
+                                            {
+                                                $sort='DESC';
+                                            }
+                                        else { $sort='ASC'; }
+                                    }
+                                if(isset($_GET['table_data']))
+                                    {
+                                        if($_GET['table_data']=='last_name')
+                                            { 
+                                                $table_data = "last_name";  
+                                            }
+                                        elseif($_GET['table_data']=='program')
+                                            { 
+                                                $table_data = "program";  
+                                            }
+                                        elseif($_GET['table_data']=='yearLevel')
+                                            { 
+                                                $table_data = "yearLevel";  
+                                            }
+                                        elseif($_GET['table_data']=='StudentID')
+                                            { 
+                                                $table_data="StudentID"; 
+                                                $sort="ASC";
+                                            }
+                                    }
+                            ?>
+                            <ul class="dropdown-menu">
+                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
+                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=program">Program</a></li>
+                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=yearLevel">Year Level</a></li>
+                            </ul>
+                        </div>
+                        <!-- End Sort button -->
+
+                        <!-- Search Button -->
+                        <form action="" method="get">
+                        <div class="input-group pull-right" style="width: 300px;">
+                            <input type="text" id="search" name="search" class="form-control" placeholder="Search">
+                            <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                        </div>
+                        </form>
+                        <!-- End of Search Button -->
+                    </div>
+                    <!-- End btn-toolbar -->
                   </div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>BP:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>CR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>RR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>T:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                </div>    
-                <br>     
+                <!-- End of Buttons -->
 
-                <table class="table table-bordered table-responsive">
-                  <thead>
-                    <tr>
-                      <td></td>
-                      <td>Normal</td>
-                      <td>Abnormal</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>General Survey</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Skin</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>HEENT</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Lungs</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Heart</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Abdomen</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Extremities</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
+                <?php 
+                  require_once '../dbconnect.php';
+                  include '../includes/pagination.php';
 
-                <div class="form-inline">
-                  <label>Chest X ray:</label> <input type="text" class="form-control" name="">
-                </div>
+                  $DB_con = new mysqli("localhost", "root", "", "records");
+
+                  $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
+            
+                  if ($page <= 0) $page = 1;
+                    $per_page = 5; // Set how many records do you want to display per page.
+    
+                    if (isset($_GET['StudentID'])) {
+                      $StudentID = $_GET['StudentID'];
+
+                      $startpoint = ($page * $per_page) - $per_page;
+                      $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
+                      $result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
+                      $count = $result->num_rows;
+                    }
+                ?>
                 <br>
-                <div class="form-inline">
-                  <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name=""> <label>fit</label>  <input type="checkbox" class="form-check" name=""> <label>unfit</label> at the same time of examination
-                </div>
-                <br>
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label>Plan/Recommendation:</label> 
-                    <input type="text" class="form-control" name="">
-                  </div>
-                </div>
+                <div class="table-responsive">
+                  <?php
+                if ($result->num_rows != 0) { ?>
+                  <table class="table  table-striped table-bordered" id="myTable">
+                    <thead style="background-color:#eee;cursor: pointer;">
+                      <tr>
+                        <th style="display: none;"></th>
+                        <th>Review of System</th>
+                        <th>Past History</th>
+                        <th>Drinker</th>
+                        <th>Smoker</th>
+                        <th>Drug User</th>
+                        <th>Weight</th>
+                        <th>Height</th>
+                        <th>BMI</th>
+                        <th>Last Checkup</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <?php 
+                        // displaying records.
+                        while ($row = $result->fetch_assoc()){ ?>
+                      <tr>
+                        <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                        <td><?php echo $row['sysRev']; ?></td>
+                        <td><?php echo $row['medHis']; ?></td>
+                        <td><?php echo $row['drinker']; ?></td>
+                        <td><?php echo $row['smoker']; ?></td>
+                        <td><?php echo $row['drug_user']; ?></td>
+                        <td><?php echo $row['weight']; ?></td>
+                        <td><?php echo $row['height']; ?></td>
+                        <td><?php echo $row['bmi']; ?></td>
+                        <td><?php echo $row['date_updated']; ?></td>
+                      </tr>
+                      <?php }
+                        } 
+                        else {
+                          $errMSG = "No records found.";
+                        }?>
+                    </tbody>
+                  </table>
+                  <?php 
+                        if(isset($errMSG)){ ?>
 
-                <button type="submit" class="btn btn-primary" name="btn-add">Add Record</button>
-
+                        <div class="alert alert-warning">
+                            <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
+                        </div>
+                            
+                    <?php }
+                    ?>
+                </div>
               </div>
             </div>
           </div>
         </div>
         <!-- End -->
 
-        </form>
-        <!-- End of Form -->
-
         <?php }}?>
     
         </div>  
-        </div></div>
+        </div>
+      </div>
         <!-- End of Main Screen -->
 
   </div>
@@ -509,7 +378,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script>
+<script src="../assets/js/index.js" type="text/javascript"></script>
     
 </body>
 </html>

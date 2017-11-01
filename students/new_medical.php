@@ -86,147 +86,50 @@
       </nav>
     </div>  
     <!-- End of Sidebar -->
-	      
+
     <!-- Start of Main Screen -->
     <div id="page-content-wrapper">
       <div class="page-content">
         <div class="container-fluid">
 
+          <?php 
+            require_once '../dbconnect.php';
+
+            $DB_con = new mysqli("localhost", "root", "", "records");
+
+            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
+
+              $StudentID = $_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $result = $DB_con->query($res);
+              $row = $result->fetch_array(MYSQLI_BOTH);
+           
+              if(!empty($row)){
+          ?>
+    
+          <!-- Page Heading -->
+          <div class="row">
+            <div class="col-lg-12">             
+              <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+            </div>
+          </div>            
+          <!-- End of Page Heading -->  
+
+          <div class="row">
+            <div class="col-lg-12">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+              </ul>
+            </div>
+          </div>
+
           <!-- Start of Form -->
           <form action="action.php" method="post" autocomplete="">
-    
-    	      <!-- Page Heading -->
-            <div class="row">
-              <div class="col-lg-12">             
-                <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
-              </div>
-            </div>
-            <!-- End of Page Heading -->  
 
-            <!-- Student Status Form -->
             <div class="row">
               <div class="col-lg-12">
-                <div class="form-group row">   
-                  <div class="col-lg-2"> 
-                    <label>Student No.</label>
-                    <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of Student Status-->
-    
-            <div class="row">
-              <div class="col-lg-12"> 
-                <!-- Basic Info -->
-                <div class="panel panel-success">
-                  <div class="panel-heading">BASIC INFORMATION</div>
-                  <div class="panel-body">
-                    <div class="form-group row">   
-                      <div class="col-lg-3">          
-                        <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> 
-                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="last_name">
-                      </div>
-                      <div class="col-lg-3">
-                        <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Juan" name="first_name" id="first_name">
-                      </div>
-                      <div class="col-lg-2">
-                        <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
-                      </div>     
-                      <div class="col-lg-1">
-                        <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2" id="ext">
-                      </div>   
-                      <div class="col-lg-1">
-                        <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errormsg"></span>
-                        <input class="form-control" type="text" placeholder="00" name="age" id="age" maxlength="2">
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                          <select class="form-control" name="sexOption">
-                            <option value="undefined">Choose...</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </select>
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-lg-6">
-                        <label for="example-date-input" class="col-2 col-form-label">Program</label>
-                        <select class="form-control" name="program">
-                          <option value="undefined">Choose...</option>
-                          <option value="BS Accountancy">BS Accountancy</option>
-                          <option value="BS Computer Science">BS Computer Science</option>
-                          <option value="BS Communication Arts">BS Communication Arts</option>
-                          <option value="BS Education">BS Education</option>
-                          <option value="BS Entrepreneurship">BS Entrepreneurship</option>
-                          <option value="BS Information Technology">BS Information Technology</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                        <select class="form-control" name="yearLevel">
-                          <option value="undefined">Choose...</option>
-                          <option value="1st">1st Year</option>
-                          <option value="2nd">2nd Year</option>
-                          <option value="3rd">3rd Year</option>
-                          <option value="4th">4th Year</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Semester</label>
-                        <select class="form-control" name="semOption">
-                          <option value="undefined">Choose...</option>
-                          <option value="1st">1st</option>
-                          <option value="2nd">2nd</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
-                          <?php
-                            $currently_selected = date('Y'); 
-                            $earliest_year = 2006; 
-                            $latest_year = date('Y');
-                          ?>
-                          <select class="form-control" name="acadYear" id="acadYear">
-                            <?php 
-                              foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                                print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
-                                print '</option>';
-                              }
-                              print '</select>';
-                            ?> 
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-lg-12">
-                        <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                        <input type="text" class="form-control" name="address" id="address">
-                      </div>
-                    </div>
-
-                    <div class="form-group row">
-                      <div class="col-lg-6">
-                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                        <input type="text" class="form-control" name="cperson" id="cperson">
-                      </div>
-                      <div class="form-group col-lg-3">
-                        <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
-                        <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
-                      </div>
-                      <div class="form-group col-lg-3">
-                        <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                        <input type="text" name="tphone" id="tphone" class="form-control" placeholder="536-1234">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Basic Infor -->
-
                 <!-- Review of System -->
                 <div class="panel panel-success">
                   <div class="panel-heading">REVIEW OF SYSTEM</div>
@@ -295,7 +198,7 @@
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergy"> Allergy
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list" id="otherMedHis" disabled="">
+                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list[]" id="otherMedHis" disabled="">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -323,12 +226,10 @@
                   </div>
                 </div>
                 <!-- End Past Medical History -->
-              </div>
-            </div>
 
+                <!-- Personal and Social -->
             <div class="row">
               <div class="col-lg-6">
-                <!-- Personal and Social -->
                 <div class="panel panel-success">
                   <div class="panel-heading">PERSONAL AND SOCIAL HISTORY</div>
                   <div class="panel-body">
@@ -384,24 +285,25 @@
             </div>
             <!-- End -->
 
+            <!-- Physical Exam -->
             <div class="row">
               <div class="col-lg-12">
-                <!-- Physical Exam -->
                 <div class="panel panel-success">
                   <div class="panel-heading">PHYSICAL EXAMINATION</div>
                   <div class="panel-body">
+
                     <div class="form-group row">
                       <div class="col-lg-3">
                         <label>Weight:</label>  
-                        <input type="text" class="form-control" name="weight"> 
+                        <input type="decimal" class="form-control" name="weight" id="weight"> 
                       </div>
                       <div class="col-lg-3">
                         <label>Height:</label> 
-                        <input type="text" class="form-control" name="height"> 
+                        <input type="text" class="form-control" name="height" id="height"> 
                       </div>
                       <div class="col-lg-3">
                         <label>BMI:</label> 
-                        <input type="text" class="form-control" name="bmi"> 
+                        <input type="text" class="form-control" name="bmi" id="bmi">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -422,8 +324,17 @@
                         <input type="text" class="form-control" name="t"> 
                       </div>
                     </div>    
-                    <br>     
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End -->
 
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="panel panel-success">
+                  <div class="panel-heading"></div>
+                  <div class="panel-body">
                     <table class="table table-bordered table-responsive">
                       <thead>
                         <tr>
@@ -485,19 +396,26 @@
                         <input type="text" class="form-control" name="plan">
                       </div>
                     </div>
-
-                    <input type="hidden" name="action_type" value="add"/>
-                    <input type="submit" class="btn btn-primary" id="add" name="btn-add" value="Add Record" />
-
                   </div>
                 </div>
-                <!-- End -->
+              </div>
+            </div>
+
+                <div class="form-group">
+                  <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
+                  <input type="text" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+                  <input type="hidden" name="action_type" value="save"/>
+                  <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
+                </div>
+              <!-- End -->
+
               </div>
             </div>
 
           </form>
           <!-- End of Form -->
-    
+          <?php }}?>
+
         </div>  
       </div>
     </div>

@@ -33,8 +33,8 @@
     }
 
     if (isset($_GET['success'])) {
-    	$successMSG = "<span class='glyphicon glyphicon-ok'></span> Data added successfully!";
-    	header('Refresh:2; tbl_rec.php');
+        $successMSG = "<span class='glyphicon glyphicon-ok'></span> Data added successfully!";
+        header('Refresh:2; tbl_rec.php');
     }
     elseif (isset($_GET['error'])) {
         $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
@@ -71,7 +71,7 @@
     <!-- End of Navbar -->
 
     <!-- Content -->
-	<div id="wrapper">
+    <div id="wrapper">
 
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
@@ -99,12 +99,12 @@
         </div>  
         <!-- End of Sidebar --> 
 
-	    <!-- Begin Main Screen -->
+        <!-- Begin Main Screen -->
         <div id="page-content-wrapper">
           <div class="page-content">
             <div class="container-fluid">   
 
-    	        <!-- Page Heading -->
+                <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Students Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
@@ -116,8 +116,8 @@
                 <div class="row">
                   <div class="col-lg-12">
                     <!-- Start btn-toolbar -->
-                	<div class="btn-toolbar">
-                    	<a href="add_student.php" class="btn btn-success">Add New</a>
+                    <div class="btn-toolbar">
+                        <a href="add_student.php" class="btn btn-success">Add New</a>
                         <!-- Sort button -->
                         <div class="btn-group">
                             <button type="button" id="sort" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -187,53 +187,53 @@
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
-            	</div>
+                </div>
                 <!-- End of Buttons -->
 
                 <!-- Table -->
                 <?php 
-  					require_once '../dbconnect.php';
-                	include '../includes/pagination.php';
+                    require_once '../dbconnect.php';
+                    include '../includes/pagination.php';
 
-                	$DB_con = new mysqli("localhost", "root", "", "records");
+                    $DB_con = new mysqli("localhost", "root", "", "records");
 
-                	$page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
-    				
-    				if ($page <= 0) $page = 1;
-    					$per_page = 5; // Set how many records do you want to display per page.
+                    $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
+                    
+                    if ($page <= 0) $page = 1;
+                        $per_page = 5; // Set how many records do you want to display per page.
     
-    					if (isset($_GET['search'])) {
-    						$search = $_GET['search'];
-    						$search = $DB_con->real_escape_string($search);
+                        if (isset($_GET['search'])) {
+                            $search = $_GET['search'];
+                            $search = $DB_con->real_escape_string($search);
     
-        					if (empty($search)) {
-            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
-        					}
+                            if (empty($search)) {
+                                $output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
+                            }
                             else {
                                 $output1 = '<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
                             }
     
-    						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,`students_info`.`studentNo`) LIKE '%".$search."%'";
-    						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
-						}
-						else {
-    						$startpoint = ($page * $per_page) - $per_page;
-                            $statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`";
-    						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
+                            $startpoint = ($page * $per_page) - $per_page;
+                            $statement = "`students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` WHERE CONCAT(last_name,first_name,middle_name,ext,program,yearLevel,acadYear,med,dent,`students_info`.`studentNo`) LIKE '%".$search."%'";
+                            $result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
+                        }
+                        else {
+                            $startpoint = ($page * $per_page) - $per_page;
+                            $statement = "`students_med` WHERE StudentID = '1'";
+                            $result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
                             $count = $result->num_rows;
-						}
+                        }
                 ?>
                 <br>
                 <?php if (isset($_GET['search'])) {
-    				echo $output1;
-				}  ?>
+                    echo $output1;
+                }  ?>
 
                 <?php
                 if ($result->num_rows != 0) { ?>
                 <!-- Start of Table -->
                 <div class="row">
-                	<div class="col-lg-12">
+                    <div class="col-lg-12">
                     <form method="post" name="frm">
                     <label><input type="checkbox" class="select-all" /> Check / Uncheck All</label>
                     <label id="actions">
@@ -243,46 +243,49 @@
                     <label class="pull-right">Total rows: <?php echo $count; ?></label>
                     <br>
                     <div class="table-responsive">
-                	<table class="table  table-striped table-bordered" id="myTable">
-                		<thead style="background-color:#eee;cursor: pointer;">
-                			<tr>
+                    <table class="table  table-striped table-bordered" id="myTable">
+                        <thead style="background-color:#eee;cursor: pointer;">
+                            <tr>
                                 <th></th>
                                 <th>Medical</th>
                                 <th>Dental</th>
-                				<th onclick="sortTable(0)">Last Name</th>
-                				<th onclick="sortTable(1)">First Name</th>
-                				<th>Middle Name</th>
-                				<th>Student No.</th>
-                				<th>Program</th>
-                				<th>Year</th>
-                				<th>Academic Year</th>
-                				<th>Action</th>
-                			</tr>
-                		</thead>
-                		<tbody>
-                			<?php 
-    						// displaying records.
-    						while ($row = $result->fetch_assoc()){ ?>
-                			<tr>
+                                <th onclick="sortTable(0)">Last Name</th>
+                                <th onclick="sortTable(1)">First Name</th>
+                                <th>Middle Name</th>
+                                <th>Extension <br>(if any)</th>
+                                <th>Student No.</th>
+                                <th>Program</th>
+                                <th>Year</th>
+                                <th>Academic Year</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php 
+                            // displaying records.
+                            while ($row = $result->fetch_assoc()){ ?>
+                            <tr>
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                                <td><?php echo $row['med']; ?></td>
-                                <td><?php echo $row['dent']; ?></td>
-                				<td><?php echo strtoupper($row['last_name']); ?></td>
-                				<td><?php echo ucwords($row['first_name']); ?></td>
-                				<td><?php echo ucwords($row['middle_name'])." "; echo $row['ext']; ?></td>
-                				<td><?php echo $row['studentNo']; ?></td>
-                				<td><?php echo $row['program'];?></td>
-                				<td><?php echo $row['yearLevel'];?></td>
-                				<td><?php echo $row['acadYear'];?></td>
-                				<td width="145px"><a href="view_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-default" title="View" data-toggle="tooltip"> <span class="glyphicon glyphicon-eye-open"></span></a> | <a href="edit_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
-                			</tr>
+                                <td><?php echo $row['sysRev']; ?></td>
+                                <td><?php echo $row['medHis']; ?></td>
+                                <td><?php echo $row['drinker']; ?></td>
+                                <td><?php echo $row['smoker']; ?></td>
+                                <td><?php echo $row['drug_user']; ?></td>
+                                <td><?php echo $row['weight']; ?></td>
+                                <td><?php echo $row['height']; ?></td>
+                                <td><?php echo $row['studentNo']; ?></td>
+                                <td><?php echo $row['program'];?></td>
+                                <td><?php echo $row['yearLevel'];?></td>
+                                <td><?php echo $row['acadYear'];?></td>
+                                <td width="145px"><a href="view_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-default" title="View" data-toggle="tooltip"> <span class="glyphicon glyphicon-eye-open"></span></a> | <a href="edit_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
+                            </tr>
                             <?php }
                                 } 
                             else {
                                 $errMSG = "No records found.";
                             }?>
-                		</tbody>
-                	</table>
+                        </tbody>
+                    </table>
                     <?php 
                         if(isset($errMSG)){ ?>
 
@@ -294,12 +297,12 @@
                     ?>
                     </div>
                     </form>
-                	</div>
+                    </div>
                 </div>
                 <!-- End of Table -->
 
                 <?php echo pagination($statement,$per_page,$page,$url='?');?>
-                
+
             </div>  
           </div>
         </div>

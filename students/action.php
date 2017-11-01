@@ -47,9 +47,40 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$tphone = 'none';
   		}
 
+      $med = 'Pending';
+      $dent = 'Pending';
+
+      // if there's no error, continue to signup
+  		if( !$error ) {
+
+        $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
+
+  			$stmt1 = $DB_con->prepare($query1);
+        $stmt3 = $DB_con->prepare($query3);
+
+   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+        $stmt3->bind_param($med,$dent);
+
+   			if (!$stmt1 || !$stmt3){
+          header("Location: add_student.php?error");
+   			} else {
+          BEGIN;
+      			$stmt1->execute();
+            $stmt3->execute();
+          $stmt1->close();
+          $stmt3->close();
+          COMMIT;
+        		header("Location: tbl_rec.php?success");
+  			} 
+  		}
+	}
+  elseif($_REQUEST['action_type'] == 'save'){
+
       //checkbox
       $sysRev = implode(', ', $_POST['sysRev_list']);
       $medHis = implode(', ', $_POST['medHis_list']);
+     
       $drinker = $_POST['drinker'];
       $smoker = $_POST['smoker'];
       $drug_user = $_POST['drug_user'];
@@ -63,43 +94,37 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $xray = $_POST['xray'];
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
-
-      $med = 'Pending';
-      $dent = 'Pending';
-
+      $studentNo = $_POST['studentNo'];
       $StudentID = $_POST['StudentID'];
-      $MedID = $_POST['MedID'];
-      $StatsID = $_POST['StatsID'];
 
-      // if there's no error, continue to signup
-  		if( !$error ) {
+      if (empty($sysRev)) {
+        $sysRev = 'none';
+      }
+      if (empty($medHis)) {
+        $medHis = 'none';
+      }
 
-        $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query2 = "INSERT INTO students_med(sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo) VALUES('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo')";
-        $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
+      if (!$error) {
 
-  			$stmt1 = $DB_con->prepare($query1);
-        $stmt2 = $DB_con->prepare($query2);
-        $stmt3 = $DB_con->prepare($query3);
+        $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+        $result = mysqli_query($DB_con,$sql);
 
-   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
-        $stmt2->bind_param($sysRev,$medHis,$drinker,$smoker,$drug_user,$weight,$height,$bmi,$bp,$cr,$rr,$t,$xray,$assess,$plan);
-        $stmt3->bind_param($med,$dent);
+        if (!$result) {
+          header("Location: tbl_rec.php?error");
+        }
+        else{
+          header("Location: tbl_rec.php");
+        }
+        // show an error message if the query has an error
 
-   			if (!$stmt1 || !$stmt2 || !$stmt3){
-          header("Location: medical_form.php?error");
-   			} else {
-          BEGIN;
-      			$stmt1->execute();
-            $stmt2->execute();
-            $stmt3->execute();
-          COMMIT;
-        			header("Location: tbl_rec.php?success");
-  			} 
-  		}
-	}
+      } else {
+          echo "ERROR: could not prepare SQL statement.";
+      }
+  }
 	elseif($_REQUEST['action_type'] == 'edit'){
+
 		if(!empty($_POST['StudentID'])){
+
 			  $studentNo = $_POST['studentNo'];
   			$last_name = $_POST['last_name'];
   			$first_name = $_POST['first_name'];
@@ -114,24 +139,23 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$cperson = $_POST['cperson'];
   			$cphone = $_POST['cphone'];
   			$tphone = $_POST['tphone'];
+        $StudentID = $_POST['StudentID'];
 
-        if (empty($studentNo)) {
-          $studentNo = 'none';
-        }
-
-  			if (empty($cphone)) {
-  				$cphone = 'none';
-  			}
-
-  			if (empty($tphone)) {
-  				$tphone = 'none';
-  			}
+        $med = $_POST['med'];
+        $dent = $_POST['dent'];
 
         // if everything is fine, update the record in the database
-        if ($stmt = $DB_con->prepare("UPDATE students SET last_name = ?, first_name = ? WHERE StudentID=?")) {
-          $stmt->bind_param($firstname, $lastname, $StudentID);
-          $stmt->execute();
-          $stmt->close();
+        if (!$error) {
+
+          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", program="'.$program.'", yearLevel="'.$yearLevel.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", tphone="'.$tphone.'", med="'.$med.'", dent="'.$dent.'" WHERE StudentID="'.$StudentID.'"';
+
+          if (!$stmt) {
+            header("Location: medical_form.php?error");
+          }
+          elseif (mysqli_query($DB_con,$stmt)) {
+            header("Location: tbl_rec.php?success");
+          }
+            mysqli_close($DB_con);
         }
         // show an error message if the query has an error
         else {
@@ -140,6 +164,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 		}
 	}
 	elseif($_REQUEST['action_type'] == 'delete'){
+
 		if(!empty($_GET['StudentID'])){
 
       if( !$error ) {

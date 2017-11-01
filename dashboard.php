@@ -25,7 +25,6 @@
 
   if (isset($_GET['loginSuccess'])) {
     $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
-    header("Refresh:3;dashboard.php");
   }
     
     //Render facebook profile data
@@ -231,10 +230,10 @@
   <script src="assets/js/index.js" type="text/javascript"></script>
   <script type="text/javascript">
     window.setTimeout(function() {
-      $(".success-login").fadeTo(500, 0).slideUp(500, function(){
-        $(this).remove(); 
+      $(".success-login").fadeTo(500,0).slideUp(500, function(){
+        $(this).remove();
       });
-    }, 4000);
+    }, 3000);
   </script>
     
 </body>

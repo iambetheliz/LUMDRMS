@@ -102,7 +102,7 @@
           ?>
 
           <!-- Start of Form -->
-          <form action="action.php" method="post">
+          <form action="action.php" method="post" autocomplete="">
     
     	      <!-- Page Heading -->
             <div class="row">
@@ -111,6 +111,16 @@
               </div>
             </div>
             <!-- End of Page Heading -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="breadcrumb">
+                          You are here: 
+                            <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+                            <li class="breadcrumb-item active">Edit Form</li>
+                        </ul>
+                    </div>
+                </div>
 
             <!-- Student Status Form -->
             <div class="row">
@@ -180,7 +190,15 @@
                 <div class="form-group row">
                   <div class="col-lg-6">
                     <label class="col-2 col-form-label">Program</label>
-                    <input type="text" class="form-control" name="program" value="<?php echo $row['program'];?>">
+                    <select class="form-control" name="program">
+                      <option value="undefined">Choose...</option>
+                      <option value="BS Accountancy">BS Accountancy</option>
+                      <option value="BS Computer Science">BS Computer Science</option>
+                      <option value="BS Communication Arts">BS Communication Arts</option>
+                      <option value="BS Education">BS Education</option>
+                      <option value="BS Entrepreneurship">BS Entrepreneurship</option>
+                      <option value="BS Information Technology">BS Information Technology</option>
+                    </select>
                   </div>
                   <div class="col-lg-2">
                     <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
@@ -243,281 +261,12 @@
             </div>
             <!-- End of Basic Infor -->
 
-            <!-- Review of System -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                REVIEW OF SYSTEM
-              </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]"> Recurrent Headache
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]"> Blurring of Vision
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]"> Abdominal Pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]"> Cough and colds
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input" name="check_list[]"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Chest pain
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LOC/Seizure
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy fatigability
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Easy bruisability
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Fever
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Vomiting
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> LBM
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Dysuria
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
-            <!-- Past Medical History -->
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PAST MEDICAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bronchial Asthma
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> PTB
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Allergy
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Other <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Hypertension
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> UTI
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Surgery
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Cardiovascular DSE
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Bleeding Disorder
-                  </div>
-                  <div class="form-check">
-                    <input type="checkbox" class="form-check-input"> Skin Disorder
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
-          </div>
-        </div>
-
-        <!-- -->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PERSONAL AND SOCIAL HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><label class="form-check-label">Alcoholic Drinker: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>     
-                    <tr>
-                    <td><label class="form-check-label">Smoker: </label></td>
-                    <td><input class="form-check-input" type="checkbox"> Yes</td>
-                    <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                    <tr>
-                      <td><label class="form-check-label">Use of Illicit Drugs: </label></td>
-                      <td><input class="form-check-input" type="checkbox"> Yes</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> No</td>
-                    </tr>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                OB/GYNE HISTORY
-              </div>
-              <div class="panel-body">
-                <div class="form-check">
-                  <table width="100%">
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Regular</td>
-                      <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
-                    </tr>
-                    <tr>
-                      <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
-                    </tr>
-                  </table>  
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- End -->
-
-        <!-- Physical Exam -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                PHYSICAL EXAMINATION
-              </div>
-              <div class="panel-body">
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>Weight:</label>  
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>Height:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>BMI:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-lg-3">
-                    <label>BP:</label> 
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>CR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>RR:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label>T:</label>
-                    <input type="text" class="form-control"> 
-                  </div>
-                </div>    
-                <br>     
-
-                <table class="table table-bordered table-responsive">
-                  <thead>
-                    <tr>
-                      <td></td>
-                      <td>Normal</td>
-                      <td>Abnormal</td>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>General Survey</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Skin</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>HEENT</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Lungs</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Heart</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Abdomen</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                    <tr>
-                      <td>Extremities</td>
-                      <td></td>
-                      <td></td>
-                    </tr>
-                  </tbody>
-                </table>
-
-                <div class="form-inline">
-                  <label>Chest X ray:</label> <input type="text" class="form-control" name="">
-                </div>
-                <br>
-                <div class="form-inline">
-                  <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name=""> <label>fit</label>  <input type="checkbox" class="form-check" name=""> <label>unfit</label> at the same time of examination
-                </div>
-                <br>
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label>Plan/Recommendation:</label> 
-                    <input type="text" class="form-control" name="">
-                  </div>
-                </div>
-
-                <input type="hidden" name="id" value="<?php echo $userData['id']; ?>"/>
+              <div class="form-group">
+                <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                 <input type="hidden" name="action_type" value="edit"/>
                 <input type="submit" class="btn btn-success" name="submit" value="Update Record"/>
-
               </div>
-            </div>
+
           </div>
         </div>
         <!-- End -->

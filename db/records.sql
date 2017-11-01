@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `program` varchar(50) NOT NULL,
   `yearLevel` varchar(9) NOT NULL,
   `sem` varchar(9) NOT NULL,
-  `acadYear` varchar(9) NOT NULL,
+  `acadYear` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
@@ -60,12 +60,23 @@ CREATE TABLE IF NOT EXISTS `students_med` (
   `drinker` varchar(3) NOT NULL,
   `smoker` varchar(3) NOT NULL,
   `drug_user` varchar(3) NOT NULL,
+  `weight` int(11) NOT NULL,
+  `height` decimal(11.0) NOT NULL,
+  `bmi` decimal(11.0) NOT NULL,
+  `bp` varchar(3) NOT NULL,
+  `cr` varchar(3) NOT NULL,
+  `rr` varchar(3) NOT NULL,
+  `t` varchar(3) NOT NULL,
+  `xray` varchar(3) NOT NULL,
+  `assess` varchar(3) NOT NULL,
+  `plan` varchar(3) NOT NULL,
   `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `studentNo` varchar(8) NOT NULL,
-  PRIMARY KEY (MedID,studentNo),
-  UNIQUE KEY `studentNo` (`studentNo`),
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (MedID),
+  INDEX `StudentID` (`StudentID`),
   CONSTRAINT fk_med_id
-  FOREIGN KEY (studentNo) REFERENCES students(studentNo) ON DELETE CASCADE
+  FOREIGN KEY (StudentID) REFERENCES students(StudentID) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
