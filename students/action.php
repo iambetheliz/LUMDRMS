@@ -71,7 +71,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
           $stmt1->close();
           $stmt3->close();
           COMMIT;
-        		header("Location: tbl_rec.php?success");
+        		header("Location: records.php?success");
   			} 
   		}
 	}
@@ -110,10 +110,10 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         $result = mysqli_query($DB_con,$sql);
 
         if (!$result) {
-          header("Location: tbl_rec.php?error");
+          header("Location: records.php?error");
         }
         else{
-          header("Location: tbl_rec.php");
+          header("Location: records.php");
         }
         // show an error message if the query has an error
 
@@ -129,6 +129,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$last_name = $_POST['last_name'];
   			$first_name = $_POST['first_name'];
   			$middle_name = $_POST['middle_name'];
+        $ext = $_POST['ext'];
   			$age = $_POST['age'];
   			$sex = $_POST['sexOption'];
   			$program = $_POST['program'];
@@ -153,7 +154,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
             header("Location: medical_form.php?error");
           }
           elseif (mysqli_query($DB_con,$stmt)) {
-            header("Location: tbl_rec.php?success");
+            header("Location: records.php?success");
           }
             mysqli_close($DB_con);
         }
@@ -175,13 +176,13 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
             $errMSG = "Something went wrong, try again later..."; 
         } else {
           $stmt->execute();
-          header("Location: tbl_rec.php?deleteSuccess");
+          header("Location: records.php?deleteSuccess");
         }
       }
     }
     else {
       // if the 'StudentID' variable isn't set, redirect the user
-      header("Location: tbl_rec.php?deleteError");
+      header("Location: records.php?deleteError");
     }
 	}
 }

@@ -48,7 +48,7 @@
 <title>Add New Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -75,7 +75,7 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li class="active">
-                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
                 <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
@@ -118,9 +118,9 @@
           <div class="row">
             <div class="col-lg-12">
               <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
+                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
+                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
               </ul>
             </div>
           </div>

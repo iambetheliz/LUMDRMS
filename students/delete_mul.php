@@ -21,7 +21,7 @@
  $chkcount = count($chk);
  
  if(!isset($chk)) {
-    header("Location:tbl_rec.php?deleteError");
+    header("Location:records.php?deleteError");
  }
  else {
   for($i=0; $i<$chkcount; $i++) {
@@ -33,12 +33,12 @@
    ?>
    <script>
    alert('<?php echo $chkcount; ?> Records Was Deleted !!!');
-   window.location.href='tbl_rec.php';
+   window.location.href='records.php';
    </script>
    <?php
   }
   else {
-   header("Location:tbl_rec.php?deleteError");
+   header("Location:records.php?deleteError");
   }
   
  }

@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `students` (
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
   `tphone` varchar(8) NOT NULL,
-  PRIMARY KEY (StudentID,studentNo),
+  PRIMARY KEY (`StudentID`,`studentNo`),
   UNIQUE KEY `studentNo` (`studentNo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
@@ -70,13 +70,14 @@ CREATE TABLE IF NOT EXISTS `students_med` (
   `xray` varchar(3) NOT NULL,
   `assess` varchar(3) NOT NULL,
   `plan` varchar(3) NOT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `studentNo` varchar(8) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  PRIMARY KEY (MedID),
-  INDEX `StudentID` (`StudentID`),
-  CONSTRAINT fk_med_id
-  FOREIGN KEY (StudentID) REFERENCES students(StudentID) ON DELETE CASCADE
+  PRIMARY KEY (`MedID`,`StudentID`),
+  KEY `StudentID` (`StudentID`),
+  CONSTRAINT `fk_med_id` 
+  FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -89,12 +90,13 @@ CREATE TABLE IF NOT EXISTS `students_stats` (
   `StatsID` int(11) NOT NULL AUTO_INCREMENT,
   `med` varchar(7) NOT NULL,
   `dent` varchar(7) NOT NULL,
-  `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `studentNo` varchar(8) NOT NULL,
-  PRIMARY KEY (StatsID,studentNo),
+  PRIMARY KEY (`StatsID`,`studentNo`),
   UNIQUE KEY `studentNo` (`studentNo`),
-  CONSTRAINT fk_stats_id
-  FOREIGN KEY (studentNo) REFERENCES students(studentNo) ON DELETE CASCADE
+  CONSTRAINT `fk_stats_id` 
+  FOREIGN KEY (`studentNo`) REFERENCES `students` (`studentNo`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------

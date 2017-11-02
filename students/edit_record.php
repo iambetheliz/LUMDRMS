@@ -42,7 +42,7 @@
 <title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -69,7 +69,7 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li class="active">
-                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
                 <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
@@ -116,7 +116,7 @@
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
                           You are here: 
-                            <li class="breadcrumb-item"><a href="tbl_rec.php">Students</a></li>
+                            <li class="breadcrumb-item"><a href="records.php">Students</a></li>
                             <li class="breadcrumb-item active">Edit Form</li>
                         </ul>
                     </div>
@@ -172,8 +172,12 @@
                   <div class="col-lg-2">
                     <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
                     <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name">
-                  </div>
-                  <div class="col-lg-2">
+                  </div>    
+                  <div class="col-lg-1">
+                    <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
+                    <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2" id="ext" value="<?php echo $row['ext'];?>">
+                  </div>  
+                  <div class="col-lg-1">
                     <label for="example-number-input" class="col-2 col-form-label">Age</label>
                     <input class="form-control" type="text" value="<?php echo $row['age'];?>" name="age">
                   </div>

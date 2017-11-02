@@ -42,7 +42,7 @@
 <title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">  
@@ -74,7 +74,7 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li class="active">
-                <a href="/lu_clinic/students/tbl_rec.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
                 <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
@@ -136,8 +136,8 @@
             </div>
             <!-- End of Student Status-->
 
-            <div class="row">
-              <div class="container-fluid">     
+            <div class="container-fluid">
+              <div class="row">     
                 <!-- Basic Info -->
                 <div class="panel panel-success">
                   <div class="panel-heading">
@@ -210,16 +210,16 @@
         </div>
 
         <!-- Physical Exam -->
-        <div class="row">
-          <div class="col-lg-12">
+        <div class="container-fluid">
+          <div class="row">
             <div class="panel panel-success">
               <div class="panel-heading">Previous Checkups</div>
               <div class="panel-body">
                 
                 
                 <!-- Buttons -->
-                <div class="row">
-                  <div class="col-lg-12">
+                <div class="container-fluid">
+                  <div class="row">
                     <!-- Start btn-toolbar -->
                     <div class="btn-toolbar">
                         <a href="new_medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
@@ -261,9 +261,9 @@
                                     }
                             ?>
                             <ul class="dropdown-menu">
-                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
-                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=program">Program</a></li>
-                                <li><a href="tbl_rec.php?sorting='.$sort.'&table_data=yearLevel">Year Level</a></li>
+                                <li><a href="records.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
+                                <li><a href="records.php?sorting='.$sort.'&table_data=program">Program</a></li>
+                                <li><a href="records.php?sorting='.$sort.'&table_data=yearLevel">Year Level</a></li>
                             </ul>
                         </div>
                         <!-- End Sort button -->
@@ -335,7 +335,7 @@
                         <td><?php echo $row['weight']; ?></td>
                         <td><?php echo $row['height']; ?></td>
                         <td><?php echo $row['bmi']; ?></td>
-                        <td><?php echo $row['date_updated']; ?></td>
+                        <td><?php echo date('F j, Y \a\\t g:i a', strtotime($row['date_updated'])); ?></td>
                       </tr>
                       <?php }
                         } 
