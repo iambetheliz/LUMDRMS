@@ -89,10 +89,10 @@
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
                 <li>
-                    <a href="../activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+                    <a href="../activities.php"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
                 </li>
                 <li class="active have-child" role="presentation">
-                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse in">
                         <li class="active">
                             <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
@@ -253,15 +253,15 @@
                 		<thead style="background-color:#eee;cursor: pointer;">
                 			<tr>
                                 <th></th>
-                                <th title="Click to sort" onclick="sortTable(0)">Medical</th>
-                                <th title="Click to sort" onclick="sortTable(1)">Dental</th>
+                                <th title="Click to sort" onclick="sortTable(0)">Medical <i class="fa fa-sort"></i></th>
+                                <th title="Click to sort" onclick="sortTable(1)">Dental <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(2)">Last Name <i class="fa fa-sort"></i></th>
-                				<th title="Click to sort" onclick="sortTable(3)">First Name</th>
-                				<th title="Click to sort" onclick="sortTable(4)">Middle Name</th>
-                				<th title="Click to sort" onclick="sortTable(5)">Student No.</th>
-                				<th title="Click to sort" onclick="sortTable(6)">Program</th>
-                				<th title="Click to sort" onclick="sortTable(7)">Year</th>
-                				<th title="Click to sort" onclick="sortTable(8)">Academic Year</th>
+                				<th title="Click to sort" onclick="sortTable(3)">First Name <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(4)">Middle Name <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(5)">Student No. <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(6)">Program <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(7)">Year <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(8)">Academic Year <i class="fa fa-sort"></i></th>
                 				<th>Action</th>
                 			</tr>
                 		</thead>
@@ -294,7 +294,7 @@
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td width="145px"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-default" title="View" data-toggle="tooltip"> <span class="glyphicon glyphicon-eye-open"></span></a> | <a href="edit_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <span class="glyphicon glyphicon-edit"></span></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
+                				<td width="145px"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_record.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			</tr>
                             <?php }
                                 } 

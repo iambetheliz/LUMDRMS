@@ -48,7 +48,7 @@
 <title>Dashboard | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="images/favicon.ico">
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="assets/fonts/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="assets/css/dashboard.css" rel="stylesheet" type="text/css">
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="assets/style.css" rel="stylesheet" type="text/css">
@@ -70,10 +70,10 @@
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
                 <li>
-                    <a href="activities.php"><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp; Activities</a>
+                    <a href="activities.php"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
                 </li>
                 <li role="presentation" class="have-child">
-                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse">
                         <li>
                             <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
@@ -108,7 +108,7 @@
                 <?php }?>
                 <div class="alert alert-info" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p><strong>Info:</strong> Displaying <strong>total numbers</strong> of patients who visited per day, week, month and year</p>
+                  <p><span class="glyphicon glyphicon-info-sign"></span> <strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
                 </div>
                 <!-- End of Page Heading -->
 
@@ -126,13 +126,13 @@
                         </div>
                       </div>
                       <div class="offer-content">
-                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> Today</h3>
+                        <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> Today</h3>
                         <?php 
                           if ($count != 0) {?> 
-                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files today.</p>
+                            <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</p>
                             <?php    }
                           else {?>
-                            <p>You haven't uploaded any files today.</p>
+                            <p>You haven't added any record today.</p>
                           <?php    }
                         ?>
                       </div>
@@ -150,13 +150,13 @@
                         </div>
                       </div>
                       <div class="offer-content">
-                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Week</h3>
+                        <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h3>
                         <?php 
                           if ($count != 0) {?> 
-                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this week.</p>
+                            <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</p>
                           <?php    }
                           else {?>
-                            <p>You haven't uploaded any files this week.</p>
+                            <p>You haven't added any record this week.</p>
                           <?php    }
                         ?>
                       </div>
@@ -174,13 +174,13 @@
                         </div>
                       </div>
                       <div class="offer-content">
-                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Month</h3>
+                        <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> This Month</h3>
                         <?php 
                           if ($count != 0) {?> 
-                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this month.</p>
+                            <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</p>
                           <?php    }
                           else {?>
-                            <p>You haven't uploaded any files this.</p>
+                            <p>You haven't added any records this month.</p>
                           <?php    }
                         ?>
                       </div>
@@ -198,13 +198,13 @@
                         </div>
                       </div>
                       <div class="offer-content">
-                        <h3 class="lead"><span class="glyphicon glyphicon-calendar"></span> This Year</h3>
+                        <h3 class="lead"><i class="fa fa-calendar"></i> This Year</h3>
                         <?php 
                           if ($count != 0) {?> 
-                            <p>You have uploaded <?php echo NumbersToWords::convert($count); ?> files this year.</p>
+                            <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</p>
                           <?php    }
                           else {?>
-                            <p>You haven't uploaded any files this year.</p>
+                            <p>You haven't any records this year.</p>
                           <?php    }
                         ?>
                       </div>
