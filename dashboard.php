@@ -25,6 +25,7 @@
 
   if (isset($_GET['loginSuccess'])) {
     $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
+    header("Refresh:3; dashboard.php");
   }
     
     //Render facebook profile data
@@ -105,9 +106,9 @@
                   <?php echo $successMSG; ?>
                 </div>              
                 <?php }?>
-                <div class="alert alert-warning" role="alert">
+                <div class="alert alert-info" role="alert">
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <p>Displaying total numbers of patients who visited per day, week, month and year</p>
+                  <p><strong>Info:</strong> Displaying <strong>total numbers</strong> of patients who visited per day, week, month and year</p>
                 </div>
                 <!-- End of Page Heading -->
 
@@ -230,7 +231,7 @@
   <script src="assets/js/index.js" type="text/javascript"></script>
   <script type="text/javascript">
     window.setTimeout(function() {
-      $(".success-login").fadeTo(500,0).slideUp(500, function(){
+      $(".success-login").fadeTo(1000,0).slideUp(1000, function(){
         $(this).remove();
       });
     }, 3000);

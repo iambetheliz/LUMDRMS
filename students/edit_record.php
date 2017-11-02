@@ -191,13 +191,21 @@
                   <div class="col-lg-6">
                     <label class="col-2 col-form-label">Program</label>
                     <select class="form-control" name="program">
-                      <option value="undefined">Choose...</option>
-                      <option value="BS Accountancy">BS Accountancy</option>
-                      <option value="BS Computer Science">BS Computer Science</option>
-                      <option value="BS Communication Arts">BS Communication Arts</option>
-                      <option value="BS Education">BS Education</option>
-                      <option value="BS Entrepreneurship">BS Entrepreneurship</option>
-                      <option value="BS Information Technology">BS Information Technology</option>
+                      <option value="<?php echo $row['program'];?>"><?php echo $row['program'];?></option>
+                      <option value="BSA">BS Accountancy</option>
+                      <option value="BSAct">BS Accounting</option>
+                      <option value="BAC">Bachelor in Arts and Communication</option>
+                      <option value="BSCS">BS Computer Science</option>
+                      <option value="BEED">Bachelor in Elementary Education</option>
+                      <option value="BSED">Bachelor in Secondary Education</option>
+                      <option value="BSE">BS Entrepreneurship</option>
+                      <option value="BSIT">BS Information Technology</option>
+                      <option value="BSME">BS Mechanical Engineering</option>
+                      <option value="BSTM">BS Tourism Management</option>
+                      <option value="HCS">Health Care Services</option>
+                      <option value="MID">Midwifery</option>
+                      <option value="SHS11">Senior High School: Grade 11</option>
+                      <option value="SHS12">Senior High School: Grade 12</option>
                     </select>
                   </div>
                   <div class="col-lg-2">

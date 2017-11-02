@@ -8,6 +8,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
             <a class="navbar-brand" style="color: white;" href="/lu_clinic">
               <img src="images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
             </a>

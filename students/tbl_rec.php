@@ -60,9 +60,16 @@
 <title>Student Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">    
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 0;
+    border-radius: 4px;
+}
+</style>
 </head>
 <body>
 
@@ -162,20 +169,21 @@
                             </ul>
                         </div>
                         <!-- End Sort button -->
+
+                        <!-- Filter button -->
                         <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info active">
-                            <input type="radio" name="status" value="all" checked="checked"> All
-                        </label>
-                        <label class="btn btn-success">
-                            <input type="radio" name="status" value="active"> Active
-                        </label>
-                        <label class="btn btn-warning">
-                            <input type="radio" name="status" value="inactive"> Inactive
-                        </label>
-                        <label class="btn btn-danger">
-                            <input type="radio" name="status" value="expired"> Expired
-                        </label>                            
-                    </div>
+                            <label class="btn btn-info active">
+                                <input type="radio" name="status" value="all" checked="checked"> All
+                            </label>
+                            <label class="btn btn-success">
+                                <input type="radio" name="status" value="Ok"> Ok
+                            </label>
+                            <label class="btn btn-danger">
+                                <input type="radio" name="status" value="Pending"> Pending
+                            </label>                            
+                        </div>
+                        <!-- End Filter button -->
+
                         <!-- Search Button -->
                         <form action="" method="get">
                         <div class="input-group pull-right" style="width: 300px;">
@@ -198,6 +206,9 @@
                 	$DB_con = new mysqli("localhost", "root", "", "records");
 
                 	$page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
+
+                    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`"); 
+                    $count = $result->num_rows;
     				
     				if ($page <= 0) $page = 1;
     					$per_page = 5; // Set how many records do you want to display per page.
@@ -220,8 +231,7 @@
 						else {
     						$startpoint = ($page * $per_page) - $per_page;
                             $statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`";
-    						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
-                            $count = $result->num_rows;
+    						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}");
 						}
                 ?>
                 <br>
@@ -240,7 +250,7 @@
                     <span style="word-spacing:normal;"> | With selected :</span>
                     <span><a class="text-danger" href="#" onClick="delete_records();"> <span class="glyphicon glyphicon-trash"></span> Delete</a></span>
                     </label>
-                    <label class="pull-right">Total rows: <?php echo $count; ?></label>
+                    <label class="pull-right">Total number of rows: <?php echo $count; ?></label>
                     <br>
                     <div class="table-responsive">
                 	<table class="table  table-striped table-bordered" id="myTable">
@@ -262,11 +272,24 @@
                 		<tbody>
                 			<?php 
     						// displaying records.
-    						while ($row = $result->fetch_assoc()){ ?>
+    						while ($row = $result->fetch_assoc()){ 
+                                if (($row['med']) != 'Ok') {
+                                    $color = "red";
+                                }
+                                else {
+                                    $color = "green";
+                                }
+                                if (($row['dent']) != 'Pending') {
+                                    $color2 = "green";
+                                }
+                                else {
+                                    $color2 = "red";
+                                }
+                            ?>
                 			<tr>
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                                <td><?php echo $row['med']; ?></td>
-                                <td><?php echo $row['dent']; ?></td>
+                                <td style="color:<?php echo $color;?>;"><?php echo $row['med']; ?></td>
+                                <td style="color:<?php echo $color2;?>;"><?php echo $row['dent']; ?></td>
                 				<td><?php echo strtoupper($row['last_name']); ?></td>
                 				<td><?php echo ucwords($row['first_name']); ?></td>
                 				<td><?php echo ucwords($row['middle_name'])." "; echo $row['ext']; ?></td>

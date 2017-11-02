@@ -15,7 +15,7 @@
             <span class="icon-bar"></span>
           </button>
             <a style="color: white;" href="/lu_clinic" class="navbar-brand">
-              <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University
+              <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
             </a>
           </div>
 
