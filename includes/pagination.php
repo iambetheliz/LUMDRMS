@@ -88,7 +88,7 @@ function pagination($query,$per_page=10,$page=1,$url='?'){
             }
          
         $pagination.= "</ul>";   
-        $pagination .= "Page {$page} of {$lastpage}<br><br><br>";
+        $pagination .= "<span class='text-muted'>Page {$page} of {$lastpage}</span>";
     }
      
     return $pagination;
