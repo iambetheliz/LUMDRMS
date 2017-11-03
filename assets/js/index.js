@@ -62,7 +62,7 @@ $(document).ready(function () {
   $("#ext").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
         //display error message
         $("#errmsg").html("Letters Only").show().fadeOut("slow");
             return false;
@@ -71,7 +71,7 @@ $(document).ready(function () {
   $("#cperson").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
         //display error message
         $("#errmsg").html("Letters Only").show().fadeOut("slow");
             return false;
@@ -136,6 +136,12 @@ $(document).ready(function () {
     var col_id = $(this).attr("href");
     $(col_id).collapse('toggle');
   });
+  //Settings Menu
+  $("[data-toggle='toggle']").click(function() {
+    var selector = $(this).data("target");
+    $(selector).toggleClass('in');
+  });
+
 });
 //Filter Table
 

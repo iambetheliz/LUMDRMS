@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Student Information | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -48,6 +48,19 @@
 <style type="text/css">  
 .col-2 {
   padding-right: 20px;
+}
+#settings {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  vertical-align: middle;
+  height: 30px;
+  width: 0px;
+}
+#settings.in {
+  width: auto;
+  margin-right: 10px;
+  transition: all 0.4s ease 0s;
 }
 </style>
 </head>
@@ -108,8 +121,18 @@
     
     	      <!-- Page Heading -->
             <div class="row">
-              <div class="col-lg-12">
-                <h1 class="page-header">Student's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
+              <div class="container-fluid">
+                <h1 class="page-header">Student's Information 
+                  <button type="button" class="btn btn-default pull-right" data-toggle="toggle" data-target="#settings"><i class="fa fa-gear"></i>
+                  </button>
+                  <div id="settings" class="btn-toolbar pull-right" style="height: 40px;">
+                    <div class="btn-group pull-right" title="Change font size" data-toggle="tooltip" data-placement="left" role="group">
+                      <button type="button" class="btn btn-default" id="up"><i class="fa fa-font"></i>+</button>
+                      <button type="button" class="btn btn-default" id="down"><i class="fa fa-font"></i>-</button>
+                    </div>
+                    <button type="button" class="btn btn-default" onclick="window.print()"><i class="fa fa-print"></i></button>
+                  </div>
+                </h1>             
               </div>
             </div>
             <!-- End of Page Heading -->
@@ -117,7 +140,7 @@
             <!-- Student Status Form -->
             <div class="container-fluid">
               <div class="row">
-                <div class="form-group row">   
+                <div class="form-group row">  
                   <div class="col-lg-2"> 
                     <label>Student No.:</label>
                     <?php echo $row['studentNo'];?>
@@ -143,7 +166,7 @@
                   <div class="panel-heading">
                     BASIC INFORMATION 
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body content">
 
                   <div class="col-lg-6">   
                     <div class="form-group row">          
@@ -379,6 +402,35 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js" type="text/javascript"></script>
+<script type="text/javascript">
+// When + or - buttons are clicked the font size of the h1 is increased/decreased by 2
+// The max is set to 50px for this demo, the min is set by min font in the user's style sheet
+
+function getSize() {
+  size = $( ".form-group" ).css( "font-size" );
+  size = parseInt(size, 10);
+  $( "#font-size" ).text(  size  );
+}
+
+//get inital font size
+getSize();
+
+$( "#up" ).on( "click", function() {
+
+  // parse font size, if less than 50 increase font size
+  if ((size + 2) <= 20) {
+    $( ".form-group" ).css( "font-size", "+=2" );
+    $( "#font-size" ).text(  size += 2 );
+  }
+});
+
+$( "#down" ).on( "click", function() {
+  if ((size - 2) >= 14) {
+    $( ".form-group" ).css( "font-size", "-=2" );
+    $( "#font-size" ).text(  size -= 2  );
+  }
+});
+</script>
     
 </body>
 </html>

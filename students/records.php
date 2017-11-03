@@ -121,8 +121,8 @@
                 <!-- End of Page Heading -->
                 
                 <!-- Buttons -->
-                <div class="row">
-                  <div class="col-lg-12">
+                <div class="container-fluid">
+                  <div class="row">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
                     	<a href="new_student.php" class="btn btn-success">Add New</a>
@@ -213,10 +213,10 @@
     						$search = $DB_con->real_escape_string($search);
     
         					if (empty($search)) {
-            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
+            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
         					}
                             else {
-                                $output1 = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
+                                $output1 = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
                             }
     
     						$startpoint = ($page * $per_page) - $per_page;
@@ -358,6 +358,10 @@
         document.frm.action = "delete_mul.php";
         document.frm.submit();
     }
+    $('#close').click(function() {
+        window.location.href = 'records.php';
+        return false;
+    });
     </script>
     
 </body>

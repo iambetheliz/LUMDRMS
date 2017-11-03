@@ -98,7 +98,7 @@
     	      <!-- Page Heading -->
             <div class="row">
               <div class="col-lg-12">             
-                <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+                <h1 class="page-header">Add New Student <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
               </div>
             </div>
             <!-- End of Page Heading -->  
@@ -137,7 +137,7 @@
                       </div>     
                       <div class="col-lg-1">
                         <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
-                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2" id="ext">
+                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                       </div>   
                       <div class="col-lg-1">
                         <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errormsg"></span>
