@@ -125,7 +125,7 @@
                   <div class="col-lg-12">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
-                    	<a href="add_student.php" class="btn btn-success">Add New</a>
+                    	<a href="new_student.php" class="btn btn-success">Add New</a>
                         <!-- Filter -->
                         <!-- End -->
                         <!-- Sort button -->
@@ -337,9 +337,27 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/index.js" type="text/javascript"></script>
-    <script src="delete_mul.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //  for select / deselect all
+    $('document').ready(function() {
+        $(".select-all").change(function () {
+            $(".chk-box").prop('checked', $(this).prop("checked"));
+        });        
+        $(".chk-box").click(function() {
+            if($(".chk-box").length == $(".chk-box:checked").length) {
+                $(".select-all").attr("checked", "checked");
+            }
+            else {
+                $(".select-all").removeAttr("checked");
+            }
+        });
+    });
 
-    <script>
+    //  for select / deselect all
+    function delete_records() {
+        document.frm.action = "delete_mul.php";
+        document.frm.submit();
+    }
     </script>
     
 </body>

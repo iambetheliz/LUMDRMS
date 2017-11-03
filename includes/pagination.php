@@ -1,5 +1,5 @@
 <?php
-    require_once '../dbconnect.php';
+    require_once '../includes/dbconnect.php';
 
     $DB_con = new mysqli("localhost", "root", "", "records");
 

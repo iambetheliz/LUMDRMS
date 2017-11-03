@@ -94,10 +94,10 @@
                 <li class="active have-child" role="presentation">
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse in">
-                        <li class="active">
+                        <li>
                             <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="/lu_clinic/faculties/records.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
                         </li>
                     </ul>
@@ -125,7 +125,7 @@
                   <div class="col-lg-12">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
-                    	<a href="add_student.php" class="btn btn-success">Add New</a>
+                    	<a href="new_faculty.php" class="btn btn-success">Add New</a>
                         <!-- Filter -->
                         <!-- End -->
                         <!-- Sort button -->
@@ -337,9 +337,27 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
     <script src="../assets/js/index.js" type="text/javascript"></script>
-    <script src="delete_mul.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        //  for select / deselect all
+    $('document').ready(function() {
+        $(".select-all").change(function () {
+            $(".chk-box").prop('checked', $(this).prop("checked"));
+        });        
+        $(".chk-box").click(function() {
+            if($(".chk-box").length == $(".chk-box:checked").length) {
+                $(".select-all").attr("checked", "checked");
+            }
+            else {
+                $(".select-all").removeAttr("checked");
+            }
+        });
+    });
 
-    <script>
+    //  for select / deselect all
+    function delete_records() {
+        document.frm.action = "delete_mul.php";
+        document.frm.submit();
+    }
     </script>
     
 </body>
