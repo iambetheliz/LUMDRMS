@@ -1,6 +1,6 @@
 <?php
   ob_start();
-  require_once '../dbconnect.php';
+  require_once '../includes/dbconnect.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
   
@@ -87,7 +87,7 @@
         <div class="container-fluid">
 
           <?php 
-            require_once '../dbconnect.php';
+            require_once '../includes/dbconnect.php';
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 

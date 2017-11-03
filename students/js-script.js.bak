@@ -1,6 +1,4 @@
 // JavaScript Document
-
-
 //  for select / deselect all
 
 $('document').ready(function()

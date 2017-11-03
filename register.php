@@ -1,7 +1,7 @@
 <?php
 	ob_start();
 	include_once 'header.php';
-	include_once 'dbconnect.php';
+	include_once 'includes/dbconnect.php';
 	if(empty($_SESSION)) // if the session not yet started 
    		session_start();
 	

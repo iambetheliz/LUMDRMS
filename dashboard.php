@@ -1,6 +1,6 @@
 <?php
   ob_start();
-  require_once 'dbconnect.php';
+  require_once 'includes/dbconnect.php';
   include 'includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
@@ -79,7 +79,7 @@
                             <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li>
-                            <a href="/lu_clinic/faculties/add_new.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                            <a href="/lu_clinic/faculties/records.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
                         </li>
                     </ul>
                 </li>

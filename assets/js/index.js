@@ -110,9 +110,6 @@ $(document).ready(function() {
         e.preventDefault();
         $("#wrapper").toggleClass("toggled");
     });
-    $("#close").on("click", function () {
-    	window.open("tbl_rec.php", "_self");
-	});
 });
 
 // Menu Collapse
