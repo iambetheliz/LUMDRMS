@@ -24,9 +24,9 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 	if($_REQUEST['action_type'] == 'add'){
 
   		$studentNo = $_POST['studentNo'];
-  		$last_name = $_POST['last_name'];
   		$first_name = $_POST['first_name'];
   		$middle_name = $_POST['middle_name'];
+      $last_name = $_POST['last_name'];
       $ext = $_POST['ext'];
   		$age = $_POST['age'];
   		$sex = $_POST['sexOption'];
@@ -50,16 +50,31 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $med = 'Pending';
       $dent = 'Pending';
 
+      //Validations
+      if (strlen($studentNo) < 8) {
+        $error = true;
+        header("Location: new_student.php?error");
+      }
+      else {
+        $query = "SELECT studentNo FROM students WHERE studentNo='$studentNo'";
+        $result = $DB_con->query($query);
+
+        if($result->num_rows != 0){
+          $error = true;
+          header("Location: new_student.php?error");
+        }
+      }
+
       // if there's no error, continue to signup
   		if( !$error ) {
 
-        $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query1 = "INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
         $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt3 = $DB_con->prepare($query3);
 
-   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+   			$stmt1->bind_param($studentNo,$first_name,$middle_name,$last_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
         $stmt3->bind_param($med,$dent);
 
    			if (!$stmt1 || !$stmt3){

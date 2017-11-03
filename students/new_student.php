@@ -33,9 +33,10 @@
         header("Refresh:3; logout.php?logout");
     }
 
-  if (isset($_GET['error'])) {
-        $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
-        header('Refresh:3; medical_form.php');
+    $errorMSG = '';
+    if (isset($_GET['error'])) {
+        $errorMSG = "Something went wrong!";
+        header('Refresh:3; new_student.php');
     }
 
 ?>
@@ -52,11 +53,14 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-  #form label.error {
+#form label.error {
 color:red;
 }
 #form input.error {
 border:1px solid red;
+}
+.col-2 {
+  padding-right: 20px;
 }
 </style>
 </head>
@@ -99,108 +103,122 @@ border:1px solid red;
     <div id="page-content-wrapper">
       <div class="page-content">
         <div class="container-fluid">
-
-          <!-- Start of Form -->
-          <form action="action.php" id="form" method="post" autocomplete="">
     
     	      <!-- Page Heading -->
             <div class="row">
-              <div class="col-lg-12">             
-                <h1 class="page-header">Add New Student <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+              <div class="container-fluid">             
+                <h3 class="page-header">Add New Student <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h3>
               </div>
             </div>
             <!-- End of Page Heading -->  
+            
+          <!-- Start of Form -->
+          <form action="action.php" id="form" name="form" method="post" autocomplete="">
 
-            <!-- Student Status Form -->
+            <!-- Basic Info -->
             <div class="row">
-              <div class="col-lg-12">
-                <div class="form-group row">   
-                  <div class="col-lg-2"> 
-                    <label for="studentNo">Student No.</label>
-                    <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of Student Status-->
-    
-            <div class="container-fluid">
-              <div class="row"> 
-                <!-- Basic Info -->
+              <div class="container-fluid"> 
                 <div class="panel panel-success">
-                  <div class="panel-heading">BASIC INFORMATION</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">BASIC INFORMATION</div>
+                  </div>
                   <div class="panel-body">
-                    <div class="form-group row">   
-                      <div class="col-lg-3">          
-                        <label class="col-2 col-form-label" for="inlineFormInput">Surname</label> 
-                        <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" placeholder="Dela Cruz" name="last_name" id="last_name">
+                    <div class="col-lg-3">     
+                      <div class="form-group row"> 
+                        <label for="studentNo">Student No.: </label> 
+                        <span class="text-danger pull-right"><?php echo $errMSG; ?></span>
+                        <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
                       </div>
-                      <div class="col-lg-3">
-                        <label class="col-2 col-form-label" for="inlineFormInput">First Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                      <div class="form-group row">
+                        <label for="first_name">First Name: </label> 
                         <input type="text" class="form-control" placeholder="Juan" name="first_name" id="first_name">
                       </div>
-                      <div class="col-lg-2">
-                        <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label> <span class="text-danger pull-right" id="errmsg"></span>
+                      <div class="form-group row">
+                        <label for="inlineFormInput">Middle Name: </label> 
                         <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
-                      </div>     
-                      <div class="col-lg-1">
-                        <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
+                      </div>
+                      <div class="form-group row">
+                        <label for="inlineFormInput">Last Name: </label> 
+                        <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name">
+                      </div>
+                      <div class="form-group row">
+                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small>
                         <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                       </div>   
-                      <div class="col-lg-1">
-                        <label for="example-number-input" class="col-2 col-form-label">Age</label> <span class="text-danger pull-right" id="errormsg"></span>
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-2">
+                      <div class="form-group row">
+                        <label class="col-2">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
                         <input class="form-control" type="text" placeholder="00" name="age" id="age" maxlength="2">
                       </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Sex</label>
+                      <div class="form-group row">
+                        <label for="example-date-input" class="col-2 col-form-label">Gender</label>
                           <select class="form-control" name="sexOption">
-                            <option value="undefined">Choose...</option>
+                            <option value="undefined">Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                           </select>
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <div class="col-lg-6">
-                        <label for="example-date-input" class="col-2 col-form-label">Program</label>
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-3">
+                      <div class="form-inline row">
+                        <label class="col-2">Program</label>
                         <select class="form-control" name="program">
-                          <option value="unknown">Choose...</option>
+                          <option value="unknown">Select</option>
                           <option value="BSA">BS Accountancy</option>
                           <option value="BSAct">BS Accounting</option>
-                          <option value="BAC">Bachelor in Arts and Communication</option>
+                          <option value="BAC">AB in Communication</option>
                           <option value="BSCS">BS Computer Science</option>
-                          <option value="BEED">Bachelor in Elementary Education</option>
-                          <option value="BSED">Bachelor in Secondary Education</option>
+                          <option value="BEED">BE Education</option>
+                          <option value="BSED">BS Education</option>
                           <option value="BSE">BS Entrepreneurship</option>
                           <option value="BSIT">BS Information Technology</option>
                           <option value="BSME">BS Mechanical Engineering</option>
                           <option value="BSTM">BS Tourism Management</option>
                           <option value="HCS">Health Care Services</option>
                           <option value="MID">Midwifery</option>
-                          <option value="SHS11">Senior High School: Grade 11</option>
-                          <option value="SHS12">Senior High School: Grade 12</option>
+                          <option value="SHS11">Senior High: Grade 11</option>
+                          <option value="SHS12">Senior High: Grade 12</option>
                         </select>
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
+                      </div>         
+                    </div>
+
+                    <div class="col-lg-2">
+                      <div class="form-group row">
+                        <label for="example-date-input" class="col-2 col-form-label">Year</label>
                         <select class="form-control" name="yearLevel">
-                          <option value="undefined">Choose...</option>
+                          <option value="unknown">Select</option>
                           <option value="1st">1st Year</option>
                           <option value="2nd">2nd Year</option>
                           <option value="3rd">3rd Year</option>
                           <option value="4th">4th Year</option>
                         </select>
-                      </div>
-                      <div class="col-lg-2">
+                      </div>     
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-2"> 
+                      <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label>
                         <select class="form-control" name="semOption">
-                          <option value="undefined">Choose...</option>
+                          <option value="unknown">Select</option>
                           <option value="1st">1st</option>
                           <option value="2nd">2nd</option>
                         </select>
                       </div>
-                      <div class="col-lg-2">
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-2">
+                      <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
                           <?php
                             $currently_selected = date('Y'); 
@@ -218,36 +236,49 @@ border:1px solid red;
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <div class="col-lg-12">
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-8">
+                      <br><hr>
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-8">
+                      <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                        <input type="text" class="form-control" name="address" id="address">
+                        <textarea class="form-control" name="address" id="address"></textarea>
                       </div>
                     </div>
 
-                    <div class="form-group row">
-                      <div class="col-lg-6">
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-4">
+                      <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
                         <input type="text" class="form-control" name="cperson" id="cperson">
                       </div>
-                      <div class="form-group col-lg-3">
-                        <label for="example-date-input" class="col-2 col-form-label">Cellphone No.</label>
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group row">
+                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label>
                         <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
-                      </div>
-                      <div class="form-group col-lg-3">
-                        <label for="example-date-input" class="col-2 col-form-label">Telephone No.</label>
-                        <input type="text" name="tphone" id="tphone" class="form-control" placeholder="536-1234">
                       </div>
                     </div>
                   </div>
+                  <!-- End Panel Body -->
+                  <div class="panel-footer">
+                    <div class="form-group">
+                      <input type="hidden" name="action_type" value="add"/>
+                      <input type="submit" class="btn btn-primary" id="add" name="btn-add" value="Add Record" />
+                    </div>
+                  </div>
                 </div>
-                <!-- End of Basic Infor -->
+                <!-- End of Basic Info -->
 
-                <div class="form-group">
-                  <input type="hidden" name="action_type" value="add"/>
-                  <input type="submit" class="btn btn-primary" id="add" name="btn-add" value="Add Record" />
-                </div>
-              <!-- End -->
               </div>
             </div>
 
@@ -279,7 +310,7 @@ border:1px solid red;
     $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
   });
 </script>
-    
+
 </body>
 </html>
 <?php ob_end_flush(); ?>

@@ -303,7 +303,7 @@
                             <?php }
                                 } 
                             else {
-                                $errMSG = "No records found.";
+                                $errMSG = "No records found."; 
                             }?>
                 		</tbody>
                 	</table>

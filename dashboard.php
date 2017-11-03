@@ -213,7 +213,9 @@
                 </div>
                 <!-- End of Badges -->
 
-                <!-- Table -->
+                <!-- Table --><hr>
+                <div class="row">
+                <div class="col-lg-6">
                 <div class="panel panel-default panel-table">
                   <div class="panel-heading">
                     <div class="row">
@@ -240,7 +242,7 @@
                   </table>
                   </div>
                   <div class="panel-footer"></div>
-                </div>
+                </div></div></div>
                 <!-- End of tables -->
 
             </div>  
