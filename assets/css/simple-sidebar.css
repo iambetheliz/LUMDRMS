@@ -17,14 +17,13 @@ body {
   background: #25441a;
   position: fixed;
   height: 100%;
-  overflow-y: auto;
+  overflow-x: hidden; /* Disable horizontal scroll */
   z-index: 1000;
   transition: all 0.4s ease 0s;
 }
 
 #wrapper.toggled {
   padding-left: 0;
-  width: 100%;
 }
 
 #wrapper.toggled #sidebar-wrapper {
@@ -156,7 +155,7 @@ body {
 
 #wrapper.toggled {
   position: relative;
-  left: 230px;
+  margin-left: 230px;
 }
 
 #wrapper.toggled #sidebar-wrapper {
