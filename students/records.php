@@ -181,12 +181,15 @@
 
                         <!-- Search Button -->
                         <form action="" method="get">
-                        <div class="input-group pull-right" style="width: 300px;">
+                        <div class="form-inline">
+                          <div class="input-group pull-right">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                          </div>
                         </div>
                         </form>                        
                         <!-- End of Search Button -->
+                        
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
