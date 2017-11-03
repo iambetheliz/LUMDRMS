@@ -189,7 +189,7 @@
                         </div>
                         </form>                        
                         <!-- End of Search Button -->
-                        
+
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
@@ -216,10 +216,10 @@
     						$search = $DB_con->real_escape_string($search);
     
         					if (empty($search)) {
-            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
+            					$output = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
         					}
                             else {
-                                $output1 = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
+                                $output = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
                             }
     
     						$startpoint = ($page * $per_page) - $per_page;
@@ -234,10 +234,11 @@
 						}
                 ?>
                 <br>
-                <?php if (isset($_GET['search'])) {
-    				echo $output1;
-				}  ?>
-
+                <?php 
+                    if (isset($_GET['search'])) {
+    				    echo $output;
+				    }
+                ?>
                 <?php
                 if ($result->num_rows != 0) { ?>
                 <!-- Start of Table -->

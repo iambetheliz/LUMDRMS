@@ -96,7 +96,7 @@
     	          <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Welcome to your dashboard!</h1>
+                        <h2 class="page-header">Dashboard</h2>
                     </div>
                 </div>  
                 <?php 
@@ -212,6 +212,37 @@
                   </div>  
                 </div>
                 <!-- End of Badges -->
+
+                <!-- Table -->
+                <div class="panel panel-default panel-table">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col col-lg-6">
+                        <h3 class="panel-title">Panel Heading</h3>
+                      </div>
+                      <div class="col col-lg-6 text-right">
+                        <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                  <table class="table table-striped table-bordered table-list">
+                    <thead>
+                    <tr>
+                      <th>Medical Issues</th>
+                      <th>Tota Number</th>
+                    </tr>
+                  </thead>
+                    <tr>
+                      <td>Something</td>
+                      <td>Something</td>
+                    </tr>
+                  </table>
+                  </div>
+                  <div class="panel-footer"></div>
+                </div>
+                <!-- End of tables -->
+
             </div>  
           </div>
         </div>
