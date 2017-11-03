@@ -51,6 +51,14 @@
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  #form label.error {
+color:red;
+}
+#form input.error {
+border:1px solid red;
+}
+</style>
 </head>
 <body>
 
@@ -93,7 +101,7 @@
         <div class="container-fluid">
 
           <!-- Start of Form -->
-          <form action="action.php" method="post" autocomplete="">
+          <form action="action.php" id="form" method="post" autocomplete="">
     
     	      <!-- Page Heading -->
             <div class="row">
@@ -108,7 +116,7 @@
               <div class="col-lg-12">
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
-                    <label>Student No.</label>
+                    <label for="studentNo">Student No.</label>
                     <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
                   </div>
                 </div>
@@ -116,8 +124,8 @@
             </div>
             <!-- End of Student Status-->
     
-            <div class="row">
-              <div class="col-lg-12"> 
+            <div class="container-fluid">
+              <div class="row"> 
                 <!-- Basic Info -->
                 <div class="panel panel-success">
                   <div class="panel-heading">BASIC INFORMATION</div>

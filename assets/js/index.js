@@ -68,6 +68,15 @@ $(document).ready(function () {
             return false;
       }
   });
+  $("#address").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 44 && inputValue != 46 && inputValue != 0) && !(inputValue >= 48 && inputValue <= 57)) { 
+        //display error message
+        $("#errmsg").html("Invalid character").show().fadeOut("slow");
+            return false;
+      }
+  });
   $("#cperson").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
