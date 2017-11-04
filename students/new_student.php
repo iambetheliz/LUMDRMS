@@ -56,9 +56,6 @@
 #form input.error {
 border:1px solid red;
 }
-.error {
-border:1px solid red;
-}
 .col-2 {
   padding-right: 20px;
 }
@@ -107,15 +104,8 @@ border:1px solid red;
     	      <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">             
-                <h3 class="page-header">Add New Student 
-                  <small>
-                  <ol class="breadcrumb pull-right">
-                    <li><a href="#">Home</a></li>
-                    <li>Students</li>
-                    <li class="active">New</li>
-                  </ol>
-                  </small>
-                </h3>
+                <h3 class="page-header">Add New Student
+                  <small><span class="text-danger pull-right" id="errmsg"></span></small></h3>
               </div>
             </div>
             <!-- End of Page Heading --> 
@@ -125,7 +115,6 @@ border:1px solid red;
                 <?php echo $errorMSG; ?>
               </div>
             </div>
-
             
           <!-- Start of Form -->
           <form action="action.php" id="form" name="form" method="post" autocomplete="">
@@ -140,7 +129,7 @@ border:1px solid red;
                   <div class="panel-body">
                     <div class="col-lg-3">     
                       <div class="form-group row"> 
-                        <label for="studentNo">Student No.: </label><span class='text-danger pull-right' id='errmsg'></span>
+                        <label for="studentNo">Student No.: </label>
                         <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
                       </div>
                       <div class="form-group row">
@@ -316,6 +305,23 @@ border:1px solid red;
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
+<script type="text/javascript">
+  $('#add').on('click', function() {
+    valid = true;   
+
+    if (valid && $('#studentNo').val() == '') {
+      $("#errmsg").html("Please enter your Student Number!").show();
+      $("#studentNo").addClass('error');
+        valid = false;
+    } else {
+      $("#errmsg").fadeOut("slow");
+      $("#studentNo").removeClass('error');
+       valid = true;
+    }
+
+    return valid;
+});
+</script>
 
 </body>
 </html>

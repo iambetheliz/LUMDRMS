@@ -39,6 +39,7 @@ $(document).ready(function () {
     var col_id = $(this).attr("href");
     $(col_id).collapse('toggle');
   });
+  
   //Settings Menu
   $("[data-toggle='toggle']").click(function() {
     var selector = $(this).data("target");
@@ -49,23 +50,6 @@ $(document).ready(function () {
 //Filter Table
 
 //Disable inputs untill student number is filled up
-(function() {
-    $('form > input').keyup(function() {
-
-        var empty = false;
-        $('form > input').each(function() {
-            if ($(this).val() == '') {
-                empty = true;
-            }
-        });
-
-        if (empty) {
-            $('#register').attr('disabled', 'disabled');
-        } else {
-            $('#register').removeAttr('disabled');
-        }
-    });
-})()
 
 //Sort Table
 function sortTable(n) {
@@ -147,14 +131,12 @@ $(document).ready(function () {
     } else if (curchr == 7) {
       $(this).val(curval);
       $(this).attr('maxlength', '8'); 
-      $("#errmsg").hide();
-      $(this).removeClass('error');
       return true;
     } else if (curchr == 8) {
       $("#errmsg").html("8 characters only!").show();
       $(this).addClass('error');
         return false;
-    }        
+    }    
   });
 
   $("#age").keypress(function (e) {
@@ -235,4 +217,6 @@ $(document).ready(function () {
             return false;
       }
   });
+
+  $('form > input').click()
 });

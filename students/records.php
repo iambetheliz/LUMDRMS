@@ -289,8 +289,12 @@
                             ?>
                 			<tr data-status="<?php echo $status;?>">
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                                <td style="color:<?php echo $color;?>;"><?php echo $row['med']; ?></td>
-                                <td style="color:<?php echo $color2;?>;"><?php echo $row['dent']; ?></td>
+                                <td style="color:<?php echo $color;?>;">
+                                    <?php echo $row['med']; ?> 
+                                </td>
+                                <td style="color:<?php echo $color2;?>;">
+                                    <?php echo $row['dent']; ?>
+                                </td>
                 				<td><?php echo strtoupper($row['ext'])." "; echo strtoupper($row['last_name']); ?></td>
                 				<td><?php echo strtoupper($row['first_name']); ?></td>
                 				<td><?php echo strtoupper($row['middle_name']); ?></td>
