@@ -35,8 +35,7 @@
 
     $errorMSG = '';
     if (isset($_GET['error'])) {
-        $errorMSG = "<div class='alert alert-danger'>Invalid!</div>";
-        header('Refresh:3; new_student.php');
+        $errorMSG = "Already exists!";
     }
 
 ?>
@@ -54,7 +53,10 @@
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 #form input.error {
-border:1px solid red;
+  border:1px solid red;
+}
+#form span.error {
+  color: red;
 }
 .col-2 {
   padding-right: 20px;
@@ -109,12 +111,6 @@ border:1px solid red;
               </div>
             </div>
             <!-- End of Page Heading --> 
-
-            <div class="row">
-              <div class="container-fluid">
-                <?php echo $errorMSG; ?>
-              </div>
-            </div>
             
           <!-- Start of Form -->
           <form action="action.php" id="form" name="form" method="post" autocomplete="">
@@ -129,23 +125,23 @@ border:1px solid red;
                   <div class="panel-body">
                     <div class="col-lg-3">     
                       <div class="form-group row"> 
-                        <label for="studentNo">Student No.: </label>
+                        <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
                       </div>
                       <div class="form-group row">
-                        <label for="first_name">First Name: </label> 
+                        <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" placeholder="Juan" name="first_name" id="first_name">
                       </div>
                       <div class="form-group row">
-                        <label for="inlineFormInput">Middle Name: </label> 
+                        <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
                       </div>
                       <div class="form-group row">
-                        <label for="inlineFormInput">Last Name: </label> 
+                        <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name">
                       </div>
                       <div class="form-group row">
-                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small>
+                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                       </div>   
                     </div>
@@ -154,11 +150,11 @@ border:1px solid red;
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label class="col-2">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
+                        <label class="col-2">Age</label> <span class="error pull-right" id="errAge"><?php echo $errorMSG; ?></span>
                         <input class="form-control" type="text" placeholder="00" name="age" id="age" maxlength="2">
                       </div>
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Gender</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"><?php echo $errorMSG; ?></span>
                           <select class="form-control" name="sexOption">
                             <option value="undefined">Select</option>
                             <option value="Male">Male</option>
@@ -171,7 +167,7 @@ border:1px solid red;
 
                     <div class="col-lg-3">
                       <div class="form-inline row">
-                        <label class="col-2">Program</label>
+                        <label class="col-2">Program</label> <span class="error pull-right" id="errProg"><?php echo $errorMSG; ?></span>
                         <select class="form-control" name="program">
                           <option value="unknown">Select</option>
                           <option value="BSA">BS Accountancy</option>
@@ -194,7 +190,7 @@ border:1px solid red;
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Year</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"><?php echo $errorMSG; ?></span>
                         <select class="form-control" name="yearLevel">
                           <option value="unknown">Select</option>
                           <option value="1st">1st Year</option>
@@ -209,7 +205,7 @@ border:1px solid red;
 
                     <div class="col-lg-2"> 
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Semester</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"><?php echo $errorMSG; ?></span>
                         <select class="form-control" name="semOption">
                           <option value="unknown">Select</option>
                           <option value="1st">1st</option>
@@ -222,7 +218,7 @@ border:1px solid red;
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"><?php echo $errorMSG; ?></span>
                           <?php
                             $currently_selected = date('Y'); 
                             $earliest_year = 2006; 
@@ -249,7 +245,7 @@ border:1px solid red;
 
                     <div class="col-lg-8">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Address</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"><?php echo $errorMSG; ?></span>
                         <textarea class="form-control" name="address" id="address"></textarea>
                       </div>
                     </div>
@@ -258,7 +254,7 @@ border:1px solid red;
 
                     <div class="col-lg-4">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"><?php echo $errorMSG; ?></span>
                         <input type="text" class="form-control" name="cperson" id="cperson">
                       </div>
                     </div>
@@ -267,7 +263,7 @@ border:1px solid red;
 
                     <div class="col-lg-3">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label>
+                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"><?php echo $errorMSG; ?></span>
                         <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
                       </div>
                     </div>
@@ -305,23 +301,6 @@ border:1px solid red;
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
-<script type="text/javascript">
-  $('#add').on('click', function() {
-    valid = true;   
-
-    if (valid && $('#studentNo').val() == '') {
-      $("#errmsg").html("Please enter your Student Number!").show();
-      $("#studentNo").addClass('error');
-        valid = false;
-    } else {
-      $("#errmsg").fadeOut("slow");
-      $("#studentNo").removeClass('error');
-       valid = true;
-    }
-
-    return valid;
-});
-</script>
 
 </body>
 </html>

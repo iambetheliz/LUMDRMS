@@ -110,14 +110,15 @@ function sortTable(n) {
 //Form Validation
 $(document).ready(function () {
   
-  // Validations
+  // Inputt Fields
   $('#studentNo').keypress(function (e) {
+      $("#errSN").hide();
+
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-      $("#errmsg").html("Numbers Only!").show();
+      $("#errSN").html("Numbers Only!").show();
       $("#studentNo").addClass('error');
       return false;
     } else {
-      $("#errmsg").hide();
       $("#studentNo").removeClass('error');
     } 
 
@@ -133,17 +134,16 @@ $(document).ready(function () {
       $(this).attr('maxlength', '8'); 
       return true;
     } else if (curchr == 8) {
-      $("#errmsg").html("8 characters only!").show();
-      $(this).addClass('error');
+      $("#errSN").html("8 characters only!").show().fadeOut("slow");
         return false;
-    }    
+    } 
   });
 
   $("#age").keypress(function (e) {
      //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && inputValue != 13) {
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
+        $("#errAge").html("Numbers Only").show().fadeOut("slow");
           return false;
     }
   });
@@ -151,33 +151,16 @@ $(document).ready(function () {
      //if the letter is not digit then display error and don't type anything
      if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
         //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
+        $("#errTel").html("Numbers Only").show().fadeOut("slow");
           return false;
     }
-  });
-  $("#tphone").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
-  });
-  $("#last_name").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
   });
   $("#first_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+        $("#errFirst").html("Letters Only").show().fadeOut("slow");
             return false;
       }
   });
@@ -186,7 +169,16 @@ $(document).ready(function () {
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+        $("#errMid").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#last_name").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        //display error message
+        $("#errLast").html("Letters Only").show().fadeOut("slow");
             return false;
       }
   });
@@ -195,7 +187,8 @@ $(document).ready(function () {
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
         //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+        $("#errExt").html("Letters Only").show().fadeOut("slow");
+        $(".text-muted").hide();
             return false;
       }
   });
@@ -204,7 +197,7 @@ $(document).ready(function () {
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 44 && inputValue != 46 && inputValue != 0) && !(inputValue >= 48 && inputValue <= 57)) { 
         //display error message
-        $("#errmsg").html("Invalid character").show().fadeOut("slow");
+        $("#errAdd").html("Invalid character").show().fadeOut("slow");
             return false;
       }
   });
@@ -213,10 +206,50 @@ $(document).ready(function () {
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
         //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+        $("#errPer").html("Letters Only").show().fadeOut("slow");
             return false;
       }
   });
 
-  $('form > input').click()
+  $(function() {
+
+    $('#add').click(function() {
+      $('#errSN').hide();
+
+      if ($('.form-control').val() == '') {
+        $("#errmsg").html("* Required Fields!").show();
+        $(".form-control").addClass('error');
+        $("#studentNo").focus();
+          return false;
+      } else if($("#studentNo").val().length >= 8){
+        $("#studentNo").removeClass("error");
+      } else{
+        $("#studentNo").addClass("error");
+        $("#errSN").html("Required!").show();
+        $("#studentNo").focus();
+          return false;
+      } 
+
+    });
+
+    $('#update').click(function() {
+      $('#errSN').hide();
+
+      if ($('.form-control').val() == '') {
+        $("#errmsg").html("* Required Fields!").show();
+        $(".form-control").addClass('error');
+        $("#studentNo").focus();
+          return false;
+      } else if($("#studentNo").val().length >= 8){
+        $("#studentNo").removeClass("error");
+      } else{
+        $("#studentNo").addClass("error");
+        $("#errSN").html("Required!").show();
+        $("#studentNo").focus();
+          return false;
+      } 
+
+    });
+
+  });
 });

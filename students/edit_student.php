@@ -180,7 +180,7 @@
                       </div>
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Gender</label>
-                        <select class="form-control" name="sexOption">
+                        <select class="form-control" name="sexOption" id="sex">
                           <option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
                           <option value="Male">Male</option>
                           <option value="Female">Female</option>
@@ -193,7 +193,7 @@
                     <div class="col-lg-3">
                       <div class="form-inline row">
                         <label class="col-2">Program</label>
-                        <select class="form-control" name="program">
+                        <select class="form-control" name="program" id="program">
                           <option value="<?php echo $row['program'];?>"><?php echo $row['program'];?></option>
                           <option value="unknown">Select</option>
                           <option value="BSA">BS Accountancy</option>
@@ -217,7 +217,7 @@
                     <div class="col-lg-2">
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Year</label>
-                        <select class="form-control" name="yearLevel">
+                        <select class="form-control" name="yearLevel" id="yearLevel">
                           <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?> Year</option>
                           <option value="unknown">Select new below</option>
                           <option value="1st">1st Year</option>
@@ -233,7 +233,7 @@
                     <div class="col-lg-2"> 
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label>
-                        <select class="form-control" name="semOption">
+                        <select class="form-control" name="semOption" id="sem">
                           <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
                           <option value="1st">1st</option>
                           <option value="2nd">2nd</option>
@@ -274,7 +274,7 @@
                     <div class="col-lg-8">
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                        <textarea class="form-control" name="address"><?php echo $row['address'];?>
+                        <textarea class="form-control" id="address" name="address"><?php echo $row['address'];?>
                         </textarea>
                       </div>
                     </div>
@@ -284,7 +284,7 @@
                     <div class="col-lg-4">
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
-                        <input type="text" class="form-control" name="cperson" value="<?php echo $row['cperson'];?>"> 
+                        <input type="text" class="form-control" id="cperson" name="cperson" value="<?php echo $row['cperson'];?>"> 
                       </div>
                     </div>
 
@@ -293,7 +293,7 @@
                     <div class="col-lg-3">
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label>
-                        <input type="text" name="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
+                        <input type="text" name="cphone" id="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
                       </div>
                     </div>
                   </div>
@@ -302,7 +302,7 @@
                     <div class="form-group">
                       <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                       <input type="hidden" name="action_type" value="edit"/>
-                      <input type="submit" class="btn btn-success" name="submit" value="Update Record"/>
+                      <input type="submit" class="btn btn-success" id="update" name="submit" value="Update Record"/>
                     </div>
                   </div>
                 </div>
