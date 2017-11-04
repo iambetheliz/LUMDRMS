@@ -245,51 +245,7 @@
                   <div class="row">
                     <!-- Start btn-toolbar -->
                     <div class="btn-toolbar">
-                        <a href="new_medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
-                        <!-- Sort button -->
-                        <div class="btn-group" style="display: none;">
-                            <button type="button" id="sort" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
-                            </button>
-                            <?php 
-                                $table_data='StudentID';
-                                $sort='DESC';
-                                if(isset($_GET['sorting']))
-                                    {
-                                        if($_GET['sorting']=='ASC')
-                                            {
-                                                $sort='DESC';
-                                            }
-                                        else { $sort='ASC'; }
-                                    }
-                                if(isset($_GET['table_data']))
-                                    {
-                                        if($_GET['table_data']=='last_name')
-                                            { 
-                                                $table_data = "last_name";  
-                                            }
-                                        elseif($_GET['table_data']=='program')
-                                            { 
-                                                $table_data = "program";  
-                                            }
-                                        elseif($_GET['table_data']=='yearLevel')
-                                            { 
-                                                $table_data = "yearLevel";  
-                                            }
-                                        elseif($_GET['table_data']=='StudentID')
-                                            { 
-                                                $table_data="StudentID"; 
-                                                $sort="ASC";
-                                            }
-                                    }
-                            ?>
-                            <ul class="dropdown-menu">
-                                <li><a href="records.php?sorting='.$sort.'&table_data=last_name">Surname</a></li>
-                                <li><a href="records.php?sorting='.$sort.'&table_data=program">Program</a></li>
-                                <li><a href="records.php?sorting='.$sort.'&table_data=yearLevel">Year Level</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Sort button -->
+                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
 
                         <!-- Search Button -->
                         <form action="" method="get">

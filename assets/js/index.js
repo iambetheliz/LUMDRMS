@@ -1,111 +1,5 @@
 $(document).ready(function () {
-  //called when key is pressed in textbox
-  $("#studentNo").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 48 && inputValue <= 57) && !(inputValue == 32 && inputValue == 0) && inputValue != 13) { 
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
-        return false;
-      }
-  });
-  $("#age").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && inputValue != 13) {
-        //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
-  });
-  $("#cphone").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
-  });
-  $("#tphone").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
-  });
-  $("#last_name").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
-  });
-  $("#first_name").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
-  });
-  $("#middle_name").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
-  });
-  $("#ext").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
-  });
-  $("#address").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 44 && inputValue != 46 && inputValue != 0) && !(inputValue >= 48 && inputValue <= 57)) { 
-        //display error message
-        $("#errmsg").html("Invalid character").show().fadeOut("slow");
-            return false;
-      }
-  });
-  $("#cperson").keypress(function(event){
-      var inputValue = event.which;
-      // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
-        //display error message
-        $("#errmsg").html("Letters Only").show().fadeOut("slow");
-            return false;
-      }
-  });
 
-  // Validations
-  $('#studentNo').keyup(function () {
-    var cctlength = $(this).val().length; // get character length
-
-    switch (cctlength) {
-        case 3:
-            var cctVal = $(this).val();
-            var cctNewVal = cctVal + '-';
-            $(this).val(cctNewVal);
-            break;
-        case 9:
-            var cctVal = $(this).val();
-            var cctNewVal = cctVal + '-';
-            $(this).val(cctNewVal);
-            break;
-        default:
-            break;
-    }
-  });
   $(function(){
     $('#current_year').change(function(){ // when one changes
       $('#next_year').val( $(this).val() ) // they all change
@@ -228,3 +122,117 @@ function sortTable(n) {
     }
   }
 }
+
+//Form Validation
+$(document).ready(function () {
+  
+  // Validations
+  $('#studentNo').keypress(function (e) {
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errmsg").html("Numbers Only!").show();
+      $("#studentNo").addClass('error');
+      return false;
+    } else {
+      $("#errmsg").hide();
+      $("#studentNo").removeClass('error');
+    } 
+
+    var curchr = this.value.length;
+    var curval = $(this).val();
+
+    if (curchr == 3 && curval.indexOf("(") <= -1) {
+      $(this).val(curval + "-");
+    } else if (curchr == 4 && curval.indexOf("(") > -1) {
+      $(this).val(curval + ")-");
+    } else if (curchr == 7) {
+      $(this).val(curval);
+      $(this).attr('maxlength', '8'); 
+      $("#errmsg").hide();
+      $(this).removeClass('error');
+      return true;
+    } else if (curchr == 8) {
+      $("#errmsg").html("8 characters only!").show();
+      $(this).addClass('error');
+        return false;
+    }        
+  });
+
+  $("#age").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57) && inputValue != 13) {
+        //display error message
+        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
+          return false;
+    }
+  });
+  $("#cphone").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
+          return false;
+    }
+  });
+  $("#tphone").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Numbers Only").show().fadeOut("slow");
+          return false;
+    }
+  });
+  $("#last_name").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#first_name").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#middle_name").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#ext").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#address").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 44 && inputValue != 46 && inputValue != 0) && !(inputValue >= 48 && inputValue <= 57)) { 
+        //display error message
+        $("#errmsg").html("Invalid character").show().fadeOut("slow");
+            return false;
+      }
+  });
+  $("#cperson").keypress(function(event){
+      var inputValue = event.which;
+      // allow letters and whitespaces only.
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
+        //display error message
+        $("#errmsg").html("Letters Only").show().fadeOut("slow");
+            return false;
+      }
+  });
+});

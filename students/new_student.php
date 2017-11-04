@@ -35,7 +35,7 @@
 
     $errorMSG = '';
     if (isset($_GET['error'])) {
-        $errorMSG = "Something went wrong!";
+        $errorMSG = "<div class='alert alert-danger'>Invalid!</div>";
         header('Refresh:3; new_student.php');
     }
 
@@ -53,10 +53,10 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
-#form label.error {
-color:red;
-}
 #form input.error {
+border:1px solid red;
+}
+.error {
 border:1px solid red;
 }
 .col-2 {
@@ -107,10 +107,25 @@ border:1px solid red;
     	      <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">             
-                <h3 class="page-header">Add New Student <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h3>
+                <h3 class="page-header">Add New Student 
+                  <small>
+                  <ol class="breadcrumb pull-right">
+                    <li><a href="#">Home</a></li>
+                    <li>Students</li>
+                    <li class="active">New</li>
+                  </ol>
+                  </small>
+                </h3>
               </div>
             </div>
-            <!-- End of Page Heading -->  
+            <!-- End of Page Heading --> 
+
+            <div class="row">
+              <div class="container-fluid">
+                <?php echo $errorMSG; ?>
+              </div>
+            </div>
+
             
           <!-- Start of Form -->
           <form action="action.php" id="form" name="form" method="post" autocomplete="">
@@ -125,9 +140,8 @@ border:1px solid red;
                   <div class="panel-body">
                     <div class="col-lg-3">     
                       <div class="form-group row"> 
-                        <label for="studentNo">Student No.: </label> 
-                        <span class="text-danger pull-right"><?php echo $errMSG; ?></span>
-                        <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
+                        <label for="studentNo">Student No.: </label><span class='text-danger pull-right' id='errmsg'></span>
+                        <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
                       </div>
                       <div class="form-group row">
                         <label for="first_name">First Name: </label> 
@@ -298,18 +312,10 @@ border:1px solid red;
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
   </footer>
-    
+
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
-<script type="text/javascript">
-  $('#otherSysRevCheck').change(function(){
-    $("#otherSysRev").prop("disabled", !$(this).is(':checked'));
-  });
-  $('#otherMedHisCheck').change(function(){
-    $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
-  });
-</script>
 
 </body>
 </html>
