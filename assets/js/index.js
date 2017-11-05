@@ -115,12 +115,15 @@ $(document).ready(function () {
       $("#errSN").hide();
 
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-      $("#errSN").html("Numbers Only!").show();
-      $("#studentNo").addClass('error');
+      $("#errSN").html("Numbers Only!").show().fadeOut("slow");
       return false;
     } else {
       $("#studentNo").removeClass('error');
     } 
+  });
+
+  $('#studentNo').keypress(function (e) {
+      $("#errSN").hide();
 
     var curchr = this.value.length;
     var curval = $(this).val();
@@ -214,25 +217,6 @@ $(document).ready(function () {
   $(function() {
 
     $('#add').click(function() {
-      $('#errSN').hide();
-
-      if ($('.form-control').val() == '') {
-        $("#errmsg").html("* Required Fields!").show();
-        $(".form-control").addClass('error');
-        $("#studentNo").focus();
-          return false;
-      } else if($("#studentNo").val().length >= 8){
-        $("#studentNo").removeClass("error");
-      } else{
-        $("#studentNo").addClass("error");
-        $("#errSN").html("Required!").show();
-        $("#studentNo").focus();
-          return false;
-      } 
-
-    });
-
-    $('#update').click(function() {
       $('#errSN').hide();
 
       if ($('.form-control').val() == '') {

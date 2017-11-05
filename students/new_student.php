@@ -129,19 +129,19 @@
                         <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
                       </div>
                       <div class="form-group row">
-                        <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"><?php echo $errorMSG; ?></span>
+                        <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
                         <input type="text" class="form-control" placeholder="Juan" name="first_name" id="first_name">
                       </div>
                       <div class="form-group row">
-                        <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"><?php echo $errorMSG; ?></span>
+                        <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
                         <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
                       </div>
                       <div class="form-group row">
-                        <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"><?php echo $errorMSG; ?></span>
+                        <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
                         <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name">
                       </div>
                       <div class="form-group row">
-                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"><?php echo $errorMSG; ?></span>
+                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
                         <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                       </div>   
                     </div>
@@ -150,11 +150,11 @@
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label class="col-2">Age</label> <span class="error pull-right" id="errAge"><?php echo $errorMSG; ?></span>
-                        <input class="form-control" type="text" placeholder="00" name="age" id="age" maxlength="2">
+                        <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
+                        <input class="form-control commoncss" type="text" placeholder="00" name="age" id="age" maxlength="2">
                       </div>
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
                           <select class="form-control" name="sexOption">
                             <option value="undefined">Select</option>
                             <option value="Male">Male</option>
@@ -167,7 +167,7 @@
 
                     <div class="col-lg-3">
                       <div class="form-inline row">
-                        <label class="col-2">Program</label> <span class="error pull-right" id="errProg"><?php echo $errorMSG; ?></span>
+                        <label class="col-2">Program</label> <span class="error pull-right" id="errProg"></span>
                         <select class="form-control" name="program">
                           <option value="unknown">Select</option>
                           <option value="BSA">BS Accountancy</option>
@@ -190,7 +190,7 @@
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
                         <select class="form-control" name="yearLevel">
                           <option value="unknown">Select</option>
                           <option value="1st">1st Year</option>
@@ -205,7 +205,7 @@
 
                     <div class="col-lg-2"> 
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
                         <select class="form-control" name="semOption">
                           <option value="unknown">Select</option>
                           <option value="1st">1st</option>
@@ -218,7 +218,7 @@
 
                     <div class="col-lg-2">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
                           <?php
                             $currently_selected = date('Y'); 
                             $earliest_year = 2006; 
@@ -245,7 +245,7 @@
 
                     <div class="col-lg-8">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
                         <textarea class="form-control" name="address" id="address"></textarea>
                       </div>
                     </div>
@@ -254,7 +254,7 @@
 
                     <div class="col-lg-4">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"><?php echo $errorMSG; ?></span>
+                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
                         <input type="text" class="form-control" name="cperson" id="cperson">
                       </div>
                     </div>
@@ -263,8 +263,8 @@
 
                     <div class="col-lg-3">
                       <div class="form-group row">
-                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"><?php echo $errorMSG; ?></span>
-                        <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
+                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
+                        <input type="text" name="cphone" id="cphone" class="form-control commoncss" placeholder="09358306457">
                       </div>
                     </div>
                   </div>
