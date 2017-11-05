@@ -151,7 +151,7 @@
                     <div class="col-lg-2">
                       <div class="form-group row">
                         <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
-                        <input class="form-control commoncss" type="text" placeholder="00" name="age" id="age" maxlength="2">
+                        <input class="form-control" type="text" placeholder="00" name="age" id="age">
                       </div>
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
@@ -264,7 +264,7 @@
                     <div class="col-lg-3">
                       <div class="form-group row">
                         <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                        <input type="text" name="cphone" id="cphone" class="form-control commoncss" placeholder="09358306457">
+                        <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
                       </div>
                     </div>
                   </div>

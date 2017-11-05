@@ -120,10 +120,6 @@ $(document).ready(function () {
     } else {
       $("#studentNo").removeClass('error');
     } 
-  });
-
-  $('#studentNo').keypress(function (e) {
-      $("#errSN").hide();
 
     var curchr = this.value.length;
     var curval = $(this).val();
@@ -143,21 +139,49 @@ $(document).ready(function () {
   });
 
   $("#age").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errAge").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
+    $("#errAge").hide();
+
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errAge").html("Numbers Only").show().fadeOut("slow");
+        return false;
+    } 
+
+    var agechr = this.value.length;
+    var ageval = $(this).val(); 
+
+    if (agechr == 2) {
+      $(this).val(ageval);
+      $(this).attr('maxlength', '2'); 
+      $("#errAge").html("2 characters only!").show().fadeOut("slow");
+      return true;
+    } 
   });
-  $("#cphone").keypress(function (e) {
-     //if the letter is not digit then display error and don't type anything
-     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-        //display error message
-        $("#errTel").html("Numbers Only").show().fadeOut("slow");
-          return false;
-    }
+
+    $("#cphone").keypress(function (e) {
+    $("#errTel").hide();
+
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errTel").html("Numbers Only").show().fadeOut("slow");
+        return false;
+    } 
+
+    var phonechr = this.value.length;
+    var phoneval = $(this).val(); 
+
+    if (phonechr == 4 && phoneval.indexOf("(") <= -1) {
+      $(this).val(phoneval + " ");
+    } else if (phonechr == 8 && phoneval.indexOf("(") <= -1) {
+      $(this).val(phoneval + " ");
+    } else if (phonechr == 11) {
+      $(this).val(phoneval);
+      $(this).attr('maxlength', '13'); 
+      return true;
+    } else if (phonechr == 13) {
+      $("#errTel").html("Max. of 11").show().fadeOut("slow");
+        return false;
+    } 
   });
+
   $("#first_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -188,9 +212,9 @@ $(document).ready(function () {
   $("#ext").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 46 && inputValue != 0)) { 
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
-        $("#errExt").html("Letters Only").show().fadeOut("slow");
+        $("#errExt").html("Letters only!").show().fadeOut("slow");
         $(".text-muted").hide();
             return false;
       }
