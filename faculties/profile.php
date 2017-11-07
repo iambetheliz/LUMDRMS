@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Edit faculty Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -96,10 +96,10 @@
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
-            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
+            if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
-              $StudentID = $_GET['StudentID'];
-              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $FacultyID = $_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -109,18 +109,18 @@
     	      <!-- Page Heading -->
             <div class="row">
               <div class="col-lg-12">
-                <h1 class="page-header">Student's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
+                <h1 class="page-header">faculty's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
               </div>
             </div>
             <!-- End of Page Heading -->
 
-            <!-- Student Status Form -->
+            <!-- faculty Status Form -->
             <div class="container-fluid">
               <div class="row">
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
-                    <label>Student No.:</label>
-                    <?php echo $row['studentNo'];?>
+                    <label>faculty No.:</label>
+                    <?php echo $row['facultyNo'];?>
                   </div>
                   <div class="col-lg-5"></div>
                   <div class="col-lg-3"> 
@@ -134,7 +134,7 @@
                 </div>
               </div>
             </div>
-            <!-- End of Student Status-->
+            <!-- End of faculty Status-->
 
             <div class="container-fluid">
               <div class="row">     
@@ -222,7 +222,7 @@
                   <div class="row">
                     <!-- Start btn-toolbar -->
                     <div class="btn-toolbar">
-                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                        <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-success">New</a>
 
                         <!-- Search Button -->
                         <form action="" method="get">
@@ -249,11 +249,11 @@
                   if ($page <= 0) $page = 1;
                     $per_page = 5; // Set how many records do you want to display per page.
     
-                    if (isset($_GET['StudentID'])) {
-                      $StudentID = $_GET['StudentID'];
+                    if (isset($_GET['FacultyID'])) {
+                      $FacultyID = $_GET['FacultyID'];
 
                       $startpoint = ($page * $per_page) - $per_page;
-                      $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
+                      $statement = "`faculty_med` WHERE FacultyID = '".$_GET['FacultyID']."'";
                       $result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
                       $count = $result->num_rows;
                     }
@@ -282,7 +282,7 @@
                         // displaying records.
                         while ($row = $result->fetch_assoc()){ ?>
                       <tr>
-                        <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                        <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
                         <td><?php echo $row['sysRev']; ?></td>
                         <td><?php echo $row['medHis']; ?></td>
                         <td><?php echo $row['drinker']; ?></td>

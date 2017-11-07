@@ -45,7 +45,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add New Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Add New Faculty and Staffs Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -108,13 +108,13 @@
               <div class="col-lg-12">
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
-                    <label>Student No.</label>
-                    <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" maxlength="8" autofocus="">
+                    <label>Faculty No.</label>
+                    <input type="text" class="form-control" placeholder="000-0000" name="facultyNo" id="facultyNo" maxlength="8" autofocus="">
                   </div>
                 </div>
               </div>
             </div>
-            <!-- End of Student Status-->
+            <!-- End of Faculty Status-->
     
             <div class="row">
               <div class="col-lg-12"> 
@@ -172,16 +172,6 @@
                           <option value="MID">Midwifery</option>
                           <option value="SHS11">Senior High School: Grade 11</option>
                           <option value="SHS12">Senior High School: Grade 12</option>
-                        </select>
-                      </div>
-                      <div class="col-lg-2">
-                        <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                        <select class="form-control" name="yearLevel">
-                          <option value="undefined">Choose...</option>
-                          <option value="1st">1st Year</option>
-                          <option value="2nd">2nd Year</option>
-                          <option value="3rd">3rd Year</option>
-                          <option value="4th">4th Year</option>
                         </select>
                       </div>
                       <div class="col-lg-2">

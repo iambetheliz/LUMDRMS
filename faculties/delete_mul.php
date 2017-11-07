@@ -26,7 +26,7 @@
  else {
   for($i=0; $i<$chkcount; $i++) {
     $del = $chk[$i];
-    $sql = $DB_con->query("DELETE FROM students WHERE StudentID=".$del);
+    $sql = $DB_con->query("DELETE FROM faculties WHERE FacultyID=".$del);
   } 
   
   if($sql) {

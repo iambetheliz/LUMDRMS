@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Edit Faculty Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -91,10 +91,10 @@
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
-            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
+            if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
-              $StudentID = $_GET['StudentID'];
-              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $FacultyID = $_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -107,7 +107,7 @@
     	      <!-- Page Heading -->
             <div class="row">
               <div class="col-lg-12">
-                <h1 class="page-header">Edit Student's Medical Record <span class="text-danger pull-right" id="errmsg"></span></h1>             
+                <h1 class="page-header">Edit Faculty's Medical Record <span class="text-danger pull-right" id="errmsg"></span></h1>             
               </div>
             </div>
             <!-- End of Page Heading -->
@@ -116,19 +116,19 @@
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
                           You are here: 
-                            <li class="breadcrumb-item"><a href="records.php">Students</a></li>
+                            <li class="breadcrumb-item"><a href="records.php">Faculty</a></li>
                             <li class="breadcrumb-item active">Edit Form</li>
                         </ul>
                     </div>
                 </div>
 
-            <!-- Student Status Form -->
+            <!-- Faculty Status Form -->
             <div class="row">
               <div class="col-lg-12">
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
-                    <label>Student No.</label>
-                    <input type="text" class="form-control pull-right" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly>
+                    <label>Faculty No.</label>
+                    <input type="text" class="form-control pull-right" value="<?php echo $row['facultyNo'];?>" name="facultyNo" readonly>
                   </div>
                   <div class="col-lg-6"></div>
                   <div class="col-lg-2"> 
@@ -150,7 +150,7 @@
                 </div>
               </div>
             </div>
-            <!-- End of Student Status-->
+            <!-- End of Faculty Status-->
 
             <div class="row">
               <div class="col-lg-12">     
@@ -274,7 +274,7 @@
             <!-- End of Basic Infor -->
 
               <div class="form-group">
-                <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+                <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
                 <input type="hidden" name="action_type" value="edit"/>
                 <input type="submit" class="btn btn-success" name="submit" value="Update Record"/>
               </div>

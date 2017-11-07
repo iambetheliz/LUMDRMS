@@ -277,7 +277,7 @@
 
                       $startpoint = ($page * $per_page) - $per_page;
                       $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
-                      $result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
+                      $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
                       $count = $result->num_rows;
                     }
                 ?>

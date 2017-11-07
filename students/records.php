@@ -134,7 +134,7 @@
                                 <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
                             </button>
                             <?php 
-                                $table_data='date_updated';
+                                $table_data='date_registered';
                                 $sort='DESC';
                                 if(isset($_GET['sorting']))
                                     {
@@ -158,9 +158,9 @@
                                             { 
                                                 $table_data = "yearLevel";  
                                             }
-                                        elseif($_GET['table_data']=='date_updated')
+                                        elseif($_GET['table_data']=='date_registered')
                                             { 
-                                                $table_data="date_updated"; 
+                                                $table_data="date_registered"; 
                                                 $sort="DESC";
                                             }
                                     }

@@ -23,15 +23,14 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
 	if($_REQUEST['action_type'] == 'add'){
 
-  		$studentNo = $_POST['studentNo'];
-  		$last_name = $_POST['last_name'];
+  		$facultyNo = $_POST['facultyNo'];
   		$first_name = $_POST['first_name'];
   		$middle_name = $_POST['middle_name'];
+      $last_name = $_POST['last_name'];
       $ext = $_POST['ext'];
   		$age = $_POST['age'];
   		$sex = $_POST['sexOption'];
   		$program = $_POST['program'];
-  		$yearLevel = $_POST['yearLevel'];
   		$sem = $_POST['semOption'];
   		$acadYear = $_POST['acadYear'];
   		$address = $_POST['address'];
@@ -50,16 +49,31 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $med = 'Pending';
       $dent = 'Pending';
 
+      //Validations
+      if (strlen($facultyNo) < 8) {
+        $error = true;
+        header("Location: new_student.php?error");
+      }
+      else {
+        $query = "SELECT facultyNo FROM faculties WHERE facultyNo='$facultyNo'";
+        $result = $DB_con->query($query);
+
+        if($result->num_rows != 0){
+          $error = true;
+          header("Location: new_student.php?error");
+        }
+      }
+
       // if there's no error, continue to signup
   		if( !$error ) {
 
-        $query1 = "INSERT INTO students(studentNo,last_name,first_name,middle_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$last_name','$first_name','$middle_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
+        $query1 = "INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,program,sem,acadYear,address,cperson,cphone,tphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$program','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query3 = "INSERT INTO faculty_stats(med,dent,facultyNo) VALUES('$med','$dent','$facultyNo')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt3 = $DB_con->prepare($query3);
 
-   			$stmt1->bind_param($studentNo,$last_name,$first_name,$middle_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+   			$stmt1->bind_param($facultyNo,$first_name,$middle_name,$last_name,$ext,$age,$sex,$program,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
         $stmt3->bind_param($med,$dent);
 
    			if (!$stmt1 || !$stmt3){
@@ -94,8 +108,8 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $xray = $_POST['xray'];
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
-      $studentNo = $_POST['studentNo'];
-      $StudentID = $_POST['StudentID'];
+      $facultyNo = $_POST['facultyNo'];
+      $FacultyID = $_POST['FacultyID'];
 
       if (empty($sysRev)) {
         $sysRev = 'none';
@@ -106,7 +120,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
       if (!$error) {
 
-        $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+        $sql = "INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,facultyNo,FacultyID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$facultyNo','".$FacultyID."')";
         $result = mysqli_query($DB_con,$sql);
 
         if (!$result) {
@@ -123,9 +137,9 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   }
 	elseif($_REQUEST['action_type'] == 'edit'){
 
-		if(!empty($_POST['StudentID'])){
+		if(!empty($_POST['FacultyID'])){
 
-			  $studentNo = $_POST['studentNo'];
+			  $facultyNo = $_POST['facultyNo'];
   			$last_name = $_POST['last_name'];
   			$first_name = $_POST['first_name'];
   			$middle_name = $_POST['middle_name'];
@@ -133,14 +147,13 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   			$age = $_POST['age'];
   			$sex = $_POST['sexOption'];
   			$program = $_POST['program'];
-  			$yearLevel = $_POST['yearLevel'];
   			$sem = $_POST['semOption'];
   			$acadYear = $_POST['acadYear'];
   			$address = $_POST['address'];
   			$cperson = $_POST['cperson'];
   			$cphone = $_POST['cphone'];
   			$tphone = $_POST['tphone'];
-        $StudentID = $_POST['StudentID'];
+        $FacultyID = $_POST['FacultyID'];
 
         $med = $_POST['med'];
         $dent = $_POST['dent'];
@@ -148,7 +161,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         // if everything is fine, update the record in the database
         if (!$error) {
 
-          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", program="'.$program.'", yearLevel="'.$yearLevel.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", tphone="'.$tphone.'", med="'.$med.'", dent="'.$dent.'" WHERE StudentID="'.$StudentID.'"';
+          $stmt = 'UPDATE `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", program="'.$program.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", tphone="'.$tphone.'", med="'.$med.'", dent="'.$dent.'" WHERE FacultyID="'.$FacultyID.'"';
 
           if (!$stmt) {
             header("Location: medical_form.php?error");
@@ -166,11 +179,11 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 	}
 	elseif($_REQUEST['action_type'] == 'delete'){
 
-		if(!empty($_GET['StudentID'])){
+		if(!empty($_GET['FacultyID'])){
 
       if( !$error ) {
-        $stmt = $DB_con->prepare("DELETE FROM students WHERE StudentID =?");
-        $stmt->bind_param('i', $_GET['StudentID']);
+        $stmt = $DB_con->prepare("DELETE FROM faculties WHERE FacultyID =?");
+        $stmt->bind_param('i', $_GET['FacultyID']);
 
         if (!$stmt){
             $errMSG = "Something went wrong, try again later..."; 
@@ -181,7 +194,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       }
     }
     else {
-      // if the 'StudentID' variable isn't set, redirect the user
+      // if the 'FacultyID' variable isn't set, redirect the user
       header("Location: records.php?deleteError");
     }
 	}

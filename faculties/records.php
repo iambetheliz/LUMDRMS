@@ -57,7 +57,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Records | Laguna University - Clinic | Medical Records System</title>
+<title>Faculty Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
@@ -115,14 +115,14 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Students Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                        <h1 class="page-header">Faculties and Staffs Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
                 
                 <!-- Buttons -->
-                <div class="row">
-                  <div class="col-lg-12">
+                <div class="container-fluid">
+                  <div class="row">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
                     	<a href="new_faculty.php" class="btn btn-success">Add New</a>
@@ -134,7 +134,7 @@
                                 <span class="glyphicon glyphicon-sort"></span> Sort by <span class="caret"></span>
                             </button>
                             <?php 
-                                $table_data='date_updated';
+                                $table_data='date_registered';
                                 $sort='DESC';
                                 if(isset($_GET['sorting']))
                                     {
@@ -158,9 +158,9 @@
                                             { 
                                                 $table_data = "yearLevel";  
                                             }
-                                        elseif($_GET['table_data']=='date_updated')
+                                        elseif($_GET['table_data']=='date_registered')
                                             { 
-                                                $table_data="date_updated"; 
+                                                $table_data="date_registered"; 
                                                 $sort="DESC";
                                             }
                                     }
@@ -181,12 +181,15 @@
 
                         <!-- Search Button -->
                         <form action="" method="get">
-                        <div class="input-group pull-right" style="width: 300px;">
+                        <div class="form-inline">
+                          <div class="input-group pull-right">
                             <input type="text" id="search" name="search" class="form-control" placeholder="Search">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
+                          </div>
                         </div>
                         </form>                        
                         <!-- End of Search Button -->
+
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
@@ -202,7 +205,7 @@
 
                 	$page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
 
-                    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`"); 
+                    $result = mysqli_query($DB_con,"SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo`"); 
                     $count = $result->num_rows;
     				
     				if ($page <= 0) $page = 1;
@@ -213,28 +216,29 @@
     						$search = $DB_con->real_escape_string($search);
     
         					if (empty($search)) {
-            					$output1 = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
+            					$output = "<div class='alert alert-danger' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close' id='close'><span aria-hidden='true'>&times;</span></button>Please enter a keyword.</div>";
         					}
                             else {
-                                $output1 = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
+                                $output = '<div class="alert alert-info" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close" id="close"><span aria-hidden="true">&times;</span></button>Showing result for <strong>"'.$search.'."</strong></div>';
                             }
     
     						$startpoint = ($page * $per_page) - $per_page;
-    						$statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE CONCAT(`last_name`,`first_name`,`middle_name`,`ext`) LIKE '%".$search."%' OR CONCAT(program,yearLevel,acadYear,med,dent,`students_stats`.`studentNo`) LIKE '%".$search."%'";
+    						$statement = "`faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE CONCAT(`last_name`,`first_name`,`middle_name`,`ext`) LIKE '%".$search."%' OR CONCAT(program,yearLevel,acadYear,med,dent,`faculty_stats`.`facultyNo`) LIKE '%".$search."%'";
     						$result = mysqli_query($DB_con,"SELECT * FROM {$statement} ORDER BY $table_data $sort LIMIT {$startpoint} , {$per_page}");
                             $count = $result->num_rows;
 						}
 						else {
     						$startpoint = ($page * $per_page) - $per_page;
-                            $statement = "`students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo`";
+                            $statement = "`faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo`";
     						$result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}");
 						}
                 ?>
                 <br>
-                <?php if (isset($_GET['search'])) {
-    				echo $output1;
-				}  ?>
-
+                <?php 
+                    if (isset($_GET['search'])) {
+    				    echo $output;
+				    }
+                ?>
                 <?php
                 if ($result->num_rows != 0) { ?>
                 <!-- Start of Table -->
@@ -258,7 +262,7 @@
                 				<th title="Click to sort" onclick="sortTable(2)">Last Name <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(3)">First Name <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(4)">Middle Name <i class="fa fa-sort"></i></th>
-                				<th title="Click to sort" onclick="sortTable(5)">Student No. <i class="fa fa-sort"></i></th>
+                				<th title="Click to sort" onclick="sortTable(5)">Faculty No. <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(6)">Program <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(7)">Year <i class="fa fa-sort"></i></th>
                 				<th title="Click to sort" onclick="sortTable(8)">Academic Year <i class="fa fa-sort"></i></th>
@@ -284,22 +288,26 @@
                                 }
                             ?>
                 			<tr data-status="<?php echo $status;?>">
-                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                                <td style="color:<?php echo $color;?>;"><?php echo $row['med']; ?></td>
-                                <td style="color:<?php echo $color2;?>;"><?php echo $row['dent']; ?></td>
+                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                                <td style="color:<?php echo $color;?>;">
+                                    <?php echo $row['med']; ?> 
+                                </td>
+                                <td style="color:<?php echo $color2;?>;">
+                                    <?php echo $row['dent']; ?>
+                                </td>
                 				<td><?php echo strtoupper($row['ext'])." "; echo strtoupper($row['last_name']); ?></td>
                 				<td><?php echo strtoupper($row['first_name']); ?></td>
                 				<td><?php echo strtoupper($row['middle_name']); ?></td>
-                				<td><?php echo $row['studentNo']; ?></td>
+                				<td><?php echo $row['facultyNo']; ?></td>
                 				<td><?php echo $row['program'];?></td>
                 				<td><?php echo $row['yearLevel'];?></td>
                 				<td><?php echo $row['acadYear'];?></td>
-                				<td width="145px"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_faculty.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <a href="action.php?action_type=delete&StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
+                				<td width="145px"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_faculty.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <a href="action.php?action_type=delete&FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?');" title="Delete" data-toggle="tooltip"> <span class="glyphicon glyphicon-trash"></span></a></td>
                 			</tr>
                             <?php }
                                 } 
                             else {
-                                $errMSG = "No records found.";
+                                $errMSG = "No records found."; 
                             }?>
                 		</tbody>
                 	</table>
@@ -358,6 +366,10 @@
         document.frm.action = "delete_mul.php";
         document.frm.submit();
     }
+    $('#close').click(function() {
+        window.location.href = 'records.php';
+        return false;
+    });
     </script>
     
 </body>

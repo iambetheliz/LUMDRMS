@@ -115,16 +115,6 @@
           </div>            
           <!-- End of Page Heading -->  
 
-          <div class="row">
-            <div class="col-lg-12">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-              </ul>
-            </div>
-          </div>
-
           <!-- Start of Form -->
           <form action="action.php" method="post" autocomplete="">
 
@@ -294,16 +284,16 @@
 
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Weight:</label>  
-                        <input type="decimal" class="form-control" name="weight" id="weight"> 
+                        <label>Height:</label>
+                        <input type="text" class="form-control value" name="height" id="height"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>Height:</label> 
-                        <input type="text" class="form-control" name="height" id="height"> 
+                        <label>Weight:</label>  
+                        <input type="decimal" class="form-control value" name="weight" id="weight"> 
                       </div>
                       <div class="col-lg-3">
                         <label>BMI:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi">
+                        <input type="text" class="form-control" name="bmi" id="bmi" readonly="readonly">
                       </div>
                     </div>
                     <div class="form-group row">
@@ -403,7 +393,7 @@
 
                 <div class="form-group">
                   <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
-                  <input type="text" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+                  <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                   <input type="hidden" name="action_type" value="save"/>
                   <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
                 </div>
@@ -440,6 +430,41 @@
   $('#otherMedHisCheck').change(function(){
     $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
   });
+  $('#height').keypress(function (e) {
+      $("#errSN").hide();
+
+    if ((e.which < 0 || e.which > 32) && (e.which < 48 || e.which > 57)) {
+      return false;
+    } 
+
+    var keyChr = this.value.length;
+    var heightval = $(this).val();
+
+    if (keyChr == 1 && heightval.indexOf("(") <= -1) {
+      $(this).val(heightval + ".");
+    } else if (keyChr == 4) {
+      $(this).val(heightval);
+      $(this).attr('maxlength', '4'); 
+      return true;
+    } else if (keyChr == 4) {
+      $("#errSN").html("8 characters only!").show().fadeOut("slow");
+        return false;
+    } 
+  });
+  jQuery(document).ready(function ($) {
+    var $bmi = $('#bmi'),
+        $value = $('.value');
+    $value.on('input', function (e) {
+        var weight = $("#weight").val();
+        var bmi = Math.pow($("#height").val(),2);
+        $value.each(function (index, elem) {
+            if (!Number.isNaN(parseFloat(this.value))) {
+              bmi = bmi;
+            } 
+        });
+        $bmi.val(weight / bmi);
+    });
+});
 </script>
     
 </body>

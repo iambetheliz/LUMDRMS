@@ -45,7 +45,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add New Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Add New Faculty Record | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -97,10 +97,10 @@
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
-            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
+            if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
-              $StudentID = $_GET['StudentID'];
-              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $FacultyID = $_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -110,20 +110,10 @@
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">             
-              <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+              <h1 class="page-header">Faculty's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  
-
-          <div class="row">
-            <div class="col-lg-12">
-              <ul class="breadcrumb">
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-                <li class="breadcrumb-item"><a href="records.php">Students</a></li>
-              </ul>
-            </div>
-          </div>
 
           <!-- Start of Form -->
           <form action="action.php" method="post" autocomplete="">
@@ -402,8 +392,8 @@
             </div>
 
                 <div class="form-group">
-                  <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
-                  <input type="text" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+                  <input type="hidden" name="facultyNo" value="<?php echo $row['facultyNo']; ?>"/>
+                  <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
                   <input type="hidden" name="action_type" value="save"/>
                   <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
                 </div>
