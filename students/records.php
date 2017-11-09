@@ -115,7 +115,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Students Records <small class="text-muted text-success pull-right"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                        <h1 class="page-header">Students Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
@@ -183,7 +183,7 @@
                         <form action="" method="get">
                         <div class="form-inline">
                           <div class="input-group pull-right">
-                            <input type="text" id="search" name="search" class="form-control" placeholder="Search">
+                            <input type="text" id="search" name="search" class="form-control" placeholder="Search by Student No.">
                             <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
                           </div>
                         </div>

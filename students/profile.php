@@ -123,143 +123,59 @@
             <div class="row">
               <div class="container-fluid">
                 <h1 class="page-header">Student's Information 
-                  <button type="button" class="btn btn-default pull-right" data-toggle="toggle" data-target="#settings"><i class="fa fa-gear"></i>
-                  </button>
-                  <div id="settings" class="btn-toolbar pull-right" style="height: 40px;">
-                    <div class="btn-group pull-right" title="Change font size" data-toggle="tooltip" data-placement="left" role="group">
-                      <button type="button" class="btn btn-default" id="up"><i class="fa fa-font"></i>+</button>
-                      <button type="button" class="btn btn-default" id="down"><i class="fa fa-font"></i>-</button>
-                    </div>
-                    <button type="button" class="btn btn-default" onclick="window.print()"><i class="fa fa-print"></i></button>
-                  </div>
                 </h1>             
               </div>
             </div>
             <!-- End of Page Heading -->
-
-            <!-- Student Status Form -->
-            <div class="container-fluid">
-              <div class="row">
-                <div class="form-group row">  
-                  <div class="col-lg-2"> 
-                    <label>Student No.:</label>
-                    <?php echo $row['studentNo'];?>
-                  </div>
-                  <div class="col-lg-5"></div>
-                  <div class="col-lg-3"> 
-                    <label>Medical Status: </label>
-                    <?php echo $row['med'];?>
-                  </div> 
-                  <div class="col-lg-2"> 
-                    <label>Dental Status:</label>
-                    <?php echo $row['dent'];?>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of Student Status-->
 
             <div class="container-fluid">
               <div class="row">     
                 <!-- Basic Info -->
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    BASIC INFORMATION 
+                    <div class="panel-title">
+                      <strong>BASIC INFORMATION</strong>
+                    </div>
                   </div>
-                  <div class="panel-body content">
+                  <div class="panel-body">
 
-                  <div class="col-lg-6">   
-                    <div class="form-group row">          
-                      <label class="col-2">Full Name: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['first_name'];?> <?php echo $row['middle_name'];?> <?php echo $row['last_name'];?></span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2">Age: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['age'];?> years old</span>
-                      <label class="col-2">Sex: </label>
-                      <span style="text-decoration: underline;"><?php echo $row['sex'];?></span>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2">Program: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['program'];?></span>
-                      <label for="example-date-input" class="col-2">Year Level: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['yearLevel'];?> Year</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2 col-form-label">Semester: </label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['sem'];?> Semester</span>
-                      <label class="col-2 col-form-label">Academic Year:</label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['acadYear'];?> </span>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-12">
-                    <div class="form-group row">
-                      <label class="col-2">Address:</label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['address'];?></span>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2">Contact Person in case of Emergency:</label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['cperson'];?></span> 
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-group row">
-                      <label class="col-2">Cellphone No.:</label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['cphone'];?></span>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="form-group row">
-                      <label class="col-2">Telephone No.:</label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['tphone'];?></span>
-                    </div>
-                  </div>
-              </div>
-            </div>
-            <!-- End of Basic Infor -->
-
-          </div>
-        </div>
-
-        <!-- Physical Exam -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="panel panel-success">
-              <div class="panel-heading">Previous Checkups</div>
-              <div class="panel-body">
-                
-                
-                <!-- Buttons -->
-                <div class="container-fluid">
-                  <div class="row">
-                    <!-- Start btn-toolbar -->
-                    <div class="btn-toolbar">
-                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
-
-                        <!-- Search Button -->
-                        <form action="" method="get">
-                        <div class="input-group pull-right" style="width: 300px;">
-                            <input type="text" id="search" name="search" class="form-control" placeholder="Search">
-                            <span class="input-group-btn"><button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button></span>
-                        </div>
-                        </form>
-                        <!-- End of Search Button -->
-                    </div>
-                    <!-- End btn-toolbar -->
+                <table class="table table-bordered table-striped">
+                  <tr>
+                  </tr>
+                  <tr>
+                    <td><label>Full Name:</label></td>
+                    <td colspan="2"><?php echo $row['first_name']." ".$row['middle_name']." ".$row['last_name']." ".$row['ext'];?></td>
+                    <td><label>Age:</label></td>
+                    <td><?php echo $row['age'];?> years old</td>
+                    <td><label>Gender:</label></td>
+                    <td><?php echo $row['sex'];?></td>
+                    <td><label>Student No.:</label></td>
+                    <td><?php echo $row['studentNo'];?></td>
+                  </tr>
+                  <tr>
+                    <td><label>Program:</label></td>
+                    <td colspan="2"><?php echo $row['program'];?></td>
+                    <td><label>Year Level:</label></td>
+                    <td><?php echo $row['yearLevel'];?> Year</td>
+                    <td><label>Semester: </label></td>
+                    <td><?php echo $row['sem'];?> Semester</td>
+                    <td><label>Academic Year:</label></td>
+                    <td><?php echo $row['acadYear'];?></td>
+                  </tr>
+                  <tr>
+                    <td><label>Address:</label></td>
+                    <td colspan="4"><?php echo $row['address'];?></td>
+                    <td><label>Contact Person:</label></td>
+                    <td><?php echo $row['cperson'];?></td>
+                    <td><label>Cel/Tel No.:</label></td>
+                    <td><?php echo $row['cphone'];?></td>
+                  </tr>
+                </table>
                   </div>
                 </div>
-                <!-- End of Buttons -->
+                <!-- End of Basic Infor --> 
+              </div>
+            </div>
 
                 <?php 
                   require_once '../includes/dbconnect.php';
@@ -281,6 +197,63 @@
                       $count = $result->num_rows;
                     }
                 ?>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="panel panel-success">
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>MEDICAL INFORMATION</strong>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <td><label>PERSONAL AND SOCIAL HISTORY</label></td>
+                        </tr>
+                        <tbody>
+                          <tr>
+                            <?php 
+                              if ($row['drinker'] == 'Yes') { 
+                                echo "<td>Alcoholic Drinker</td>";
+                              } else if ($smoker == 'Yes') { 
+                                echo "<td>Smoker</td>";
+                              } else if ($drug_user == 'Yes') { 
+                                echo "<td>Drug User</td>";
+                              } else { 
+                                echo "<td>N/A</td>";
+                            }?>
+                          </tr>
+                        </tbody>
+                      </thead>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        <!-- Physical Exam -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="panel panel-success">
+              <div class="panel-heading">
+                <div class="panel-title">
+                  <strong>PREVIOUS CHECKUPS</strong>
+                </div>
+              </div>
+              <div class="panel-body">             
+                <!-- Buttons -->
+                <div class="container-fluid">
+                  <div class="row">
+                    <!-- Start btn-toolbar -->
+                    <div class="btn-toolbar">
+                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                    </div>
+                    <!-- End btn-toolbar -->
+                  </div>
+                </div>
+                <!-- End of Buttons -->
                 <br>
                 <div class="table-responsive">
                   <?php
@@ -314,7 +287,7 @@
                         <td><?php echo $row['weight']; ?></td>
                         <td><?php echo $row['height']; ?></td>
                         <td><?php echo $row['bmi']; ?></td>
-                        <td><?php echo date('F j, Y \a\\t g:i a', strtotime($row['date_updated'])); ?></td>
+                        <td><?php echo date("F j, Y", strtotime($row['date_checked_up'])); ?></td>
                       </tr>
                       <?php }
                         } 

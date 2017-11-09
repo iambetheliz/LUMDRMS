@@ -128,7 +128,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
           header("Location: records.php?error");
         }
         else{
-          header("Location: records.php");
+          header("Location: records.php?StudentID=?");
         }
         // show an error message if the query has an error
 

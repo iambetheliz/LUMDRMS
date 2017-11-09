@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS `students_med` (
   `studentNo` varchar(8) NOT NULL,
   `StudentID` int(11) NOT NULL,
   PRIMARY KEY (`MedID`,`StudentID`),
-  KEY `StudentID` (`StudentID`),
+  UNIQUE KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_med_id` 
   FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -178,6 +178,33 @@ CREATE TABLE IF NOT EXISTS `faculty_stats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
+
+--
+-- table for Department
+--
+
+CREATE TABLE IF NOT EXISTS `department` (
+  `dept_id` int(11) NOT NULL,
+  `dept_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `program_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active'
+) ENGINE=InnoDB AUTO_INCREMENT=6178 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `states`
+--
+
+CREATE TABLE IF NOT EXISTS `program` (
+  `program_id` int(11) NOT NULL,
+  `program_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `dept_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active'
+) ENGINE=InnoDB AUTO_INCREMENT=1652 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+
+-----------------------------------------------------------
 
 --
 -- Table structure for table `users`

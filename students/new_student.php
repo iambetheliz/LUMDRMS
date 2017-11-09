@@ -113,7 +113,7 @@
             <!-- End of Page Heading --> 
             
           <!-- Start of Form -->
-          <form action="action.php" id="form" name="form" method="post" autocomplete="">
+          <form action="action.php" id="myForm" name="form" method="post" autocomplete="">
 
             <!-- Basic Info -->
             <div class="row">
@@ -301,6 +301,9 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
+<script type="text/javascript">
+
+</script>
 
 </body>
 </html>
