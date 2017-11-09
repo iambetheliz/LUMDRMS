@@ -211,19 +211,10 @@
                       <thead>
                         <tr>
                           <td><label>PERSONAL AND SOCIAL HISTORY</label></td>
+                          <td><label>O.B. GYNE</label></td>
                         </tr>
                         <tbody>
                           <tr>
-                            <?php 
-                              if ($row['drinker'] == 'Yes') { 
-                                echo "<td>Alcoholic Drinker</td>";
-                              } else if ($smoker == 'Yes') { 
-                                echo "<td>Smoker</td>";
-                              } else if ($drug_user == 'Yes') { 
-                                echo "<td>Drug User</td>";
-                              } else { 
-                                echo "<td>N/A</td>";
-                            }?>
                           </tr>
                         </tbody>
                       </thead>
