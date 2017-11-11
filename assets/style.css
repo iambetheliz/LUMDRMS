@@ -1,4 +1,9 @@
 /*CUSTOM STYLES*/
+@media (min-width: 768px) {
+.modal-dialog {
+    width: 1000px;
+    margin: 30px auto;
+}}
 .container .text-muted {
   margin: 0;
 }
