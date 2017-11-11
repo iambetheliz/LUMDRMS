@@ -37,14 +37,9 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   		$address = $_POST['address'];
   		$cperson = $_POST['cperson'];
   		$cphone = $_POST['cphone'];
-  		$tphone = $_POST['tphone'];
 
   		if (empty($cphone)) {
   			$cphone = 'none';
-  		}
-
-  		if (empty($tphone)) {
-  			$tphone = 'none';
   		}
 
       $med = 'Pending';
@@ -68,13 +63,13 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       // if there's no error, continue to signup
   		if( !$error ) {
 
-        $query1 = "INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone,tphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
+        $query1 = "INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,program,yearLevel,sem,acadYear,address,cperson,cphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone')";
         $query3 = "INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo')";
 
   			$stmt1 = $DB_con->prepare($query1);
         $stmt3 = $DB_con->prepare($query3);
 
-   			$stmt1->bind_param($studentNo,$first_name,$middle_name,$last_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
+   			$stmt1->bind_param($studentNo,$first_name,$middle_name,$last_name,$ext,$age,$sex,$program,$yearLevel,$sem,$acadYear,$address,$cperson,$cphone);
         $stmt3->bind_param($med,$dent);
 
    			if (!$stmt1 || !$stmt3){
