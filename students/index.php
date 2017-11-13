@@ -172,7 +172,7 @@
                         <input class="form-control required" type="text" placeholder="00" name="age" id="age">
                         <br>
                         <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
-                          <select class="form-control required" name="sexOption">
+                          <select class="form-control required" name="sex" id="sex">
                             <option value="undefined">Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
@@ -233,7 +233,7 @@
                     <div class="col-lg-2"> 
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-                        <select class="form-control" name="semOption" id="semOption">
+                        <select class="form-control" name="sem" id="semOption">
                           <option value="unknown">Select</option>
                           <option value="1st">1st</option>
                           <option value="2nd">2nd</option>
@@ -305,7 +305,8 @@
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js" type="text/javascript"></script>  
+<script src="../assets/js/index.js"></script> 
+<script src="../assets/js/sorttable.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function(){
 		showUser();	

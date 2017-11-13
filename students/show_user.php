@@ -1,7 +1,7 @@
 <?php
 	require_once '../includes/dbconnect.php';
     $DB_con = new mysqli("localhost", "root", "", "records");
-    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`"); 
+    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY StudentID DESC"); 
     $count = $result->num_rows;
 	if(isset($_POST['show'])){
 		?>
@@ -18,18 +18,18 @@
                 <div class="table-responsive">
                 <?php        
                 if ($result->num_rows != 0) { ?>
-                    <table class="table  table-striped table-bordered" id="myTable">
-                        <thead style="background-color:#eee;cursor: pointer;">
+                    <table class="table  table-striped table-bordered sortable" id="myTable">
+                        <thead>
                             <tr>
                                 <th></th>
-                                <th title="Click to sort" onclick="sortTable(0)">Medical <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(1)">Dental <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(2)">Last Name <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(3)">First Name <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(4)">Middle Name <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(5)">Student No. <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(6)">Program <i class="fa fa-sort"></i></th>
-                                <th title="Click to sort" onclick="sortTable(7)">Year <i class="fa fa-sort"></i></th>             
+                                <th title="Click to sort" data-toggle="tooltip">Medical</th>
+                                <th title="Click to sort">Dental</th>
+                                <th title="Click to sort">Last Name</th>
+                                <th title="Click to sort">First Name</th>
+                                <th title="Click to sort" >Middle Name</th>
+                                <th title="Click to sort">Student No.</th>
+                                <th title="Click to sort">Program</th>
+                                <th title="Click to sort">Year</th>             
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -64,7 +64,7 @@
                                 <td><?php echo $row['studentNo']; ?></td>
                                 <td><?php echo $row['program_name'];?></td>
                                 <td><?php echo $row['yearLevel'];?></td>
-								<td style="width: 180px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> |  <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-danger delete" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+								<td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> |  <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
 								</td>
 							</tr>
                         <?php }
@@ -118,3 +118,4 @@
         return false;
     });
     </script>
+<script src="../assets/js/sorttable.js"></script>

@@ -1,23 +1,49 @@
-<div class="modal fade" id="edit<?php echo $row['StudentID']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<?php
-		$n=mysqli_query($DB_con,"select * from `students` where StudentID='".$row['StudentID']."'");
-		$nrow=mysqli_fetch_array($n);
-	?>
-  <div class="modal-dialog" role="document">
+<div class="modal fade" id="edit<?php echo $StudentID; ?>" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
     <div class="modal-content">
-		<div class = "modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<center><h3 class = "text-success modal-title">Update Member</h3></center>
-		</div>
-		<form method="post">
-		<div class="modal-body">
-			first_name: <input type="text" value="<?php echo $nrow['first_name']; ?>" id="first_name<?php echo $row['StudentID']; ?>" class="form-control">
-			last_name: <input type="text" value="<?php echo $nrow['last_name']; ?>" id="last_name<?php echo $row['StudentID']; ?>" class="form-control">
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal"><span class = "glyphicon glyphicon-remove"></span> Cancel</button> | <button type="button" class="updateuser btn btn-success" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-floppy-disk"></span> Save</button>
-		</div>
-		</form>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Edit Records</h4>
+      </div>
+      <?php
+
+              $StudentID = (int) $_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE StudentID=$StudentID";
+              $result = $DB_con->query($res);
+              $row1 = $result->fetch_array(MYSQLI_BOTH);
+      ?>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">First Name: </label>
+                <p><?php echo $row1['first_name']; ?></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Last Name: </label>
+                <p><?php echo $row1['last_name']; ?></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Email: </label>
+                <p><?php echo $row1['email']; ?></p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="control-label">Mobile: </label>
+                <p><?php echo $row1['mobile']; ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
     </div>
   </div>
 </div>

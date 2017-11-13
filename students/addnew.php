@@ -9,11 +9,11 @@
         $last_name = $_POST['last_name'];
         $ext = $_POST['ext'];
         $age = $_POST['age'];
-        $sex = $_POST['sexOption'];
+        $sex = $_POST['sex'];
         $dept = $_POST['dept'];
         $program = $_POST['program'];
         $yearLevel = $_POST['yearLevel'];
-        $sem = $_POST['semOption'];
+        $sem = $_POST['sem'];
         $acadYear = $_POST['acadYear'];
         $address = $_POST['address'];
         $cperson = $_POST['cperson'];

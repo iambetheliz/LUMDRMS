@@ -133,23 +133,22 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
   }
 	elseif($_REQUEST['action_type'] == 'edit'){
 
-		if(!empty($_POST['StudentID'])){
+    if(!empty($_POST['StudentID'])){
 
-			  $studentNo = $_POST['studentNo'];
-  			$last_name = $_POST['last_name'];
-  			$first_name = $_POST['first_name'];
-  			$middle_name = $_POST['middle_name'];
+        $studentNo = $_POST['studentNo'];
+        $last_name = $_POST['last_name'];
+        $first_name = $_POST['first_name'];
+        $middle_name = $_POST['middle_name'];
         $ext = $_POST['ext'];
-  			$age = $_POST['age'];
-  			$sex = $_POST['sexOption'];
-  			$program = $_POST['program'];
-  			$yearLevel = $_POST['yearLevel'];
-  			$sem = $_POST['semOption'];
-  			$acadYear = $_POST['acadYear'];
-  			$address = $_POST['address'];
-  			$cperson = $_POST['cperson'];
-  			$cphone = $_POST['cphone'];
-  			$tphone = $_POST['tphone'];
+        $age = $_POST['age'];
+        $sex = $_POST['sex'];
+        $dept = $_POST['dept'];
+        $program = $_POST['program'];
+        $sem = $_POST['sem'];
+        $acadYear = $_POST['acadYear'];
+        $address = $_POST['address'];
+        $cperson = $_POST['cperson'];
+        $cphone = $_POST['cphone'];
         $StudentID = $_POST['StudentID'];
 
         $med = $_POST['med'];
@@ -158,13 +157,13 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         // if everything is fine, update the record in the database
         if (!$error) {
 
-          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", program="'.$program.'", yearLevel="'.$yearLevel.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", tphone="'.$tphone.'", med="'.$med.'", dent="'.$dent.'" WHERE StudentID="'.$StudentID.'"';
+          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dept="'.$dept.'", program="'.$program.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", med="'.$med.'", dent="'.$dent.'" WHERE StudentID="'.$StudentID.'"';
 
           if (!$stmt) {
-            header("Location: medical_form.php?error");
+            header("Location: edit_student.php?error");
           }
           elseif (mysqli_query($DB_con,$stmt)) {
-            header("Location: records.php?success");
+            header("Location: /lu_clinic/students/index.php");
           }
             mysqli_close($DB_con);
         }
@@ -172,8 +171,8 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         else {
           echo "ERROR: could not prepare SQL statement.";
         }
-		}
-	}
+    }
+  }
 	elseif($_REQUEST['action_type'] == 'delete'){
 
 		if(!empty($_GET['StudentID'])){

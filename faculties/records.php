@@ -95,7 +95,7 @@
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse in">
                         <li>
-                            <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                            <a href="/lu_clinic/students/index.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li class="active">
                             <a href="/lu_clinic/faculties/records.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
@@ -125,7 +125,7 @@
                   <div class="row">
                     <!-- Start btn-toolbar -->
                 	<div class="btn-toolbar">
-                    	<a href="new_faculty.php" class="btn btn-success">Add New</a>
+                    	<a href="new_faculty.php" class="btn btn-success" title="Add" data-toggle="tooltip">Add New</a>
                         <!-- Filter -->
                         <!-- End -->
                         <!-- Sort button -->

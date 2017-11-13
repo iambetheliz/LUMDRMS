@@ -137,8 +137,7 @@
                       <strong>BASIC INFORMATION</strong>
                     </div>
                   </div>
-                  <div class="panel-body">
-
+                  <div class="panel-body">                    
                 <table class="table table-bordered table-striped">
                   <tr>
                   </tr>
@@ -207,18 +206,57 @@
                     </div>
                   </div>
                   <div class="panel-body">
+                  <?php
+                if ($result->num_rows != 0) { ?>
+                  <div class="row">
+                  <div class="col-lg-6">
                     <table class="table table-bordered">
                       <thead>
                         <tr>
                           <td><label>PERSONAL AND SOCIAL HISTORY</label></td>
-                          <td><label>O.B. GYNE</label></td>
                         </tr>
                         <tbody>
+                      <?php 
+                        // displaying records.
+                        while ($row = $result->fetch_assoc()){ ?>
+                          <tr><?php if ($row['drinker'] == 'No') {
+                              $display = "none"; } ?>
+                            <td style="display: <?php echo $display; ?>">
+                              <?php if ($row['drinker'] == 'Yes') {
+                              echo "Alcoholic Drinker";
+                            } ?></td>
+                          </tr>
+                          <tr><?php if ($row['smoker'] == 'No') {
+                              $display = "none"; } ?>
+                            <td style="display: <?php echo $display; ?>">
+                              <?php if ($row['smoker'] == 'Yes') {
+                              echo "Smoker";
+                            } ?></td>
+                          </tr>
+                          <tr><?php if ($row['drug_user'] == 'No') {
+                              $display = "none"; } ?>
+                            <td style="display: <?php echo $display; ?>">
+                              <?php if ($row['drug_user'] == 'Yes') {
+                              echo "Drug user"; }?></td>
+                          </tr>
                           <tr>
+                            <td><?php if ($row['drug_user'] && $row['smoker'] && $row['drinker'] == 'No') {
+                              echo "None"; }?></td>
                           </tr>
                         </tbody>
                       </thead>
                     </table>
+                  </div>
+                  <div class="col-lg-6">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>                          
+                          <td><label>O.B. GYNE</label></td>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  </div>
                   </div>
                 </div>
               </div>
@@ -247,8 +285,6 @@
                 <!-- End of Buttons -->
                 <br>
                 <div class="table-responsive">
-                  <?php
-                if ($result->num_rows != 0) { ?>
                   <table class="table  table-striped table-bordered" id="myTable">
                     <thead style="background-color:#eee;cursor: pointer;">
                       <tr>
@@ -265,9 +301,6 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <?php 
-                        // displaying records.
-                        while ($row = $result->fetch_assoc()){ ?>
                       <tr>
                         <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
                         <td><?php echo $row['sysRev']; ?></td>
