@@ -112,7 +112,7 @@
             if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
               $StudentID = $_GET['StudentID'];
-              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE StudentID=".$_GET['StudentID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -153,7 +153,7 @@
                   </tr>
                   <tr>
                     <td><label>Program:</label></td>
-                    <td colspan="2"><?php echo $row['program'];?></td>
+                    <td colspan="2"><?php echo $row['program_name'];?></td>
                     <td><label>Year Level:</label></td>
                     <td><?php echo $row['yearLevel'];?> Year</td>
                     <td><label>Semester: </label></td>

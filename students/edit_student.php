@@ -199,8 +199,12 @@
     
                         //Count total number of rows
                         $rowCount = $query->num_rows;
+                        $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `department` ON `students`.`dept`=`department`.`dept_id` WHERE StudentID=".$_GET['StudentID'];
+                        $result = $DB_con->query($res);
+                        $rowDept = $result->fetch_array(MYSQLI_BOTH);
                         ?>
                         <select class="form-control" name="dept" id="dept">
+                            <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept'] ;?></option>
                             <option value="">Select Department</option>
                             <?php
                                 if($rowCount > 0){
@@ -232,7 +236,7 @@
                         <div class="form-group">
                         <label>Program</label>                            
                         <select class="form-control" name="program" id="program">
-                            <option value="<?php echo $row['program_name'];?>"><?php echo $row['program_name'];?></option>
+                            <option value="<?php echo $row['program'];?>"><?php echo $row['program_name'];?></option>
                             <option value="">Select department first</option>
                         </select>
                         </div>
