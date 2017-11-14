@@ -69,10 +69,10 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li>
-                <a href="/lu_clinic/students/records.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li class="active">
-                <a href="/lu_clinic/faculties/records.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
               </li>
             </ul>
           </li>
@@ -116,7 +116,7 @@
                     <div class="col-lg-12">
                         <ul class="breadcrumb">
                           You are here: 
-                            <li class="breadcrumb-item"><a href="records.php">Faculty</a></li>
+                            <li class="breadcrumb-item"><a href="index.php">Faculty</a></li>
                             <li class="breadcrumb-item active">Edit Form</li>
                         </ul>
                     </div>

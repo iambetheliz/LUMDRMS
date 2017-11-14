@@ -76,10 +76,10 @@
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse">
                         <li>
-                            <a href="/lu_clinic/students/index.php"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                            <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
                         <li>
-                            <a href="/lu_clinic/faculties/records.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                            <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
                         </li>
                     </ul>
                 </li>
@@ -118,7 +118,7 @@
                     <div class="offer offer-success">
                       <div class="shape">
                         <?php    
-                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW()) AND MONTH(date_created) = MONTH(NOW()) AND DAY(date_created) = DAY(NOW())");     
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW()) AND DAY(date_registered) = DAY(NOW())");     
                           $count = $stmt->num_rows;
                         ?>
                         <div class="shape-text">
@@ -142,7 +142,7 @@
                     <div class="offer offer-info">
                       <div class="shape">
                         <?php    
-                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE WEEKOFYEAR(date_created) = WEEKOFYEAR(NOW())");
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())");
                           $count = $stmt->num_rows;
                         ?>
                         <div class="shape-text">
@@ -166,7 +166,7 @@
                     <div class="offer offer-warning">
                       <div class="shape">
                         <?php    
-                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW()) AND MONTH(date_created)=MONTH(NOW())");
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())");
                           $count = $stmt->num_rows;
                         ?>
                         <div class="shape-text">
@@ -190,7 +190,7 @@
                     <div class="offer offer-danger">
                       <div class="shape">
                         <?php    
-                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE YEAR(date_created) = YEAR(NOW())");
+                          $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW())");
                           $count = $stmt->num_rows;
                         ?>
                         <div class="shape-text">
@@ -204,7 +204,7 @@
                             <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</p>
                           <?php    }
                           else {?>
-                            <p>You haven't any records this year.</p>
+                            <p>You haven't added any records this year.</p>
                           <?php    }
                         ?>
                       </div>

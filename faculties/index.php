@@ -40,7 +40,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Records | Laguna University - Clinic | Medical Records System</title>
+<title>Faculty and Staffs Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
@@ -107,7 +107,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="container-fluid">
-                        <h1 class="page-header">Students Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                        <h1 class="page-header">Faculty and Staff Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
@@ -116,12 +116,8 @@
                 <div class="container-fluid">
                   <div class="row">
                     <!-- Start btn-toolbar -->
-                	  <div class="btn-toolbar">
-            			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Student</button>
-
-                      <div class="form-group pull-right">
-                        <input type="text" class="search form-control" placeholder="What are you looking for?">
-                      </div>
+                	<div class="btn-toolbar">
+            			<button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Faculty</button>
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
@@ -145,7 +141,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add User
+                    <h4 class="modal-title">Add Faculty
                         <span id="msg" class="error pull-right"></span>
                     </h4>
                 </div>
@@ -153,8 +149,8 @@
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="form-group"> 
-                        <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                        <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
+                        <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                        <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="">
                         <br>
                         <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
                         <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
@@ -212,32 +208,12 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                        <label>Program</label>                            
-                        <select class="form-control" name="program" id="program">
-                            <option value="">Select department first</option>
-                        </select>
-                        </div>
-                    </div>
                     <div class="col-2"></div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
-                        <select class="form-control required" name="yearLevel" id="yearLevel">
-                          <option value="unknown">Select</option>
-                          <option value="1st">1st Year</option>
-                          <option value="2nd">2nd Year</option>
-                          <option value="3rd">3rd Year</option>
-                          <option value="4th">4th Year</option>
-                        </select>
-                      </div>
-                    </div>
                     <div class="col-2"></div>
                     <div class="col-lg-2"> 
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-                        <select class="form-control" name="sem" id="semOption">
+                        <select class="form-control" name="sem" id="sem">
                           <option value="unknown">Select</option>
                           <option value="1st">1st</option>
                           <option value="2nd">2nd</option>
@@ -317,11 +293,8 @@
 		$('#user_form').submit(function() {
 			return false;
 			$.ajaxSetup ({
-        		cache: false
+        		cache: false,
     		});
-            $("#user_form")[0].reset();
-            $('#addnew').val();
-            $('#userModal').modal('hide'); 
 		});
   		//Select courses            
         $('#dept').on('change',function(){
@@ -332,24 +305,21 @@
                 url:'courses.php',
                 data:'dept_id='+deptID,
                 success:function(html){
-                  $('#program').html(html);
-                  $('#city').html('<option value="">Select program first</option>'); 
+                  $('#program').html(html); 
                 }
               }); 
-            } else {
-              $('#program').html('<option value="">Select departmentt first</option>');
-              }
+            } 
         });
 		//Add New
 		$(document).on('click', '#addnew', function(){
 			if($('.required').val() == "")  {  
                     $("#msg").html("* Required Fields!").show();
                     $(".required").addClass('error');
-                    $("#studentNo").focus();
+                    $("#facultyNo").focus();
                     return false; 
             }  
 			else {
-			$studentNo = $('#studentNo').val();
+			$facultyNo = $('#facultyNo').val();
 			$first_name = $('#first_name').val();
 			$middle_name = $('#middle_name').val();
 			$last_name = $('#last_name').val();	
@@ -357,9 +327,7 @@
 			$age = $('#age').val();	
 			$sex = $('#sex').val();	
 			$dept = $('#dept').val();
-			$program = $('#program').val();
-			$yearLevel = $('#yearLevel').val();
-			$sem = $('#semOption').val();
+			$sem = $('#sem').val();
 			$acadYear = $('#acadYear').val();
 			$address = $('#address').val();
 			$cperson = $('#cperson').val();
@@ -370,7 +338,7 @@
 					type: "POST",
 					url: "addnew.php",
 					data: {
-						studentNo: $studentNo,
+						facultyNo: $facultyNo,
 						first_name: $first_name,
 						middle_name: $middle_name,
 						last_name: $last_name,
@@ -378,8 +346,6 @@
 						age: $age,
 						sex: $sex,
 						dept: $dept,
-						program: $program,
-						yearLevel: $yearLevel,
 						sem: $sem,
 						acadYear: $acadYear,
 						address: $address,
@@ -387,16 +353,19 @@
 						cphone: $cphone,
 						med: $med,
 						dent: $dent,
-						studentNo: $studentNo,
+						facultyNo: $facultyNo,
 						add: 1,
 					}, 
-                    beforeSend:function() {  
-                        $('#addnew').val("Inserting");  
-                        },  
-					success: function(){
+          beforeSend:function() {  
+            $('#addnew').val("Inserting");  
+          },  
+					success: function(){  
+            $.ajaxSetup ({
+              cache: false,
+            });
 						$("#user_form")[0].reset();
-						$('#addnew').val();
-            $('#userModal').modal('hide');  
+						$('#addnew').val("Add Record");
+            $('#userModal').modal('hide');
 						showUser();
 					}
 				});
@@ -404,12 +373,12 @@
 		});
 		//Delete
 		$(document).on('click', '.delete', function(){
-			$StudentID=$(this).val();
+			$FacultyID=$(this).val();
 				$.ajax({
 					type: "POST",
 					url: "delete.php",
 					data: {
-						StudentID: $StudentID,
+						FacultyID: $FacultyID,
 						del: 1,
 					},
 					success: function(){
@@ -420,17 +389,17 @@
 		});
 		//Update
 		$(document).on('click', '.updateuser', function(){
-			$StudentID = $(this).val();
-			$('#edit'+$StudentID).modal('hide');
+			$FacultyID = $(this).val();
+			$('#edit'+$FacultyID).modal('hide');
 			$('body').removeClass('modal-open');
 			$('.modal-backdrop').remove();
-			$first_name = $('#first_name'+$StudentID).val();
-			$last_name = $('#last_name'+$StudentID).val();
+			$first_name = $('#first_name'+$FacultyID).val();
+			$last_name = $('#last_name'+$FacultyID).val();
 				$.ajax({
 					type: "POST",
 					url: "update.php",
 					data: {
-						StudentID: $StudentID,
+						FacultyID: $FacultyID,
 						first_name: $first_name,
 						last_name: $last_name,
 						edit: 1,
@@ -457,20 +426,6 @@
 			}
 		});
 	}
-
-$(document).ready(function(){
-  $('.search').on('keyup',function(){
-    var searchTerm = $(this).val().toLowerCase();
-    $('#userTable tbody tr').each(function(){
-      var lineStr = $(this).text().toLowerCase();
-      if(lineStr.indexOf(searchTerm) === -1){
-        $(this).hide();
-      }else{
-        $(this).show();
-      }
-    });
-  });
-});
 
 </script>
 </body>

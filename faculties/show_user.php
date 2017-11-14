@@ -1,7 +1,7 @@
 <?php
 	require_once '../includes/dbconnect.php';
     $DB_con = new mysqli("localhost", "root", "", "records");
-    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY StudentID DESC"); 
+    $result = mysqli_query($DB_con,"SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY FacultyID DESC"); 
     $count = $result->num_rows;
 	if(isset($_POST['show'])){
 		?>
@@ -22,14 +22,13 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th title="Click to sort" data-toggle="tooltip" style="width: 85px;">Medical</th>
-                                <th title="Click to sort" style="width: 85px;">Dental</th>
+                                <th title="Click to sort" data-toggle="tooltip">Medical</th>
+                                <th title="Click to sort">Dental</th>
                                 <th title="Click to sort">Last Name</th>
                                 <th title="Click to sort">First Name</th>
-                                <th title="Click to sort">Middle Name</th>
-                                <th title="Click to sort" style="width: 120px;">Student No.</th>
-                                <th title="Click to sort">Program</th>
-                                <th title="Click to sort" style="width: 60px;">Year</th>             
+                                <th title="Click to sort" >Middle Name</th>
+                                <th title="Click to sort">Faculty No.</th>
+                                <th title="Click to sort">Department</th>      
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -51,7 +50,7 @@
                                 }
 							?>
 								<tr data-status="<?php echo $status;?>">
-                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
                                 <td style="color:<?php echo $color;?>;">
                                     <?php echo $row['med']; ?> 
                                 </td>
@@ -61,10 +60,9 @@
                                 <td><?php echo strtoupper($row['ext'])." "; echo strtoupper($row['last_name']); ?></td>
                                 <td><?php echo strtoupper($row['first_name']); ?></td>
                                 <td><?php echo strtoupper($row['middle_name']); ?></td>
-                                <td><?php echo $row['studentNo']; ?></td>
-                                <td><?php echo $row['program_name'];?></td>
-                                <td><?php echo $row['yearLevel'];?></td>
-								<td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> |  <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                                <td><?php echo $row['facultyNo']; ?></td>
+                                <td><?php echo $row['dept_name'];?></td>
+								<td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> |  <a href="edit_student.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
 								</td>
 							</tr>
                         <?php }

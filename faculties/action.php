@@ -85,7 +85,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
           $stmt1->close();
           $stmt3->close();
           COMMIT;
-        		header("Location: records.php?success");
+        		header("Location: index.php?success");
   			} 
   		}
 	}
@@ -124,10 +124,10 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         $result = mysqli_query($DB_con,$sql);
 
         if (!$result) {
-          header("Location: records.php?error");
+          header("Location: index.php?error");
         }
         else{
-          header("Location: records.php");
+          header("Location: index.php");
         }
         // show an error message if the query has an error
 
@@ -167,7 +167,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
             header("Location: medical_form.php?error");
           }
           elseif (mysqli_query($DB_con,$stmt)) {
-            header("Location: records.php?success");
+            header("Location: index.php?success");
           }
             mysqli_close($DB_con);
         }
@@ -189,13 +189,13 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
             $errMSG = "Something went wrong, try again later..."; 
         } else {
           $stmt->execute();
-          header("Location: records.php?deleteSuccess");
+          header("Location: index.php?deleteSuccess");
         }
       }
     }
     else {
       // if the 'FacultyID' variable isn't set, redirect the user
-      header("Location: records.php?deleteError");
+      header("Location: index.php?deleteError");
     }
 	}
 }
