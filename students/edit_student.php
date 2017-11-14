@@ -232,7 +232,7 @@
                         <div class="form-group">
                         <label>Program</label>                            
                         <select class="form-control" name="program" id="program">
-                            <option value="<?php echo '$program';?>"></option>
+                            <option value="<?php echo $row['program_name'];?>"><?php echo $row['program_name'];?></option>
                             <option value="">Select department first</option>
                         </select>
                         </div>
