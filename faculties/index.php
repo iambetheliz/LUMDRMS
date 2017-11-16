@@ -181,7 +181,7 @@
                     </div>
                     <div class="col-2"></div>
                     <div class="col-lg-3">
-                      <div class="form-inline">
+                      <div class="form-group">
                         <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
                         <?php
                         //Include database configuration file
@@ -206,12 +206,7 @@
                                 }
                             ?>
                         </select>
-                      </div>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-2"> 
-                      <div class="form-group">
+                        <br>
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
                         <select class="form-control" name="sem" id="sem">
                           <option value="unknown">Select</option>
@@ -240,24 +235,24 @@
                       </div>
                     </div>
                     <div class="col-2"></div>
-                    <div class="col-lg-8">
+                    <div class="col-lg-7">
                       <hr>
                     </div>
                     <div class="col-2"></div>
-                    <div class="col-lg-9">
+                    <div class="col-lg-7">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
                         <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                       </div>
                     </div>
                     <div class="col-2"></div>
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
                         <input type="text" class="form-control" name="cperson" id="cperson">
                       </div>
                     </div>
-                    <div class="col-lg-1"></div>
+                    <div class="col-2"></div>
                     <div class="col-lg-3">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>

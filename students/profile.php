@@ -206,6 +206,17 @@
                     </div>
                   </div>
                   <div class="panel-body">
+                    <!-- Buttons -->
+                <div class="container-fluid">
+                  <div class="row">
+                    <!-- Start btn-toolbar -->
+                    <div class="btn-toolbar">
+                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                    </div>
+                    <!-- End btn-toolbar -->
+                  </div>
+                </div>
+                <!-- End of Buttons --><br>
                   <?php
                 if ($result->num_rows != 0) { ?>
                   <div class="row">

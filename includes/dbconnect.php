@@ -1,6 +1,4 @@
 <?php
-
-error_reporting(~E_NOTICE);
  
 $DB_HOST = 'localhost';
 $DB_USER = 'root';

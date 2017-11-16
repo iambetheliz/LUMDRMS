@@ -51,6 +51,62 @@ $(document).ready(function () {
 
 //Disable inputs untill student number is filled up
 
+//Sort Table
+function sortTable(n) {
+  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+  table = document.getElementById("myTable");
+  switching = true;
+  //Set the sorting direction to ascending:
+  dir = "asc"; 
+  /*Make a loop that will continue until
+  no switching has been done:*/
+  while (switching) {
+    //start by saying: no switching is done:
+    switching = false;
+    rows = table.getElementsByTagName("TR");
+    /*Loop through all table rows (except the
+    first, which contains table headers):*/
+    for (i = 1; i < (rows.length - 1); i++) {
+      //start by saying there should be no switching:
+      shouldSwitch = false;
+      /*Get the two elements you want to compare,
+      one from current row and one from the next:*/
+      x = rows[i].getElementsByTagName("TD")[n];
+      y = rows[i + 1].getElementsByTagName("TD")[n];
+      /*check if the two rows should switch place,
+      based on the direction, asc or desc:*/
+      if (dir == "asc") {
+        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      } else if (dir == "desc") {
+        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+          //if so, mark as a switch and break the loop:
+          shouldSwitch= true;
+          break;
+        }
+      }
+    }
+    if (shouldSwitch) {
+      /*If a switch has been marked, make the switch
+      and mark that a switch has been done:*/
+      rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      switching = true;
+      //Each time a switch is done, increase this count by 1:
+      switchcount ++;      
+    } else {
+      /*If no switching has been done AND the direction is "asc",
+      set the direction to "desc" and run the while loop again.*/
+      if (switchcount == 0 && dir == "asc") {
+        dir = "desc";
+        switching = true;
+      }
+    }
+  }
+}
+
 //Form Validation
 $(document).ready(function () {
   
@@ -129,41 +185,21 @@ $(document).ready(function () {
   $("#first_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0 && inputValue != 45 && inputValue != 46)) { 
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
-        $("#errFirst").html("Invalid key input!").show().fadeOut("slow");
+        $("#errFirst").html("Letters Only").show().fadeOut("slow");
             return false;
       }
   });
-  document.getElementById("first_name").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
   $("#middle_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
-        $("#errMid").html("Invalid key input!").show().fadeOut("slow");
+        $("#errMid").html("Letters Only").show().fadeOut("slow");
             return false;
       }
   });
-  document.getElementById("middle_name").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
   $("#last_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -173,16 +209,6 @@ $(document).ready(function () {
             return false;
       }
   });
-  document.getElementById("last_name").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
   $("#ext").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -193,16 +219,6 @@ $(document).ready(function () {
             return false;
       }
   });
-  document.getElementById("ext").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
   $("#address").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -212,16 +228,6 @@ $(document).ready(function () {
             return false;
       }
   });
-  document.getElementById("address").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
   $("#cperson").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -231,16 +237,6 @@ $(document).ready(function () {
             return false;
       }
   });
-  document.getElementById("cperson").addEventListener("input", forceLower);
-  function forceLower(evt) {
-    var words = evt.target.value.split(/\s+/g);
-    var newWords = words.map(function(element){
-      element = element.toLowerCase();
-      return element !== "" ?  element[0].toUpperCase() + element.substr(1, element.length) : "";
-    });
-  
-    evt.target.value = newWords.join(" "); 
-  }
 
   $(function() {
 
@@ -249,11 +245,11 @@ $(document).ready(function () {
 
       if ($('.form-control').val() == '') {
         $("#errmsg").html("* Required Fields!").show();
-        $(".form-control").addClass('error');
+        $("input","textarea").addClass('error');
         $("#studentNo").focus();
           return false;
-      } else if($("#studentNo").val().length >= 8){
-        $("#studentNo").removeClass("error");
+      } else if($(".form-control").val().length >= 8){
+        $(".form-control").removeClass("error");
       } else{
         $("#studentNo").addClass("error");
         $("#errSN").html("Required!").show();

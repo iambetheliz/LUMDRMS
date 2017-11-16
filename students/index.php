@@ -441,35 +441,32 @@
 				});
 				return false;
 		});
-	
-	});
-	
-	//Showing our Table
-	function showUser(){
-		$.ajax({
-			url: 'show_user.php',
-			type: 'POST',
-			data:{
-				show: 1
-			},
-			success: function(response){
-				$('#userTable').html(response);
-			}
-		});
-	}
-
-$(document).ready(function(){
-  $('.search').on('keyup',function(){
-    var searchTerm = $(this).val().toLowerCase();
-    $('#userTable tbody tr').each(function(){
-      var lineStr = $(this).text().toLowerCase();
-      if(lineStr.indexOf(searchTerm) === -1){
-        $(this).hide();
-      }else{
-        $(this).show();
-      }
+    //Showing our Table
+    function showUser(){
+      $.ajax({
+        url: 'show_user.php',
+        type: 'POST',
+        data:{
+          show: 1
+        },
+        success: function(response){
+          $('#userTable').html(response);
+        }
+      });
+    }
+    //Search & Filter
+    $('.search').on('keyup',function(){
+      var searchTerm = $(this).val().toLowerCase();
+      $('#userTable tbody tr').each(function(){
+        var lineStr = $(this).text().toLowerCase();
+        if(lineStr.indexOf(searchTerm) === -1){
+          $(this).hide();
+        }else{
+          $(this).show();
+        }
+      });
     });
-  });
+    //Pagination
 });
 
 </script>

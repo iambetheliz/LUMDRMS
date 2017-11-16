@@ -204,7 +204,7 @@
                         $rowDept = $result->fetch_array(MYSQLI_BOTH);
                         ?>
                         <select class="form-control" name="dept" id="dept">
-                            <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept'] ;?></option>
+                            <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept_name'] ;?></option>
                             <option value="">Select Department</option>
                             <?php
                                 if($rowCount > 0){
