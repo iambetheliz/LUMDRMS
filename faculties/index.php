@@ -56,6 +56,9 @@
 #user_form input.error {
   border:1px solid red;
 }
+#user_form select.error {
+  border:1px solid red;
+}
 #user_form span.error {
   color: red;
 }
@@ -312,7 +315,13 @@
                     $(".required").addClass('error');
                     $("#facultyNo").focus();
                     return false; 
-            }  
+            } 
+      else if($('#dept').val() == "")  {  
+        $("#msg").html("* Required!").show();
+        $("#dept").addClass('error');
+        $("#dept").focus();
+          return false; 
+      }  
 			else {
 			$facultyNo = $('#facultyNo').val();
 			$first_name = $('#first_name').val();

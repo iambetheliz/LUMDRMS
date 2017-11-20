@@ -56,6 +56,12 @@
 #user_form input.error {
   border:1px solid red;
 }
+#user_form select.error {
+  border:1px solid red;
+}
+#user_form textarea.error {
+  border:1px solid red;
+}
 #user_form span.error {
   color: red;
 }
@@ -128,7 +134,12 @@
             	</div><br>
                 <!-- End of Buttons -->
 				
-				<div id="userTable"></div>
+				      <div id="userTable">
+                <!--
+                This is where data will be shown.
+                -->
+                <div id="overlay" align="center"><div><h2>Loading...</h2><img src="../includes/loading.gif" width="64px" height="64px"/></div></div>
+              </div>
 
             </div>  
           </div>
@@ -141,7 +152,7 @@
     <!-- Modal HTML -->    
     <div id="userModal" class="modal fade">
     <div class="modal-dialog">
-        <form method="post" id="user_form">
+        <form method="post" id="user_form" autocomplete>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -154,7 +165,7 @@
                     <div class="col-lg-3">
                       <div class="form-group"> 
                         <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                        <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="">
+                        <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
                         <br>
                         <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
                         <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
@@ -173,11 +184,11 @@
                     <div class="col-lg-2">
                       <div class="form-group">
                         <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
-                        <input class="form-control required" type="text" placeholder="00" name="age" id="age">
+                        <input class="form-control" type="text" placeholder="00" name="age" id="age">
                         <br>
                         <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
                           <select class="form-control required" name="sex" id="sex">
-                            <option value="undefined">Select</option>
+                            <option value="">Select</option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                           </select>
@@ -198,7 +209,7 @@
                         //Count total number of rows
                         $rowCount = $query->num_rows;
                         ?>
-                        <select class="form-control" name="dept" id="dept">
+                        <select class="form-control required" name="dept" id="dept">
                             <option value="">Select Department</option>
                             <?php
                                 if($rowCount > 0){
@@ -215,7 +226,7 @@
                     <div class="col-lg-4">
                         <div class="form-group">
                         <label>Program</label>                            
-                        <select class="form-control" name="program" id="program">
+                        <select class="form-control required" name="program" id="program">
                             <option value="">Select department first</option>
                         </select>
                         </div>
@@ -225,7 +236,7 @@
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
                         <select class="form-control required" name="yearLevel" id="yearLevel">
-                          <option value="unknown">Select</option>
+                          <option value="">Select</option>
                           <option value="1st">1st Year</option>
                           <option value="2nd">2nd Year</option>
                           <option value="3rd">3rd Year</option>
@@ -237,8 +248,8 @@
                     <div class="col-lg-2"> 
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-                        <select class="form-control" name="sem" id="semOption">
-                          <option value="unknown">Select</option>
+                        <select class="form-control required" name="sem" id="sem">
+                          <option value="">Select</option>
                           <option value="1st">1st</option>
                           <option value="2nd">2nd</option>
                         </select>
@@ -253,7 +264,8 @@
                             $earliest_year = 2006; 
                             $latest_year = date('Y');
                           ?>
-                          <select class="form-control" name="acadYear" id="acadYear">
+                          <select class="form-control required" name="acadYear" id="acadYear">
+                            <option value="">Select</option>
                             <?php 
                               foreach ( range( $latest_year, $earliest_year ) as $i ) {
                                 print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
@@ -278,14 +290,14 @@
                     <div class="col-lg-5">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
-                        <input type="text" class="form-control" name="cperson" id="cperson">
+                        <input type="text" class="form-control required" name="cperson" id="cperson">
                       </div>
                     </div>
                     <div class="col-lg-1"></div>
                     <div class="col-lg-3">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                        <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
+                        <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="09358306457">
                       </div>
                     </div>
                   </div>
@@ -343,11 +355,71 @@
 		//Add New
 		$(document).on('click', '#addnew', function(){
 			if($('.required').val() == "")  {  
-                    $("#msg").html("* Required Fields!").show();
-                    $(".required").addClass('error');
-                    $("#studentNo").focus();
-                    return false; 
-            }  
+        $("#msg").html("* Required Fields!").show();
+        $(".required").addClass('error');
+        $("#studentNo").focus();
+          return false; 
+      }
+      else if($('#first_name').val() == "")  {  
+        $("#msg").html("Please enter your first name!").show();
+        $("#first_name").addClass('error');
+        $("#first_name").focus();
+          return false; 
+      }
+      else if($('#last_name').val() == "")  {  
+        $("#msg").html("Please enter your last name!").show();
+        $("#last_name").addClass('error');
+        $("#last_name").focus();
+          return false; 
+      }  
+      else if($('#sex').val() == "")  {  
+        $("#msg").html("Please select your gender!").show();
+        $("#sex").addClass('error');
+        $("#sex").focus();
+          return false; 
+      }
+      else if($('#dept').val() == "")  {  
+        $("#msg").html("Please select department!").show();
+        $("#dept").addClass('error');
+        $("#dept").focus();
+          return false; 
+      }
+      else if($('#program').val() == "")  {  
+        $("#msg").html("Please select program!").show();
+        $("#program").addClass('error');
+        $("#program").focus();
+          return false; 
+      }
+      else if($('#yearLevel').val() == "")  {  
+        $("#msg").html("Please select your year level!").show();
+        $("#yearLevel").addClass('error');
+        $("#yearLevel").focus();
+          return false; 
+      }
+      else if($('#sem').val() == "")  {  
+        $("#msg").html("Please select semester!").show();
+        $("#sem").addClass('error');
+        $("#sem").focus();
+          return false; 
+      }
+      else if($('#acadYear').val() == "")  {  
+        $("#msg").html("Please select academic year!").show();
+        $("#acadYear").addClass('error');
+        $("#acadYear").focus();
+          return false; 
+      }
+      else if($('#cperson').val() == "")  {  
+        $("#msg").html("Please enter your guardian's name!").show();
+        $("#cperson").addClass('error');
+        $("#cperson").focus();
+          return false; 
+      }
+      else if($('#cphone').val() == "")  {  
+        $("#msg").html("Please enter your contact number!").show();
+        $("#cphone").addClass('error');
+        $("#cphone").focus();
+          return false; 
+      }
 			else {
 			$studentNo = $('#studentNo').val();
 			$first_name = $('#first_name').val();
@@ -359,7 +431,7 @@
 			$dept = $('#dept').val();
 			$program = $('#program').val();
 			$yearLevel = $('#yearLevel').val();
-			$sem = $('#semOption').val();
+			$sem = $('#sem').val();
 			$acadYear = $('#acadYear').val();
 			$address = $('#address').val();
 			$cperson = $('#cperson').val();
@@ -390,12 +462,12 @@
 						studentNo: $studentNo,
 						add: 1,
 					}, 
-                    beforeSend:function() {  
-                        $('#addnew').val("Inserting");  
-                        },  
+          beforeSend:function() {  
+            $('#addnew').val("Inserting");  
+          },  
 					success: function(){
 						$("#user_form")[0].reset();
-						$('#addnew').val();
+						$('#addnew').attr('disable');
             $('#userModal').modal('hide');  
 						showUser();
 					}

@@ -45,22 +45,6 @@
     border-bottom: 4px solid #fff;
   }
 
-/* For pagination function. */
-ul.pagination>li>a {
-    color:green;
-}
-ul.pagination>li>a.current,
-ul.pagination>li>a:hover {
-    background:green;
-    color:#fff;
-}
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 0;
-    border-radius: 4px;
-}
-
 /* Sticky footer styles
 -------------------------------------------------- */
 html, body {

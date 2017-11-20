@@ -199,7 +199,7 @@
                 <!-- Table -->
                 <?php 
   					require_once '../includes/dbconnect.php';
-                	include '../includes/pagination.php';
+                	include '../includes/pagination(old).php';
 
                 	$DB_con = new mysqli("localhost", "root", "", "records");
 

@@ -265,10 +265,10 @@
   <script src="assets/js/index.js" type="text/javascript"></script>
   <script type="text/javascript">
     window.setTimeout(function() {
-      $(".success-login").fadeTo(1000,0).slideUp(1000, function(){
+      $(".success-login").fadeTo(500,0).slideUp(500, function(){
         $(this).remove();
       });
-    }, 3000);
+    }, 1000);
   </script>
     
 </body>

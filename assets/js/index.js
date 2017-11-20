@@ -1,52 +1,4 @@
 $(document).ready(function () {
-
-  $(function(){
-    $('#current_year').change(function(){ // when one changes
-      $('#next_year').val( $(this).val() ) // they all change
-    })
-  })
-});
-
-$(document).ready(function() { 
-    /*Menu-toggle*/
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-    });
-});
-
-// Menu Collapse
-$(document).ready(function () {
-  //Tooltip
-  $('[data-toggle="tooltip"]').tooltip();
-  //Menu Links
-  $('ul[role="menu"]') 
-    .on('show.bs.collapse', function (e) {
-      $(e.target).prev('a[role="menuitem"]').addClass('active');
-    })
-    .on('hide.bs.collapse', function (e) {
-      $(e.target).prev('a[role="menuitem"]').removeClass('active');
-  });
-
-  $('a[data-toggle="collapse"]').click(function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    var drop = $(this).closest(".dropdown");
-    $(drop).addClass("open");
-
-    $('.collapse.in').collapse('hide');
-    var col_id = $(this).attr("href");
-    $(col_id).collapse('toggle');
-  });
-  
-  //Settings Menu
-  $("[data-toggle='toggle']").click(function() {
-    var selector = $(this).data("target");
-    $(selector).toggleClass('in');
-  });
-
-});
 //Filter Table
 
 //Disable inputs untill student number is filled up
@@ -107,6 +59,54 @@ function sortTable(n) {
   }
 }
 
+  $(function(){
+    $('#current_year').change(function(){ // when one changes
+      $('#next_year').val( $(this).val() ) // they all change
+    })
+  })
+});
+
+$(document).ready(function() { 
+    /*Menu-toggle*/
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+});
+
+// Menu Collapse
+$(document).ready(function () {
+  //Tooltip
+  $('[data-toggle="tooltip"]').tooltip();
+  //Menu Links
+  $('ul[role="menu"]') 
+    .on('show.bs.collapse', function (e) {
+      $(e.target).prev('a[role="menuitem"]').addClass('active');
+    })
+    .on('hide.bs.collapse', function (e) {
+      $(e.target).prev('a[role="menuitem"]').removeClass('active');
+  });
+
+  $('a[data-toggle="collapse"]').click(function (event) {
+    event.stopPropagation();
+    event.preventDefault();
+
+    var drop = $(this).closest(".dropdown");
+    $(drop).addClass("open");
+
+    $('.collapse.in').collapse('hide');
+    var col_id = $(this).attr("href");
+    $(col_id).collapse('toggle');
+  });
+  
+  //Settings Menu
+  $("[data-toggle='toggle']").click(function() {
+    var selector = $(this).data("target");
+    $(selector).toggleClass('in');
+  });
+
+});
+
 //Form Validation
 $(document).ready(function () {
   
@@ -117,8 +117,6 @@ $(document).ready(function () {
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
       $("#errSN").html("Numbers Only!").show().fadeOut("slow");
       return false;
-    } else {
-      $("#studentNo").removeClass('error');
     } 
 
     var curchr = this.value.length;
@@ -135,6 +133,8 @@ $(document).ready(function () {
     } else if (curchr == 8) {
       $("#errSN").html("8 characters only!").show().fadeOut("slow");
         return false;
+    } else if($("#studentNo").val().length >= 0){
+        $("#studentNo").removeClass("error");
     } 
   });
 
@@ -154,6 +154,8 @@ $(document).ready(function () {
       $(this).attr('maxlength', '2'); 
       $("#errAge").html("2 characters only!").show().fadeOut("slow");
       return true;
+    } else if($("#age").val().length >= 0){
+        $("#age").removeClass("error");
     } 
   });
 
@@ -163,6 +165,8 @@ $(document).ready(function () {
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
       $("#errTel").html("Numbers Only").show().fadeOut("slow");
         return false;
+    } else {
+      $("#cphone").removeClass('error');
     } 
 
     var phonechr = this.value.length;
@@ -179,6 +183,8 @@ $(document).ready(function () {
     } else if (phonechr == 13) {
       $("#errTel").html("Max. of 11").show().fadeOut("slow");
         return false;
+    } else if($("#cphone").val().length >= 0){
+        $("#cphone").removeClass("error");
     } 
   });
 
@@ -189,7 +195,9 @@ $(document).ready(function () {
         //display error message
         $("#errFirst").html("Letters Only").show().fadeOut("slow");
             return false;
-      }
+      } else if($("#first_name").val().length >= 0){
+        $("#first_name").removeClass("error");
+    } 
   });
   $("#middle_name").keypress(function(event){
       var inputValue = event.which;
@@ -198,7 +206,9 @@ $(document).ready(function () {
         //display error message
         $("#errMid").html("Letters Only").show().fadeOut("slow");
             return false;
-      }
+      } else if($("#middle_name").val().length >= 0){
+        $("#middle_name").removeClass("error");
+    } 
   });
   $("#last_name").keypress(function(event){
       var inputValue = event.which;
@@ -207,7 +217,9 @@ $(document).ready(function () {
         //display error message
         $("#errLast").html("Letters Only").show().fadeOut("slow");
             return false;
-      }
+      } else if($("#last_name").val().length >= 0){
+        $("#last_name").removeClass("error");
+    } 
   });
   $("#ext").keypress(function(event){
       var inputValue = event.which;
@@ -219,6 +231,36 @@ $(document).ready(function () {
             return false;
       }
   });
+  $("#sex").change(function(){
+    if($("#sex").val().length != 0){
+        $("#sex").removeClass("error");
+    } 
+  });
+  $("#dept").change(function(){
+    if($("#dept").val().length != 0){
+        $("#dept").removeClass("error");
+    } 
+  });
+  $("#program").change(function(){
+    if($("#program").val().length != 0){
+        $("#program").removeClass("error");
+    } 
+  });
+  $("#yearLevel").change(function(){
+    if($("#yearLevel").val().length != 0){
+        $("#yearLevel").removeClass("error");
+    } 
+  });
+  $("#sem").change(function(){
+    if($("#sem").val().length != 0){
+        $("#sem").removeClass("error");
+    } 
+  });
+  $("#acadYear").change(function(){
+    if($("#acadYear").val().length != 0){
+        $("#acadYear").removeClass("error");
+    } 
+  });
   $("#address").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -226,7 +268,9 @@ $(document).ready(function () {
         //display error message
         $("#errAdd").html("Invalid character").show().fadeOut("slow");
             return false;
-      }
+      } else if($("#address").val().length >= 0){
+        $("#address").removeClass("error");
+    } 
   });
   $("#cperson").keypress(function(event){
       var inputValue = event.which;
@@ -235,29 +279,8 @@ $(document).ready(function () {
         //display error message
         $("#errPer").html("Letters Only").show().fadeOut("slow");
             return false;
-      }
-  });
-
-  $(function() {
-
-    $('#add').click(function() {
-      $('#errSN').hide();
-
-      if ($('.form-control').val() == '') {
-        $("#errmsg").html("* Required Fields!").show();
-        $("input","textarea").addClass('error');
-        $("#studentNo").focus();
-          return false;
-      } else if($(".form-control").val().length >= 8){
-        $(".form-control").removeClass("error");
-      } else{
-        $("#studentNo").addClass("error");
-        $("#errSN").html("Required!").show();
-        $("#studentNo").focus();
-          return false;
-      } 
-
-    });
-
+      } else if($("#cperson").val().length >= 0){
+        $("#cperson").removeClass("error");
+    } 
   });
 });

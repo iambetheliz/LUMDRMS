@@ -7,10 +7,10 @@
 <title>Bootstrap Table with Add and Delete Row Feature</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
+<link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 <style type="text/css">
     body {
         color: #404E67;
@@ -177,9 +177,7 @@ $(document).ready(function(){
                         <td>Administration</td>
                         <td>(171) 555-2222</td>
                         <td>
-							<a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                            <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                            <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+							<a class="add btn btn-sm" title="Add" data-toggle="tooltip"><i class="fa fa-plus text-success"></i></a> <a class="edit btn btn-sm" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil text-warning"></i></a> <a class="delete btn btn-sm" title="Delete" data-toggle="tooltip"><i class="fa fa-trash text-danger"></i></a>
                         </td>
                     </tr>
                     <tr>

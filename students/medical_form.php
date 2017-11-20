@@ -253,19 +253,19 @@
                     <div class="form-check">
                       <table width="100%">
                         <tr>
-                          <td><input class="form-check-input" type="checkbox"> Regular</td>
-                          <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
+                          <td><label>Menstrual Cycle:</label></td>
+                          <td><select name="mens" class="form-control">
+                            <option value="Regular">Regular</option>
+                            <option value="Irregular">Irregular</option>
+                          </select><br></td>
                         </tr>
                         <tr>
-                          <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
-                          <td></td>
+                          <td><label>Duration:</label></td>
+                          <td><input type="text" class="form-control" name="duration"><br></td>
                         </tr>
                         <tr>
-                          <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
+                          <td><input class="form-check-input" type="checkbox" id="dysmenorrhea"> <label>Dsymenorrhea</label></td>
+                          <td>G <input class="form-check-input" type="radio"> P <input class="form-check-input" type="radio"></td>
                         </tr>
                       </table>  
                     </div>
