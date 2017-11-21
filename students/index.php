@@ -47,6 +47,8 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">    
+#overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
+#overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
 .pagination {
     display: inline-block;
     padding-left: 0;
@@ -133,13 +135,25 @@
                   </div>
             	</div><br>
                 <!-- End of Buttons -->
-				
+
+              <?php
+              include("../includes/dbconnect.php");
+              $DB_con = new mysqli("localhost", "root", "", "records");
+
+              $results = mysqli_query($DB_con,"SELECT COUNT(*) FROM students");
+              $get_total_rows = mysqli_fetch_array($results); //total records
+
+              //break total records into pages
+              $pages = ceil($get_total_rows[0]/$item_per_page);   
+              ?>
+				      
+              <div id="overlay" align="center"><div><img src="../includes/loading.gif" width="64px" height="64px"/></div></div>
 				      <div id="userTable">
                 <!--
                 This is where data will be shown.
                 -->
-                <div id="overlay" align="center"><div><h2>Loading...</h2><img src="../includes/loading.gif" width="64px" height="64px"/></div></div>
               </div>
+              <div class="pagination"></div>
 
             </div>  
           </div>
@@ -323,9 +337,22 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script> 
 <script src="../assets/js/sorttable.js"></script>
+<script src="../assets/js/jquery.bootpag.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function(){
-		showUser();	
+    $('#overlay').show();
+		$("#userTable").load("show_user.php");
+    $('#overlay').fadeOut('slow');	
+    $(".pagination").bootpag({
+       total: <?php echo $pages; ?>, // total number of pages
+       page: 1, //initial page
+       maxVisible: 5 //maximum visible links
+    }).on("page", function(e, num){
+        e.preventDefault();
+        $('#overlay').show();
+        $("#userTable").load("show_user.php", {'page':num});
+        $('#overlay').fadeOut(500,0);
+    });
 		$('#user_form').submit(function() {
 			return false;
 			$.ajaxSetup ({
@@ -466,10 +493,13 @@
             $('#addnew').val("Inserting");  
           },  
 					success: function(){
-						$("#user_form")[0].reset();
-						$('#addnew').attr('disable');
-            $('#userModal').modal('hide');  
-						showUser();
+            $.ajaxSetup ({
+              cache: false
+            });
+            $('#userModal').modal('hide'); 
+            $("#user_form")[0].reset();
+            $('#addnew').val("Add New"); 
+						$("#userTable").load("show_user.php");
 					}
 				});
 			}
@@ -485,7 +515,7 @@
 						del: 1,
 					},
 					success: function(){
-						showUser();
+						$("#userTable").load("show_user.php");
 					}
 				});
 				return false;
@@ -508,24 +538,11 @@
 						edit: 1,
 					},
 					success: function(){
-						showUser();
+						$("#userTable").load("show_user.php");
 					}
 				});
 				return false;
 		});
-    //Showing our Table
-    function showUser(){
-      $.ajax({
-        url: 'show_user.php',
-        type: 'POST',
-        data:{
-          show: 1
-        },
-        success: function(response){
-          $('#userTable').html(response);
-        }
-      });
-    }
     //Search & Filter
     $('.search').on('keyup',function(){
       var searchTerm = $(this).val().toLowerCase();

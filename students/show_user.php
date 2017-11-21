@@ -1,13 +1,28 @@
 <?php
 	require_once '../includes/dbconnect.php';
     $DB_con = new mysqli("localhost", "root", "", "records");
-    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY StudentID DESC"); 
-    $count = $result->num_rows;
-	if(isset($_POST['show'])){
-		?>
-		<div class="row">
-                <div class="container-fluid">
-                <form method="post" name="frm">
+
+    if(isset($_POST['page'])) {
+        $page_number = filter_var($_POST["page"], FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_STRIP_HIGH);
+        if(!is_numeric($page_number)){
+            die('Invalid page number!');
+            } //incase of invalid page number
+        }
+    else {
+        $page_number = 1;
+    }
+
+    //get current starting point of records
+    $position = (($page_number-1) * $item_per_page);
+
+        $result = mysqli_query($DB_con,"SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`"); 
+        $rowCount = $result->fetch_assoc();
+        $count = $rowCount['postNum'];
+        $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY StudentID DESC LIMIT $position, $item_per_page"); 
+?>
+	<div class="row">
+        <div class="container-fluid">
+            <form method="post" name="frm">
                 <label><input type="checkbox" class="select-all" /> Check / Uncheck All</label>
                 <label id="actions">
                     <span style="word-spacing:normal;"> | With selected :</span>
@@ -36,6 +51,7 @@
                         <tbody>
 					<?php
 						while($row = $result->fetch_assoc()){
+                            $postID = $row['StudentID'];
 								if (($row['med']) != 'Ok') {
                                     $color = "red";
                                     $status = "Ok";
@@ -83,14 +99,14 @@
                         </div>
                 </div>
                 <!-- End of Table Responsive -->
-                </form>
-                </div>
-                <!-- End of Container Fluid -->
-                </div>
-                <!-- End of Table -->
-		<?php
-	}}
-
+            </form>
+        </div>
+        <!-- End of Container Fluid -->
+    </div>
+    <!-- End of Table -->
+<?php
+	
+}
 ?>
 <script type="text/javascript">
         //  for select / deselect all
