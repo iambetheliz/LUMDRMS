@@ -25,7 +25,6 @@
 
   if (isset($_GET['loginSuccess'])) {
     $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
-    header("Refresh:3; dashboard.php");
   }
     
     //Render facebook profile data
@@ -70,7 +69,7 @@
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
                 <li>
-                    <a href="activities.php"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+                    <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
                 </li>
                 <li role="presentation" class="have-child">
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
@@ -265,8 +264,9 @@
   <script src="assets/js/index.js" type="text/javascript"></script>
   <script type="text/javascript">
     window.setTimeout(function() {
-      $(".success-login").fadeTo(500,0).slideUp(500, function(){
+      $(".success-login").fadeTo(1000,0).slideUp(500, function(){
         $(this).remove();
+        window.location.href='dashboard.php';
       });
     }, 1000);
   </script>
