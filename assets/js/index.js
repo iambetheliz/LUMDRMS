@@ -188,6 +188,15 @@ $(document).ready(function () {
     } 
   });
 
+  //Capitalize each word
+  $("input, textarea").keyup(function(e) {
+    var arr = $(this).val().split(' ');
+    var result = '';
+    for (var x = 0; x < arr.length; x++)
+    result += arr[x].substring(0, 1).toUpperCase() + arr[x].substring(1) + ' ';
+    $(this).val(result.substring(0, result.length - 1));
+  });
+
   $("#first_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
@@ -197,7 +206,7 @@ $(document).ready(function () {
             return false;
       } else if($("#first_name").val().length >= 0){
         $("#first_name").removeClass("error");
-    } 
+      } 
   });
   $("#middle_name").keypress(function(event){
       var inputValue = event.which;

@@ -362,23 +362,23 @@
             $('#addnew').val();
             $('#userModal').modal('hide'); 
 		});
-  		//Select courses            
-        $('#dept').on('change',function(){
-          var deptID = $(this).val();
-            if(deptID){
-              $.ajax({
-                type:'POST',
-                url:'courses.php',
-                data:'dept_id='+deptID,
-                success:function(html){
-                  $('#program').html(html);
-                  $('#city').html('<option value="">Select program first</option>'); 
-                }
-              }); 
-            } else {
-              $('#program').html('<option value="">Select departmentt first</option>');
-              }
-        });
+  	//Select courses            
+    $('#dept').on('change',function(){
+      var deptID = $(this).val();
+      if(deptID){
+        $.ajax({
+          type:'POST',
+          url:'courses.php',
+          data:'dept_id='+deptID,
+          success:function(html){
+            $('#program').html(html);
+            $('#city').html('<option value="">Select program first</option>'); 
+          }
+        }); 
+      } else {
+        $('#program').html('<option value="">Select departmentt first</option>');
+      }
+    });
 		//Add New
 		$(document).on('click', '#addnew', function(){
 			if($('.required').val() == "")  {  
