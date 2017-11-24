@@ -46,7 +46,15 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
-<style type="text/css">    
+<style type="text/css">  
+.edit{
+ width: 100%;
+ height: 25px;
+}
+.editMode{
+ border: 1px solid black;
+}
+
 #overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
 #overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
 .pagination {
@@ -336,6 +344,7 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script> 
+<script src="../assets/js/notify.js"></script> 
 <script src="../assets/js/sorttable.js"></script>
 <script src="../assets/js/jquery.bootpag.min.js"></script>
 <script type = "text/javascript">
@@ -468,6 +477,7 @@
 				$.ajax({
 					type: "POST",
 					url: "addnew.php",
+          cache: false,
 					data: {
 						studentNo: $studentNo,
 						first_name: $first_name,
@@ -493,29 +503,29 @@
             $('#addnew').val("Inserting");  
           },  
 					success: function(){
-            $.ajaxSetup ({
-              cache: false
-            });
             $('#userModal').modal('hide'); 
             $("#user_form")[0].reset();
             $('#addnew').val("Add New"); 
 						$("#userTable").load("show_user.php");
+            $.notify("Data added successfully", "success");
 					}
 				});
 			}
 		});
 		//Delete
 		$(document).on('click', '.delete', function(){
-			$StudentID=$(this).val();
+			$StudentID = $(this).val();
 				$.ajax({
 					type: "POST",
 					url: "delete.php",
+          cache: false,
 					data: {
 						StudentID: $StudentID,
 						del: 1,
 					},
 					success: function(){
 						$("#userTable").load("show_user.php");
+            $.notify("Data successfully deleted.", "success");
 					}
 				});
 				return false;

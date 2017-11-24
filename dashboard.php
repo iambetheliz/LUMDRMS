@@ -264,11 +264,11 @@
   <script src="assets/js/index.js" type="text/javascript"></script>
   <script type="text/javascript">
     window.setTimeout(function() {
-      $(".success-login").fadeTo(1000,0).slideUp(500, function(){
+      $(".success-login").fadeTo(1000,0).slideUp('fast', function(){
         $(this).remove();
         window.location.href='dashboard.php';
       });
-    }, 1000);
+    }, 3000);
   </script>
     
 </body>

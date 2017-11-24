@@ -138,7 +138,7 @@
                         <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherSysRevCheck"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" disabled="">
+                        <input type="checkbox" class="form-check-input" id="otherSysRevCheck"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" style="display: none;">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -163,7 +163,7 @@
                         <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
+                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> <span title="Low Bowel Movement" data-toggle="tooltip" data-placement="right" style="cursor: help;">LBM</span>
                       </div>
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
@@ -182,13 +182,13 @@
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bronchial Asthma"> Bronchial Asthma
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="PTB"> PTB
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="PTB"> <span style="cursor: help;" title="Pulmonary Tuberculosis" data-toggle="tooltip">PTB</span>
                       </div>
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergy"> Allergy
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list[]" id="otherMedHis" disabled="">
+                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list[]" id="otherMedHis" style="display: none;">
                       </div>
                     </div>
                     <div class="col-lg-4">
@@ -196,7 +196,7 @@
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Hypertension"> Hypertension
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="UTI"> UTI
+                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="UTI"> <span title="Low Bowel Movement" data-toggle="tooltip" data-placement="right" style="cursor: help;">UTI</span>
                       </div>
                       <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Surgery"> Surgery
@@ -254,18 +254,33 @@
                       <table width="100%">
                         <tr>
                           <td><label>Menstrual Cycle:</label></td>
-                          <td><select name="mens" class="form-control">
-                            <option value="Regular">Regular</option>
-                            <option value="Irregular">Irregular</option>
-                          </select><br></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="Dysmenorrhea" id="dysmenorrhea">Regular
+                            </label> 
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="Dysmenorrhea" id="dysmenorrhea">Irregular
+                            </label> 
+                          </td>
                         </tr>
                         <tr>
                           <td><label>Duration:</label></td>
-                          <td><input type="text" class="form-control" name="duration"><br></td>
+                          <td><input type="text" class="form-control input-sm" name="duration"><br></td>
                         </tr>
                         <tr>
-                          <td><input class="form-check-input" type="checkbox" id="dysmenorrhea"> <label>Dsymenorrhea</label></td>
-                          <td>G <input class="form-check-input" type="radio"> P <input class="form-check-input" type="radio"></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="Dysmenorrhea" id="dysmenorrhea">Dysmenorrhea
+                            </label> 
+                          </td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">G
+                            </label> 
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">P
+                            </label>
+                          </td>
                         </tr>
                       </table>  
                     </div>
@@ -424,12 +439,22 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script>
 <script type="text/javascript">
-  $('#otherSysRevCheck').change(function(){
-    $("#otherSysRev").prop("disabled", !$(this).is(':checked'));
-  });
-  $('#otherMedHisCheck').change(function(){
-    $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
-  });
+  $(function () {
+        $("#otherSysRevCheck").click(function () {
+            if ($(this).is(":checked")) {
+                $("#otherSysRev").show();
+            } else {
+                $("#otherSysRev").hide();
+            }
+        });
+        $("#otherMedHisCheck").click(function () {
+            if ($(this).is(":checked")) {
+                $("#otherMedHis").show();
+            } else {
+                $("#otherMedHis").hide();
+            }
+        });
+    });
   $('#height').keypress(function (e) {
       $("#errSN").hide();
 

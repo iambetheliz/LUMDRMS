@@ -66,9 +66,9 @@
                                     $color2 = "red";
                                 }
 							?>
-								<tr data-status="<?php echo $status;?>">
+								<tr data-row-id="<?php echo $row['StudentID'];?>">
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                                <td style="color:<?php echo $color;?>;">
+                                <td style="color:<?php echo $color;?>;" class="editable-col" contenteditable="true" col-index='0' oldVal ="<?php echo $row['med'];?>">
                                     <?php echo $row['med']; ?> 
                                 </td>
                                 <td style="color:<?php echo $color2;?>;">

@@ -123,7 +123,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
           header("Location: index.php?error");
         }
         else{
-          header("Location: index.php");
+          header('Location: profile.php?StudentID='.$StudentID);
         }
         // show an error message if the query has an error
 
