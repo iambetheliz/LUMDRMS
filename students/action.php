@@ -94,13 +94,15 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $drinker = $_POST['drinker'];
       $smoker = $_POST['smoker'];
       $drug_user = $_POST['drug_user'];
+      $mens = $_POST['mens'];
+      $duration = $_POST['duration'];
       $weight = $_POST['weight'];
       $height = $_POST['height'];
       $bmi = $_POST['bmi'];
       $bp = $_POST['bp'];
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
-      $t = $_POST['t'];
+      $temp = $_POST['temp'];
       $xray = $_POST['xray'];
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
@@ -116,7 +118,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
       if (!$error) {
 
-        $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+        $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','".$StudentID."')";
         $result = mysqli_query($DB_con,$sql);
 
         if (!$result) {

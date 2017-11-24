@@ -23,10 +23,10 @@
 	<div class="row">
         <div class="container-fluid">
             <form method="post" name="frm">
-                <label><input type="checkbox" class="select-all" /> Check / Uncheck All</label>
+                <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong>Check / Uncheck All</strong></label>
+                <span style="word-spacing:normal;"> | With selected :</span>
                 <label id="actions">
-                    <span style="word-spacing:normal;"> | With selected :</span>
-                    <span><a class="text-danger" href="#" onClick="delete_records();"> <span class="glyphicon glyphicon-trash"></span> Delete</a></span>
+                  <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
                 </label>
                 <label class="pull-right">Total number of rows: <?php echo $count; ?></label>
                 <br>
@@ -37,14 +37,14 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th title="Click to sort" data-toggle="tooltip" style="width: 85px;">Medical</th>
-                                <th title="Click to sort" style="width: 85px;">Dental</th>
-                                <th title="Click to sort">Last Name</th>
-                                <th title="Click to sort">First Name</th>
-                                <th title="Click to sort">Middle Name</th>
-                                <th title="Click to sort" style="width: 120px;">Student No.</th>
-                                <th title="Click to sort">Program</th>
-                                <th title="Click to sort" style="width: 60px;">Year</th>             
+                                <th style="width: 85px;">Medical</th>
+                                <th style="width: 85px;">Dental</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Middle Name</th>
+                                <th style="width: 120px;">Student No.</th>
+                                <th>Program</th>
+                                <th style="width: 60px;">Year</th>             
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -109,8 +109,9 @@
 }
 ?>
 <script type="text/javascript">
-        //  for select / deselect all
+    //  for select / deselect all
     $('document').ready(function() {
+        $("[data-toggle=tooltip]").tooltip();
         $(".select-all").change(function () {
             $(".chk-box").prop('checked', $(this).prop("checked"));
         });        

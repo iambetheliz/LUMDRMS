@@ -262,9 +262,19 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>                          
-                          <td><label>O.B. GYNE</label></td>
+                          <td colspan="2"><label>O.B. GYNE</label></td>
                         </tr>
                       </thead>
+                      <tbody>
+                        <tr>
+                          <th>Menstrual Period:</th>
+                          <td><?php echo $row['mens'];?></td>
+                        </tr>
+                        <tr>
+                          <th>Duration:</th>
+                          <td><?php echo $row['duration'];?></td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   </div>

@@ -76,8 +76,7 @@ $(document).ready(function() {
 
 // Menu Collapse
 $(document).ready(function () {
-  //Tooltip
-  $('[data-toggle="tooltip"]').tooltip();
+  $("[data-toggle=tooltip]").tooltip();
   //Menu Links
   $('ul[role="menu"]') 
     .on('show.bs.collapse', function (e) {

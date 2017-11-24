@@ -220,7 +220,9 @@
                   <div class="panel-heading">
                     <div class="row">
                       <div class="col col-lg-6">
-                        <h3 class="panel-title">Panel Heading</h3>
+                        <div class="panel-title">
+                          <strong>Panel Heading</strong>
+                        </div>
                       </div>
                       <div class="col col-lg-6 text-right">
                         <button type="button" class="btn btn-sm btn-primary btn-create">View Details</button>
