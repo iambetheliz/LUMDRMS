@@ -13,7 +13,7 @@ $(document).ready(function () {
             axisY:{
                 includeZero: false,
                 minimum: 0,
-                maximum: 100
+                maximum: 5
             },
             data: [{
                 type: "line",

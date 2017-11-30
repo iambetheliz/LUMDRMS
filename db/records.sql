@@ -951,7 +951,7 @@ INSERT INTO `students_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Table structure for table `tbl_diseases`
 --
 
 CREATE TABLE `tbl_diseases` (
@@ -959,6 +959,7 @@ CREATE TABLE `tbl_diseases` (
   `diseases` varchar(30) NOT NULL,
   `category` varchar(20) NOT NULL,
   `identity` varchar(20) NOT NULL,
+  `date_diag` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `PatientID` int(11) NOT NULL,
   PRIMARY KEY (`Dis_ID`)
 );

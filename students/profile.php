@@ -173,13 +173,13 @@
               require_once '../includes/dbconnect.php';
               $DB_con = new mysqli("localhost", "root", "", "records");
 
-                if (isset($_GET['StudentID'])) {
-                  $StudentID = $_GET['StudentID'];
+              if (isset($_GET['StudentID'])) {
+                $StudentID = $_GET['StudentID'];
 
-                  $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
-                  $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
-                  $count = $result->num_rows;
-                }
+                $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
+                $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
+                $count = $result->num_rows;
+              }
             ?>
 
             <div class="container-fluid">
@@ -216,11 +216,7 @@
                             } ?>
                         <div class="btn-toolbar">  
                           <?php echo $add_btn; ?>
-                          <a href="#" id="edit_med" class="btn btn-info">
-                            <i class="fa fa-pencil"></i> EDIT RECORD
-                          </a>                  
-                          
-                          <i><span class="pull-right text-muted" id="date_time" style="line-height: 15px;padding: 10px;">Last updated: <?php echo $update;?></span></i>
+                          <i><span class="pull-right text-muted" id="date_time" style="line-height: 15px;padding: 10px;">Date Recorded: <?php echo $update;?></span></i>
                         </div>
 
                         <br>                       

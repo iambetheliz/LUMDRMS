@@ -6,30 +6,40 @@ include('includes/Class.NumbersToWords.php');
 
 $DB_con = new mysqli("localhost", "root", "", "records");
 
-$whereSQL = '';
+$whereTotal = '';
+$whereVisit = '';
+$whereCert = '';
   if(isset($_POST['year'])) { 
-    $whereSQL = ' WHERE YEAR(date_registered) = YEAR(NOW()) ';
+    $whereTotal = ' WHERE YEAR(date_registered) = YEAR(NOW()) ';
+    $whereVisit = ' WHERE YEAR(date_checked) = YEAR(NOW()) ';
+    $whereCert = ' WHERE YEAR(date_issued) = YEAR(NOW()) ';
   }
   if (isset($_POST['month'])) {
-    $whereSQL = ' WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW()) ';
+    $whereTotal = ' WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW()) ';
+    $whereVisit = ' WHERE YEAR(date_checked) = YEAR(NOW()) AND MONTH(date_checked) = MONTH(NOW()) ';
+    $whereCert = ' WHERE YEAR(date_issued) = YEAR(NOW()) AND MONTH(date_issued) = MONTH(NOW()) ';
   }
   if (isset($_POST['week'])) {
-    $whereSQL = ' WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW()) ';
+    $whereTotal = ' WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW()) ';
+    $whereVisit = ' WHERE WEEKOFYEAR(date_checked) = WEEKOFYEAR(NOW()) ';
+    $whereCert = ' WHERE WEEKOFYEAR(date_issued) = WEEKOFYEAR(NOW()) ';
   }
   if (isset($_POST['day'])) {
-    $whereSQL = ' WHERE DAY(date_registered) = DAY(NOW()) ';
+    $whereTotal = ' WHERE DAY(date_registered) = DAY(NOW()) ';
+    $whereVisit = ' WHERE DAY(date_checked) = DAY(NOW()) ';
+    $whereCert = ' WHERE DAY(date_issued) = DAY(NOW()) ';
   } 
 ?>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-success">
     <?php   
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereSQL) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereSQL) AS total_faculties");
+      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereTotal) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereTotal) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>            
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-calendar" aria-hidden="true"></i> Today</h4>  
+      <h4><i class="fa fa-users" aria-hidden="true"></i> Patients Registered</h4>  
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</small>
@@ -44,13 +54,13 @@ $whereSQL = '';
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-info">
     <?php    
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereSQL) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereSQL) AS total_faculties");
+      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_soap` $whereVisit) AS total_students, (SELECT COUNT(*) FROM `faculty_soap` $whereVisit) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h4>
+      <h4><i class="fa fa-home" aria-hidden="true"></i> Patient Visits</h4>
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</small>
@@ -65,7 +75,7 @@ $whereSQL = '';
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-warning">
     <?php    
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereSQL) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereSQL) AS total_faculties");
+      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereCert) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereCert) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>          
@@ -86,7 +96,7 @@ $whereSQL = '';
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-danger">
     <?php    
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereSQL) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereSQL) AS total_faculties");
+      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereTotal) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereTotal) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>           
