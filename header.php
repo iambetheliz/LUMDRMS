@@ -78,7 +78,7 @@
           </form>
         </li>
         <?php
-          if(!empty($userRow)){?>
+          if(!empty($userRow)){ ?>
             <li class="dropdown"><?php echo $account; ?>
               <ul class="dropdown-menu">
                 <li><a href=""><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Edit Profile</a></li>
@@ -87,7 +87,9 @@
                 <li><?php echo $logout; ?></li>
               </ul>
             </li>            
-        <?php }?>
+            <?php 
+          }
+        ?>
       </ul> 
     </div>
 
