@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -46,7 +45,7 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li class="active">
-            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
           </li>
           <li>
             <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
@@ -71,7 +70,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="tbl_users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -88,7 +87,16 @@
 	          <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h2 class="page-header">Dashboard</h2>
+                <h2 class="page-header">Dashboard
+                  <div class="btn-toolbar pull-right" role="toolbar">
+                    <div class="btn-group mr-2" role="group" aria-label="First group">
+                      <button type="button" class="btn btn-default" name="day" id="day">Day</button>
+                      <button type="button" class="btn btn-default" name="week" id="week">Week</button>
+                      <button type="button" class="btn btn-default" name="month" id="month">Month</button>
+                      <button type="button" class="btn btn-default" name="year" id="year">Year</button>
+                    </div>
+                  </div>
+                </h2>
               </div>
             </div>  
 
@@ -106,91 +114,8 @@
             <!-- End of Page Heading -->
 
             <!-- Notification Badges -->
-            <div class="row">
-              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="offer offer-success">
-                  <?php    
-                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE DAY(date_registered) = DAY(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE DAY(date_registered) = DAY(NOW())) AS total_faculties");
-                    $row = mysqli_fetch_array($query);
-                    $count = $row['total_students'] + $row['total_faculties'];
-                  ?>            
-                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-                  <div class="offer-content">
-                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> Today</h4>  
-                    <?php 
-                      if ($count != 0) {?> 
-                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</small>
-                        <?php    }
-                      else {?>
-                        <small>You haven't added any record today.</small>
-                      <?php    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="offer offer-info">
-                  <?php    
-                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())) AS total_faculties");
-                    $row = mysqli_fetch_array($query);
-                    $count = $row['total_students'] + $row['total_faculties'];
-                  ?>          
-                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-                  <div class="offer-content">
-                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h4>
-                    <?php 
-                      if ($count != 0) {?> 
-                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</small>
-                      <?php    }
-                      else {?>
-                        <small>You haven't added any record this week.</small>
-                      <?php    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="offer offer-warning">
-                  <?php    
-                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())) AS total_faculties");
-                    $row = mysqli_fetch_array($query);
-                    $count = $row['total_students'] + $row['total_faculties'];
-                  ?>          
-                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1> 
-                  <div class="offer-content">
-                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Month</h4>
-                    <?php 
-                      if ($count != 0) {?> 
-                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</small>
-                      <?php    }
-                      else {?>
-                        <small>You haven't added any records this month.</small>
-                      <?php    }
-                    ?>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-                <div class="offer offer-danger">
-                  <?php    
-                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE YEAR(date_registered) = YEAR(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE YEAR(date_registered) = YEAR(NOW())) AS total_faculties");
-                    $row = mysqli_fetch_array($query);
-                    $count = $row['total_students'] + $row['total_faculties'];
-                  ?>           
-                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-                  <div class="offer-content">
-                    <h4><i class="fa fa-calendar"></i> This Year</h4>
-                    <?php 
-                      if ($count != 0) {?> 
-                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</small>
-                      <?php    }
-                      else {?>
-                        <small>You haven't added any records this year.</small>
-                      <?php    }
-                    ?>
-                  </div>
-                </div>
-              </div>  
+            <div class="row" id="badges">
+              
             </div>
             <!-- End of Badges -->
 
@@ -321,7 +246,7 @@
 
 <footer class="footer">
   <div class="container-fluid">
-      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
   </div>
 </footer>
   
@@ -332,7 +257,7 @@
   window.setTimeout(function() {
     $(".success-login").fadeTo(1000,0).slideUp('fast', function(){
       $(this).remove();
-      window.location.href='dashboard.php';
+      window.location.href='dashboard';
     });
   }, 3000);
 </script>
@@ -348,17 +273,65 @@
 <script src="charts/jquery.canvasjs.min.js"></script>
 <script src="charts/charts.js"></script>
 <script type="text/javascript">
-  $('.count').each(function () {
-    $(this).prop('Counter',0).animate({
-        Counter: $(this).text()
-    }, {
-        duration: 3000,
-        easing: 'swing',
-        step: function (now) {
-            $(this).text(Math.ceil(now));
-        }
-    });
+$(document).ready(function(){
+  $("#badges").load("badges.php");
+  $('#year').click(function(){
+    var day = $('#day').val();
+    var week = $('#week').val();
+    var month = $('#month').val();
+    var year = $('#year').val();
+    $.ajax({    
+      type:'POST',
+      url:'badges.php',
+      data:{year:year},
+      success:function(data){
+        $("#badges").html(data); 
+      }
+    }); 
   });
+  $('#month').click(function(){
+    var day = $('#day').val();
+    var week = $('#week').val();
+    var month = $('#month').val();
+    var year = $('#year').val();
+    $.ajax({    
+      type:'POST',
+      url:'badges.php',
+      data:{month:month},
+      success:function(data){
+        $("#badges").html(data); 
+      }
+    }); 
+  });
+  $('#week').click(function(){
+    var day = $('#day').val();
+    var week = $('#week').val();
+    var month = $('#month').val();
+    var year = $('#year').val();
+    $.ajax({    
+      type:'POST',
+      url:'badges.php',
+      data:{week:week},
+      success:function(data){
+        $("#badges").html(data); 
+      }
+    }); 
+  });
+  $('#day').click(function(){
+    var day = $('#day').val();
+    var week = $('#week').val();
+    var month = $('#month').val();
+    var year = $('#year').val();
+    $.ajax({    
+      type:'POST',
+      url:'badges.php',
+      data:{day:day},
+      success:function(data){
+        $("#badges").html(data); 
+      }
+    }); 
+  });
+});
 </script>
     
 </body>

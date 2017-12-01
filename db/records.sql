@@ -240,6 +240,34 @@ CREATE TABLE `faculty_med` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `students_soap`
+--
+
+CREATE TABLE `faculty_soap` (
+  `SID` int(11) NOT NULL AUTO_INCREMENT,
+  `sysRev` varchar(500) NOT NULL,
+  `med` varchar(500) NOT NULL,
+  `weight` varchar(6) NOT NULL,
+  `height` varchar(6) NOT NULL,
+  `bmi` varchar(5) NOT NULL,
+  `bmi_cat` varchar(20) NOT NULL,
+  `bp` varchar(10) NOT NULL,
+  `cr` varchar(3) NOT NULL,
+  `rr` varchar(3) NOT NULL,
+  `temp` varchar(5) NOT NULL,
+  `assess` text(500) NOT NULL,
+  `plan` text(200) NOT NULL,
+  `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `physician` varchar(50) NOT NULL,
+  `FacultyID` int(11) NOT NULL,
+  PRIMARY KEY (`SID`,`FacultyID`),
+  UNIQUE KEY `FacultyID` (`FacultyID`),
+  CONSTRAINT `fk_fsoap_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `faculty_stats`
 --
 
@@ -667,6 +695,34 @@ CREATE TABLE `students_med` (
   PRIMARY KEY (`MedID`,`StudentID`),
   UNIQUE KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_med_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students_soap`
+--
+
+CREATE TABLE `students_soap` (
+  `SID` int(11) NOT NULL AUTO_INCREMENT,
+  `sysRev` varchar(500) NOT NULL,
+  `med` varchar(500) NOT NULL,
+  `weight` varchar(6) NOT NULL,
+  `height` varchar(6) NOT NULL,
+  `bmi` varchar(5) NOT NULL,
+  `bmi_cat` varchar(20) NOT NULL,
+  `bp` varchar(10) NOT NULL,
+  `cr` varchar(3) NOT NULL,
+  `rr` varchar(3) NOT NULL,
+  `temp` varchar(5) NOT NULL,
+  `assess` text(500) NOT NULL,
+  `plan` text(200) NOT NULL,
+  `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `physician` varchar(50) NOT NULL,
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (`SID`,`StudentID`),
+  UNIQUE KEY `StudentID` (`StudentID`),
+  CONSTRAINT `fk_soap_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------

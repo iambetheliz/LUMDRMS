@@ -5,8 +5,8 @@
    session_start();
   
   // it will never let you open index(login) page if session is set
-  if ( isset($_SESSION['user'])!="" ) {
-  header("Location: dashboard.php");
+  if (isset($_SESSION['user'])!="" ) {
+    header("Location: dashboard");
   exit;
   }
 
@@ -32,6 +32,15 @@
 <link href="assets/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" type="text/css"  />
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
+<style type="text/css">  
+.auth-form.well {
+  margin-top: 60px;
+}
+.profile-img {
+  margin-left: 10px;
+  padding-bottom: 10px;
+}
+</style>
 </head>
 <body style="background-color: #dbfcd1;">
 
@@ -41,24 +50,24 @@
 	<!-- Login Form -->
     <div class="row">      
       <div class="auth-form well">
-    		<table class="table table-borderless">
+    		<table>
     			<tr>
     				<td><a href="/lu_clinic"><img class="profile-img" src="images/logo.png" alt=""></a></td>
     				<td align="center"><h3 style="padding-bottom: 10px;">Laguna University Clinic</h3></td>
     			</tr>
     		</table>
+        <?php if(isset($_GET['loginError'])){ 
+          echo "<div class='alert alert-danger'>";
+          echo "Incorrect username or password!";
+          echo "</div>";
+        } else if(isset($_GET['attempt'])){ 
+          echo "<div class='alert alert-danger'>";
+          echo "You need to login first!";
+          echo "</div>";
+        }  ?>
         <div class="panel panel-default">
           <div class="panel-body">
             <form class="form-signin" id="login-form" method="post" action="login_process.php" autocomplete />
-              <?php if(isset($_GET['loginError'])){ 
-                echo "<div class='alert alert-danger'>";
-                echo "Incorrect username or password!";
-                echo "</div>";
-              } else if(isset($_GET['attempt'])){ 
-                echo "<div class='alert alert-danger'>";
-                echo "You need to login first!";
-                echo "</div>";
-              }  ?>
     	        <fieldset>          
               <div class="form-group">
                 <label>Username</label>
@@ -94,7 +103,7 @@
 <br>
 <footer>
   <div class="container-fluid" align="center">
-      <p class="text-muted"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+      <p class="text-muted"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
     </div>
 </footer>
 

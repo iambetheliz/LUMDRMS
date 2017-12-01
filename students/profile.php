@@ -190,20 +190,20 @@
                     <strong>
                       <ul class="nav nav-tabs panel-title">
                         <li class="active">
-                          <a href="#tab-contents" data-toggle="tab">MEDICAL</a>
+                          <a href="#medical" data-toggle="tab">MEDICAL</a>
                         </li>
                         <li>
-                          <a href="#tab2default" data-toggle="tab">DENTAL</a>
+                          <a href="#dental" data-toggle="tab">DENTAL</a>
                         </li>
                         <li>
-                          <a href="#tab3default" data-toggle="tab">S.O.A.P</a>
+                          <a href="#soap" data-toggle="tab">S.O.A.P</a>
                         </li>
                       </ul>
                     </strong>
                   </div>
                   <div class="panel-body">
                     <div class="tab-content">
-                      <div class="tab-pane fade in active" id="tab-contents">
+                      <div class="tab-pane fade in active" id="medical">
                         <?php
                         if ($result->num_rows == 0) {
                           $errMSG = "No records found."; ?>
@@ -323,7 +323,7 @@
                         <?php }
                         ?>
                       </div>
-                      <div class="tab-pane fade" id="tab2default">
+                      <div class="tab-pane fade" id="dental">
                         <div class="btn-toolbar">
                           <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
                         </div>
@@ -332,9 +332,9 @@
                           No records found
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="tab3default">
+                      <div class="tab-pane fade" id="soap">
                         <div class="btn-toolbar">
-                          <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
+                          <a href="soap_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
                         </div>
                         <br>
                         <div class="alert alert-warning">
@@ -360,7 +360,7 @@
 
   <footer class="footer">
     <div class="container-fluid">
-        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
     </div>
   </footer>
     

@@ -14,10 +14,10 @@
 
   $DB_con = new mysqli("localhost", "root", "", "records");
 
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
+  if ($DB_con->connect_errno) {
+    echo "Connect failed: ", $DB_con->connect_error;
+  exit();
+  }
 
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
@@ -132,6 +132,5 @@
     $("#search-box").val(val);
     $('.fa-spinner').fadeOut("slow");
     $("#suggesstion-box").hide();
-    window.location.href='/lu_clinic/students/profile.php?StudentID=198';
   }
 </script>
