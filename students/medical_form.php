@@ -475,7 +475,7 @@
 
                           <label>School Nurse:</label>
                           <p><?php echo $userRow['userName'];?></p>
-                          <input type="hidden" name="physician" id="physician" value="<?php echo $userRow['userName'] ;?>">
+                          <input type="hidden" name="checked_by" id="checked_by" value="<?php echo $userRow['userName'] ;?>">
 
                           <br>
                           <label>School Physician:</label>

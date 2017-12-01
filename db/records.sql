@@ -229,7 +229,7 @@ CREATE TABLE `faculty_med` (
   `assess` varchar(3) NOT NULL,
   `plan` text(200) NOT NULL,
   `date_checked_up` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `facultyNo` varchar(9) NOT NULL,
   `FacultyID` int(11) NOT NULL,
   PRIMARY KEY (`MedID`,`FacultyID`),
@@ -258,7 +258,7 @@ CREATE TABLE `faculty_soap` (
   `assess` text(500) NOT NULL,
   `plan` text(200) NOT NULL,
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `FacultyID` int(11) NOT NULL,
   PRIMARY KEY (`SID`,`FacultyID`),
   UNIQUE KEY `FacultyID` (`FacultyID`),
@@ -277,7 +277,7 @@ CREATE TABLE `faculty_stats` (
   `dent` varchar(7) NOT NULL DEFAULT 'Pending',
   `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `facultyNo` varchar(9) NOT NULL,
   PRIMARY KEY (`StatsID`,`facultyNo`),
   UNIQUE KEY `facultyNo` (`facultyNo`),
@@ -288,7 +288,7 @@ CREATE TABLE `faculty_stats` (
 -- Dumping data for table `faculty_stats`
 --
 
-INSERT INTO `faculty_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date_updated`, `physician`, `facultyNo`) VALUES
+INSERT INTO `faculty_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date_updated`, `checked_by`, `facultyNo`) VALUES
 (1, 'Pending', 'Pending', '2017-11-28 03:54:00', '2017-11-28 03:54:00', '', '2017-0001'),
 (2, 'Pending', 'Pending', '2017-11-28 03:54:42', '2017-11-28 03:54:42', '', '2017-0002'),
 (3, 'Pending', 'Pending', '2017-11-28 03:56:25', '2017-11-28 03:56:25', '', '2017-0003'),
@@ -665,6 +665,56 @@ INSERT INTO `students` (`StudentID`, `studentNo`, `last_name`, `first_name`, `mi
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `students_cert`
+--
+
+CREATE TABLE `students_cert` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `rest` varchar(100) NOT NULL,
+  `resolution` varchar(50) NOT NULL,
+  `date_issued` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `checked_by` varchar(50) NOT NULL,
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`,`StudentID`),
+  UNIQUE KEY `StudentID` (`StudentID`),
+  CONSTRAINT `fk_cert_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students_dental`
+--
+
+CREATE TABLE `students_dental` (
+  `DID` int(11) NOT NULL AUTO_INCREMENT,
+  `medHis` varchar(500) NOT NULL,
+  `dec_x` int(11) NOT NULL,
+  `dec_f` int(11) NOT NULL,
+  `missing` int(11) NOT NULL,
+  `filled` int(11) NOT NULL,
+  `condition` varchar(20) NOT NULL,
+  `rem1` varchar(100) NOT NULL,
+  `other_spec1` varchar(50) NOT NULL,
+  `denture` varchar(5) NOT NULL,
+  `rem2` varchar(100) NOT NULL,
+  `pro_spec` varchar(50) NOT NULL,
+  `need` varchar(5) NOT NULL,
+  `rem3` varchar(100) NOT NULL,
+  `need_spec` varchar(50) NOT NULL,
+  `other_spec2` varchar(50) NOT NULL,
+  `rem4` varchar(100) NOT NULL,
+  `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `checked_by` varchar(50) NOT NULL,
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (`DID`,`StudentID`),
+  UNIQUE KEY `StudentID` (`StudentID`),
+  CONSTRAINT `fk_soap_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `students_med`
 --
 
@@ -689,7 +739,7 @@ CREATE TABLE `students_med` (
   `assess` varchar(3) NOT NULL,
   `plan` text(200) NOT NULL,
   `date_checked_up` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `studentNo` varchar(8) NOT NULL,
   `StudentID` int(11) NOT NULL,
   PRIMARY KEY (`MedID`,`StudentID`),
@@ -718,7 +768,7 @@ CREATE TABLE `students_soap` (
   `assess` text(500) NOT NULL,
   `plan` text(200) NOT NULL,
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `StudentID` int(11) NOT NULL,
   PRIMARY KEY (`SID`,`StudentID`),
   UNIQUE KEY `StudentID` (`StudentID`),
@@ -737,7 +787,7 @@ CREATE TABLE `students_stats` (
   `dent` varchar(7) NOT NULL DEFAULT 'Pending',
   `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `physician` varchar(50) NOT NULL,
+  `checked_by` varchar(50) NOT NULL,
   `studentNo` varchar(8) NOT NULL,
   PRIMARY KEY (`StatsID`,`studentNo`),
   UNIQUE KEY `studentNo` (`studentNo`),
@@ -748,7 +798,7 @@ CREATE TABLE `students_stats` (
 -- Dumping data for table `students_stats`
 --
 
-INSERT INTO `students_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date_updated`, `physician`, `studentNo`) VALUES
+INSERT INTO `students_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date_updated`, `checked_by`, `studentNo`) VALUES
 (1, 'Pending', 'Pending', '2017-11-12 18:38:24', '2017-11-12 18:38:24', '', '161-0142'),
 (2, 'Pending', 'Pending', '2017-11-12 18:39:18', '2017-11-12 18:39:18', '', '161-0046'),
 (3, 'Pending', 'Pending', '2017-11-12 18:41:07', '2017-11-12 18:41:07', '', '161-0183'),
@@ -993,7 +1043,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`userId`, `userName`, `first_name`, `middle_name`, `last_name`, `ext_name`, `userEmail`, `userPass`, `position`, `role`, `login_date`) VALUES
-(1, 'admin', '', '', '', '', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', '', 'superadmin', '2017-12-22 07:10:00');
+(1, 'admin', '', '', '', '', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', 'Head Nurse', 'superadmin', '2017-12-22 07:10:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

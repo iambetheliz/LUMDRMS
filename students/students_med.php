@@ -31,7 +31,7 @@ if (isset($_GET['StudentID'])) {
         <div class="col-lg-6">
           <div class="form-group row">
             <label id="date_time">Physician:</label>
-            <br /><?php echo $med['physician'];?>
+            <br /><?php echo $med['checked_by'];?>
           </div>
         </div>
       </div>

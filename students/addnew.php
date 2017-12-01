@@ -20,12 +20,12 @@
         $address = $_POST['address'];
         $cperson = $_POST['cperson'];
         $cphone = $_POST['cphone'];
-        $physician = $_POST['physician'];
+        $checked_by = $_POST['checked_by'];
 
         if (empty($cphone)) {
             $cphone = 'none';
         }
 		
-		mysqli_multi_query($DB_con,"INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,program,yearLevel,sem,acadYear,address,cperson,cphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone'); INSERT INTO students_stats(physician,studentNo) VALUES('$physician','$studentNo');");
+		mysqli_multi_query($DB_con,"INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,program,yearLevel,sem,acadYear,address,cperson,cphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$program','$yearLevel','$sem','$acadYear','$address','$cperson','$cphone'); INSERT INTO students_stats(checked_by,studentNo) VALUES('$checked_by','$studentNo');");
     }
 ?>
