@@ -140,13 +140,10 @@
                 <div class="panel panel-default panel-table">
                   <div class="panel-heading">
                     <div class="row">
-                      <div class="col col-lg-6">
+                      <div class="container-fluid">
                         <div class="panel-title">
-                          <strong>Students Table</strong>
+                          <strong>Gender Population</strong>
                         </div>
-                      </div>
-                      <div class="col col-lg-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create">View Details</button>
                       </div>
                     </div>
                   </div>
@@ -155,18 +152,36 @@
                     <thead>
                       <tr>
                         <th>Gender</th>
-                        <th>Total Number</th>
+                        <th>Population</th>
                       </tr>
                     </thead>
                     <tbody>
                     <?php    
-                      foreach($DB_con->query('SELECT sex,COUNT(*) FROM students GROUP BY sex') as $row) {
+                      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Female') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Female') AS total_faculties");
+                      $female = mysqli_fetch_array($query);
+                      $f_count = $female['total_students'] + $female['total_faculties'];
+
+                      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Male') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Male') AS total_faculties");
+                      $male = mysqli_fetch_array($query);
+                      $m_count = $male['total_students'] + $male['total_faculties'];
+
+                      $total = $f_count + $m_count;
+
+                      if (!empty($female && $male)) {
                         echo "<tr>";
-                        echo "<td>" . $row['sex'] . "</td>";
-                        echo "<td>" . $row['COUNT(*)'] . "</td>";
+                        echo "<td>Female</td>";
+                        echo "<td>" . $f_count . "</td>";
                         echo "</tr>"; 
-                    } 
-                      if (empty($row)) {
+                        echo "<tr>";
+                        echo "<td>Male</td>";
+                        echo "<td>" . $m_count . "</td>";
+                        echo "</tr>"; 
+                        echo "<tr>";
+                        echo "<td><strong>Total</strong></td>";
+                        echo "<td><strong>" . $total . "</strong></td>";
+                        echo "</tr>"; 
+                      }                        
+                      else {
                         echo "<tr><td colspan='2'>No records found</td></tr>";
                       }
                     ?>

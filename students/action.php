@@ -116,19 +116,26 @@
 
       $medHis = implode(", ",$_POST['medHis_list']);
 
-      $med = $_POST['med'];
-      $weight = $_POST['weight'];
-      $height = $_POST['height'];
-      $bmi = $_POST['bmi'];
-      $bmi_cat = $_POST['bmi_cat'];
-      $bp = $_POST['bp'];
-      $cr = $_POST['cr'];
-      $rr = $_POST['rr'];
-      $temp = $_POST['temp'];
-      $assess = $_POST['assess'];
-      $plan = $_POST['plan'];
+      $dec_x = $_POST['dec_x'];
+      $dec_f = $_POST['dec_f'];
+      $missing = $_POST['missing'];
+      $filled = $_POST['filled'];
+      $per_con = $_POST['per_con'];
+      $con_rem1 = $_POST['con_rem1'];
+      $con_rem2 = $_POST['con_rem2'];
+      $con_rem3 = $_POST['con_rem3'];
+      $con_rem4 = $_POST['con_rem4'];
+      $con_spec = $_POST['con_spec'];
+      $denture = $_POST['denture'];
+      $pro_rem1 = $_POST['pro_rem1'];
+      $pro_spec1 = $_POST['pro_spec1'];
+      $need = $_POST['need'];
+      $pro_rem2 = $_POST['pro_rem2'];
+      $pro_spec2 = $_POST['pro_spec2'];
+      $pro_rem3 = $_POST['pro_rem3'];
       $checked_by = $_POST['checked_by'];
       $StudentID = $_POST['StudentID'];
+
       $identity = 'student';
 
       if (!$error) {        
@@ -140,7 +147,7 @@
           }
         }
 
-        mysqli_query($DB_con,"INSERT INTO students_dental (sysRev,med,weight,height,bmi,bmi_cat,bp,cr,rr,temp,assess,plan,checked_by,StudentID) VALUES ('$sysRev','$med','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$assess','$plan','$checked_by','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_dental (medHis,dec_x,dec_f,missing,filled,per_con,con_rem1,con_rem2,con_rem3,con_rem4,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem1','$con_rem2','$con_rem3','$con_rem4','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 

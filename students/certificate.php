@@ -94,23 +94,18 @@
               }
 
               //SOAP Details
-              $query = mysqli_query($DB_con,"SELECT * FROM students_soap");
-              if ($soap_res->num_rows < 0) {
-                $msg = "No result";
+              $query = "SELECT * FROM `students_soap` WHERE StudentID=".$StudentID;
+              $result = $DB_con->query($query);
+              $soap = $result->fetch_array(MYSQLI_BOTH);
+              if (!empty($soap)) {
+                $update = date('F j, Y; h:i a', strtotime($soap['date_checked']));
+                $current_sys = $soap['sysRev'];
+                $assess = $soap['assess'];
               }
               else {
-                while ($soap = $query->fetch_assoc()){ 
-                  $update = date('F j, Y; h:i a', strtotime($soap['date_checked']));
-                  if (!empty($soap['assess'])) {
-                    $current_sys = $soap['sysRev'];
-                  }
-                  if (!empty($soap['assess'])) {
-                    $assess = $soap['assess'];
-                  }
-                  else {
-                    $assess = "_______________________________________";
-                  }
-                }
+                $update = "_______________________________________";
+                $current_sys = "_______________________________________";
+                $assess = "_______________________________________";
               }
             }
           ?>

@@ -5,48 +5,36 @@ $DB_con = new mysqli("localhost", "root", "", "records");
 if (isset($_GET['StudentID'])) {
   $StudentID = $_GET['StudentID'];
 
-  $soap_res = mysqli_query($DB_con,"SELECT * FROM `students_soap` WHERE StudentID = '".$_GET['StudentID']."'"); 
-
-  if ($soap_res->num_rows == 0) {
-    $errMSG = "No records found."; ?>
-    <br />
-    <a href="soap_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_soap" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
-    <?php 
-  }
-  else { 
-    $query = mysqli_query($DB_con,"SELECT date_checked FROM students_soap");
-      while ($soap = $query->fetch_assoc()){ 
-        $update = date('F j, Y; h:i a', strtotime($soap['date_checked']));
-      } ?>
-    <div class="row">
-      <div class="container-fluid">
-        <?php echo $add_btn; ?>                 
-        <br />
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Date Recorded:</label>
-            <br/><?php echo $update;?>
+  $query = $DB_con->query("SELECT * FROM `students_soap` WHERE StudentID=".$StudentID);
+  if ($query->num_rows > 0) {
+    while ($soap = $query->fetch_assoc()){ 
+      $update = date('F j, Y; h:i a', strtotime($soap['date_checked'])); 
+      ?>
+      <div class="row">
+        <div class="container-fluid">           
+          <br />
+          <div class="col-lg-6">
+            <div class="form-group row">
+              <label id="date_time">Date Recorded:</label>
+              <br/><?php echo $update;?>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Physician:</label>
-            <br /><?php echo $soap['checked_by'];?>
+          <div class="col-lg-6">
+            <div class="form-group row">
+              <label id="date_time">Physician:</label>
+              <br /><?php echo $soap['checked_by'];?>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <br>                       
+      <br>                       
 
-    <table class="table table-bordered">
-      <thead>
-        <th colspan="2">CURRENT SYSTEM</th>
-        <th colspan="2">ASSESSMENT</th>
-      </thead>
-      <?php 
-      // displaying records.
-      while ($soap = $soap_res->fetch_assoc()) { ?>
+      <table class="table table-bordered">
+        <thead>
+          <th colspan="2">CURRENT SYSTEM</th>
+          <th colspan="2">ASSESSMENT</th>
+        </thead>
         <tbody>
           <tr>
             <td colspan="2"><?php echo $soap['sysRev'];?></td>
@@ -82,24 +70,24 @@ if (isset($_GET['StudentID'])) {
           <tr>
             <td><?php echo $soap['med'];?></td>
           </tr>
-        ?>
         </tbody>
-        <?php 
-      } 
-      // End of displaying records
-      ?>
-    </table> 
 
-    <br>
+      </table> 
 
-    <?php 
+      <br>
+      <?php 
+    }
   }
-
-  if(isset($errMSG)) { 
+  else { ?>
+    <br />
+    <a href="soap_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_soap" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+    <?php 
     echo "<div class='alert alert-warning'>
             <span class='glyphicon glyphicon-info'></span> 
-              ".$errMSG."
-          </div>";      
+              No records found.
+          </div>";
   }
+
 }
+
 ?>

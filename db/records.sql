@@ -201,6 +201,58 @@ INSERT INTO `faculties` (`FacultyID`, `facultyNo`, `last_name`, `first_name`, `m
 (97, '2017-0097', 'Ycogo', 'Agnes ', 'G', '', 0, 'Female', 7, '1st', '2017 - 2018', '', '', 'none'),
 (98, '2017-0098', 'Yosolon', 'Carolyn', 'R', '', 0, 'Female', 9, '1st', '2017 - 2018', '', '', 'none');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty_cert`
+--
+
+CREATE TABLE `faculty_cert` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `rest` varchar(100) NOT NULL,
+  `resolution` varchar(50) NOT NULL,
+  `date_issued` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `checked_by` varchar(50) NOT NULL,
+  `FacultyID` int(11) NOT NULL,
+  PRIMARY KEY (`ID`,`FacultyID`),
+  UNIQUE KEY `FacultyID` (`FacultyID`),
+  CONSTRAINT `fk_fcert_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `faculty_dental`
+--
+
+CREATE TABLE `faculty_dental` (
+  `DID` int(11) NOT NULL AUTO_INCREMENT,
+  `medHis` varchar(500) NOT NULL,
+  `dec_x` int(11) NOT NULL,
+  `dec_f` int(11) NOT NULL,
+  `missing` int(11) NOT NULL,
+  `filled` int(11) NOT NULL,
+  `per_con` varchar(50) NOT NULL,
+  `con_rem1` varchar(50) NOT NULL,
+  `con_rem2` varchar(50) NOT NULL,
+  `con_rem3` varchar(50) NOT NULL,
+  `con_rem4` varchar(50) NOT NULL,
+  `con_spec` varchar(50) NOT NULL,
+  `denture` varchar(5) NOT NULL,
+  `pro_rem1` varchar(50) NOT NULL,
+  `pro_spec1` varchar(50) NOT NULL,
+  `need` varchar(5) NOT NULL,
+  `pro_rem2` varchar(50) NOT NULL,
+  `pro_spec2` varchar(50) NOT NULL,
+  `pro_rem3` varchar(50) NOT NULL,
+  `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `checked_by` varchar(50) NOT NULL,
+  `FacultyID` int(11) NOT NULL,
+  PRIMARY KEY (`DID`,`FacultyID`),
+  UNIQUE KEY `FacultyID` (`FacultyID`),
+  CONSTRAINT `fk_fdent_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -693,23 +745,25 @@ CREATE TABLE `students_dental` (
   `dec_f` int(11) NOT NULL,
   `missing` int(11) NOT NULL,
   `filled` int(11) NOT NULL,
-  `condition` varchar(20) NOT NULL,
-  `rem1` varchar(100) NOT NULL,
-  `other_spec1` varchar(50) NOT NULL,
+  `per_con` varchar(50) NOT NULL,
+  `con_rem1` varchar(50) NOT NULL,
+  `con_rem2` varchar(50) NOT NULL,
+  `con_rem3` varchar(50) NOT NULL,
+  `con_rem4` varchar(50) NOT NULL,
+  `con_spec` varchar(50) NOT NULL,
   `denture` varchar(5) NOT NULL,
-  `rem2` varchar(100) NOT NULL,
-  `pro_spec` varchar(50) NOT NULL,
+  `pro_rem1` varchar(50) NOT NULL,
+  `pro_spec1` varchar(50) NOT NULL,
   `need` varchar(5) NOT NULL,
-  `rem3` varchar(100) NOT NULL,
-  `need_spec` varchar(50) NOT NULL,
-  `other_spec2` varchar(50) NOT NULL,
-  `rem4` varchar(100) NOT NULL,
+  `pro_rem2` varchar(50) NOT NULL,
+  `pro_spec2` varchar(50) NOT NULL,
+  `pro_rem3` varchar(50) NOT NULL,
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `StudentID` int(11) NOT NULL,
   PRIMARY KEY (`DID`,`StudentID`),
   UNIQUE KEY `StudentID` (`StudentID`),
-  CONSTRAINT `fk_soap_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `fk_dent_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
