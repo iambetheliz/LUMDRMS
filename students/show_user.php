@@ -15,10 +15,10 @@
     //get current starting point of records
     $position = (($page_number-1) * $item_per_page);
 
-        $result = mysqli_query($DB_con,"SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`"); 
-        $rowCount = $result->fetch_assoc();
-        $count = $rowCount['postNum'];
-        $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY StudentID DESC LIMIT $position, $item_per_page"); 
+    $result = mysqli_query($DB_con,"SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`"); 
+    $rowCount = $result->fetch_assoc();
+    $count = $rowCount['postNum'];
+    $result = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` $where ORDER BY last_name ASC LIMIT $position, $item_per_page"); 
 ?>
 	<div class="row">
         <div class="container-fluid">
@@ -44,7 +44,7 @@
                                 <th>Middle Name</th>
                                 <th style="width: 120px;">Student No.</th>
                                 <th>Program</th>
-                                <th style="width: 60px;">Year</th>             
+                                <th style="width: 60px;">Year</th>            
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -65,6 +65,12 @@
                                 else {
                                     $color2 = "red";
                                 }
+                                if (!empty($row['ext'])) {
+                                    $extension = ", ";
+                                }
+                                else {
+                                    $extension = " ";
+                                }
 							?>
 								<tr data-row-id="<?php echo $row['StudentID'];?>">
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
@@ -74,8 +80,8 @@
                                 <td style="color:<?php echo $color2;?>;">
                                     <?php echo $row['dent']; ?>
                                 </td>
-                                <td><?php echo strtoupper($row['ext'])." "; echo strtoupper($row['last_name']); ?></td>
-                                <td><?php echo strtoupper($row['first_name']); ?></td>
+                                <td><?php echo strtoupper($row['last_name']); ?></td>
+                                <td><?php echo strtoupper($row['first_name']);echo $extension.strtoupper($row['ext']); ?></td>
                                 <td><?php echo strtoupper($row['middle_name']); ?></td>
                                 <td><?php echo $row['studentNo']; ?></td>
                                 <td><?php echo $row['program_name'];?></td>

@@ -89,10 +89,10 @@
                 <li class="active have-child" role="presentation">
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse in">
-                        <li class="active">
+                        <li>
                             <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
                         </li>
-                        <li>
+                        <li class="active">
                             <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
                         </li>
                     </ul>
@@ -119,15 +119,18 @@
                 <div class="container-fluid">
                   <div class="row">
                     <!-- Start btn-toolbar -->
-                	<div class="btn-toolbar">
-            			<button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Faculty</button>
+                	  <div class="btn-toolbar">
+            			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Faculty</button>
+                      <div class="form-group pull-right">
+                        <input type="text" class="search form-control" placeholder="What are you looking for?">
+                      </div>
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
-            	</div><br>
+            	  </div><br>
                 <!-- End of Buttons -->
 				
-				<div id="userTable"></div>
+				      <div id="userTable"></div>
 
             </div>  
           </div>
@@ -152,8 +155,8 @@
                   <div class="row">
                     <div class="col-lg-3">
                       <div class="form-group"> 
-                        <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                        <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="">
+                        <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"><?php echo $errorMSG; ?></span>
+                        <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="on">
                         <br>
                         <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
                         <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
@@ -192,7 +195,7 @@
                         $DB_con = new mysqli("localhost", "root", "", "records");
     
                         //Get all dept data
-                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_name ASC");
+                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_id ASC");
     
                         //Count total number of rows
                         $rowCount = $query->num_rows;
@@ -290,9 +293,6 @@
 		showUser();	
 		$('#user_form').submit(function() {
 			return false;
-			$.ajaxSetup ({
-        		cache: false,
-    		});
 		});
   		//Select courses            
         $('#dept').on('change',function(){
@@ -360,13 +360,11 @@
 						facultyNo: $facultyNo,
 						add: 1,
 					}, 
+          cache: false,
           beforeSend:function() {  
             $('#addnew').val("Inserting");  
           },  
 					success: function(){  
-            $.ajaxSetup ({
-              cache: false,
-            });
 						$("#user_form")[0].reset();
 						$('#addnew').val("Add Record");
             $('#userModal').modal('hide');
@@ -414,6 +412,18 @@
 				});
 				return false;
 		});
+    //Search & Filter
+    $('.search').on('keyup',function(){
+      var searchTerm = $(this).val().toLowerCase();
+      $('#userTable tbody tr').each(function(){
+        var lineStr = $(this).text().toLowerCase();
+        if(lineStr.indexOf(searchTerm) === -1){
+          $(this).hide();
+        }else{
+          $(this).show();
+        }
+      });
+    });
 	
 	});
 	

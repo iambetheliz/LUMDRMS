@@ -47,6 +47,40 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">  
+/* Formatting search box */
+.search-box{
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+}
+.search-box input[type="text"]{
+  height: 32px;
+  padding: 5px 10px;
+  border: 1px solid #CCCCCC;
+  font-size: 14px;
+}
+.result{
+  position: absolute;        
+  z-index: 999;
+  top: 100%;
+  left: 0;
+}
+.search-box input[type="text"], .result{
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Formatting result items */
+.result p{
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  cursor: pointer;
+  background: #fff;
+}
+.result p:hover{
+  background: #f2f2f2;
+}
 .edit{
  width: 100%;
  height: 25px;
@@ -135,92 +169,97 @@
                 	  <div class="btn-toolbar">
             			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Student</button>
 
-                      <div class="form-group pull-right">
+                      <div class="form-group search-box pull-right">
                         <input type="text" class="search form-control" placeholder="What are you looking for?">
+                        <div class="result"></div>
                       </div>
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
-            	</div><br>
+            	  </div><br>
                 <!-- End of Buttons -->
 
-              <?php
-              include("../includes/dbconnect.php");
-              $DB_con = new mysqli("localhost", "root", "", "records");
+                <?php
+                  include("../includes/dbconnect.php");
+                  $DB_con = new mysqli("localhost", "root", "", "records");
 
-              $results = mysqli_query($DB_con,"SELECT COUNT(*) FROM students");
-              $get_total_rows = mysqli_fetch_array($results); //total records
+                  $results = mysqli_query($DB_con,"SELECT COUNT(*) FROM students");
+                  $get_total_rows = mysqli_fetch_array($results); //total records
 
-              //break total records into pages
-              $pages = ceil($get_total_rows[0]/$item_per_page);   
-              ?>
+                  //break total records into pages
+                  $pages = ceil($get_total_rows[0]/$item_per_page);   
+                ?>
 				      
-              <div id="overlay" align="center"><div><img src="../includes/loading.gif" width="64px" height="64px"/></div></div>
-				      <div id="userTable">
-                <!--
-                This is where data will be shown.
-                -->
-              </div>
-              <div class="pagination"></div>
-
-            </div>  
-          </div>
-        </div>
-        <!-- End of Main Screen -->
-  
-    </div>
-    <!-- End of Content -->
-
-    <!-- Modal HTML -->    
-    <div id="userModal" class="modal fade">
-    <div class="modal-dialog">
-        <form method="post" id="user_form" autocomplete>
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add User
-                        <span id="msg" class="error pull-right"></span>
-                    </h4>
+                <div id="overlay" align="center">
+                  <div>
+                    <img src="../includes/loading.gif" width="64px" height="64px"/>
+                  </div>
                 </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-lg-3">
-                      <div class="form-group"> 
-                        <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                        <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
-                        <br>
-                        <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                        <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
-                        <br>                        
-                        <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
-                        <input type="text" class="form-control required" placeholder="Magdayao" name="middle_name" id="middle_name">
-                        <br>
-                        <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                        <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
-                        <br>
-                        <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                        <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
-                      </div>
+				        <div id="userTable">
+                  <!--
+                    This is where data will be shown.
+                  -->
+                </div>
+                <div class="pagination"></div>
+
+              </div>  
+            </div>
+          </div>
+          <!-- End of Main Screen -->
+  
+        </div>
+        <!-- End of Content -->
+
+        <!-- Modal HTML -->    
+        <div id="userModal" class="modal fade">
+        <div class="modal-dialog">
+          <form method="post" id="user_form" autocomplete>
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add User
+                  <span id="msg" class="error pull-right"></span>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="form-group"> 
+                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                      <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
+                      <br>
+                      <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
+                      <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
+                      <br>                        
+                      <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
+                      <input type="text" class="form-control required" placeholder="Magdayao" name="middle_name" id="middle_name">
+                      <br>
+                      <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
+                      <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
+                      <br>
+                      <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
+                      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-2">
-                      <div class="form-group">
-                        <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
-                        <input class="form-control" type="text" placeholder="00" name="age" id="age">
-                        <br>
-                        <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
-                          <select class="form-control required" name="sex" id="sex">
-                            <option value="">Select</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                          </select>
-                      </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
+                      <input class="form-control" type="text" placeholder="00" name="age" id="age">
+                      <br>
+                      <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
+                      <select class="form-control required" name="sex" id="sex">
+                        <option value="">Select</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                      </select>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-3">
-                      <div class="form-inline">
-                        <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
-                        <?php
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-3">
+                    <div class="form-inline">
+                      <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
+                      <?php
                         //Include database configuration file
                         include('../includes/dbconnect.php');
                         $DB_con = new mysqli("localhost", "root", "", "records");
@@ -230,110 +269,110 @@
     
                         //Count total number of rows
                         $rowCount = $query->num_rows;
-                        ?>
-                        <select class="form-control required" name="dept" id="dept">
-                            <option value="">Select Department</option>
-                            <?php
-                                if($rowCount > 0){
-                                    while($row = $query->fetch_assoc()){ 
-                                        echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
-                                    }
-                                }else{
-                                    echo '<option value="">Department not available</option>';
-                                }
-                            ?>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="form-group">
-                        <label>Program</label>                            
-                        <select class="form-control required" name="program" id="program">
-                            <option value="">Select department first</option>
-                        </select>
-                        </div>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
-                        <select class="form-control required" name="yearLevel" id="yearLevel">
-                          <option value="">Select</option>
-                          <option value="1st">1st Year</option>
-                          <option value="2nd">2nd Year</option>
-                          <option value="3rd">3rd Year</option>
-                          <option value="4th">4th Year</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-2"> 
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-                        <select class="form-control required" name="sem" id="sem">
-                          <option value="">Select</option>
-                          <option value="1st">1st</option>
-                          <option value="2nd">2nd</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-2">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+                      ?>
+                      <select class="form-control required" name="dept" id="dept">
+                        <option value="">Select Department</option>
                           <?php
-                            $currently_selected = date('Y'); 
-                            $earliest_year = 2006; 
-                            $latest_year = date('Y');
-                          ?>
-                          <select class="form-control required" name="acadYear" id="acadYear">
-                            <option value="">Select</option>
-                            <?php 
-                              foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                                print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
-                                print '</option>';
+                            if($rowCount > 0){
+                              while($row = $query->fetch_assoc()){ 
+                                echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
                               }
-                            ?> 
-                          </select>
-                      </div>
+                            } else{
+                                echo '<option value="">Department not available</option>';
+                            }
+                          ?>
+                      </select>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-8">
-                      <hr>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="form-group">
+                      <label>Program</label>                            
+                      <select class="form-control required" name="program" id="program">
+                        <option value="">Select department first</option>
+                      </select>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-9">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
-                        <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
-                      </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
+                      <select class="form-control required" name="yearLevel" id="yearLevel">
+                        <option value="">Select</option>
+                        <option value="1st">1st Year</option>
+                        <option value="2nd">2nd Year</option>
+                        <option value="3rd">3rd Year</option>
+                        <option value="4th">4th Year</option>
+                      </select>
                     </div>
-                    <div class="col-2"></div>
-                    <div class="col-lg-5">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
-                        <input type="text" class="form-control required" name="cperson" id="cperson">
-                      </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-2"> 
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
+                      <select class="form-control required" name="sem" id="sem">
+                        <option value="">Select</option>
+                        <option value="1st">1st</option>
+                        <option value="2nd">2nd</option>
+                      </select>
                     </div>
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-3">
-                      <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                        <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="09358306457">
-                      </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-2">
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+                      <?php
+                        $currently_selected = date('Y'); 
+                        $earliest_year = 2006; 
+                        $latest_year = date('Y');
+                      ?>
+                      <select class="form-control required" name="acadYear" id="acadYear">
+                        <option value="">Select</option>
+                        <?php 
+                          foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                            print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
+                            print '</option>';
+                              }
+                        ?> 
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-8">
+                    <hr>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-9">
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+                      <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
+                    </div>
+                  </div>
+                  <div class="col-2"></div>
+                  <div class="col-lg-5">
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
+                      <input type="text" class="form-control required" name="cperson" id="cperson">
+                    </div>
+                  </div>
+                  <div class="col-lg-1"></div>
+                  <div class="col-lg-3">
+                    <div class="form-group">
+                      <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
+                      <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="09358306457">
                     </div>
                   </div>
                 </div>
-                <div class="modal-footer">       
-                	<input type="hidden" name="med" id="med" value="Pending">  
-                	<input type="hidden" name="dent" id="dent" value="Pending">
-                    <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+              </div>
+              <div class="modal-footer">       
+              	<input type="hidden" name="med" id="med" value="Pending">  
+                <input type="hidden" name="dent" id="dent" value="Pending">
+                <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
             </div>
-        </form>
-    </div>
-    </div>
+          </form>
+        </div>
+      </div>
 
     <footer class="footer">
         <div class="container-fluid">
@@ -353,10 +392,21 @@
 		$("#userTable").load("show_user.php");
     $('#overlay').fadeOut('slow');	
     $(".pagination").bootpag({
-       total: <?php echo $pages; ?>, // total number of pages
-       page: 1, //initial page
-       maxVisible: 5 //maximum visible links
-    }).on("page", function(e, num){
+      total: <?php echo $pages; ?>, // total number of pages
+      page: 1, //initial page
+      maxVisible: 5, //maximum visible links
+      leaps: true,
+      firstLastUse: true,
+      first: 'first',
+      last: 'last',
+      wrapClass: 'pagination',
+      activeClass: 'active',
+      disabledClass: 'disabled',
+      nextClass: 'next',
+      prevClass: 'prev',
+      lastClass: 'last',
+      firstClass: 'first'
+      }).on("page", function(e, num){
         e.preventDefault();
         $('#overlay').show();
         $("#userTable").load("show_user.php", {'page':num});
@@ -553,17 +603,34 @@
 				});
 				return false;
 		});
+    $('.search-box input[type="text"]').on("keyup input", function(){
+        /* Get input value on change */
+        var inputVal = $(this).val();
+        var resultDropdown = $(this).siblings(".result");
+        if(inputVal.length){
+            $.get("backend-search.php", {term: inputVal}).done(function(data){
+                // Display the returned data in browser
+                resultDropdown.html(data);
+            });
+        } else{
+            resultDropdown.empty();
+        }
+    });    
+    // Set search input value on click of result item
+    $(document).on("click", ".result p", function(){
+        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
+        $(this).parent(".result").empty();
+    });
     //Search & Filter
     $('.search').on('keyup',function(){
-      var searchTerm = $(this).val().toLowerCase();
-      $('#userTable tbody tr').each(function(){
-        var lineStr = $(this).text().toLowerCase();
-        if(lineStr.indexOf(searchTerm) === -1){
-          $(this).hide();
-        }else{
-          $(this).show();
-        }
-      });
+      var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
+        reg = RegExp(val, 'i'),
+        text;
+    
+      $('#userTable tbody tr').show().filter(function() {
+        text = $(this).text().replace(/\s+/g, ' ');
+        return !reg.test(text);
+      }).hide();
     });
 });
 

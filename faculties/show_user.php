@@ -26,7 +26,7 @@
                                 <th title="Click to sort">Dental</th>
                                 <th title="Click to sort">Last Name</th>
                                 <th title="Click to sort">First Name</th>
-                                <th title="Click to sort" >Middle Name</th>
+                                <th title="Click to sort">Middle Initial</th>
                                 <th title="Click to sort">Faculty No.</th>
                                 <th title="Click to sort">Department</th>      
                                 <th>Action</th>
@@ -48,6 +48,12 @@
                                 else {
                                     $color2 = "red";
                                 }
+                                if (!empty($row['ext'])) {
+                                    $extension = ", ";
+                                }
+                                else {
+                                    $extension = " ";
+                                }
 							?>
 								<tr data-status="<?php echo $status;?>">
                                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
@@ -57,8 +63,8 @@
                                 <td style="color:<?php echo $color2;?>;">
                                     <?php echo $row['dent']; ?>
                                 </td>
-                                <td><?php echo strtoupper($row['ext'])." "; echo strtoupper($row['last_name']); ?></td>
-                                <td><?php echo strtoupper($row['first_name']); ?></td>
+                                <td><?php echo strtoupper($row['last_name']); ?></td>
+                                <td><?php echo strtoupper($row['first_name']);echo $extension.strtoupper($row['ext']); ?></td>
                                 <td><?php echo strtoupper($row['middle_name']); ?></td>
                                 <td><?php echo $row['facultyNo']; ?></td>
                                 <td><?php echo $row['dept_name'];?></td>

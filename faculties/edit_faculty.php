@@ -106,25 +106,15 @@
     
     	      <!-- Page Heading -->
             <div class="row">
-              <div class="col-lg-12">
-                <h1 class="page-header">Edit Faculty's Medical Record <span class="text-danger pull-right" id="errmsg"></span></h1>             
+              <div class="container-fluid">
+                <h1 class="page-header">Edit Faculty's Medical Record <span class="text-danger pull-right" id="errmsg"></span></h1>
               </div>
             </div>
             <!-- End of Page Heading -->
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <ul class="breadcrumb">
-                          You are here: 
-                            <li class="breadcrumb-item"><a href="index.php">Faculty</a></li>
-                            <li class="breadcrumb-item active">Edit Form</li>
-                        </ul>
-                    </div>
-                </div>
-
             <!-- Faculty Status Form -->
             <div class="row">
-              <div class="col-lg-12">
+              <div class="container-fluid">
                 <div class="form-group row">   
                   <div class="col-lg-2"> 
                     <label>Faculty No.</label>
@@ -153,145 +143,160 @@
             <!-- End of Faculty Status-->
 
             <div class="row">
-              <div class="col-lg-12">     
+              <div class="container-fluid">     
                 <!-- Basic Info -->
                 <div class="panel panel-success">
-              <div class="panel-heading">
-                BASIC INFORMATION 
-              </div>
-              <div class="panel-body">
-                <div class="form-group row">   
-                  <div class="col-lg-3">          
-                    <label class="col-2 col-form-label">Surname</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<?php echo $row['last_name'];?>" name="last_name" autofocus="">                    
+                  <div class="panel-heading">
+                    <div class="panel-title">BASIC INFORMATION</div>
                   </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
-                    <input type="text" class="form-control" value="<?php echo $row['first_name'];?>" name="first_name">
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
-                    <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name">
-                  </div>    
-                  <div class="col-lg-1">
-                    <label class="col-2 col-form-label" for="inlineFormInput">Ext.</label> <span class="text-danger pull-right" id="errmsg"></span>
-                    <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="2" id="ext" value="<?php echo $row['ext'];?>">
-                  </div>  
-                  <div class="col-lg-1">
-                    <label for="example-number-input" class="col-2 col-form-label">Age</label>
-                    <input class="form-control" type="text" value="<?php echo $row['age'];?>" name="age">
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Sex</label>
-                    <select class="form-control" name="sexOption">
-                      <option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
-                    </select>
-                  </div>
-                </div>
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-lg-3">   
+                        <div class="form-group">  
+                          <label class="col-2 col-form-label" for="inlineFormInput">First Name</label>
+                          <input type="text" class="form-control" value="<?php echo $row['first_name'];?>" name="first_name">
+                          <br>        
+                          <label class="col-2 col-form-label" for="inlineFormInput">Middle Name</label>
+                          <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name">
+                          <br>
+                          <label class="col-2 col-form-label">Surname</label>
+                          <input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0" value="<?php echo $row['last_name'];?>" name="last_name">     
+                          <br>
+                          <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small>
+                          <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext" value="<?php echo $row['ext'];?>">               
+                        </div>
+                      </div>
 
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Program</label>
-                    <select class="form-control" name="program">
-                      <option value="<?php echo $row['program'];?>"><?php echo $row['program'];?></option>
-                      <option value="BSA">BS Accountancy</option>
-                      <option value="BSAct">BS Accounting</option>
-                      <option value="BAC">Bachelor in Arts and Communication</option>
-                      <option value="BSCS">BS Computer Science</option>
-                      <option value="BEED">Bachelor in Elementary Education</option>
-                      <option value="BSED">Bachelor in Secondary Education</option>
-                      <option value="BSE">BS Entrepreneurship</option>
-                      <option value="BSIT">BS Information Technology</option>
-                      <option value="BSME">BS Mechanical Engineering</option>
-                      <option value="BSTM">BS Tourism Management</option>
-                      <option value="HCS">Health Care Services</option>
-                      <option value="MID">Midwifery</option>
-                      <option value="SHS11">Senior High School: Grade 11</option>
-                      <option value="SHS12">Senior High School: Grade 12</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label for="example-date-input" class="col-2 col-form-label">Year Level</label>
-                    <select class="form-control" name="yearLevel">
-                      <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?></option>
-                      <option value="1st">1st Year</option>
-                      <option value="2nd">2nd Year</option>
-                      <option value="3rd">3rd Year</option>
-                      <option value="4th">4th Year</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Semester</label> 
-                    <select class="form-control" name="semOption">
-                      <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
-                      <option value="1st">1st</option>
-                      <option value="2nd">2nd</option>
-                    </select>
-                  </div>
-                  <div class="col-lg-2">
-                    <label class="col-2 col-form-label">Academic Year:</label>                     
-                    <?php
-                      $currently_selected = date('Y'); 
-                      $earliest_year = 2006; 
-                      $latest_year = date('Y');
-                    ?>
-                    <select class="form-control" name="acadYear" id="acadYear">
+                      <div class="col-2"></div>
+
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label class="col-2">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
+                          <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age" name="age">
+                          <br>                        
+                          <label for="example-date-input" class="col-2 col-form-label">Gender</label>
+                          <select class="form-control" name="sex" id="sex">
+                            <option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                          </select>
+                        </div> 
+                      </div>
+                  
+                      <div class="col-2"></div>
+                      <?php }}?>
+                      <div class="col-lg-3">
+                      <div class="form-inline">
+                        <label class="col-2 col-form-label">Department</label><span class="error pull-right" id="errProg"></span>
+                      </div>         
+                    </div>
+
+                    <div class="col-2"></div>
                     <?php 
-                      foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                        print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
-                        print '</option>';
-                      }
-                        print '</select>';
-                    ?> 
-                  </div>
-                </div>
+                      require_once '../includes/dbconnect.php';
 
-                <div class="form-group row">
-                  <div class="col-lg-12">
-                    <label class="col-2 col-form-label">Address:</label> 
-                    <input type="text" class="form-control" name="address" value="<?php echo $row['address'];?>">
-                  </div>
-                </div>
+                      $DB_con = new mysqli("localhost", "root", "", "records");
 
-                <div class="form-group row">
-                  <div class="col-lg-6">
-                    <label class="col-2 col-form-label">Contact Person in case of Emergency:</label>
-                    <input type="text" class="form-control" name="cperson" value="<?php echo $row['cperson'];?>"> 
-                  </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Cellphone No.:</label> 
-                    <input type="text" name="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
-                  </div>
-                  <div class="col-lg-3">
-                    <label class="col-2 col-form-label">Telephone No.:</label> 
-                    <input type="text" name="tphone" class="form-control" value="<?php echo $row['tphone'];?>">
+                      if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
+
+                        $FacultyID = $_GET['FacultyID'];
+                        $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
+                        $result = $DB_con->query($res);
+                        $row = $result->fetch_array(MYSQLI_BOTH);
+           
+                        if(!empty($row)){
+                    ?>
+                    <div class="col-lg-2"> 
+                      <div class="form-group">
+                        <label for="example-date-input" class="col-2 col-form-label">Semester</label>
+                        <select class="form-control" name="sem" id="sem">
+                          <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
+                          <option value="1st">1st</option>
+                          <option value="2nd">2nd</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-lg-2">
+                      <div class="form-group">
+                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                          <?php
+                            $currently_selected = date('Y'); 
+                            $earliest_year = 2006; 
+                            $latest_year = date('Y');
+                          ?>
+                          <select class="form-control" name="acadYear" id="acadYear">
+                            <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
+                            <?php 
+                              foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                                print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
+                                print '</option>';
+                              }
+                              print '</select>';
+                            ?> 
+                      </div>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-lg-9">
+                      <hr>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-lg-9">
+                      <div class="form-group">
+                        <label for="example-date-input" class="col-2 col-form-label">Address</label>
+                        <textarea class="form-control" id="address" name="address" style="height: 80px;"><?php echo $row['address'];?>
+                        </textarea>
+                      </div>
+                    </div>
+
+                    <div class="col-2"></div>
+
+                    <div class="col-lg-5">
+                      <div class="form-group">
+                        <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label>
+                        <input type="text" class="form-control" id="cperson" name="cperson" value="<?php echo $row['cperson'];?>"> 
+                      </div>
+                    </div>
+
+                    <div class="col-lg-1"></div>
+
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label>
+                        <input type="text" name="cphone" id="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
+                      </div>
+                    </div>
+
                   </div>
                 </div>
+                <div class="panel-footer">
+                  <div class="form-group">
+                    <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
+                    <input type="hidden" name="action_type" value="edit"/>
+                    <input type="submit" class="btn btn-success" name="submit" value="Update Record"/>
+                  </div>
+                </div>
+                <!-- End of Basic Infor -->              
+
               </div>
             </div>
-            <!-- End of Basic Infor -->
+            <!-- End -->
 
-              <div class="form-group">
-                <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
-                <input type="hidden" name="action_type" value="edit"/>
-                <input type="submit" class="btn btn-success" name="submit" value="Update Record"/>
-              </div>
+          </form>
+          <!-- End of Form -->
 
-          </div>
-        </div>
-        <!-- End -->
-
-        </form>
-        <!-- End of Form -->
-
-        <?php }}?>
+          <?php }}?>
     
         </div>  
-        </div>
       </div>
-        <!-- End of Main Screen -->
+    </div>
+    <!-- End of Main Screen -->
 
   </div>
   <!-- End of Content -->
