@@ -73,10 +73,10 @@
           <li class="active have-child" role="presentation">
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
-              <li class="active">
+              <li>
                 <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
-              <li>
+              <li class="active">
                 <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
               </li>
             </ul>
@@ -99,7 +99,7 @@
             if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
               $FacultyID = $_GET['FacultyID'];
-              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -109,73 +109,60 @@
     	      <!-- Page Heading -->
             <div class="row">
               <div class="col-lg-12">
-                <h1 class="page-header">faculty's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
+                <h1 class="page-header">Faculty's Information <span class="text-danger pull-right" id="errmsg"></span></h1>             
               </div>
             </div>
             <!-- End of Page Heading -->
-
-            <!-- faculty Status Form -->
-            <div class="container-fluid">
-              <div class="row">
-                <div class="form-group row">   
-                  <div class="col-lg-2"> 
-                    <label>faculty No.:</label>
-                    <?php echo $row['facultyNo'];?>
-                  </div>
-                  <div class="col-lg-5"></div>
-                  <div class="col-lg-3"> 
-                    <label>Medical Status: </label>
-                    <?php echo $row['med'];?>
-                  </div> 
-                  <div class="col-lg-2"> 
-                    <label>Dental Status:</label>
-                    <?php echo $row['dent'];?>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End of faculty Status-->
 
             <div class="container-fluid">
               <div class="row">     
                 <!-- Basic Info -->
                 <div class="panel panel-success">
                   <div class="panel-heading">
-                    BASIC INFORMATION 
-                  </div>
-                  <div class="panel-body">
-
-                  <div class="col-lg-6">   
-                    <div class="form-group row">          
-                      <label class="col-2">Full Name: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['first_name'];?> <?php echo $row['middle_name'];?> <?php echo $row['last_name'];?></span>
+                    <div class="panel-title">
+                      <strong>BASIC INFORMATION</strong>
                     </div>
                   </div>
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2">Age: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['age'];?> years old</span>
-                      <label class="col-2">Sex: </label>
-                      <span style="text-decoration: underline;"><?php echo $row['sex'];?></span>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2">Program: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['program'];?></span>
-                      <label for="example-date-input" class="col-2">Year Level: </label>
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['yearLevel'];?> Year</span>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group row">
-                      <label class="col-2 col-form-label">Semester: </label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['sem'];?> Semester</span>
-                      <label class="col-2 col-form-label">Academic Year:</label> 
-                      <span class="col-2" style="text-decoration: underline;"><?php echo $row['acadYear'];?> </span>
-                    </div>
-                  </div>
+                  <div class="panel-body">        
+                    <table class="table table-striped table-bordered">
+                      <tr>
+                        <td><label>Full Name:</label></td>
+                        <td colspan="2"><?php echo $row['first_name']." ".$row['middle_name']." ".$row['last_name']." ".$row['ext'];?></td>
+                        <td><label>Age:</label></td>
+                        <td>
+                          <?php 
+                            if (!empty($row['age'])) {
+                              echo $row['age']." years old";
+                            }
+                            else {
+                              echo "unknown";
+                            }
+                          ?>                            
+                        </td>
+                        <td><label>Gender:</label></td>
+                        <td><?php echo $row['sex'];?></td>
+                        <td><label>Faculty No.:</label></td>
+                        <td><?php echo $row['facultyNo'];?></td>
+                      </tr>
+                      <tr>
+                        <td><label>Department:</label></td>
+                        <td colspan="2"><?php echo $row['dept_name'];?></td>
+                        <td></td>
+                        <td></td>
+                        <td><label>Semester: </label></td>
+                        <td><?php echo $row['sem'];?> Semester</td>
+                        <td><label>Academic Year:</label></td>
+                        <td><?php echo $row['acadYear'];?></td>
+                      </tr>
+                      <tr>
+                        <td><label>Address:</label></td>
+                        <td colspan="4"><?php echo $row['address'];?></td>
+                        <td><label>Contact Person:</label></td>
+                        <td><?php echo $row['cperson'];?></td>
+                        <td><label>Cel/Tel No.:</label></td>
+                        <td><?php echo $row['cphone'];?></td>
+                      </tr>
+                    </table>
 
                   <div class="col-lg-12">
                     <div class="form-group row">

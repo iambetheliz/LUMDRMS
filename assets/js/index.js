@@ -14,6 +14,7 @@ $(document).ready(function () {
 
   // Menu Collapse
   $("[data-toggle=tooltip]").tooltip();
+  
   //Menu Links
   $('ul[role="menu"]') 
     .on('show.bs.collapse', function (e) {

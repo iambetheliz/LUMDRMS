@@ -138,38 +138,36 @@
                     </div>
                   </div>
                   <div class="panel-body">                    
-                <table class="table table-bordered table-striped">
-                  <tr>
-                  </tr>
-                  <tr>
-                    <td><label>Full Name:</label></td>
-                    <td colspan="2"><?php echo $row['first_name']." ".$row['middle_name']." ".$row['last_name']." ".$row['ext'];?></td>
-                    <td><label>Age:</label></td>
-                    <td><?php echo $row['age'];?> years old</td>
-                    <td><label>Gender:</label></td>
-                    <td><?php echo $row['sex'];?></td>
-                    <td><label>Student No.:</label></td>
-                    <td><?php echo $row['studentNo'];?></td>
-                  </tr>
-                  <tr>
-                    <td><label>Program:</label></td>
-                    <td colspan="2"><?php echo $row['program_name'];?></td>
-                    <td><label>Year Level:</label></td>
-                    <td><?php echo $row['yearLevel'];?> Year</td>
-                    <td><label>Semester: </label></td>
-                    <td><?php echo $row['sem'];?> Semester</td>
-                    <td><label>Academic Year:</label></td>
-                    <td><?php echo $row['acadYear'];?></td>
-                  </tr>
-                  <tr>
-                    <td><label>Address:</label></td>
-                    <td colspan="4"><?php echo $row['address'];?></td>
-                    <td><label>Contact Person:</label></td>
-                    <td><?php echo $row['cperson'];?></td>
-                    <td><label>Cel/Tel No.:</label></td>
-                    <td><?php echo $row['cphone'];?></td>
-                  </tr>
-                </table>
+                    <table class="table table-bordered table-striped">
+                      <tr>
+                        <td><label>Full Name:</label></td>
+                        <td colspan="2"><?php echo $row['first_name']." ".$row['middle_name']." ".$row['last_name']." ".$row['ext'];?></td>
+                        <td><label>Age:</label></td>
+                        <td><?php echo $row['age'];?> years old</td>
+                        <td><label>Gender:</label></td>
+                        <td><?php echo $row['sex'];?></td>
+                        <td><label>Student No.:</label></td>
+                        <td><?php echo $row['studentNo'];?></td>
+                      </tr>
+                      <tr>
+                        <td><label>Program:</label></td>
+                        <td colspan="2"><?php echo $row['program_name'];?></td>
+                        <td><label>Year Level:</label></td>
+                        <td><?php echo $row['yearLevel'];?> Year</td>
+                        <td><label>Semester: </label></td>
+                        <td><?php echo $row['sem'];?> Semester</td>
+                        <td><label>Academic Year:</label></td>
+                        <td><?php echo $row['acadYear'];?></td>
+                      </tr>
+                      <tr>
+                        <td><label>Address:</label></td>
+                        <td colspan="4"><?php echo $row['address'];?></td>
+                        <td><label>Contact Person:</label></td>
+                        <td><?php echo $row['cperson'];?></td>
+                        <td><label>Cel/Tel No.:</label></td>
+                        <td><?php echo $row['cphone'];?></td>
+                      </tr>
+                    </table>
                   </div>
                 </div>
                 <!-- End of Basic Infor --> 

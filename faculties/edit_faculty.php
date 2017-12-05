@@ -94,7 +94,7 @@
             if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
               $FacultyID = $_GET['FacultyID'];
-              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -167,12 +167,17 @@
                         </div>
                       </div>
 
-                      <div class="col-2"></div>
-
                       <div class="col-lg-2">
                         <div class="form-group">
                           <label class="col-2">Age</label> <span class="text-danger pull-right" id="errmsg"></span>
-                          <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age" name="age">
+                          <input class="form-control" type="text" value="<?php 
+                            if (!empty($row['age'])) {
+                              echo $row['age'];
+                            }
+                            else {
+                              echo "";
+                            }
+                          ?>" id="age" name="age">
                           <br>                        
                           <label for="example-date-input" class="col-2 col-form-label">Gender</label>
                           <select class="form-control" name="sex" id="sex">
@@ -182,16 +187,41 @@
                           </select>
                         </div> 
                       </div>
-                  
-                      <div class="col-2"></div>
                       <?php }}?>
-                      <div class="col-lg-3">
-                      <div class="form-inline">
+                      <div class="col-lg-7">
+                      <div class="col-lg-5">
+                      <div class="form-group">
                         <label class="col-2 col-form-label">Department</label><span class="error pull-right" id="errProg"></span>
+                        <?php
+                        //Include database configuration file
+                        include('../includes/dbconnect.php');
+                        $DB_con = new mysqli("localhost", "root", "", "records");
+    
+                        //Get all dept data
+                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_name ASC");
+    
+                        //Count total number of rows
+                        $rowCount = $query->num_rows;
+                        $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE FacultyID=".$_GET['FacultyID'];
+                        $result = $DB_con->query($res);
+                        $rowDept = $result->fetch_array(MYSQLI_BOTH);
+                        ?>
+                        <select class="form-control" name="dept" id="dept">
+                            <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept_name'] ;?></option>
+                            <option value="">Select Department</option>
+                            <?php
+                                if($rowCount > 0){
+                                    while($row = $query->fetch_assoc()){ 
+                                        echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
+                                    }
+                                }else{
+                                    echo '<option value="">Department not available</option>';
+                                }
+                            ?>
+                        </select>
                       </div>         
                     </div>
 
-                    <div class="col-2"></div>
                     <?php 
                       require_once '../includes/dbconnect.php';
 
@@ -206,7 +236,7 @@
            
                         if(!empty($row)){
                     ?>
-                    <div class="col-lg-2"> 
+                    <div class="col-lg-3"> 
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Semester</label>
                         <select class="form-control" name="sem" id="sem">
@@ -217,11 +247,9 @@
                       </div>
                     </div>
 
-                    <div class="col-2"></div>
-
-                    <div class="col-lg-2">
+                    <div class="col-lg-4">
                       <div class="form-group">
-                        <label for="example-date-input" class="col-2 col-form-label">Academic Year</label>
+                        <label>Academic Year</label>
                           <?php
                             $currently_selected = date('Y'); 
                             $earliest_year = 2006; 
@@ -234,25 +262,17 @@
                                 print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
                                 print '</option>';
                               }
-                              print '</select>';
                             ?> 
+                          </select>
                       </div>
-                    </div>
+                    </div> 
 
-                    <div class="col-2"></div>
-
-                    <div class="col-lg-9">
-                      <hr>
-                    </div>
-
-                    <div class="col-2"></div>
-
-                    <div class="col-lg-9">
+                    <div class="col-lg-7">
                       <div class="form-group">
                         <label for="example-date-input" class="col-2 col-form-label">Address</label>
-                        <textarea class="form-control" id="address" name="address" style="height: 80px;"><?php echo $row['address'];?>
-                        </textarea>
-                      </div>
+                        <input class="form-control" id="address" name="address"><?php echo $row['address'];?>
+                      </div>   
+                    </div>
                     </div>
 
                     <div class="col-2"></div>

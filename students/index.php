@@ -46,57 +46,10 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
-<style type="text/css">  
-/* Formatting search box */
-.search-box{
-  position: relative;
-  display: inline-block;
-  font-size: 14px;
-}
-.search-box input[type="text"]{
-  height: 32px;
-  padding: 5px 10px;
-  border: 1px solid #CCCCCC;
-  font-size: 14px;
-}
-.result{
-  position: absolute;        
-  z-index: 999;
-  top: 100%;
-  left: 0;
-}
-.search-box input[type="text"], .result{
-  width: 100%;
-  box-sizing: border-box;
-}
-/* Formatting result items */
-.result p{
-  margin: 0;
-  padding: 7px 10px;
-  border: 1px solid #CCCCCC;
-  border-top: none;
-  cursor: pointer;
-  background: #fff;
-}
-.result p:hover{
-  background: #f2f2f2;
-}
-.edit{
- width: 100%;
- height: 25px;
-}
-.editMode{
- border: 1px solid black;
-}
-
+<style type="text/css"> 
 #overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
 #overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 0;
-    border-radius: 4px;
-}
+
 #user_form input.error {
   border:1px solid red;
 }
@@ -126,7 +79,7 @@
         <!-- Sidebar Menu Items -->
         <div id="sidebar-wrapper">
           <nav id="spy">
-            <ul class="sidebar-nav">                    
+            <ul class="sidebar-nav" role="menu">                    
                 <li>
                     <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
                 </li>
@@ -167,28 +120,26 @@
                   <div class="row">
                     <!-- Start btn-toolbar -->
                 	  <div class="btn-toolbar">
-            			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Student</button>
+            			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New</button>
 
-                      <div class="form-group search-box pull-right">
-                        <input type="text" class="search form-control" placeholder="What are you looking for?">
-                        <div class="result"></div>
+                      <div class="btn-group filter pull-right">
+                        <span class="fa fa-filter"></span>
+                        <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                      </div>
+
+                      <div class="btn-group">
+                        <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                          <option value="">Sort</option>
+                          <option value="asc">Ascending</option>
+                          <option value="desc">Descending</option>
+                        </select>
                       </div>
                     </div>
                     <!-- End btn-toolbar -->
                   </div>
-            	  </div><br>
+            	  </div>
+                <br>
                 <!-- End of Buttons -->
-
-                <?php
-                  include("../includes/dbconnect.php");
-                  $DB_con = new mysqli("localhost", "root", "", "records");
-
-                  $results = mysqli_query($DB_con,"SELECT COUNT(*) FROM students");
-                  $get_total_rows = mysqli_fetch_array($results); //total records
-
-                  //break total records into pages
-                  $pages = ceil($get_total_rows[0]/$item_per_page);   
-                ?>
 				      
                 <div id="overlay" align="center">
                   <div>
@@ -200,7 +151,6 @@
                     This is where data will be shown.
                   -->
                 </div>
-                <div class="pagination"></div>
 
               </div>  
             </div>
@@ -257,7 +207,7 @@
                   </div>
                   <div class="col-2"></div>
                   <div class="col-lg-3">
-                    <div class="form-inline">
+                    <div class="form-group">
                       <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
                       <?php
                         //Include database configuration file
@@ -384,34 +334,12 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/sorttable.js"></script>
 <script src="../assets/js/jquery.bootpag.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function(){
     $('#overlay').show();
-		$("#userTable").load("show_user.php");
+		$("#userTable").load("show_data1.php");
     $('#overlay').fadeOut('slow');	
-    $(".pagination").bootpag({
-      total: <?php echo $pages; ?>, // total number of pages
-      page: 1, //initial page
-      maxVisible: 5, //maximum visible links
-      leaps: true,
-      firstLastUse: true,
-      first: 'first',
-      last: 'last',
-      wrapClass: 'pagination',
-      activeClass: 'active',
-      disabledClass: 'disabled',
-      nextClass: 'next',
-      prevClass: 'prev',
-      lastClass: 'last',
-      firstClass: 'first'
-      }).on("page", function(e, num){
-        e.preventDefault();
-        $('#overlay').show();
-        $("#userTable").load("show_user.php", {'page':num});
-        $('#overlay').fadeOut(500,0);
-    });
 		$('#user_form').submit(function() {
 			return false;
 			$.ajaxSetup ({
@@ -556,7 +484,7 @@
             $('#userModal').modal('hide'); 
             $("#user_form")[0].reset();
             $('#addnew').val("Add New"); 
-						$("#userTable").load("show_user.php");
+						$("#userTable").load("show_data1.php");
             $.notify("Data added successfully", "success");
 					}
 				});
@@ -574,7 +502,7 @@
 						del: 1,
 					},
 					success: function(){
-						$("#userTable").load("show_user.php");
+						$("#userTable").load("show_data1.php");
             $.notify("Data successfully deleted.", "success");
 					}
 				});
@@ -598,7 +526,7 @@
 						edit: 1,
 					},
 					success: function(){
-						$("#userTable").load("show_user.php");
+						$("#userTable").load("show_data1.php");
 					}
 				});
 				return false;
@@ -608,7 +536,9 @@
         var inputVal = $(this).val();
         var resultDropdown = $(this).siblings(".result");
         if(inputVal.length){
-            $.get("backend-search.php", {term: inputVal}).done(function(data){
+            $.get("backend-search.php", {
+              term: inputVal
+            }).done(function(data){
                 // Display the returned data in browser
                 resultDropdown.html(data);
             });
@@ -621,19 +551,27 @@
         $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
         $(this).parent(".result").empty();
     });
-    //Search & Filter
-    $('.search').on('keyup',function(){
-      var val = '^(?=.*\\b' + $.trim($(this).val()).split(/\s+/).join('\\b)(?=.*\\b') + ').*$',
-        reg = RegExp(val, 'i'),
-        text;
-    
-      $('#userTable tbody tr').show().filter(function() {
-        text = $(this).text().replace(/\s+/g, ' ');
-        return !reg.test(text);
-      }).hide();
-    });
 });
 
+</script>
+<script>
+function searchFilter(page_num) {
+    page_num = page_num?page_num:0;
+    var keywords = $('#keywords').val();
+    var sortBy = $('#sortBy').val();
+    $.ajax({
+        type: 'POST',
+        url: 'show_data.php',
+        data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
+        beforeSend: function () {
+            $('#overlay').show();
+        },
+        success: function (html) {
+            $('#userTable').html(html);
+            $('#overlay').fadeOut("fast");
+        }
+    });
+}
 </script>
 </body>
 </html>

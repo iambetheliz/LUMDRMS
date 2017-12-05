@@ -1,4 +1,9 @@
 /*CUSTOM STYLES*/
+select {
+  overflow: hidden;
+    max-height: 100%;
+    max-width: 100%;
+}
 .panel-heading h3 {
     white-space: nowrap;
     overflow: hidden;
@@ -178,4 +183,118 @@ table.sortable thead {
     display: inline-block;
     margin: 100px auto;
   }
-  
+
+/* Pagination */
+.pagination {
+    display: inline-block;
+    padding-left: 0;
+    margin: 0;
+    border-radius: 4px;
+}
+.pagination>.active>a {
+    background-color: #316d1e;
+    border-color: #316d1e;
+    color: #fff;
+    cursor: pointer;
+}
+
+.pagination>.active>a:focus, 
+.pagination>.active>a:hover, 
+.pagination>.active>span, 
+.pagination>.active>span:focus, 
+.pagination>.active>span:hover {
+    background-color: #46992c;
+    border-color: #46992c;
+    color: #fff;
+    cursor: pointer;
+}
+.pagination>li>a {
+    color: #316d1e;
+    cursor: pointer;
+}
+div.pagination a:hover {
+    background-color: #46992c;
+    border-color: #46992c;
+    color: #fff;
+    cursor: pointer;
+}
+div.pagination>li>a {
+  color: #316d1e;
+}
+div.pagination>.active> a {
+    background-color: #316d1e;
+    border-color: #316d1e;
+    color: #fff;
+    cursor: pointer;
+}
+
+.filter input { text-indent: 20px;}
+.filter .fa-filter { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+/* Formatting search box */
+@media only screen and (max-width:768px){
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-color: rgba(0,0,0,0);
+    margin-top: 0;
+    padding-top: 8px;
+  }
+  .navbar-form {
+    padding: 10px 15px;
+    margin-top: 8px;
+    margin-right: -15px;
+    margin-bottom: 8px;
+    margin-left: -15px;
+    border-top: 0px solid transparent;
+    border-bottom: 0px solid transparent;
+    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1),0 1px 0 rgba(255,255,255,.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.1),0 0px 0 rgba(255,255,255,.1);
+  }
+}
+.search-box input { 
+  text-indent: 20px;
+  border: 1px solid gray;
+  border-radius: 15px;
+  background: transparent;
+  width: 100%;
+  box-sizing: border-box;
+}
+.search-box .fa-search { 
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: gray;
+}
+.search-box{
+  position: relative;
+}
+.result{
+  position: absolute;  
+  margin-top: 10px;      
+  z-index: 999;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+/* Formatting result items */
+.result p{
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #CCCCCC;
+  border-top: none;
+  cursor: pointer;
+  background: #fff;
+}
+.result p:hover{
+  background: #f2f2f2;
+}
+.edit{
+ width: 100%;
+ height: 25px;
+}
+.editMode{
+ border: 1px solid black;
+}
