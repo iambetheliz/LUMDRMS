@@ -151,10 +151,10 @@
                     <div class="row">
                     <div class="col-lg-3">     
                       <div class="form-group">  
-                        <label>Student No.</label>
+                        <label>Student No.</label> 
                         <input type="text" class="form-control" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly title="Cannot be edited" data-toggle="tooltip">
                         <br>
-                        <label for="first_name">First Name: </label> 
+                        <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
                         <input type="text" class="form-control" id="first_name" value="<?php echo $row['first_name'];?>" name="first_name" autofocus>
                         <br>                        
                         <label for="inlineFormInput">Middle Name: </label> 
@@ -354,7 +354,7 @@
 
   <footer class="footer">
     <div class="container-fluid">
-        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
     </div>
   </footer>
     
@@ -363,23 +363,24 @@
 <script src="../assets/js/index.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-      //Select courses            
-        $('#dept').on('change',function(){
-          var deptID = $(this).val();
-            if(deptID){
-              $.ajax({
-                type:'POST',
-                url:'courses.php',
-                data:'dept_id='+deptID,
-                success:function(html){
-                  $('#program').html(html);
-                  $('#city').html('<option value="">Select program first</option>'); 
-                }
-              }); 
-            } else {
-              $('#program').html('<option value="">Select departmentt first</option>');
-              }
-        });</script>
+  //Select courses            
+  $('#dept').on('change',function(){
+    var deptID = $(this).val();
+      if(deptID){
+        $.ajax({
+          type:'POST',
+          url:'courses.php',
+          data:'dept_id='+deptID,
+          success:function(html){
+            $('#program').html(html);
+            $('#city').html('<option value="">Select program first</option>'); 
+          }
+        }); 
+      } else {
+        $('#program').html('<option value="">Select departmentt first</option>');
+        }
+  });
+</script>
     
 </body>
 </html>

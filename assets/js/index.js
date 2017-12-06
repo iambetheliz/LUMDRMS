@@ -164,7 +164,7 @@ $(document).ready(function () {
   $("#first_name").keypress(function(event){
       var inputValue = event.which;
       // allow letters and whitespaces only.
-      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && !(inputValue >= 32 && inputValue <= 0) && inputValue != 45) { 
+      if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
         $("#errFirst").html("Letters Only").show().fadeOut("slow");
             return false;

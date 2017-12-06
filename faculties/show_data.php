@@ -22,11 +22,11 @@ if(isset($_POST['page'])){
         $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
     else{
-        $orderSQL = " ORDER BY StudentID ASC";
+        $orderSQL = " ORDER BY FacultyID DESC";
     }
 
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM students ".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM faculties ".$whereSQL.$orderSQL);
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -40,7 +40,7 @@ if(isset($_POST['page'])){
     $pagination =  new Pagination($pagConfig);
     
     //get rows
-    $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
+    $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL LIMIT $start,$limit");
     
     if($query->num_rows > 0){ ?>
     <div class="row">
@@ -58,22 +58,20 @@ if(isset($_POST['page'])){
             <thead>
                 <tr>
                     <th></th>
-                    <th>No.</th>
                     <th style="width: 85px;">Medical</th>
                     <th style="width: 85px;">Dental</th>
                     <th width="100px">Last Name</th>
                     <th width="120px">First Name</th>
-                    <th width="150px">Middle Name</th>
-                    <th style="width: 120px;">Student No.</th>
-                    <th>Program</th>
-                    <th style="width: 60px;">Year</th>            
+                    <th width="150px">Middle Initial</th>
+                    <th style="width: 120px;">Faculty No.</th>
+                    <th>Deparment</th>        
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
             <?php
                 while($row = $query->fetch_assoc()){ 
-                    $postID = $row['StudentID'];
+                    $postID = $row['FacultyID'];
                     if (($row['med']) != 'Ok') {
                         $color = "red";
                         $status = "Ok";
@@ -94,9 +92,8 @@ if(isset($_POST['page'])){
                         $extension = " ";
                     }
                 ?>
-                <tr data-row-id="<?php echo $row['StudentID'];?>">
-                    <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                    <td><?php echo $row['StudentID'];?></td>
+                <tr data-row-id="<?php echo $row['FacultyID'];?>">
+                    <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
                     <td style="color:<?php echo $color;?>;">
                         <?php echo $row['med']; ?> 
                     </td>
@@ -106,10 +103,9 @@ if(isset($_POST['page'])){
                     <td><?php echo strtoupper($row['last_name']); ?></td>
                     <td><?php echo strtoupper($row['first_name']);echo $extension.strtoupper($row['ext']); ?></td>
                     <td><?php echo strtoupper($row['middle_name']); ?></td>
-                    <td><?php echo $row['studentNo']; ?></td>
-                    <td><?php echo $row['program_name'];?></td>
-                    <td><?php echo $row['yearLevel'];?></td>
-                    <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                    <td><?php echo $row['facultyNo']; ?></td>
+                    <td><?php echo $row['dept_name'];?></td>
+                    <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_faculty.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
             </tbody>
