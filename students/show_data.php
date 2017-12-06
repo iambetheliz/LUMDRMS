@@ -16,12 +16,13 @@ if(isset($_POST['page'])){
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
     if(!empty($keywords)){
-        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%'";
+        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%'";
     }
     if(!empty($sortBy)){
         $orderSQL = " ORDER BY last_name ".$sortBy;
-    }else{
-        $orderSQL = " ORDER BY last_name ASC ";
+    } 
+    else{
+        $orderSQL = " ORDER BY StudentID DESC";
     }
 
     //get number of rows
@@ -53,15 +54,15 @@ if(isset($_POST['page'])){
           <label class="pull-right">Total number of rows: <?php echo $rowCount; ?></label>
           <br>
           <div class="table-responsive">
-          <table class="table  table-striped table-bordered sortable" id="myTable">
+          <table class="table  table-striped table-bordered" id="myTable">
             <thead>
                 <tr>
                     <th></th>
                     <th style="width: 85px;">Medical</th>
                     <th style="width: 85px;">Dental</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
+                    <th width="100px">Last Name</th>
+                    <th width="120px">First Name</th>
+                    <th width="150px">Middle Name</th>
                     <th style="width: 120px;">Student No.</th>
                     <th>Program</th>
                     <th style="width: 60px;">Year</th>            
@@ -94,7 +95,7 @@ if(isset($_POST['page'])){
                 ?>
                 <tr data-row-id="<?php echo $row['StudentID'];?>">
                     <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                    <td style="color:<?php echo $color;?>;" class="editable-col" contenteditable="true" col-index='0' oldVal ="<?php echo $row['med'];?>">
+                    <td style="color:<?php echo $color;?>;">
                         <?php echo $row['med']; ?> 
                     </td>
                     <td style="color:<?php echo $color2;?>;">
@@ -106,7 +107,7 @@ if(isset($_POST['page'])){
                     <td><?php echo $row['studentNo']; ?></td>
                     <td><?php echo $row['program_name'];?></td>
                     <td><?php echo $row['yearLevel'];?></td>
-                    <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View" data-toggle="tooltip"> <i class="fa fa-external-link" aria-hidden="true"></i></a> |  <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                    <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -120,33 +121,32 @@ if(isset($_POST['page'])){
     </div>
     <!-- End of Table -->
         <?php echo $pagination->createLinks(); ?>
-<?php } } ?>
+<?php } else { echo "<div class='alert alert-warning'>No result</div>"; }} ?>
 
 <script type="text/javascript">
-    //  for select / deselect all
-    $('document').ready(function() {
-        $("[data-toggle=tooltip]").tooltip();
-        $(".select-all").change(function () {
-            $(".chk-box").prop('checked', $(this).prop("checked"));
-        });        
-        $(".chk-box").click(function() {
-            if($(".chk-box").length == $(".chk-box:checked").length) {
-                $(".select-all").attr("checked", "checked");
-            }
-            else {
-                $(".select-all").removeAttr("checked");
-            }
-        });
+//  for select / deselect all
+$('document').ready(function() {
+    $("[data-toggle=tooltip]").tooltip();
+    $(".select-all").change(function () {
+        $(".chk-box").prop('checked', $(this).prop("checked"));
+    });        
+    $(".chk-box").click(function() {
+        if($(".chk-box").length == $(".chk-box:checked").length) {
+            $(".select-all").attr("checked", "checked");
+        }
+        else {
+            $(".select-all").removeAttr("checked");
+        }
     });
+});
 
-    //  for select / deselect all
-    function delete_records() {
-        document.frm.action = "delete_mul.php";
-        document.frm.submit();
-    }
-    $('#close').click(function() {
-        window.location.href = 'index.php';
-        return false;
-    });
-    </script>
-<script src="../assets/js/sorttable.js"></script>
+//  for select / deselect all
+function delete_records() {
+    document.frm.action = "delete_mul.php";
+    document.frm.submit();
+}
+$('#close').click(function() {
+    window.location.href = 'index.php';
+    return false;
+});
+</script>

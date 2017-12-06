@@ -25,7 +25,7 @@
     //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
+        $account = '<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
         $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -47,9 +47,6 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css"> 
-#overlay {background-color: rgba(0, 0, 0, 0.6);z-index: 999;position: absolute;left: 0;top: 0;width: 100%;height: 100%;display: none;}
-#overlay div {position:absolute;left:50%;top:50%;margin-top:-32px;margin-left:-32px;}
-
 #user_form input.error {
   border:1px solid red;
 }
@@ -69,11 +66,11 @@
 </head>
 <body>
 
-    <!-- Navbar -->
-    <?php include 'header.php'; ?>
-    <!-- End of Navbar -->
+  <!-- Navbar -->
+  <?php include 'header.php'; ?>
+  <!-- End of Navbar -->
 
-    <!-- Content -->
+  <!-- Content -->
 	<div id="wrapper">
 
         <!-- Sidebar Menu Items -->
@@ -127,9 +124,9 @@
                         <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
                       </div>
 
-                      <div class="btn-group">
+                      <div class="btn-group sort">
                         <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                          <option value="">Sort</option>
+                          <option value="">Sort By:</option>
                           <option value="asc">Ascending</option>
                           <option value="desc">Descending</option>
                         </select>
@@ -339,7 +336,7 @@
 	$(document).ready(function(){
     $('#overlay').show();
 		$("#userTable").load("show_data1.php");
-    $('#overlay').fadeOut('slow');	
+    $('#overlay').fadeOut('fast');	
 		$('#user_form').submit(function() {
 			return false;
 			$.ajaxSetup ({
