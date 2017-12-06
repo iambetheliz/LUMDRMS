@@ -22,7 +22,7 @@ if(isset($_POST['page'])){
         $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
     else{
-        $orderSQL = " ORDER BY FacultyID DESC";
+        $orderSQL = " ORDER BY FacultyID ASC";
     }
 
     //get number of rows
@@ -58,11 +58,12 @@ if(isset($_POST['page'])){
             <thead>
                 <tr>
                     <th></th>
+                    <th>No.</th>
                     <th style="width: 85px;">Medical</th>
                     <th style="width: 85px;">Dental</th>
                     <th width="100px">Last Name</th>
                     <th width="120px">First Name</th>
-                    <th width="150px">Middle Initial</th>
+                    <th width="150px">Middle Name</th>
                     <th style="width: 120px;">Faculty No.</th>
                     <th>Deparment</th>        
                     <th>Action</th>
@@ -94,6 +95,7 @@ if(isset($_POST['page'])){
                 ?>
                 <tr data-row-id="<?php echo $row['FacultyID'];?>">
                     <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                    <td><?php echo $row['FacultyID'];?></td>
                     <td style="color:<?php echo $color;?>;">
                         <?php echo $row['med']; ?> 
                     </td>

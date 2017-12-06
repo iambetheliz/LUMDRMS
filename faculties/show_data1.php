@@ -23,7 +23,7 @@
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY FacultyID DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY FacultyID ASC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -41,14 +41,14 @@
             <thead>
               <tr>
                 <th></th>
+                <th>No.</th>
                 <th style="width: 85px;">Medical</th>
                 <th style="width: 85px;">Dental</th>
                 <th width="100px">Last Name</th>
                 <th width="120px">First Name</th>
                 <th width="150px">Middle Name</th>
                 <th style="width: 120px;">Student No.</th>
-                <th>Department</th>
-                <th style="width: 60px;">Year</th>            
+                <th>Department</th>           
                 <th>Action</th>
               </tr>
             </thead>
@@ -78,6 +78,7 @@
             ?>
               <tr data-row-id="<?php echo $row['FacultyID'];?>">
                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                <td><?php echo $row['FacultyID'];?></td>
                 <td style="color:<?php echo $color;?>;">
                     <?php echo $row['med']; ?> 
                 </td>
@@ -89,7 +90,6 @@
                 <td><?php echo strtoupper($row['middle_name']); ?></td>
                 <td><?php echo $row['facultyNo']; ?></td>
                 <td><?php echo $row['dept_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
                 <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_faculty.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
