@@ -1,5 +1,7 @@
 <?php
   include('../includes/dbconnect.php');
+  $DB_con = mysqli_connect("localhost", "root", "", "records");
+
   if(isset($_POST['edit'])) {
     $studentNo = $_POST['studentNo'];
     $last_name = $_POST['last_name'];

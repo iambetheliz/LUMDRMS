@@ -165,7 +165,7 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
             header("Location: edit_student.php?error");
           }
           elseif (mysqli_query($DB_con,$stmt)) {
-            header("Location: /lu_clinic/students/index.php");
+            header("Location: /lu_clinic/students/");
           }
             mysqli_close($DB_con);
         }

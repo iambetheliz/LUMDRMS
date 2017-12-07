@@ -21,26 +21,26 @@ $row = mysqli_fetch_array($query);
 	      <input type="text" class="form-control" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly title="Cannot be edited" data-toggle="tooltip">
 	      <br>
 	      <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
-	      <input type="text" class="form-control" id="first_name" value="<?php echo $row['first_name'];?>" name="first_name">
+	      <input type="text" class="form-control" id="first_name_edit" value="<?php echo $row['first_name'];?>" name="first_name">
 	      <br>                        
 	      <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
-	      <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" id="middle_name">
+	      <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" id="middle_name_edit">
 	      <br>
 	      <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
-	      <input type="text" class="form-control" value="<?php echo $row['last_name'];?>" name="last_name" id="last_name">
+	      <input type="text" class="form-control" value="<?php echo $row['last_name'];?>" name="last_name" id="last_name_edit">
 	      <br>
 	      <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-	      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext" value="<?php echo $row['ext'];?>">
+	      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext_edit" value="<?php echo $row['ext'];?>">
 	    </div>
 	  </div>
 	  <div class="col-2"></div>
 	  <div class="col-lg-2">
 	    <div class="form-group">
 	      <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
-	      <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age" name="age">
+	      <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age_edit" name="age">
 	      <br>
 	      <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
-	      <select class="form-control" name="sex" id="sex">
+	      <select class="form-control" name="sex" id="sex_edit">
 	      	<option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
 	        <option value="Male">Male</option>
 	        <option value="Female">Female</option>
@@ -66,7 +66,7 @@ $row = mysqli_fetch_array($query);
             $result = $DB_con->query($res);
             $row = $result->fetch_array(MYSQLI_BOTH);
           ?>
-	      <select class="form-control" name="dept" id="deptEdit">
+	      <select class="form-control" name="dept" id="dept_edit">
 		      <option value="<?php echo $row['dept'] ;?>"><?php echo $row['dept_name'] ;?></option>
 		      <option value="">Select Department</option>
 		      <?php
@@ -97,7 +97,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-4">
 	    <div class="form-group">
 	      <label>Program</label>                            
-	      <select class="form-control" name="program" id="programNew">
+	      <select class="form-control" name="program" id="prog_edit">
 	      	<option value="<?php echo $row['program'];?>"><?php echo $row['program_name'];?></option>
 	        <option value="">Select department first</option>
 	      </select>
@@ -107,7 +107,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-3">
 	    <div class="form-group">
 	      <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
-	      <select class="form-control" name="yearLevel" id="yearLevel">
+	      <select class="form-control" name="yearLevel" id="yearLevel_edit">
 	        <option value="<?php echo $row['yearLevel'];?>"><?php echo $row['yearLevel'];?> Year</option>
 	        <option value="1st">1st Year</option>
 	        <option value="2nd">2nd Year</option>
@@ -120,7 +120,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-2"> 
 	    <div class="form-group">
 	      <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-	      <select class="form-control" name="sem" id="sem">
+	      <select class="form-control" name="sem" id="sem_edit">
 	        <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
 	        <option value="1st">1st</option>
 	        <option value="2nd">2nd</option>
@@ -136,7 +136,7 @@ $row = mysqli_fetch_array($query);
 	        $earliest_year = 2006; 
 	        $latest_year = date('Y');
 	      ?>
-	      <select class="form-control" name="acadYear" id="acadYear">
+	      <select class="form-control" name="acadYear" id="acadYear_edit">
 	        <option value="<?php echo $row['acadYear'];?>"><?php echo $row['acadYear'];?></option>
 	        <?php 
 	          foreach ( range( $latest_year, $earliest_year ) as $i ) {
@@ -155,7 +155,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-9">
 	    <div class="form-group">
 	      <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
-	      <textarea class="form-control" id="address" name="address" style="height: 80px;"><?php echo $row['address'];?>
+	      <textarea class="form-control" id="address_edit" name="address" style="height: 80px;"><?php echo $row['address'];?>
 	      </textarea>
 	    </div>
 	  </div>
@@ -163,14 +163,14 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-5">
 	    <div class="form-group">
 	      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
-	      <input type="text" class="form-control" id="cperson" name="cperson" value="<?php echo $row['cperson'];?>">
+	      <input type="text" class="form-control" id="cperson_edit" name="cperson" value="<?php echo $row['cperson'];?>">
 	    </div>
 	  </div>
 	  <div class="col-lg-1"></div>
 	  <div class="col-lg-3">
 	    <div class="form-group">
 	      <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-	      <input type="text" name="cphone" id="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
+	      <input type="text" name="cphone" id="cphone_edit" class="form-control" value="<?php echo $row['cphone'];?>">
 
           <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
 	    </div>
@@ -179,8 +179,16 @@ $row = mysqli_fetch_array($query);
 <?php }}}?>
 
 <script type="text/javascript">
+	//Capitalize each word
+  $("input, textarea").keyup(function(e) {
+    var arr = $(this).val().split(' ');
+    var result = '';
+    for (var x = 0; x < arr.length; x++)
+    result += arr[x].substring(0, 1).toUpperCase() + arr[x].substring(1) + ' ';
+    $(this).val(result.substring(0, result.length - 1));
+  });
 	//Select courses            
-    $('#deptEdit').on('change',function(){
+    $('#dept_edit').on('change',function(){
       var deptID = $(this).val();
       if(deptID){
         $.ajax({
@@ -188,11 +196,11 @@ $row = mysqli_fetch_array($query);
           url:'courses.php',
           data:'dept_id='+deptID,
           success:function(html){
-            $('#programNew').html(html); 
+            $('#prog_edit').html(html); 
           }
         }); 
       } else {
-        $('#programNew').html('<option value="">Select departmentt first</option>');
+        $('#prog_edit').html('<option value="">Select departmentt first</option>');
       }
     });
 </script>
