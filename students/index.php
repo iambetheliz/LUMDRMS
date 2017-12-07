@@ -360,7 +360,6 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/index.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/jquery.bootpag.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function(){
     $('#overlay').show();
@@ -555,26 +554,6 @@
         $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
         $('#modal-loader').fadeOut('fast');;
       });
-    });
-    $('.search-box input[type="text"]').on("keyup input", function(){
-        /* Get input value on change */
-        var inputVal = $(this).val();
-        var resultDropdown = $(this).siblings(".result");
-        if(inputVal.length){
-            $.get("backend-search.php", {
-              term: inputVal
-            }).done(function(data){
-                // Display the returned data in browser
-                resultDropdown.html(data);
-            });
-        } else{
-            resultDropdown.empty();
-        }
-    });    
-    // Set search input value on click of result item
-    $(document).on("click", ".result p", function(){
-        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-        $(this).parent(".result").empty();
     });
 });
 

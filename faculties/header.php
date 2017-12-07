@@ -48,10 +48,6 @@
 </nav>
 
 <script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script> 
-<script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/jquery.bootpag.min.js"></script>
 
 <script type="text/javascript">
   $('.search-box input[type="text"]').on("keyup input", function(){
