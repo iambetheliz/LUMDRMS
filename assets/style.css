@@ -1,6 +1,15 @@
 /*CUSTOM STYLES*/
-.dropdown:hover .dropdown-menu {
-    display: block;
+@media only screen and (min-width:768px){
+  .dropdown:hover .dropdown-menu {
+      display: block;
+  }  
+  .dropdown-menu>li> a:hover {
+      background-color: darkseagreen;
+  }
+  .dropdown:hover .dropdown-toggle{
+      color: white;
+      background-color: black;
+  }
 }
 .dropdown-menu {
     display: none;
@@ -17,13 +26,6 @@
     text-decoration: none;
     display: block;
     text-align: left;
-}
-.dropdown-menu>li> a:hover {
-    background-color: darkseagreen;
-}
-.dropdown:hover .dropdown-toggle{
-    color: white;
-    background-color: black;
 }
 
 select {
@@ -288,7 +290,7 @@ div.pagination>.active> a {
     box-shadow: none;
   }
 }
-.search-box input { 
+#search-box { 
   text-indent: 20px;
   border: 1px solid gray;
   border-radius: 15px;
@@ -296,16 +298,22 @@ div.pagination>.active> a {
   width: 100%;
   box-sizing: border-box;
 }
-.search-box .fa-search { 
+.fa-search { 
   position: absolute;
   top: 10px;
   left: 10px;
   color: gray;
 }
-.search-box{
+.fa-spinner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: forestgreen;
+}
+#search-box{
   position: relative;
 }
-.result{
+#country-list{
   position: absolute;  
   margin-top: 10px;      
   z-index: 999;
@@ -313,18 +321,32 @@ div.pagination>.active> a {
   left: 0;
   width: 100%;
   box-sizing: border-box;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
 }
 /* Formatting result items */
-.result p{
-  margin: 0;
+#country-list li{
+  margin-left: -40px;
   padding: 7px 10px;
-  border: 1px solid #CCCCCC;
+  border-bottom: 1px solid #CCCCCC;
   border-top: none;
   cursor: pointer;
   background: #fff;
 }
-.result p:hover{
+#country-list li:hover{
   background: #f2f2f2;
+}
+#country-list li {
+  float: none;
+  color: black;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+#country-list li:hover {
+  background-color: darkseagreen;
 }
 
 .edit{

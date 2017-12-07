@@ -26,8 +26,10 @@
         <div class="form-inline">
           <div class="btn-group search-box">
             <span class="fa fa-search"></span>
-            <input type="text" class="search form-control" placeholder="Quick Search">
-            <div class="result"></div>
+            <input type="text" id="search-box" class="search form-control" placeholder="Quick Search">
+            <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
+            <span class="sr-only">Loading...</span>
+            <div id="suggesstion-box"></div>
           </div>
         </div>
       </form>
@@ -50,24 +52,41 @@
 <script src="../assets/js/jquery.min.js"></script>
 
 <script type="text/javascript">
-  $('.search-box input[type="text"]').on("keyup input", function(){
-        /* Get input value on change */
-        var inputVal = $(this).val();
-        var resultDropdown = $(this).siblings(".result");
-        if(inputVal.length){
-            $.get("backend-search.php", {
-              term: inputVal
-            }).done(function(data){
-                // Display the returned data in browser
-                resultDropdown.html(data);
-            });
-        } else{
-            resultDropdown.empty();
-        }
-    });    
-    // Set search input value on click of result item
-    $(document).on("click", ".result p", function(){
-        $(this).parents(".search-box").find('input[type="text"]').val($(this).text());
-        $(this).parent(".result").empty();
+  // AJAX call for autocomplete 
+  $(document).ready(function(){
+    $('#search-box').keyup(function(){
+      $(".search").css("color","#FFF");
+      var min_length = 2; // min caracters to display the autocomplete
+      var keyword = $('#search-box').val();
+      if (keyword.length >= min_length) {
+        $.ajax({
+          type: "POST",
+          url: "backend-search.php",
+          data:'keyword='+$(this).val(),
+          beforeSend: function(){
+            $(".fa-spinner").show();
+          },
+          success: function(data){
+            $("#suggesstion-box").show();
+            $("#suggesstion-box").html(data);
+            $('.fa-spinner').fadeOut("slow");
+          }
+        });
+      }
+      else if (keyword.length >= 0) {
+        $('#suggesstion-box').hide();
+        $('.fa-spinner').fadeOut("slow");
+      }
     });
+  });
+  $(document).click(function () {
+    $('#suggesstion-box').hide();
+    $('.fa-spinner').fadeOut("slow");
+  })
+  //To select country name
+  function selectCountry(val) {
+    $("#search-box").val(val);
+    $('.fa-spinner').fadeOut("slow");
+    $("#suggesstion-box").hide();
+  }
 </script>

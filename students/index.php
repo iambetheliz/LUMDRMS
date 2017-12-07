@@ -324,7 +324,7 @@
       <!-- View Modal -->
       <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog"> 
-          <form method="post" id="user_form2" action="action.php" autocomplete>
+          <form method="post" id="user_form2" autocomplete>
           <div class="modal-content">         
             <div class="modal-header"> 
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
@@ -341,8 +341,7 @@
               <div id="dynamic-content"></div>
             </div>                             
             <div class="modal-footer"> 
-              <input type="hidden" name="action_type" value="edit"/>
-              <input type="submit" class="btn btn-success" id="update" name="submit" value="Update Record"/>
+              <input type="submit" class="btn btn-success" id="update" name="btn-edit" value="Update Record"/>
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
             </div>                             
           </div> 
@@ -374,6 +373,15 @@
         $('#addnew').val();
         $('#userModal').modal('hide'); 
 		});
+    $('#user_form2').submit(function() {
+      return false;
+      $.ajaxSetup ({
+        cache: false
+      });
+        $("#user_form2")[0].reset();
+        $('#addnew').val();
+        $('#view-modal').modal('hide'); 
+    });
   	//Select courses            
     $('#dept').on('change',function(){
       var deptID = $(this).val();
@@ -517,20 +525,20 @@
 		//Delete
 		$(document).on('click', '.delete', function(){
 			$StudentID = $(this).val();
-				$.ajax({
-					type: "POST",
-					url: "delete.php",
-          cache: false,
-					data: {
-						StudentID: $StudentID,
-						del: 1,
-					},
-					success: function(){
-						$("#userTable").load("show_data1.php");
-            $.notify("Data successfully deleted.", "success");
-					}
-				});
-				return false;
+			$.ajax({
+				type: "POST",
+				url: "delete.php",
+        cache: false,
+				data: {
+					StudentID: $StudentID,
+					del: 1,
+				},
+				success: function(){
+					$("#userTable").load("show_data1.php");
+          $.notify("Data successfully deleted.", "success");
+				}
+			});
+			return false;
 		});
     //View
     $(document).on('click', '#getUser', function(e){  
@@ -555,7 +563,26 @@
         $('#modal-loader').fadeOut('fast');;
       });
     });
-});
+    //Update
+    $(document).on('click', '#update', function(){
+      $.ajax({
+        type: "POST",
+        url: "update.php",
+        cache: false,
+        data: $('#user_form2').serialize(), 
+        beforeSend:function() {  
+          $('#update').val("Updating");  
+        },  
+        success: function(){
+          $('#view-modal').modal('hide'); 
+          $("#user_form2")[0].reset();
+          $('#update').val("Update Record"); 
+          $("#userTable").load("show_data1.php");
+          $.notify("Data updated successfully", "success");
+        }
+      });
+    });
+  });
 
 </script>
 <script>

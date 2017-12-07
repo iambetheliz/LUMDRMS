@@ -172,7 +172,7 @@ $row = mysqli_fetch_array($query);
 	      <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
 	      <input type="text" name="cphone" id="cphone_edit" class="form-control" value="<?php echo $row['cphone'];?>">
 
-          <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+          <input type="hidden" name="StudentID" id="hidden_user_id" value="<?php echo $row['StudentID']; ?>"/>
 	    </div>
 	  </div>
 	</div>
