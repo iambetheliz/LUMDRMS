@@ -153,13 +153,10 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
         $cphone = $_POST['cphone'];
         $StudentID = $_POST['StudentID'];
 
-        $med = $_POST['med'];
-        $dent = $_POST['dent'];
-
         // if everything is fine, update the record in the database
         if (!$error) {
 
-          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dept="'.$dept.'", program="'.$program.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", med="'.$med.'", dent="'.$dent.'" WHERE StudentID="'.$StudentID.'"';
+          $stmt = 'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dept="'.$dept.'", program="'.$program.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'" WHERE StudentID="'.$StudentID.'"';
 
           if (!$stmt) {
             header("Location: edit_student.php?error");
