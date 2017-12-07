@@ -10,7 +10,7 @@
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM students");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -34,7 +34,6 @@
         <label id="actions">
           <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
         </label>
-        <label class="pull-right">Total number of rows: <?php echo $rowCount; ?></label>
         <br>
         <div class="table-responsive">
           <table class="table  table-striped table-bordered" id="myTable">
@@ -42,14 +41,14 @@
               <tr>
                 <th></th>
                 <th>No.</th>
-                <th style="width: 85px;">Medical</th>
-                <th style="width: 85px;">Dental</th>
+                <th width="70px">Medical</th>
+                <th width="70px">Dental</th>
                 <th width="100px">Last Name</th>
-                <th width="120px">First Name</th>
-                <th width="150px">Middle Name</th>
-                <th style="width: 120px;">Student No.</th>
+                <th width="150px">First Name</th>
+                <th width="120px">Middle Name</th>
+                <th width="100px">Student No.</th>
                 <th>Program</th>
-                <th style="width: 60px;">Year</th>            
+                <th width="50px">Year</th>            
                 <th>Action</th>
               </tr>
             </thead>
@@ -92,7 +91,7 @@
                 <td><?php echo $row['studentNo']; ?></td>
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
-                <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_student.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>

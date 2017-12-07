@@ -15,8 +15,9 @@ if(isset($_POST['page'])){
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
+
     if(!empty($keywords)){
-        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%'";
+        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%'";
     }
     if(!empty($sortBy)){
         $orderSQL = " ORDER BY last_name ".$sortBy;
@@ -26,7 +27,7 @@ if(isset($_POST['page'])){
     }
 
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM students ".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ".$whereSQL.$orderSQL);
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -51,7 +52,6 @@ if(isset($_POST['page'])){
           <label id="actions">
             <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
           </label>
-          <label class="pull-right">Total number of rows: <?php echo $rowCount; ?></label>
           <br>
           <div class="table-responsive">
           <table class="table  table-striped table-bordered" id="myTable">
@@ -59,14 +59,14 @@ if(isset($_POST['page'])){
                 <tr>
                     <th></th>
                     <th>No.</th>
-                    <th style="width: 85px;">Medical</th>
-                    <th style="width: 85px;">Dental</th>
+                    <th width="70px">Medical</th>
+                    <th width="70px">Dental</th>
                     <th width="100px">Last Name</th>
-                    <th width="120px">First Name</th>
-                    <th width="150px">Middle Name</th>
-                    <th style="width: 120px;">Student No.</th>
+                    <th width="150px">First Name</th>
+                    <th width="120px">Middle Name</th>
+                    <th width="100px">Student No.</th>
                     <th>Program</th>
-                    <th style="width: 60px;">Year</th>            
+                    <th width="50px">Year</th>            
                     <th>Action</th>
                 </tr>
             </thead>

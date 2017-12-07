@@ -204,17 +204,17 @@
                         $rowDept = $result->fetch_array(MYSQLI_BOTH);
                         ?>
                         <select class="form-control" name="dept" id="dept">
-                            <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept_name'] ;?></option>
-                            <option value="">Select Department</option>
-                            <?php
-                                if($rowCount > 0){
-                                    while($row = $query->fetch_assoc()){ 
-                                        echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
-                                    }
-                                }else{
-                                    echo '<option value="">Department not available</option>';
-                                }
-                            ?>
+                          <option value="<?php echo $rowDept['dept'] ;?>"><?php echo $rowDept['dept_name'] ;?></option>
+                          <option value="">Select Department</option>
+                          <?php
+                            if($rowCount > 0){
+                              while($row = $query->fetch_assoc()){ 
+                                  echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
+                              }
+                            }else{
+                              echo '<option value="">Department not available</option>';
+                            }
+                          ?>
                         </select>
                       </div>         
                     </div>

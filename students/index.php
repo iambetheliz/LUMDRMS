@@ -164,7 +164,7 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add User
+                <h4 class="modal-title">Add New Student
                   <span id="msg" class="error pull-right"></span>
                 </h4>
               </div>
@@ -321,6 +321,35 @@
         </div>
       </div>
 
+      <!-- View Modal -->
+      <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog"> 
+          <form method="post" id="user_form2" action="action.php" autocomplete>
+          <div class="modal-content">         
+            <div class="modal-header"> 
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+              <h4 class="modal-title">
+              <i class="glyphicon glyphicon-cog"></i> Edit Student Information
+              </h4> 
+            </div>                 
+            <div class="modal-body">                     
+              <div id="modal-loader" style="display: none; text-align: center;">
+                <!-- ajax loader -->
+                <img src="../includes/loading.gif">
+              </div>                                
+              <!-- mysql data will be load here -->                          
+              <div id="dynamic-content"></div>
+            </div>                             
+            <div class="modal-footer"> 
+              <input type="hidden" name="action_type" value="edit"/>
+              <input type="submit" class="btn btn-success" id="update" name="submit" value="Update Record"/>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+            </div>                             
+          </div> 
+        </form>
+        </div>
+      </div>
+
     <footer class="footer">
         <div class="container-fluid">
             <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
@@ -340,11 +369,11 @@
 		$('#user_form').submit(function() {
 			return false;
 			$.ajaxSetup ({
-        		cache: false
-    		});
-            $("#user_form")[0].reset();
-            $('#addnew').val();
-            $('#userModal').modal('hide'); 
+        cache: false
+    	});
+        $("#user_form")[0].reset();
+        $('#addnew').val();
+        $('#userModal').modal('hide'); 
 		});
   	//Select courses            
     $('#dept').on('change',function(){
@@ -355,8 +384,7 @@
           url:'courses.php',
           data:'dept_id='+deptID,
           success:function(html){
-            $('#program').html(html);
-            $('#city').html('<option value="">Select program first</option>'); 
+            $('#program').html(html); 
           }
         }); 
       } else {
@@ -505,29 +533,29 @@
 				});
 				return false;
 		});
-		//Update
-		$(document).on('click', '.updateuser', function(){
-			$StudentID = $(this).val();
-			$('#edit'+$StudentID).modal('hide');
-			$('body').removeClass('modal-open');
-			$('.modal-backdrop').remove();
-			$first_name = $('#first_name'+$StudentID).val();
-			$last_name = $('#last_name'+$StudentID).val();
-				$.ajax({
-					type: "POST",
-					url: "update.php",
-					data: {
-						StudentID: $StudentID,
-						first_name: $first_name,
-						last_name: $last_name,
-						edit: 1,
-					},
-					success: function(){
-						$("#userTable").load("show_data1.php");
-					}
-				});
-				return false;
-		});
+    //View
+    $(document).on('click', '#getUser', function(e){  
+      e.preventDefault();
+      var uid = $(this).data('id'); // get id of clicked row
+      $('#dynamic-content').html(''); // leave this div blank
+      $('#modal-loader').show();      // load ajax loader on button click
+      $.ajax({
+        url: 'edit_data.php',
+        type: 'POST',
+        data: 'StudentID='+uid,
+        dataType: 'html'
+      })
+      .done(function(data){
+        console.log(data); 
+        $('#dynamic-content').html(''); // blank before load.
+        $('#dynamic-content').html(data); // load here
+        $('#modal-loader').fadeOut('fast');; // hide loader  
+      })
+      .fail(function(){
+        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+        $('#modal-loader').fadeOut('fast');;
+      });
+    });
     $('.search-box input[type="text"]').on("keyup input", function(){
         /* Get input value on change */
         var inputVal = $(this).val();

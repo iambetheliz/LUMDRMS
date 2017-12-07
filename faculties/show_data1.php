@@ -34,7 +34,6 @@
         <label id="actions">
           <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
         </label>
-        <label class="pull-right">Total number of rows: <?php echo $rowCount; ?></label>
         <br>
         <div class="table-responsive">
           <table class="table  table-striped table-bordered" id="myTable">
@@ -42,12 +41,12 @@
               <tr>
                 <th></th>
                 <th>No.</th>
-                <th style="width: 85px;">Medical</th>
-                <th style="width: 85px;">Dental</th>
-                <th width="100px">Last Name</th>
-                <th width="120px">First Name</th>
+                <th width="70px">Medical</th>
+                <th width="70px">Dental</th>
+                <th width="150px">Last Name</th>
+                <th width="150px">First Name</th>
                 <th width="150px">Middle Name</th>
-                <th style="width: 120px;">Student No.</th>
+                <th>Faculty No.</th>
                 <th>Department</th>           
                 <th>Action</th>
               </tr>
