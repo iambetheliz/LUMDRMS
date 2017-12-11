@@ -123,6 +123,7 @@
             <div class="row">
               <div class="container-fluid">
                 <h1 class="page-header">Student's Information 
+                  <span class="pull-right text-success">SN: <?php echo $row['studentNo'];?></span>
                 </h1>             
               </div>
             </div>
@@ -131,236 +132,266 @@
             <div class="container-fluid">
               <div class="row">     
                 <!-- Basic Info -->
-                <div class="panel panel-success">
+                <div class="panel panel-success panel-table">
                   <div class="panel-heading">
                     <div class="panel-title">
                       <strong>BASIC INFORMATION</strong>
                     </div>
                   </div>
-                  <div class="panel-body">                    
-                    <table class="table table-bordered table-striped">
-                      <tr>
-                        <td><label>Full Name:</label></td>
-                        <td colspan="2"><?php echo $row['first_name']." ".$row['middle_name']." ".$row['last_name']." ".$row['ext'];?></td>
-                        <td><label>Age:</label></td>
-                        <td><?php echo $row['age'];?> years old</td>
-                        <td><label>Gender:</label></td>
-                        <td><?php echo $row['sex'];?></td>
-                        <td><label>Student No.:</label></td>
-                        <td><?php echo $row['studentNo'];?></td>
-                      </tr>
-                      <tr>
-                        <td><label>Program:</label></td>
-                        <td colspan="2"><?php echo $row['program_name'];?></td>
-                        <td><label>Year Level:</label></td>
-                        <td><?php echo $row['yearLevel'];?> Year</td>
-                        <td><label>Semester: </label></td>
-                        <td><?php echo $row['sem'];?> Semester</td>
-                        <td><label>Academic Year:</label></td>
-                        <td><?php echo $row['acadYear'];?></td>
-                      </tr>
-                      <tr>
-                        <td><label>Address:</label></td>
-                        <td colspan="4"><?php echo $row['address'];?></td>
-                        <td><label>Contact Person:</label></td>
-                        <td><?php echo $row['cperson'];?></td>
-                        <td><label>Cel/Tel No.:</label></td>
-                        <td><?php echo $row['cphone'];?></td>
-                      </tr>
-                    </table>
+                  <div class="panel-body">  
+                    <div class="row">   
+                      <div class="container-fluid">               
+                        <table class="table table-bordered">
+                          <thead>
+                            <th colspan="4">FULL NAME</th>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><?php echo $row['first_name'] ;?><br>
+                              <span class="text-muted"><small><i>First Name</i></small></span></td>
+                              <td><?php echo $row['middle_name'] ;?><br>
+                              <span class="text-muted"><small><i>Middle Name</i></small></span></td>
+                              <td><?php echo $row['last_name'];?><br>
+                                <span class="text-muted"><small><i>Last Name</i></small></span></td>
+                              <td><?php echo $row['ext'];?><br>
+                                <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
+                            </tr>
+                          </tbody>
+                          <tr>
+                            <td><label>Age:</label></td>
+                            <td><?php echo $row['age'];?> years old</td>
+                            <td><label>Gender:</label></td>
+                            <td><?php echo $row['sex'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Program:</label></td>
+                            <td><?php echo $row['program_name'];?></td>
+                            <td><label>Year Level:</label></td>
+                            <td><?php echo $row['yearLevel'];?> Year</td>
+                          </tr>
+                          <tr>
+                            <td><label>Semester: </label></td>
+                            <td><?php echo $row['sem'];?> Semester</td>
+                            <td><label>Academic Year:</label></td>
+                            <td><?php echo $row['acadYear'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Address:</label></td>
+                            <td colspan="3"><?php echo $row['address'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Contact Person:</label></td>
+                            <td><?php echo $row['cperson'];?></td>
+                            <td><label>Cel/Tel No.:</label></td>
+                            <td><?php echo $row['cphone'];?></td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <!-- End of Basic Infor --> 
               </div>
             </div>
 
-                <?php 
-                  require_once '../includes/dbconnect.php';
-                  include '../includes/pagination.php';
+            <?php 
+              require_once '../includes/dbconnect.php';
+              include '../includes/pagination.php';
 
-                  $DB_con = new mysqli("localhost", "root", "", "records");
+              $DB_con = new mysqli("localhost", "root", "", "records");
 
-                  $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
-            
-                  if ($page <= 0) $page = 1;
-                    $per_page = 5; // Set how many records do you want to display per page.
-    
-                    if (isset($_GET['StudentID'])) {
-                      $StudentID = $_GET['StudentID'];
+              $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
+        
+              if ($page <= 0) $page = 1;
+                $per_page = 5; // Set how many records do you want to display per page.
 
-                      $startpoint = ($page * $per_page) - $per_page;
-                      $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
-                      $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
-                      $count = $result->num_rows;
-                    }
-                ?>
+                if (isset($_GET['StudentID'])) {
+                  $StudentID = $_GET['StudentID'];
 
+                  $startpoint = ($page * $per_page) - $per_page;
+                  $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
+                  $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
+                  $count = $result->num_rows;
+                }
+            ?>
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="panel panel-success panel-table">
+                  <div class="panel-heading">
+                    <div class="panel-title" style="line-height: 30px;">
+                      <strong>MEDICAL INFORMATION</strong>
+                        <div class="pull-right">
+                          <div class="btn-toolbar">
+                            <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-success">New</a>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="panel-body">
+                  <?php
+                    if ($result->num_rows != 0) { ?>
+                    <div class="row">
+                      <div class="container-fluid">
+                        <table class="table table-bordered">
+                          <thead>
+                            <th>CURRENT SYSTEM</th>
+                            <th></th>
+                            <th>PAST MEDICAL HISTORY</th>
+                          </thead>
+                          <?php 
+                          // displaying records.
+                          while ($row = $result->fetch_assoc()){ ?>
+                          <tbody>
+                            <tr>
+                              <td colspan="2"><?php echo $row['sysRev'];?></td>
+                              <td colspan="2"><?php echo $row['medHis'];?></td>
+                            </tr>
+                          </tbody>
+                          <thead>
+                            <th colspan="3">PHYSICAL</th>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>
+                                <label>Height:</label> <?php echo $row['height'] ;?> cm.
+                              </td>
+                              <td>
+                                <label>Weight:</label> <?php echo $row['weight'] ;?> kg.
+                              </td>
+                              <td><label>BMI:</label> <?php echo $row['bmi'] ;?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Blood Pressure:</label> <?php echo $row['bp'] ;?></td>
+                              <td><label>Cardiac Rate:</label> <?php echo $row['cr'] ;?></td>
+                              <td><label>Respirtory Rate:</label> <?php echo $row['rr'] ;?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Temperature:</label> <?php echo $row['temp'] ;?></td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                          </tbody>
+                          <thead>
+                            <tr>
+                              <th colspan="3"><label>PERSONAL AND SOCIAL HISTORY</label></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              <?php 
+                              if ($row['drinker'] == 'Yes') {
+                                echo "<tr>
+                                        <td colspan='2' id='drinker'>Alcoholic Drinker</td>
+                                      </tr>";
+                              } else if ($row['smoker'] == 'Yes') {
+                                echo "<tr>
+                                        <td colspan='2' id='smoker'>Smoker</td>
+                                      </tr>";
+                              } else if ($row['drug_user'] == 'Yes') {
+                                echo "<tr>
+                                        <td colspan='2' id='drug_user'>Drug User</td>
+                                      </tr>";
+                              }
+                              else {
+                                echo "<tr>
+                                        <td colspan='2'>None</td>
+                                      </tr>";
+                              }
+                          ?>
+                          </tbody>
+                          <thead>
+                            <tr>                          
+                              <th colspan="3"><label>O.B. GYNE</label></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <?php 
+                            if (!empty($row['mens'])) {
+                              echo "<tr>
+                                      <th>Menstrual Period:</th>
+                                      <td>" .$row['mens']. "</td>
+                                      <td></td>
+                                    </tr>";
+                              echo "<tr>
+                                      <th>Duration:</th>
+                                      <td>" .$row['duration']. "</td>
+                                      <td></td>
+                                    </tr>";
+                            }
+                            else {
+                              echo "<tr>
+                                      <td>Not Applicable</td>
+                                    </tr>";
+                            }
+                          ?>                        
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Physical Exam -->
             <div class="container-fluid">
               <div class="row">
                 <div class="panel panel-success">
                   <div class="panel-heading">
                     <div class="panel-title">
-                      <strong>MEDICAL INFORMATION</strong>
+                      <strong>PREVIOUS CHECKUPS</strong>
                     </div>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body">             
                     <!-- Buttons -->
-                <div class="container-fluid">
-                  <div class="row">
-                    <!-- Start btn-toolbar -->
-                    <div class="btn-toolbar">
-                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <!-- Start btn-toolbar -->
+                        <div class="btn-toolbar">
+                            <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
+                        </div>
+                        <!-- End btn-toolbar -->
+                      </div>
                     </div>
-                    <!-- End btn-toolbar -->
-                  </div>
-                </div>
-                <!-- End of Buttons --><br>
-                  <?php
-                if ($result->num_rows != 0) { ?>
-                  <div class="row">
-                  <div class="col-lg-6">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>
-                          <td><label>PERSONAL AND SOCIAL HISTORY</label></td>
-                        </tr>
+                    <!-- End of Buttons -->
+                    <br>
+                    <div class="table-responsive">
+                      <table class="table  table-striped table-bordered" id="myTable">
+                        <thead style="background-color:#eee;cursor: pointer;">
+                          <tr>
+                            <th style="display: none;"></th>
+                            <th>Last Checkup</th>
+                          </tr>
+                        </thead>
                         <tbody>
-                        <?php 
-                          // displaying records.
-                          while ($row = $result->fetch_assoc()){ ?>
-                            <?php 
-                            if ($row['drinker'] == 'Yes') {
-                              echo "<tr>
-                                      <td id='drinker'>Alcoholic Drinker</td>
-                                    </tr>";
-                            } else if ($row['smoker'] == 'Yes') {
-                              echo "<tr>
-                                      <td id='smoker'>Smoker</td>
-                                    </tr>";
-                            } else if ($row['drug_user'] == 'Yes') {
-                              echo "<tr>
-                                      <td id='drug_user'>Drug User</td>
-                                    </tr>";
-                            }
+                          <tr>
+                            <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                            <td><?php echo date("F j, Y", strtotime($row['date_checked_up'])); ?></td>
+                          </tr>
+                          <?php }
+                            } 
                             else {
-                              echo "<tr>
-                                      <td>None</td>
-                                    </tr>";
-                            }
-                        ?>
+                              $errMSG = "No records found.";
+                            }?>
                         </tbody>
-                      </thead>
-                    </table>
-                  </div>
-                  <div class="col-lg-6">
-                    <table class="table table-bordered">
-                      <thead>
-                        <tr>                          
-                          <td colspan="2"><label>O.B. GYNE</label></td>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php 
-                          if (!empty($row['mens'])) {
-                            echo "<tr>
-                                    <th>Menstrual Period:</th>
-                                    <td>" .$row['mens']. "</td>
-                                  </tr>";
-                            echo "<tr>
-                                    <th>Duration:</th>
-                                    <td>" .$row['duration']. "</td>
-                                  </tr>";
-                          }
-                          else {
-                            echo "<tr>
-                                    <td>Not Applicable</td>
-                                  </tr>";
-                          }
-                        ?>                        
-                      </tbody>
-                    </table>
-                  </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-        <!-- Physical Exam -->
-        <div class="container-fluid">
-          <div class="row">
-            <div class="panel panel-success">
-              <div class="panel-heading">
-                <div class="panel-title">
-                  <strong>PREVIOUS CHECKUPS</strong>
-                </div>
-              </div>
-              <div class="panel-body">             
-                <!-- Buttons -->
-                <div class="container-fluid">
-                  <div class="row">
-                    <!-- Start btn-toolbar -->
-                    <div class="btn-toolbar">
-                        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
-                    </div>
-                    <!-- End btn-toolbar -->
-                  </div>
-                </div>
-                <!-- End of Buttons -->
-                <br>
-                <div class="table-responsive">
-                  <table class="table  table-striped table-bordered" id="myTable">
-                    <thead style="background-color:#eee;cursor: pointer;">
-                      <tr>
-                        <th style="display: none;"></th>
-                        <th>Review of System</th>
-                        <th>Past History</th>
-                        <th>Drinker</th>
-                        <th>Smoker</th>
-                        <th>Drug User</th>
-                        <th>Weight</th>
-                        <th>Height</th>
-                        <th>BMI</th>
-                        <th>Last Checkup</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                        <td><?php echo $row['sysRev']; ?></td>
-                        <td><?php echo $row['medHis']; ?></td>
-                        <td><?php echo $row['drinker']; ?></td>
-                        <td><?php echo $row['smoker']; ?></td>
-                        <td><?php echo $row['drug_user']; ?></td>
-                        <td><?php echo $row['weight']; ?></td>
-                        <td><?php echo $row['height']; ?></td>
-                        <td><?php echo $row['bmi']; ?></td>
-                        <td><?php echo date("F j, Y", strtotime($row['date_checked_up'])); ?></td>
-                      </tr>
-                      <?php }
-                        } 
-                        else {
-                          $errMSG = "No records found.";
-                        }?>
-                    </tbody>
-                  </table>
-                  <?php 
+                      </table>
+                      <?php 
                         if(isset($errMSG)){ ?>
 
                         <div class="alert alert-warning">
-                            <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
+                          <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
                         </div>
-                            
-                    <?php }
-                    ?>
+                              
+                      <?php }
+                      ?>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        <!-- End -->
+            <!-- End -->
 
-        <?php }}?>
+          <?php }}?>
     
         </div>  
         </div>

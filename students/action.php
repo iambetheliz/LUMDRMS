@@ -26,6 +26,10 @@
         //checkbox
         $sysRev = implode(', ', $_POST['sysRev_list']);
         $medHis = implode(', ', $_POST['medHis_list']);
+
+        foreach($_POST['sysRev_list'] as $index => $val){
+          echo "sysRev_list[".$index."]=".$val;
+        }
        
         $drinker = $_POST['drinker'];
         $smoker = $_POST['smoker'];
