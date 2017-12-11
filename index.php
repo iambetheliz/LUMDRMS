@@ -61,7 +61,7 @@
 			
 			$password = hash('sha256', $pass); // password hashing using SHA256
 		
-			$res = "SELECT userId, userName, userPass FROM users WHERE userName='$name'";
+			$res = "SELECT userId, userName, userPass, role FROM users WHERE userName='$name'";
 			$result = $DB_con->query($res);
 			$row = $result->fetch_array(MYSQLI_BOTH);
 			$count = $result->num_rows; // if uname/pass correct it returns must be 1 row
@@ -112,38 +112,87 @@
       			</tr>
       		</table>
         <?php
-            if (isset($errMSG)) { ?>
-              	<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            	<?php echo $errMSG; ?>
-              	</div>
-         	<?php }
-        ?>
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" autocomplete />
-    	        <fieldset>          
-              <div class="form-group">
-                <label>Username</label>
-            	  <input type="text" name="name" class="form-control" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>" maxlength="40" autofocus />
-                <small><span class="text-danger"><?php echo $nameError; ?></span></small>
+          if (isset($errMSG)) { ?>
+          	<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        	    <?php echo $errMSG; ?>
+          	</div>
+        <?php } ?>
+        <?php    
+          $stmt = mysqli_query($DB_con,"SELECT * FROM users WHERE role = 'superadmin'");
+          $count = $stmt->num_rows;
+
+          if ($count == 0) {
+            $message = "<div class='alert alert-info'><p><i class='glyphicon glyphicon-info-sign'></i> <strong>Info:</strong> This site has <strong>no admin</strong> yet. <br>Click <strong><a class='text-info' style='cursor:pointer;' data-toggle='collapse' data-target='#add_admin' aria-expanded='false' aria-controls='add_admin'>here</a></strong> to add admin.</p></div>";
+          }
+          else {?>
+            <div class="panel panel-default">
+              <div class="panel-body">
+                <form class="form-signin" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" autocomplete />
+                  <fieldset>          
+                  <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" name="name" class="form-control" value="<?php if(isset($_COOKIE["member_login"])) { echo $_COOKIE["member_login"]; } ?>" maxlength="40" autofocus />
+                    <small><span class="text-danger"><?php echo $nameError; ?></span></small>
+                  </div>
+                
+                  <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="pass" class="form-control" value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"]; } ?>"  maxlength="15" />
+                    <small><span class="text-danger"><?php echo $passError; ?></span></small>
+                  </div>
+                
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-block" name="btn-login">Sign In</button>
+                  </div>
+                  </fieldset>   
+                </form> 
               </div>
-            
-              <div class="form-group">
-                <label>Password</label>
-            	  <input type="password" name="pass" class="form-control" value="<?php if(isset($_COOKIE["pass"])) { echo $_COOKIE["pass"]; } ?>"  maxlength="15" />
-                <small><span class="text-danger"><?php echo $passError; ?></span></small>
+            </div>
+              <?php } ?>
+              <span class="text-danger">
+                <span class="col-10">
+                <?php echo $message; ?>
+                </span>
+              </span>
+              <?php include 'add_admin.php'; 
+                if ($error) {
+                    $collapse = 'in';
+                }
+              ?> 
+              <?php echo $successMSG;?>
+              <div class="collapse <?php echo $collapse; ?>" id="add_admin">
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    <form id="regValidate" action="" method="post" autocomplete="off">                      
+                      <div class="form-group">
+                        <input type="text" name="userName" class="form-control" placeholder="Enter Username" maxlength="50" value="<?php echo $name ?>" autofocus />
+                        <span class="text-danger"><?php echo $nameError; ?></span>
+                      </div>
+                      <div class="form-group">    
+                        <input type="text" id="email" name="email" class="form-control" title="(e.g. example@email.com)" maxlength="30" value="<?php echo $email ?>" placeholder="Email Address (required)" autofocus />
+                        <span class="text-danger"><?php echo $emailError;?></span>
+                      </div>
+                      <div class="form-group">
+                        <div class="input-group">
+                          <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                        <input type="password" name="pass" class="form-control" placeholder="Enter Password" maxlength="15" />
+                          </div>
+                          <span class="text-danger"><?php echo $passError; ?></span>
+                      </div>
+                      <div class="form-group">                  
+                        <input hidden="" type="text" name="role" value="$role" />
+                        <button type="submit" class="btn btn-success send" name="btn-signup" data-loading-text="Saving info"> Save </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>            
               </div>
-            
-              <div class="form-group">
-            	  <button type="submit" class="btn btn-success btn-block" name="btn-login">Sign In</button>
-              </div>
-    	        </fieldset>   
-            </form> 
+              <!-- End of Panel -->
+
           </div>
         </div>
       </div>
-    </div>
-  <!-- End of Login Form -->
+      <!-- End of Login Form -->
 
 </div>
 <!-- End of Main Screen -->

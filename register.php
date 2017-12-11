@@ -6,7 +6,7 @@
    		session_start();
 	
 	if( isset($_SESSION['user'])!="" ){
-		header("Location: home.php");
+		header("Location: dashboard.php");
 	}
 
 	$DB_con = new mysqli("localhost", "root", "", "records");
@@ -21,7 +21,7 @@
 	if ( isset($_POST['btn-signup']) ) {
 		
 		// clean user inputs to prevent sql injections
-		$name = trim($_POST['name']);
+		$name = trim($_POST['userName']);
 		$name = strip_tags($name);
 		$name = htmlspecialchars($name);
 		
