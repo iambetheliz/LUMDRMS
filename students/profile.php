@@ -225,33 +225,29 @@
                           <td><label>PERSONAL AND SOCIAL HISTORY</label></td>
                         </tr>
                         <tbody>
-                      <?php 
-                        // displaying records.
-                        while ($row = $result->fetch_assoc()){ ?>
-                          <tr><?php if ($row['drinker'] == 'No') {
-                              $display = "none"; } ?>
-                            <td style="display: <?php echo $display; ?>">
-                              <?php if ($row['drinker'] == 'Yes') {
-                              echo "Alcoholic Drinker";
-                            } ?></td>
-                          </tr>
-                          <tr><?php if ($row['smoker'] == 'No') {
-                              $display = "none"; } ?>
-                            <td style="display: <?php echo $display; ?>">
-                              <?php if ($row['smoker'] == 'Yes') {
-                              echo "Smoker";
-                            } ?></td>
-                          </tr>
-                          <tr><?php if ($row['drug_user'] == 'No') {
-                              $display = "none"; } ?>
-                            <td style="display: <?php echo $display; ?>">
-                              <?php if ($row['drug_user'] == 'Yes') {
-                              echo "Drug user"; }?></td>
-                          </tr>
-                          <tr>
-                            <td><?php if ($row['drug_user'] && $row['smoker'] && $row['drinker'] == 'No') {
-                              echo "None"; }?></td>
-                          </tr>
+                        <?php 
+                          // displaying records.
+                          while ($row = $result->fetch_assoc()){ ?>
+                            <?php 
+                            if ($row['drinker'] == 'Yes') {
+                              echo "<tr>
+                                      <td id='drinker'>Alcoholic Drinker</td>
+                                    </tr>";
+                            } else if ($row['smoker'] == 'Yes') {
+                              echo "<tr>
+                                      <td id='smoker'>Smoker</td>
+                                    </tr>";
+                            } else if ($row['drug_user'] == 'Yes') {
+                              echo "<tr>
+                                      <td id='drug_user'>Drug User</td>
+                                    </tr>";
+                            }
+                            else {
+                              echo "<tr>
+                                      <td>None</td>
+                                    </tr>";
+                            }
+                        ?>
                         </tbody>
                       </thead>
                     </table>
@@ -264,14 +260,23 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <th>Menstrual Period:</th>
-                          <td><?php echo $row['mens'];?></td>
-                        </tr>
-                        <tr>
-                          <th>Duration:</th>
-                          <td><?php echo $row['duration'];?></td>
-                        </tr>
+                        <?php 
+                          if (!empty($row['mens'])) {
+                            echo "<tr>
+                                    <th>Menstrual Period:</th>
+                                    <td>" .$row['mens']. "</td>
+                                  </tr>";
+                            echo "<tr>
+                                    <th>Duration:</th>
+                                    <td>" .$row['duration']. "</td>
+                                  </tr>";
+                          }
+                          else {
+                            echo "<tr>
+                                    <td>Not Applicable</td>
+                                  </tr>";
+                          }
+                        ?>                        
                       </tbody>
                     </table>
                   </div>

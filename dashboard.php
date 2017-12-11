@@ -231,16 +231,24 @@
                   </div>
                   <div class="panel-body">
                   <table class="table table-striped table-bordered table-list">
+                    <?php    
+                      $stmt = mysqli_query($DB_con,"SELECT * FROM students_med WHERE sysRev LIKE '%Fever%'"); 
+                      $count = $stmt->num_rows;
+                      
+                      if($stmt->num_rows > 0){ ?>
                     <thead>
-                    <tr>
-                      <th>Medical Issues</th>
-                      <th>Tota Number</th>
-                    </tr>
-                  </thead>
-                    <tr>
-                      <td>Something</td>
-                      <td>Something</td>
-                    </tr>
+                      <tr>
+                        <th>Diseases</th>
+                        <th>Total Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Fever</td>
+                        <td><?php echo $count; ?></td>
+                      </tr>
+                    </tbody>
+                    <?php } ?>
                   </table>
                   </div>
                   <div class="panel-footer"></div>
