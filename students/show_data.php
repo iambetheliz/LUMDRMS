@@ -23,7 +23,7 @@ if(isset($_POST['page'])){
         $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
     else{
-        $orderSQL = " ORDER BY StudentID ASC";
+        $orderSQL = " ORDER BY date_updated DESC";
     }
 
     //get number of rows

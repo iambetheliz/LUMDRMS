@@ -1,6 +1,7 @@
 <?php
   ob_start();
   require_once 'includes/dbconnect.php';
+  include 'calendar.php';
   include 'includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
@@ -51,6 +52,14 @@
 <link href="assets/css/dashboard.css" rel="stylesheet" type="text/css">
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="assets/style.css" rel="stylesheet" type="text/css">
+<!-- fullcalendar -->
+<link href="calendar/assets/fullcalendar.css" rel="stylesheet" />
+<link href="calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
+<style type="text/css">
+  .modal-dialog {
+    width: 500px;
+  }
+</style>
 </head>
 <body>
 
@@ -122,23 +131,19 @@
             <div class="row">
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-success">
-                  <div class="shape">
-                    <?php    
-                      $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW()) AND DAY(date_registered) = DAY(NOW())");     
-                      $count = $stmt->num_rows;
-                    ?>
-                    <div class="shape-text">
-                      <p><?php echo $count; ?></p>                         
-                    </div>
-                  </div>
+                  <?php    
+                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE DAY(date_registered) = DAY(NOW())");     
+                    $count = $stmt->num_rows;
+                  ?>               
+                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
                   <div class="offer-content">
-                    <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> Today</h3>
+                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> Today</h4>  
                     <?php 
                       if ($count != 0) {?> 
-                        <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</p>
+                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</small>
                         <?php    }
                       else {?>
-                        <p>You haven't added any record today.</p>
+                        <small>You haven't added any record today.</small>
                       <?php    }
                     ?>
                   </div>
@@ -146,23 +151,19 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-info">
-                  <div class="shape">
-                    <?php    
-                      $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())");
-                      $count = $stmt->num_rows;
-                    ?>
-                    <div class="shape-text">
-                      <p><?php echo $count; ?></p>                         
-                    </div>
-                  </div>
+                  <?php    
+                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())");
+                    $count = $stmt->num_rows;
+                  ?>            
+                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
                   <div class="offer-content">
-                    <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h3>
+                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h4>
                     <?php 
                       if ($count != 0) {?> 
-                        <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</p>
+                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</small>
                       <?php    }
                       else {?>
-                        <p>You haven't added any record this week.</p>
+                        <small>You haven't added any record this week.</small>
                       <?php    }
                     ?>
                   </div>
@@ -170,23 +171,19 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-warning">
-                  <div class="shape">
-                    <?php    
-                      $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())");
-                      $count = $stmt->num_rows;
-                    ?>
-                    <div class="shape-text">
-                      <p><?php echo $count; ?></p>                         
-                    </div>
-                  </div>
+                  <?php    
+                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())");
+                    $count = $stmt->num_rows;
+                  ?>           
+                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1> 
                   <div class="offer-content">
-                    <h3 class="lead"><i class="fa fa-calendar" aria-hidden="true"></i> This Month</h3>
+                    <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Month</h4>
                     <?php 
                       if ($count != 0) {?> 
-                        <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</p>
+                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</small>
                       <?php    }
                       else {?>
-                        <p>You haven't added any records this month.</p>
+                        <small>You haven't added any records this month.</small>
                       <?php    }
                     ?>
                   </div>
@@ -194,23 +191,19 @@
               </div>
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-danger">
-                  <div class="shape">
-                    <?php    
-                      $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW())");
-                      $count = $stmt->num_rows;
-                    ?>
-                    <div class="shape-text">
-                      <p><?php echo $count; ?></p>                         
-                    </div>
-                  </div>
+                  <?php    
+                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW())");
+                    $count = $stmt->num_rows;
+                  ?>           
+                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
                   <div class="offer-content">
-                    <h3 class="lead"><i class="fa fa-calendar"></i> This Year</h3>
+                    <h4><i class="fa fa-calendar"></i> This Year</h4>
                     <?php 
                       if ($count != 0) {?> 
-                        <p>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</p>
+                        <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</small>
                       <?php    }
                       else {?>
-                        <p>You haven't added any records this year.</p>
+                        <small>You haven't added any records this year.</small>
                       <?php    }
                     ?>
                   </div>
@@ -220,15 +213,28 @@
             <!-- End of Badges -->
 
             <hr><br>
+
+
+            <!--Graphs -->
+            <div class="row">
+              <div class="container-fluid">
+                <div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+              </div>
+            </div>
+
+            <hr><br>
             <!-- Table -->
             <div class="row">
-            <div class="col-lg-6">
+              <div class="col-md-8">
+                <div id='calendar'></div>
+              </div>
+            <div class="col-md-4">
             <div class="panel panel-default panel-table">
               <div class="panel-heading">
                 <div class="row">
                   <div class="col col-lg-6">
                     <div class="panel-title">
-                      <strong>Panel Heading</strong>
+                      <strong>Students Table</strong>
                     </div>
                   </div>
                   <div class="col col-lg-6 text-right">
@@ -240,7 +246,7 @@
               <table class="table table-striped table-bordered table-list">
                 <thead>
                   <tr>
-                    <th>Diseases</th>
+                    <th>Gender</th>
                     <th>Total Number</th>
                   </tr>
                 </thead>
@@ -271,6 +277,63 @@
   </div>
   <!-- End of Content -->
 
+  <!-- Modal  to Add Event -->
+    <div id="createEventModal" class="modal fade" role="dialog">
+      <div class="modal-dialog"> 
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+             <h4 class="modal-title">Add Event</h4>
+          </div>
+
+          <div class="modal-body">
+            <div class="control-group">
+              <label class="control-label" for="inputPatient">Event:</label>
+              <div class="field desc">
+                  <input class="form-control" id="title" name="title" placeholder="Title" type="text" value="">
+              </div>
+              <br>
+            </div>
+            <input type="hidden" id="startTime"/>
+            <input type="hidden" id="endTime"/>
+            <div class="control-group">
+              <label class="control-label" for="when">When:</label>
+              <div class="controls controls-row" id="when" style="margin-top:5px;">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal to Event Details -->
+    <div id="calendarModal" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Event Details</h4>
+          </div>
+          <div id="modalBody" class="modal-body">
+            <h4 id="modalTitle" class="modal-title"></h4>
+            <div id="modalWhen" style="margin-top:5px;"></div>
+          </div>
+          <input type="hidden" id="eventID"/>
+          <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Modal-->
+
 <footer class="footer">
   <div class="container-fluid">
       <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
@@ -288,6 +351,17 @@
     });
   }, 3000);
 </script>
+
+<!--calendar-->
+<script src="calendar/assets/jquery-ui.min.js"></script>
+<script src="calendar/assets/moment.min.js"></script>
+<script src="calendar/assets/fullcalendar.min.js"></script>
+<script type="text/javascript" src="calendar/assets/calendar.js"></script>
+
+<!--graphs-->
+<script src="charts/canvasjs.min.js"></script>
+<script src="charts/jquery.canvasjs.min.js"></script>
+<script src="charts.js"></script>
     
 </body>
 </html>

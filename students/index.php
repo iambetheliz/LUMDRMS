@@ -212,7 +212,7 @@
                         $DB_con = new mysqli("localhost", "root", "", "records");
     
                         //Get all dept data
-                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_name ASC");
+                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 AND cat = 2 ORDER BY dept_name ASC");
     
                         //Count total number of rows
                         $rowCount = $query->num_rows;

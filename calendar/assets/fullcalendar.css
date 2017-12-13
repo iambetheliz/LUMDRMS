@@ -347,15 +347,6 @@ temporary rendered events).
 	z-index: 5;
 }
 
-.fc .fc-row .fc-content-skeleton table,
-.fc .fc-row .fc-content-skeleton td,
-.fc .fc-row .fc-helper-skeleton td {
-	/* see-through to the background below */
-	/* extra precedence to prevent theme-provided backgrounds */
-	background: none; /* in case <td>s are globally styled */
-	border-color: transparent;
-}
-
 .fc-row .fc-content-skeleton td,
 .fc-row .fc-helper-skeleton td {
 	/* don't put a border between events and/or the day number */
@@ -426,6 +417,7 @@ temporary rendered events).
 .fc-event .fc-content {
 	position: relative;
 	z-index: 2;
+	background: green;
 }
 
 /* resizer (cursor AND touch devices) */
@@ -703,15 +695,16 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-divider,
 .fc-unthemed .fc-popover .fc-header,
 .fc-unthemed .fc-list-heading td {
-	background: #eee;
+	background: green;
+	border: none;
 }
 
 .fc-unthemed .fc-popover .fc-header .fc-close {
 	color: #666;
 }
 
-.fc-unthemed td.fc-today {
-	background: #fcf8e3;
+.fc-unthemed .fc-widget-content td.fc-today {
+    background: #baefc2;
 }
 
 .fc-unthemed .fc-disabled-day {
@@ -1027,14 +1020,34 @@ NOTE: use percentage font sizes or else old IE chokes
 }
 
 /* week and day number styling */
+.fc-day-header.fc-widget-header.fc-sun,
+.fc-day-header.fc-widget-header.fc-sun a[data-goto], 
+.fc-day-header.fc-widget-header.fc-sat,
+.fc-day-header.fc-widget-header.fc-sat a[data-goto] {
+    color: red;
+    background: lightgrey;
+}
+.fc-day-header.fc-widget-header {
+    background: darkgreen;
+    padding: 3px;
+    border-color: green;
+}
+.fc-widget-header, .fc-widget-header a[data-goto] {
+	color: white;
+}
+
+.fc-day-top {
+	background: white;
+}
 
 .fc-day-top.fc-other-month {
 	opacity: 0.3;
 }
 
 .fc-basic-view .fc-week-number,
-.fc-basic-view .fc-day-number {
+.fc-basic-view a.fc-day-number {
 	padding: 2px;
+	color: green;
 }
 
 .fc-basic-view th.fc-week-number,
