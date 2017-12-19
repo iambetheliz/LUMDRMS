@@ -296,6 +296,34 @@
       </div>
     </div>
 
+    <!-- View Modal -->
+    <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog"> 
+        <form method="post" id="user_form2" autocomplete>
+        <div class="modal-content">         
+          <div class="modal-header"> 
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
+            <h4 class="modal-title">
+            <i class="glyphicon glyphicon-cog"></i> Edit Student Information
+            </h4> 
+          </div>                 
+          <div class="modal-body">                     
+            <div id="modal-loader" style="display: none; text-align: center;">
+              <!-- ajax loader -->
+              <img src="../includes/loading.gif">
+            </div>                                
+            <!-- mysql data will be load here -->                          
+            <div id="dynamic-content"></div>
+          </div>                             
+          <div class="modal-footer"> 
+            <input type="submit" class="btn btn-success" id="update" name="btn-edit" value="Update Record"/>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>  
+          </div>                             
+        </div> 
+      </form>
+      </div>
+    </div>
+
     <footer class="footer">
         <div class="container-fluid">
             <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
@@ -304,9 +332,9 @@
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script> 
+<script src="../assets/js/custom.js"></script> 
+<script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/jquery.bootpag.min.js"></script>
 <script type = "text/javascript">
 	$(document).ready(function(){
 		$('#overlay').show();
@@ -315,11 +343,20 @@
     $('#user_form').submit(function() {
       return false;
       $.ajaxSetup ({
-            cache: false
-        });
-            $("#user_form")[0].reset();
-            $('#addnew').val();
-            $('#userModal').modal('hide'); 
+        cache: false
+      });
+      $("#user_form")[0].reset();
+      $('#addnew').val();
+      $('#userModal').modal('hide'); 
+    });
+    $('#user_form2').submit(function() {
+      return false;
+      $.ajaxSetup ({
+        cache: false
+      });
+        $("#user_form2")[0].reset();
+        $('#addnew').val();
+        $('#view-modal').modal('hide'); 
     });
 		//Select department            
     $('#dept').on('change',function(){
@@ -418,29 +455,48 @@
 				});
 				return false;
 		});
+    //View
+    $(document).on('click', '#getUser', function(e){  
+      e.preventDefault();
+      var uid = $(this).data('id'); // get id of clicked row
+      $('#dynamic-content').html(''); // leave this div blank
+      $('#modal-loader').show();      // load ajax loader on button click
+      $.ajax({
+        url: 'edit_data.php',
+        type: 'POST',
+        data: 'FacultyID='+uid,
+        dataType: 'html'
+      })
+      .done(function(data){
+        console.log(data); 
+        $('#dynamic-content').html(''); // blank before load.
+        $('#dynamic-content').html(data); // load here
+        $('#modal-loader').fadeOut('fast');; // hide loader  
+      })
+      .fail(function(){
+        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
+        $('#modal-loader').fadeOut('fast');;
+      });
+    });
 		//Update
-		$(document).on('click', '.updateuser', function(){
-			$FacultyID = $(this).val();
-			$('#edit'+$FacultyID).modal('hide');
-			$('body').removeClass('modal-open');
-			$('.modal-backdrop').remove();
-			$first_name = $('#first_name'+$FacultyID).val();
-			$last_name = $('#last_name'+$FacultyID).val();
-				$.ajax({
-					type: "POST",
-					url: "update.php",
-					data: {
-						FacultyID: $FacultyID,
-						first_name: $first_name,
-						last_name: $last_name,
-						edit: 1,
-					},
-					success: function(){
-						showUser();
-					}
-				});
-				return false;
-		});	
+    $(document).on('click', '#update', function(){
+      $.ajax({
+        type: "POST",
+        url: "update.php",
+        cache: false,
+        data: $('#user_form2').serialize(), 
+        beforeSend:function() {  
+          $('#update').val("Updating");  
+        },  
+        success: function(){
+          $('#view-modal').modal('hide'); 
+          $("#user_form2")[0].reset();
+          $('#update').val("Update Record"); 
+          $("#userTable").load("show_data1.php");
+          $.notify("Data updated successfully", "success");
+        }
+      });
+    });
 	});
 </script>
 <script>

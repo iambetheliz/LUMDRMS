@@ -516,24 +516,24 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script>
+<script src="../assets/js/custom.js"></script> 
 <script type="text/javascript">
   $(function () {
-        $("#otherSysRevCheck").click(function () {
-            if ($(this).is(":checked")) {
-                $("#otherSysRev").show();
-            } else {
-                $("#otherSysRev").hide();
-            }
-        });
-        $("#otherMedHisCheck").click(function () {
-            if ($(this).is(":checked")) {
-                $("#otherMedHis").show();
-            } else {
-                $("#otherMedHis").hide();
-            }
-        });
+    $("#otherSysRevCheck").click(function () {
+      if ($(this).is(":checked")) {
+        $("#otherSysRev").show().focus();
+      } else {
+        $("#otherSysRev").hide();
+      }
     });
+    $("#otherMedHisCheck").click(function () {
+      if ($(this).is(":checked")) {
+        $("#otherMedHis").show().focus();
+      } else {
+        $("#otherMedHis").hide();
+      }
+    });
+  });
   $('#height').keypress(function (e) {
       $("#errSN").hide();
 

@@ -92,6 +92,9 @@
  #calendar {
   width: 100%;
   }
+  .modal-dialog {
+    width: 500px;
+  }
 </style>
 </head>
 
@@ -222,7 +225,7 @@
 <!-- jQuery -->
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script> 
+<script src="../assets/js/custom.js"></script> 
 <!-- calendar scripts --> 
 <script src="../calendar/assets/jquery-ui.min.js"></script>
 <script src="../calendar/assets/moment.min.js"></script>

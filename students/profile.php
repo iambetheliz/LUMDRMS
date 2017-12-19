@@ -44,6 +44,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/panel-tabs.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">  
 .col-2 {
@@ -123,7 +124,7 @@
             <div class="row">
               <div class="container-fluid">
                 <h1 class="page-header">Student's Information 
-                  <span class="pull-right text-success">SN: <?php echo $row['studentNo'];?></span>
+                  <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">SN: <?php echo $row['studentNo'];?></span>
                 </h1>             
               </div>
             </div>
@@ -142,10 +143,10 @@
                     <div class="row">   
                       <div class="container-fluid">               
                         <table class="table table-bordered">
-                          <thead>
-                            <th colspan="4">FULL NAME</th>
-                          </thead>
                           <tbody>
+                            <tr>
+                              <td colspan="4"><strong>FULL NAME:</strong></td>
+                            </tr>
                             <tr>
                               <td><?php echo $row['first_name'] ;?><br>
                               <span class="text-muted"><small><i>First Name</i></small></span></td>
@@ -156,35 +157,35 @@
                               <td><?php echo $row['ext'];?><br>
                                 <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
                             </tr>
+                            <tr>
+                              <td><label>Age:</label></td>
+                              <td><?php echo $row['age'];?> years old</td>
+                              <td><label>Gender:</label></td>
+                              <td><?php echo $row['sex'];?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Program:</label></td>
+                              <td><?php echo $row['program_name'];?></td>
+                              <td><label>Year Level:</label></td>
+                              <td><?php echo $row['yearLevel'];?> Year</td>
+                            </tr>
+                            <tr>
+                              <td><label>Semester: </label></td>
+                              <td><?php echo $row['sem'];?> Semester</td>
+                              <td><label>Academic Year:</label></td>
+                              <td><?php echo $row['acadYear'];?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Address:</label></td>
+                              <td colspan="3"><?php echo $row['address'];?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Contact Person:</label></td>
+                              <td><?php echo $row['cperson'];?></td>
+                              <td><label>Cel/Tel No.:</label></td>
+                              <td><?php echo $row['cphone'];?></td>
+                            </tr>
                           </tbody>
-                          <tr>
-                            <td><label>Age:</label></td>
-                            <td><?php echo $row['age'];?> years old</td>
-                            <td><label>Gender:</label></td>
-                            <td><?php echo $row['sex'];?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Program:</label></td>
-                            <td><?php echo $row['program_name'];?></td>
-                            <td><label>Year Level:</label></td>
-                            <td><?php echo $row['yearLevel'];?> Year</td>
-                          </tr>
-                          <tr>
-                            <td><label>Semester: </label></td>
-                            <td><?php echo $row['sem'];?> Semester</td>
-                            <td><label>Academic Year:</label></td>
-                            <td><?php echo $row['acadYear'];?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Address:</label></td>
-                            <td colspan="3"><?php echo $row['address'];?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Contact Person:</label></td>
-                            <td><?php echo $row['cperson'];?></td>
-                            <td><label>Cel/Tel No.:</label></td>
-                            <td><?php echo $row['cphone'];?></td>
-                          </tr>
                         </table>
                       </div>
                     </div>
@@ -196,19 +197,11 @@
 
             <?php 
               require_once '../includes/dbconnect.php';
-              include '../includes/pagination.php';
-
               $DB_con = new mysqli("localhost", "root", "", "records");
-
-              $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
-        
-              if ($page <= 0) $page = 1;
-                $per_page = 5; // Set how many records do you want to display per page.
 
                 if (isset($_GET['StudentID'])) {
                   $StudentID = $_GET['StudentID'];
 
-                  $startpoint = ($page * $per_page) - $per_page;
                   $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
                   $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
                   $count = $result->num_rows;
@@ -217,27 +210,51 @@
 
             <div class="container-fluid">
               <div class="row">
-                <div class="panel panel-success panel-table">
+
+                <div class="panel with-nav-tabs panel-success">
                   <div class="panel-heading">
-                    <div class="panel-title" style="line-height: 30px;">
-                      <strong>MEDICAL INFORMATION</strong>
-                        <div class="pull-right">
-                          <div class="btn-toolbar">
-                            <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-success">New</a>
-                          </div>
-                        </div>
-                    </div>
+                    <strong>
+                      <ul class="nav nav-tabs panel-title">
+                        <li class="active">
+                          <a href="#tab-contents" data-toggle="tab">MEDICAL</a>
+                        </li>
+                        <li>
+                          <a href="#tab2default" data-toggle="tab">DENTAL</a>
+                        </li>
+                        <li>
+                          <a href="#tab3default" data-toggle="tab">S.O.A.P</a>
+                        </li>
+                      </ul>
+                    </strong>
                   </div>
                   <div class="panel-body">
-                  <?php
-                    if ($result->num_rows != 0) { ?>
-                    <div class="row">
-                      <div class="container-fluid">
+                    <div class="tab-content">
+                      <div class="tab-pane fade in active" id="tab-contents">
+                        <?php
+                        if ($result->num_rows == 0) {
+                          $errMSG = "No records found."; ?>
+                          <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+                        <?php }
+                        else { 
+                          $query = mysqli_query($DB_con,"SELECT date_checked_up FROM students_med");
+                            while ($row = $query->fetch_assoc()){ 
+                              $update = date('F j, Y; h:i a', strtotime($row['date_checked_up']));
+                            } ?>
+                        <div class="btn-toolbar">  
+                          <?php echo $add_btn; ?>
+                          <a href="#" id="edit_med" class="btn btn-info">
+                            <i class="fa fa-pencil"></i> EDIT RECORD
+                          </a>                  
+                          
+                          <i><span class="pull-right text-muted" id="date_time" style="line-height: 15px;padding: 10px;">Last updated: <?php echo $update;?></span></i>
+                        </div>
+
+                        <br>                       
+                        
                         <table class="table table-bordered">
                           <thead>
-                            <th>CURRENT SYSTEM</th>
-                            <th></th>
-                            <th>PAST MEDICAL HISTORY</th>
+                            <th colspan="2">CURRENT SYSTEM</th>
+                            <th colspan="2">PAST MEDICAL HISTORY</th>
                           </thead>
                           <?php 
                           // displaying records.
@@ -249,7 +266,7 @@
                             </tr>
                           </tbody>
                           <thead>
-                            <th colspan="3">PHYSICAL</th>
+                            <th colspan="4">PHYSICAL</th>
                           </thead>
                           <tbody>
                             <tr>
@@ -260,48 +277,44 @@
                                 <label>Weight:</label> <?php echo $row['weight'] ;?> kg.
                               </td>
                               <td><label>BMI:</label> <?php echo $row['bmi'] ;?></td>
+                              <td><label>Blood Pressure:</label> <?php echo $row['bp'] ;?></td>
                             </tr>
                             <tr>
-                              <td><label>Blood Pressure:</label> <?php echo $row['bp'] ;?></td>
                               <td><label>Cardiac Rate:</label> <?php echo $row['cr'] ;?></td>
                               <td><label>Respirtory Rate:</label> <?php echo $row['rr'] ;?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Temperature:</label> <?php echo $row['temp'] ;?></td>
-                              <td></td>
-                              <td></td>
+                              <td colspan="2"><label>Temperature:</label> <?php echo $row['temp'] ;?></td>
                             </tr>
                           </tbody>
                           <thead>
                             <tr>
-                              <th colspan="3"><label>PERSONAL AND SOCIAL HISTORY</label></th>
+                              <th colspan="4"><label>PERSONAL AND SOCIAL HISTORY</label></th>
                             </tr>
                           </thead>
                           <tbody>
-                              <?php 
-                              if ($row['drinker'] == 'Yes') {
-                                echo "<tr>
-                                        <td colspan='2' id='drinker'>Alcoholic Drinker</td>
-                                      </tr>";
-                              } else if ($row['smoker'] == 'Yes') {
-                                echo "<tr>
-                                        <td colspan='2' id='smoker'>Smoker</td>
-                                      </tr>";
-                              } else if ($row['drug_user'] == 'Yes') {
-                                echo "<tr>
-                                        <td colspan='2' id='drug_user'>Drug User</td>
-                                      </tr>";
-                              }
-                              else {
-                                echo "<tr>
-                                        <td colspan='2'>None</td>
-                                      </tr>";
-                              }
+                            <?php 
+                            if ($row['drinker'] == 'Yes') {
+                              echo "<tr>
+                                      <td colspan='2' id='drinker'>Alcoholic Drinker</td>
+                                    </tr>";
+                            } else if ($row['smoker'] == 'Yes') {
+                              echo "<tr>
+                                      <td colspan='2' id='smoker'>Smoker</td>
+                                    </tr>";
+                            } else if ($row['drug_user'] == 'Yes') {
+                              echo "<tr>
+                                      <td colspan='2' id='drug_user'>Drug User</td>
+                                    </tr>";
+                            }
+                            else {
+                              echo "<tr>
+                                      <td colspan='4'>None</td>
+                                    </tr>";
+                            }
                           ?>
                           </tbody>
                           <thead>
                             <tr>                          
-                              <th colspan="3"><label>O.B. GYNE</label></th>
+                              <th colspan="4"><label>O.B. GYNE</label></th>
                             </tr>
                           </thead>
                           <tbody>
@@ -320,76 +333,36 @@
                             }
                             else {
                               echo "<tr>
-                                      <td>Not Applicable</td>
+                                      <td colspan='4'>Not Applicable</td>
                                     </tr>";
                             }
                           ?>                        
                           </tbody>
-                        </table>
+                        </table>  
+                        <br>
+                        <?php }
+                          } 
+                          if(isset($errMSG)){ ?>
+
+                          <div class="alert alert-warning">
+                            <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
+                          </div>
+                                
+                        <?php }
+                        ?>
+                      </div>
+                      <div class="tab-pane fade" id="tab2default">
+                        Default 2
+                      </div>
+                      <div class="tab-pane fade" id="tab3default">
+                        Default 3
                       </div>
                     </div>
                   </div>
                 </div>
+
               </div>
             </div>
-
-            <!-- Physical Exam -->
-            <div class="container-fluid">
-              <div class="row">
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      <strong>PREVIOUS CHECKUPS</strong>
-                    </div>
-                  </div>
-                  <div class="panel-body">             
-                    <!-- Buttons -->
-                    <div class="container-fluid">
-                      <div class="row">
-                        <!-- Start btn-toolbar -->
-                        <div class="btn-toolbar">
-                            <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success">New</a>
-                        </div>
-                        <!-- End btn-toolbar -->
-                      </div>
-                    </div>
-                    <!-- End of Buttons -->
-                    <br>
-                    <div class="table-responsive">
-                      <table class="table  table-striped table-bordered" id="myTable">
-                        <thead style="background-color:#eee;cursor: pointer;">
-                          <tr>
-                            <th style="display: none;"></th>
-                            <th>Last Checkup</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td style="display: none;"><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                            <td><?php echo date("F j, Y", strtotime($row['date_checked_up'])); ?></td>
-                          </tr>
-                          <?php }
-                            } 
-                            else {
-                              $errMSG = "No records found.";
-                            }?>
-                        </tbody>
-                      </table>
-                      <?php 
-                        if(isset($errMSG)){ ?>
-
-                        <div class="alert alert-warning">
-                          <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
-                        </div>
-                              
-                      <?php }
-                      ?>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
 
           <?php }}?>
     
@@ -409,36 +382,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js" type="text/javascript"></script>
-<script type="text/javascript">
-// When + or - buttons are clicked the font size of the h1 is increased/decreased by 2
-// The max is set to 50px for this demo, the min is set by min font in the user's style sheet
-
-function getSize() {
-  size = $( ".form-group" ).css( "font-size" );
-  size = parseInt(size, 10);
-  $( "#font-size" ).text(  size  );
-}
-
-//get inital font size
-getSize();
-
-$( "#up" ).on( "click", function() {
-
-  // parse font size, if less than 50 increase font size
-  if ((size + 2) <= 20) {
-    $( ".form-group" ).css( "font-size", "+=2" );
-    $( "#font-size" ).text(  size += 2 );
-  }
-});
-
-$( "#down" ).on( "click", function() {
-  if ((size - 2) >= 14) {
-    $( ".form-group" ).css( "font-size", "-=2" );
-    $( "#font-size" ).text(  size -= 2  );
-  }
-});
-</script>
+<script src="../assets/js/custom.js"></script> 
     
 </body>
 </html>

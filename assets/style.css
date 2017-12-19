@@ -1,4 +1,7 @@
 /*CUSTOM STYLES*/
+.table {
+  margin-bottom: 0;
+}
 @media only screen and (min-width:768px){
   .dropdown:hover .dropdown-menu {
       display: block;
@@ -246,15 +249,13 @@ thead {
 .pagination>li>a {
     color: #316d1e;
     cursor: pointer;
+    float: inherit;
 }
 div.pagination a:hover {
     background-color: #46992c;
     border-color: #46992c;
     color: #fff;
     cursor: pointer;
-}
-div.pagination>li>a {
-  color: #316d1e;
 }
 div.pagination>.active> a {
     background-color: #316d1e;

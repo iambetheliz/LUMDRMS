@@ -2,7 +2,7 @@
   ob_start();
   require_once '../includes/dbconnect.php';
   if(empty($_SESSION)) // if the session not yet started 
-   session_start();
+  session_start();
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
@@ -12,25 +12,25 @@
 
   $DB_con = new mysqli("localhost", "root", "", "records");
 
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
+  if ($DB_con->connect_errno) {
+    echo "Connect failed: ", $DB_con->connect_error;
+  exit();
+  }
 
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
   $userRow = $result->fetch_array(MYSQLI_BOTH);
     
-    //Render facebook profile data
-    $output = '';
-    if(!empty($userRow)){
-        $account = '<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-        $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-    }else{
-        $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; logout.php?logout");
-    }
+  //Render facebook profile data
+  $output = '';
+  if(!empty($userRow)){
+    $account = '<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
+    $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
+  } else{
+    $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
+    header("Refresh:3; logout.php?logout");
+  }
 
 ?>
 
@@ -350,14 +350,15 @@
       </div>
 
     <footer class="footer">
-        <div class="container-fluid">
-            <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
-        </div>
+      <div class="container-fluid">
+        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
+      </div>
     </footer>
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script> 
+<script src="../assets/js/custom.js"></script> 
+<script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
 <script type = "text/javascript">
 	$(document).ready(function(){

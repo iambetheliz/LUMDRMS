@@ -46,15 +46,6 @@
 			$error = true;
 			$nameError = "Username must contain alphabets and space.";
 		}
-
-		// password validation
-		if (empty($pass)){
-			$error = true;
-			$passError = "Password cannot be empty.";
-		} else if(strlen($pass) < 6) {
-			$error = true;
-			$passError = "Password must have atleast 6 characters.";
-		}
 		
 		// if there's no error, continue to login
 		if (!$error) {
@@ -150,6 +141,7 @@
 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/custom.js"></script>
 
 </body>
 </html>

@@ -20,13 +20,11 @@
   else {
     $data_points = array();
     
-    $result = mysqli_query($DB_con, "SELECT *, COUNT(*) FROM `students` JOIN `program` ON `students`.`program`=`program`.`program_id` GROUP BY program_name");
-    
-    while($row = mysqli_fetch_array($result))
-    {        
-        $point = array("label" => $row['alias'] , "y" => $row['COUNT(*)']);
-        
-        array_push($data_points, $point);        
+    $result = $DB_con->query("SELECT sysRev, COUNT(*) as total FROM `students_med` GROUP BY sysRev") or die(mysqli_error());
+
+    while($row = mysqli_fetch_array($result)) {
+      $point = array("label" => $row['sysRev'], "y" => $row['total']);      
+      array_push($data_points, $point);        
     }
     
     echo json_encode($data_points, JSON_NUMERIC_CHECK);

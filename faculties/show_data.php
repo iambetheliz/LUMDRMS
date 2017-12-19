@@ -22,11 +22,11 @@ if(isset($_POST['page'])){
         $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
     else{
-        $orderSQL = " ORDER BY FacultyID ASC";
+        $orderSQL = " ORDER BY date_updated DESC";
     }
 
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM faculties ".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ".$whereSQL.$orderSQL);
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -46,7 +46,7 @@ if(isset($_POST['page'])){
     <div class="row">
       <div class="container-fluid">
         <form method="post" name="frm">
-          <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong>Check / Uncheck All</strong></label>
+          <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
           <span style="word-spacing:normal;"> | With selected :</span>
           <label id="actions">
             <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
@@ -106,7 +106,7 @@ if(isset($_POST['page'])){
                     <td><?php echo strtoupper($row['middle_name']); ?></td>
                     <td><?php echo $row['facultyNo']; ?></td>
                     <td><?php echo $row['dept_name'];?></td>
-                    <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a href="edit_faculty.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-primary" title="Edit" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                    <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
             </tbody>
@@ -128,6 +128,8 @@ $('document').ready(function() {
     $("[data-toggle=tooltip]").tooltip();
     $(".select-all").change(function () {
         $(".chk-box").prop('checked', $(this).prop("checked"));
+        $("#uncheck-all").toggle();
+      $("#check-all").toggle();
     });        
     $(".chk-box").click(function() {
         if($(".chk-box").length == $(".chk-box:checked").length) {

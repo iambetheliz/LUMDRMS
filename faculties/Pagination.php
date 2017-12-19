@@ -32,7 +32,7 @@ class Pagination{
     var $nextTagClose    = '';
     var $prevTagOpen    = '';
     var $prevTagClose    = '';
-    var $numTagOpen        = '&nbsp;';
+    var $numTagOpen        = '';
     var $numTagClose    = '';
     var $anchorClass    = '';
     var $showCount      = true;

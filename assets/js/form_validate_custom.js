@@ -1,55 +1,9 @@
-$(document).ready(function () {
-
-  $(function(){
-    $('#current_year').change(function(){ // when one changes
-      $('#next_year').val( $(this).val() ) // they all change
-    })
-  })
-
-  /*Menu-toggle*/
-  $("#menu-toggle").click(function(e) {
-    e.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  });
-
-  // Menu Collapse
-  $("[data-toggle=tooltip]").tooltip();
-  
-  //Menu Links
-  $('ul[role="menu"]') 
-    .on('show.bs.collapse', function (e) {
-      $(e.target).prev('a[role="menuitem"]').addClass('active');
-    })
-    .on('hide.bs.collapse', function (e) {
-      $(e.target).prev('a[role="menuitem"]').removeClass('active');
-  });
-
-  $('a[data-toggle="collapse"]').click(function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    var drop = $(this).closest(".dropdown");
-    $(drop).addClass("open");
-
-    $('.collapse.in').collapse('hide');
-    var col_id = $(this).attr("href");
-    $(col_id).collapse('toggle');
-  });
-  
-  //Settings Menu
-  $("[data-toggle='toggle']").click(function() {
-    var selector = $(this).data("target");
-    $(selector).toggleClass('in');
-  });
-
-});
-
 //Form Validation
 $(document).ready(function () {
   
   // Inputt Fields
   $('#facultyNo').keypress(function (e) {
-      $("#errFN").hide();
+    $("#errFN").hide();
 
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
       $("#errFN").html("Numbers Only!").show().fadeOut("slow");
@@ -153,7 +107,7 @@ $(document).ready(function () {
   });
 
   //Capitalize each word
-  $("input, textarea").keyup(function(e) {
+  $("#user_form input, #user_form textarea").keyup(function(e) {
     var arr = $(this).val().split(' ');
     var result = '';
     for (var x = 0; x < arr.length; x++)

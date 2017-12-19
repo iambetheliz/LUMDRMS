@@ -422,7 +422,7 @@
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/index.js"></script>
+<script src="../assets/js/custom.js"></script> 
 <script type="text/javascript">
   $('#otherSysRevCheck').change(function(){
     $("#otherSysRev").prop("disabled", !$(this).is(':checked'));

@@ -98,6 +98,13 @@
               ?>
             </ul>
           </li>
+          <?php 
+            if ($userRow['role'] === 'superadmin') {?>
+            <li>
+              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+            </li>
+          <?php    }
+          ?>
         </ul>
       </nav>
     </div>  
@@ -132,8 +139,9 @@
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-success">
                   <?php    
-                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE DAY(date_registered) = DAY(NOW())");     
-                    $count = $stmt->num_rows;
+                    $stmt = mysqli_query($DB_con,"SELECT COUNT(*) as rows FROM `students_stats` WHERE DAY(date_registered) = DAY(NOW())");  
+                    $resultNum = $stmt->fetch_assoc();   
+                    $count = $resultNum['rows'];
                   ?>               
                   <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
                   <div class="offer-content">
@@ -342,7 +350,7 @@
   
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/index.js" type="text/javascript"></script>
+<script src="assets/js/custom.js" type="text/javascript"></script>
 <script type="text/javascript">
   window.setTimeout(function() {
     $(".success-login").fadeTo(1000,0).slideUp('fast', function(){

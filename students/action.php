@@ -24,12 +24,9 @@
   	if($_REQUEST['action_type'] == 'save'){
 
         //checkbox
-        $sysRev = implode(', ', $_POST['sysRev_list']);
-        $medHis = implode(', ', $_POST['medHis_list']);
 
-        foreach($_POST['sysRev_list'] as $index => $val){
-          echo "sysRev_list[".$index."]=".$val;
-        }
+        $sysRev = $_POST['sysRev_list'];
+        $medHis = $_POST['medHis_list'];
        
         $drinker = $_POST['drinker'];
         $smoker = $_POST['smoker'];
@@ -49,16 +46,27 @@
         $studentNo = $_POST['studentNo'];
         $StudentID = $_POST['StudentID'];
 
+        foreach($sysRev as $one_sys){
+            $source1 .= $one_sys.", ";
+        }
+        $sys = substr($source1, 0, -2);
+
+        foreach($medHis as $one_med){
+            $source2 .= $one_med.", ";
+        }
+        $med = substr($source2, 0, -2);
+
         if (empty($sysRev)) {
-          $sysRev = 'none';
+          $sys = 'none';
         }
         if (empty($medHis)) {
-          $medHis = 'none';
+          $med = 'none';
         }
 
         if (!$error) {        
 
-          $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+          $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sys . "','". $med . "','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+
           $result = mysqli_query($DB_con,$sql);
 
           if (!$result) {

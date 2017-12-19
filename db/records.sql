@@ -231,7 +231,7 @@ CREATE TABLE `faculty_med` (
   `FacultyID` int(11) NOT NULL,
   PRIMARY KEY (`MedID`,`FacultyID`),
   UNIQUE KEY `FacultyID` (`FacultyID`),
-  CONSTRAINT `fk_fmed_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE
+  CONSTRAINT `fk_fmed_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -244,12 +244,12 @@ CREATE TABLE `faculty_stats` (
   `StatsID` int(11) NOT NULL AUTO_INCREMENT,
   `med` varchar(7) NOT NULL,
   `dent` varchar(7) NOT NULL,
-  `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `facultyNo` varchar(9) NOT NULL,
   PRIMARY KEY (`StatsID`,`facultyNo`),
   UNIQUE KEY `facultyNo` (`facultyNo`),
-  CONSTRAINT `fk_fstats_id` FOREIGN KEY (`facultyNo`) REFERENCES `faculties` (`facultyNo`) ON DELETE CASCADE
+  CONSTRAINT `fk_fstats_id` FOREIGN KEY (`facultyNo`) REFERENCES `faculties` (`facultyNo`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -420,8 +420,8 @@ CREATE TABLE `students` (
   UNIQUE KEY `studentNo` (`studentNo`),
   KEY `program` (`program`),
   KEY `dept` (`dept`),
-  CONSTRAINT `fk_prog_id` FOREIGN KEY (`program`) REFERENCES `program` (`program_id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_sdept_id` FOREIGN KEY (`dept`) REFERENCES `department` (`dept_id`) ON DELETE CASCADE
+  CONSTRAINT `fk_prog_id` FOREIGN KEY (`program`) REFERENCES `program` (`program_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_sdept_id` FOREIGN KEY (`dept`) REFERENCES `department` (`dept_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -658,7 +658,7 @@ CREATE TABLE `students_med` (
   `StudentID` int(11) NOT NULL,
   PRIMARY KEY (`MedID`,`StudentID`),
   UNIQUE KEY `StudentID` (`StudentID`),
-  CONSTRAINT `fk_med_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE
+  CONSTRAINT `fk_med_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -671,12 +671,12 @@ CREATE TABLE `students_stats` (
   `StatsID` int(11) NOT NULL AUTO_INCREMENT,
   `med` varchar(7) NOT NULL,
   `dent` varchar(7) NOT NULL,
-  `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `date_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_registered` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `studentNo` varchar(8) NOT NULL,
   PRIMARY KEY (`StatsID`,`studentNo`),
   UNIQUE KEY `studentNo` (`studentNo`),
-  CONSTRAINT `fk_stats_id` FOREIGN KEY (`studentNo`) REFERENCES `students` (`studentNo`) ON DELETE CASCADE
+  CONSTRAINT `fk_stats_id` FOREIGN KEY (`studentNo`) REFERENCES `students` (`studentNo`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -896,7 +896,7 @@ CREATE TABLE `users` (
   `userPass` varchar(255) NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'admin',
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
   UNIQUE KEY `userEmail` (`userEmail`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
