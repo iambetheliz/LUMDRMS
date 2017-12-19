@@ -46,13 +46,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
-<style type="text/css">    
-.pagination {
-    display: inline-block;
-    padding-left: 0;
-    margin: 0;
-    border-radius: 4px;
-}
+<style type="text/css"> 
 #user_form input.error {
   border:1px solid red;
 }

@@ -1,48 +1,195 @@
 <?php
-function paginate_function($item_per_page, $current_page, $total_records, $total_pages)
-{
-    $pagination = '';
-    if($total_pages > 0 && $total_pages != 1 && $current_page <= $total_pages){ //verify total pages and current page number
-        $pagination .= '<ul class="pagination">';
-        
-        $right_links    = $current_page + 3; 
-        $previous       = $current_page - 3; //previous link 
-        $next           = $current_page + 1; //next link
-        $first_link     = true; //boolean var to decide our first link
-        
-        if($current_page > 1){
-            $previous_link = ($previous==0)?1:$previous;
-            $pagination .= '<li class="first"><a href="#" data-page="1" title="First">&laquo;</a></li>'; //first link
-            $pagination .= '<li><a href="#" data-page="'.$previous_link.'" title="Previous">&lt;</a></li>'; //previous link
-                for($i = ($current_page-2); $i < $current_page; $i++){ //Create left-hand side links
-                    if($i > 0){
-                        $pagination .= '<li><a href="#" data-page="'.$i.'" title="Page'.$i.'">'.$i.'</a></li>';
-                    }
-                }   
-            $first_link = false; //set first link to false
+/**
+ * CodexWorld is a programming blog. Our mission is to provide the best online resources on programming and web development.
+ *
+ * This Pagination class helps to integrate ajax pagination in PHP.
+ *
+ * @class        Pagination
+ * @author        CodexWorld
+ * @link        http://www.codexworld.com
+ * @contact        http://www.codexworld.com/contact-us
+ * @version        1.0
+ */
+class Pagination{
+    var $baseURL        = '';
+    var $totalRows      = '';
+    var $perPage         = 10;
+    var $numLinks        =  3;
+    var $currentPage    =  0;
+    var $firstLink       = 'First';
+    var $nextLink        = 'Next &raquo;';
+    var $prevLink        = '&laquo; Previous';
+    var $lastLink        = 'Last';
+    var $fullTagOpen    = '<center><div class="pagination">';
+    var $fullTagClose    = '</div></center>';
+    var $firstTagOpen    = '<ul class="pagination pull-right">';
+    var $firstTagClose    = '';
+    var $lastTagOpen    = '';
+    var $lastTagClose    = '</ul>';
+    var $curTagOpen        = '<li class="active"><a href="javascript:void(0)"><b>';
+    var $curTagClose    = '</b></a></li>';
+    var $nextTagOpen    = '';
+    var $nextTagClose    = '';
+    var $prevTagOpen    = '';
+    var $prevTagClose    = '';
+    var $numTagOpen        = '';
+    var $numTagClose    = '';
+    var $anchorClass    = '';
+    var $showCount      = true;
+    var $currentOffset    = 0;
+    var $contentDiv     = '';
+    var $additionalParam= '';
+    var $link_func      = '';
+    
+    function __construct($params = array()){
+        if (count($params) > 0){
+            $this->initialize($params);        
         }
         
-        if($first_link){ //if current active page is first link
-            $pagination .= '<li class="first active">'.$current_page.'</li>';
-        }elseif($current_page == $total_pages){ //if it's the last active link
-            $pagination .= '<li class="last active">'.$current_page.'</li>';
-        }else{ //regular current link
-            $pagination .= '<li class="active">'.$current_page.'</li>';
+        if ($this->anchorClass != ''){
+            $this->anchorClass = 'class="'.$this->anchorClass.'" ';
+        }    
+    }
+    
+    function initialize($params = array()){
+        if (count($params) > 0){
+            foreach ($params as $key => $val){
+                if (isset($this->$key)){
+                    $this->$key = $val;
+                }
+            }        
         }
-                
-        for($i = $current_page+1; $i < $right_links ; $i++){ //create right-hand side links
-            if($i<=$total_pages){
-                $pagination .= '<li><a href="#" data-page="'.$i.'" title="Page '.$i.'">'.$i.'</a></li>';
+    }
+    
+    /**
+     * Generate the pagination links
+     */    
+    function createLinks(){ 
+        // If total number of rows is zero, do not need to continue
+        if ($this->totalRows == 0 OR $this->perPage == 0){
+           return '';
+        }
+
+        // Calculate the total number of pages
+        $numPages = ceil($this->totalRows / $this->perPage);
+
+        // Is there only one page? will not need to continue
+        if ($numPages == 1){
+            if ($this->showCount){
+                $info = 'Showing : ' . $this->totalRows;
+                return $info;
+            }else{
+                return '';
             }
         }
-        if($current_page < $total_pages){ 
-                $next_link = ($i > $total_pages)? $total_pages : $i;
-                $pagination .= '<li><a href="#" data-page="'.$next_link.'" title="Next">&gt;</a></li>'; //next link
-                $pagination .= '<li class="last"><a href="#" data-page="'.$total_pages.'" title="Last">&raquo;</a></li>'; //last link
+
+        // Determine the current page    
+        if ( ! is_numeric($this->currentPage)){
+            $this->currentPage = 0;
         }
         
-        $pagination .= '</ul>'; 
+        // Links content string variable
+        $output = '';
+        
+        // Showing links notification
+        if ($this->showCount){
+           $currentOffset = $this->currentPage;
+           $info = '<div class="text-muted">Showing ' . ( $currentOffset + 1 ) . ' to ' ;
+        
+           if( ( $currentOffset + $this->perPage ) < ( $this->totalRows -1 ) )
+              $info .= $currentOffset + $this->perPage;
+           else
+              $info .= $this->totalRows;
+        
+           $info .= ' of ' . $this->totalRows . '</div> <br>';
+        
+           $output .= $info;
+        }
+        
+        $this->numLinks = (int)$this->numLinks;
+        
+        // Is the page number beyond the result range? the last page will show
+        if ($this->currentPage > $this->totalRows){
+            $this->currentPage = ($numPages - 1) * $this->perPage;
+        }
+        
+        $uriPageNum = $this->currentPage;
+        
+        $this->currentPage = floor(($this->currentPage/$this->perPage) + 1);
+
+        // Calculate the start and end numbers. 
+        $start = (($this->currentPage - $this->numLinks) > 0) ? $this->currentPage - ($this->numLinks - 1) : 1;
+        $end   = (($this->currentPage + $this->numLinks) < $numPages) ? $this->currentPage + $this->numLinks : $numPages;
+
+        // Render the "First" link
+        if  ($this->currentPage > $this->numLinks){
+            $output .= $this->firstTagOpen 
+                . $this->getAJAXlink( '' , $this->firstLink)
+                . $this->firstTagClose; 
+        }
+
+        // Render the "previous" link
+        if  ($this->currentPage != 1){
+            $i = $uriPageNum - $this->perPage;
+            if ($i == 0) $i = '';
+            $output .= $this->prevTagOpen 
+                . $this->getAJAXlink( $i, $this->prevLink )
+                . $this->prevTagClose;
+        }
+
+        // Write the digit links
+        for ($loop = $start -1; $loop <= $end; $loop++){
+            $i = ($loop * $this->perPage) - $this->perPage;
+                    
+            if ($i >= 0){
+                if ($this->currentPage == $loop){
+                    $output .= $this->curTagOpen.$loop.$this->curTagClose;
+                }else{
+                    $n = ($i == 0) ? '' : $i;
+                    $output .= $this->numTagOpen
+                        . $this->getAJAXlink( $n, $loop )
+                        . $this->numTagClose;
+                }
+            }
+        }
+
+        // Render the "next" link
+        if ($this->currentPage < $numPages){
+            $output .= $this->nextTagOpen 
+                . $this->getAJAXlink( $this->currentPage * $this->perPage , $this->nextLink )
+                . $this->nextTagClose;
+        }
+
+        // Render the "Last" link
+        if (($this->currentPage + $this->numLinks) < $numPages){
+            $i = (($numPages * $this->perPage) - $this->perPage);
+            $output .= $this->lastTagOpen . $this->getAJAXlink( $i, $this->lastLink ) . $this->lastTagClose;
+        }
+
+        // Remove double slashes
+        $output = preg_replace("#([^:])//+#", "\\1/", $output);
+
+        // Add the wrapper HTML if exists
+        $output = $this->fullTagOpen.$output.$this->fullTagClose;
+        
+        return $output;        
     }
-    return $pagination; //return pagination links
+
+    function getAJAXlink( $count, $text) {
+        if($this->link_func == '' && $this->contentDiv == '')
+            return '<a href="'.$this->baseURL.'?'.$count.'"'.$this->anchorClass.'>'.$text.'</a>';
+        
+        $pageCount = $count?$count:0;
+        if(!empty($this->link_func)){
+            $linkClick = 'onclick="'.$this->link_func.'('.$pageCount.')"';
+        }else{
+            $this->additionalParam = "{'page' : $pageCount}";
+            $linkClick = "onclick=\"$.post('". $this->baseURL."', ". $this->additionalParam .", function(data){
+                       $('#". $this->contentDiv . "').html(data); }); return false;\"";
+        }
+        
+        return "<li><a href=\"javascript:void(0);\" " . $this->anchorClass . "
+                ". $linkClick .">". $text .'</a></li>';
+    }
 }
 ?>

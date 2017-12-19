@@ -32,6 +32,17 @@
     header("Refresh:3; logout.php?logout");
   }
 
+  function fill_program($DB_con) {  
+    $prog_out = '';  
+    $sql = "SELECT * FROM program";  
+    $result = mysqli_query($DB_con, $sql);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+      $prog_out .= '<option value="'.$row["program_id"].'">'.$row["alias"].'</option>';  
+    }  
+    return $prog_out;  
+ }
+
 ?>
 
 <!DOCTYPE html>
@@ -114,26 +125,46 @@
                 
                 <!-- Buttons -->
                 <div class="container-fluid">
+                  <!-- Start btn-toolbar -->
                   <div class="row">
-                    <!-- Start btn-toolbar -->
-                	  <div class="btn-toolbar">
-            			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New</button>
+                	  <div class="col-lg-6 left-pane">
+                      <div class="row">
+                        <div class="btn-toolbar">
+                			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New</button>
 
-                      <div class="btn-group filter pull-right">
-                        <span class="fa fa-filter"></span>
-                        <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
-                      </div>
+                          <div class="btn-group">
+                            <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
+                              <option value="">Show All students</option>  
+                              <?php echo fill_program($DB_con); ?>  
+                            </select>
+                          </div>
 
-                      <div class="btn-group sort">
-                        <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                          <option value="">Sort By:</option>
-                          <option value="asc">Ascending</option>
-                          <option value="desc">Descending</option>
-                        </select>
+                          <div class="btn-group sort">
+                            <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                              <option value="">Sort A-Z</option>
+                              <option value="asc">Ascending</option>
+                              <option value="desc">Descending</option>
+                            </select>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <!-- End btn-toolbar -->
+
+                    <div class="col-lg-6 right-pane">
+                      <div class="row">
+                        <div class="btn-group" role="group" aria-label="...">
+                          <button type="button" class="btn btn-primary">All</button>
+                          <button type="button" class="btn btn-success">Ok</button>
+                          <button type="button" class="btn btn-danger">Pending</button>
+                        </div>
+                        <div class="btn-group filter">
+                          <span class="fa fa-filter"></span>
+                          <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                        </div>
+                      </div>
+                    </div>
                   </div>
+                  <!-- End btn-toolbar -->
             	  </div>
                 <br>
                 <!-- End of Buttons -->
@@ -383,7 +414,7 @@
         $('#addnew').val();
         $('#view-modal').modal('hide'); 
     });
-  	//Select courses            
+  	//Select courses on Add Function            
     $('#dept').on('change',function(){
       var deptID = $(this).val();
       if(deptID){
@@ -588,21 +619,22 @@
 </script>
 <script>
 function searchFilter(page_num) {
-    page_num = page_num?page_num:0;
-    var keywords = $('#keywords').val();
-    var sortBy = $('#sortBy').val();
-    $.ajax({
-        type: 'POST',
-        url: 'show_data.php',
-        data:'page='+page_num+'&keywords='+keywords+'&sortBy='+sortBy,
-        beforeSend: function () {
-            $('#overlay').show();
-        },
-        success: function (html) {
-            $('#userTable').html(html);
-            $('#overlay').fadeOut("fast");
-        }
-    });
+  page_num = page_num?page_num:0;
+  var keywords = $('#keywords').val();
+  var sortBy = $('#sortBy').val();
+  var program_id = $('#prog_list').val(); 
+  $.ajax({
+    type: 'POST',
+    url: 'show_data.php',
+    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    beforeSend: function () {
+      $('#overlay').show();
+    },
+    success: function (data) {
+      $('#userTable').html(data);
+      $('#overlay').fadeOut("fast");
+    }
+  });
 }
 </script>
 </body>

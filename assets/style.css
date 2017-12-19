@@ -1,4 +1,18 @@
 /*CUSTOM STYLES*/
+input#keywords {
+    width: 359px;
+}
+@media (max-width: 768px) {
+  .left-pane {
+    margin-bottom: 15px;
+  }  
+  .pagination {
+    margin: 0;
+  }
+  input#keywords {
+    width: 396px;
+  }
+}
 .table {
   margin-bottom: 0;
 }
@@ -226,7 +240,6 @@ thead {
 .pagination {
     display: inline-block;
     padding-left: 0;
-    margin: 0;
     border-radius: 4px;
 }
 .pagination>.active>a {

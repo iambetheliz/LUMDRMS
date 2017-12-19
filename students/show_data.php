@@ -1,12 +1,12 @@
 <?php
-if(isset($_POST['page'])){
-    //Include pagination class file
-    include('Pagination.php');
-    
-    //Include database configuration file
-    include('../includes/dbconnect.php');
+//Include database configuration file
+include('../includes/dbconnect.php');
+$DB_con = new mysqli("localhost", "root", "", "records");
 
-    $DB_con = new mysqli("localhost", "root", "", "records");
+if(isset($_POST['page'])){
+
+    //Include pagination class file
+    include('../includes/Pagination.php');
     
     $start = !empty($_POST['page'])?$_POST['page']:0;
     $limit = 5;
@@ -17,17 +17,24 @@ if(isset($_POST['page'])){
     $sortBy = $_POST['sortBy'];
 
     if(!empty($keywords)){
-        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%'";
+        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%'";
     }
     if(!empty($sortBy)){
-        $orderSQL = " ORDER BY last_name ".$sortBy;
+      $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
-    else{
-        $orderSQL = " ORDER BY date_updated DESC";
+    else {
+      $orderSQL = " ORDER BY date_updated DESC ";
     }
 
+    if(isset($_POST["program_id"])) {  
+
+      if($_POST["program_id"] != '') {  
+        $whereSQL = "WHERE program = '".$_POST["program_id"]."'"; 
+      }  
+    } 
+
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`".$whereSQL.$orderSQL);
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -54,82 +61,62 @@ if(isset($_POST['page'])){
           </label>
           <br>
           <div class="table-responsive">
-          <table class="table  table-striped table-bordered" id="myTable">
-            <thead>
-              <tr>
-                <th></th>
-                <th>No.</th>
-                <th width="70px">Medical</th>
-                <th width="70px">Dental</th>
-                <th width="100px">Last Name</th>
-                <th width="150px">First Name</th>
-                <th width="120px">Middle Name</th>
-                <?php
-                if (!empty($row['ext'])) {
-                  echo "<th>Ext. Name</th>";
-                 } ;?>
-                <th width="100px">Student No.</th>
-                <th>Program</th>
-                <th width="50px">Year</th>            
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-              while($row = $query->fetch_assoc()){ 
-                $postID = $row['StudentID'];
-                if (($row['med']) != 'Ok') {
-                    $color = "red";
-                    $status = "Ok";
-                }
-                else {
-                    $color = "green";
-                }
-                if (($row['dent']) != 'Pending') {
-                    $color2 = "green";
-                }
-                else {
-                    $color2 = "red";
-                }
-                if (!empty($row['ext'])) {
-                    $extension = ", ";
-                }
-                else {
-                    $extension = " ";
-                    $hide = "display: none";
-                }
-            ?>
-              <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                <td><?php echo $row['StudentID'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'med','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);" style="color:<?php echo $color;?>;">
-                    <?php echo $row['med']; ?> 
-                </td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);" style="color:<?php echo $color2;?>;">
-                    <?php echo $row['dent']; ?>
-                </td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);" style="<?php echo $hide;?>"><?php echo $extension.$row['ext'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['program_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
-                <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
-                </td>
-              </tr>
-            <?php } ?>
-            </tbody>
-          </table>
-        </div>
-                <!-- End of Table Responsive -->
-            </form>
-        </div>
-        <!-- End of Container Fluid -->
+            <table class="table  table-striped table-bordered" id="myTable">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>No.</th>
+                  <th width="70px">Medical</th>
+                  <th width="70px">Dental</th>
+                  <th width="100px">Last Name</th>
+                  <th width="100px">First Name</th>
+                  <th width="120px">Middle Name</th>
+                  <th>Ext. </th>
+                  <th width="100px">Student No.</th>
+                  <th>Program</th>
+                  <th width="50px">Year</th>            
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <?php
+                while($row = $query->fetch_assoc()){ ?>
+                <tr id="table-row-<?php echo $row["StatsID"]; ?>">
+                  <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                  <td><?php echo $row['StudentID'];?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'med','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);">
+                      <?php echo $row['med']; ?> 
+                  </td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);">
+                      <?php echo $row['dent']; ?>
+                  </td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);" style="<?php echo $hide;?>"><?php echo $extension.$row['ext'];?></td>
+                  <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
+                  <td><?php echo $row['program_name'];?></td>
+                  <td><?php echo $row['yearLevel'];?></td>
+                  <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                  </td>
+                </tr>
+              <?php } ?>
+              </tbody>
+            </table>
+          </div>
+          <!-- End of Table Responsive -->
+        </form>
+      </div>
+      <!-- End of Container Fluid -->
     </div>
     <!-- End of Table -->
-<?php echo $pagination->createLinks(); ?>
-<?php } else { echo "<div class='alert alert-warning'>No result</div>"; }} ?>
+    <?php echo $pagination->createLinks(); ?>
+  <?php } 
+  else { 
+    echo "<div class='alert alert-warning'>No result</div>"; 
+  }
+} 
+?>
 
 <script type="text/javascript">
   $('document').ready(function() {

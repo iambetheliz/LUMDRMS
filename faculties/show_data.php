@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST['page'])){
     //Include pagination class file
-    include('Pagination.php');
+    include('../includes/Pagination.php');
     
     //Include database configuration file
     include('../includes/dbconnect.php');
@@ -16,7 +16,7 @@ if(isset($_POST['page'])){
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
     if(!empty($keywords)){
-        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%'";
+        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%'";
     }
     if(!empty($sortBy)){
         $orderSQL = " ORDER BY last_name ".$sortBy;
@@ -26,7 +26,7 @@ if(isset($_POST['page'])){
     }
 
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id`".$whereSQL.$orderSQL);
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -63,6 +63,7 @@ if(isset($_POST['page'])){
                     <th width="150px">Last Name</th>
                     <th width="150px">First Name</th>
                     <th width="150px">Middle Name</th>
+                    <th>Ext.</th>
                     <th>Faculty No.</th>
                     <th>Deparment</th>        
                     <th>Action</th>
@@ -70,47 +71,27 @@ if(isset($_POST['page'])){
             </thead>
             <tbody>
             <?php
-                while($row = $query->fetch_assoc()){ 
-                    $postID = $row['FacultyID'];
-                    if (($row['med']) != 'Ok') {
-                        $color = "red";
-                        $status = "Ok";
-                    }
-                    else {
-                        $color = "green";
-                    }
-                    if (($row['dent']) != 'Pending') {
-                        $color2 = "green";
-                    }
-                    else {
-                        $color2 = "red";
-                    }
-                    if (!empty($row['ext'])) {
-                        $extension = ", ";
-                    }
-                    else {
-                        $extension = " ";
-                    }
-                ?>
-                <tr data-row-id="<?php echo $row['FacultyID'];?>">
+                while($row = $query->fetch_assoc()){ ?>
+                <tr data-row-id="<?php echo $row['StatsID'];?>">
                     <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
-                    <td><?php echo $row['FacultyID'];?></td>
-                    <td style="color:<?php echo $color;?>;">
-                        <?php echo $row['med']; ?> 
-                    </td>
-                    <td style="color:<?php echo $color2;?>;">
-                        <?php echo $row['dent']; ?>
-                    </td>
-                    <td><?php echo strtoupper($row['last_name']); ?></td>
-                    <td><?php echo strtoupper($row['first_name']);echo $extension.strtoupper($row['ext']); ?></td>
-                    <td><?php echo strtoupper($row['middle_name']); ?></td>
-                    <td><?php echo $row['facultyNo']; ?></td>
-                    <td><?php echo $row['dept_name'];?></td>
+                <td><?php echo $row['FacultyID'];?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'med','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);">
+                    <?php echo $row['med']; ?> 
+                </td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);">
+                    <?php echo $row['dent']; ?>
+                </td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['last_name']); ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['first_name']); ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['middle_name']); ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $extension.strtoupper($row['ext']);?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['dept_name'];?></td>
                     <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
-            </tbody>
             <?php } ?>
+            </tbody>
         </table>
         </div>
                 <!-- End of Table Responsive -->
@@ -150,4 +131,35 @@ $('#close').click(function() {
     window.location.href = 'index.php';
     return false;
 });
+</script>
+
+<!-- Quick Edit -->
+<script>
+  $('document').ready(function() {
+    $('td:contains("Pending")').css('color', 'red');
+    $('td:contains("Ok")').css('color', 'green');
+  });
+  
+  function editRow(editableObj) {
+    $(editableObj).css("background","#FFF");
+  }
+
+  function saveToDatabase(editableObj,column,id) {
+    $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
+    $.ajax({
+      url: "quick_edit.php",
+      type: "POST",
+      data:'med='+column+'&dent='+column+'&last_name='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
+      success: function(data){
+        $(editableObj).css("background","#FDFDFD");
+
+        $('#overlay').show();
+        $('#overlay').fadeOut('fast');
+
+        $('td:contains("Pending")').css('color', 'red');
+        $('td:contains("Ok")').css('color', 'green');
+
+      }
+    });
+  }
 </script>

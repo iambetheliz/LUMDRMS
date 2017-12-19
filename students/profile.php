@@ -352,7 +352,13 @@
                         ?>
                       </div>
                       <div class="tab-pane fade" id="tab2default">
-                        Default 2
+                        <div class="btn-toolbar">
+                          <a href="" class="btn btn-success">ADD NEW</a>
+                        </div>
+                        <br>
+                        <div class="alert alert-warning">
+                          No records found
+                        </div>
                       </div>
                       <div class="tab-pane fade" id="tab3default">
                         Default 3

@@ -45,7 +45,7 @@ INSERT INTO `department` (`dept_id`, `dept_name`, `cat`, `status`) VALUES
 (4, 'CHS', 2, 1),
 (5, 'COENG', 2, 1),
 (6, 'SHS', 2, 1),
-(7, 'Admin', 2, 1),
+(7, 'Admin', 1, 1),
 (8, 'Registrar', 1, 1),
 (9, 'Cashier', 1, 1),
 (10, 'Clinic', 1, 1),

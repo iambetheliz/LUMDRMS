@@ -1,6 +1,6 @@
 <?php
   //Include pagination class file
-  include('Pagination.php');
+  include('../includes/Pagination.php');
 
   //Include database configuration file
   include('../includes/dbconnect.php');
@@ -32,7 +32,7 @@
         <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
         <span style="word-spacing:normal;"> | With selected :</span>
         <label id="actions">
-          <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
+          <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a></span>
         </label>
         <br>
         <div class="table-responsive">
@@ -44,12 +44,9 @@
                 <th width="70px">Medical</th>
                 <th width="70px">Dental</th>
                 <th width="100px">Last Name</th>
-                <th width="150px">First Name</th>
+                <th width="100px">First Name</th>
                 <th width="120px">Middle Name</th>
-                <?php
-                if (!empty($row['ext'])) {
-                  echo "<th>Ext. Name</th>";
-                 } ;?>
+                <th>Ext.</th>
                 <th width="100px">Student No.</th>
                 <th>Program</th>
                 <th width="50px">Year</th>            
@@ -58,17 +55,7 @@
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ 
-                $postID = $row['StudentID'];
-                
-                if (!empty($row['ext'])) {
-                    $extension = ", ";
-                }
-                else {
-                    $extension = " ";
-                    $hide = "display: none";
-                }
-            ?>
+              while($row = $query->fetch_assoc()){ ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
                 <td><?php echo $row['StudentID'];?></td>

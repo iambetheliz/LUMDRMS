@@ -40,6 +40,7 @@
               <ul class="dropdown-menu">
                 <li><a href=""><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Edit Profile</a></li>
                 <li><a href="../change_pass.php"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp; Change Password</a></li>
+                <li role="separator" class="divider"></li>
                 <li><?php echo $logout; ?></li>
               </ul>
             </li>            

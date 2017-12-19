@@ -9,7 +9,7 @@ $(document).ready(function () {
                 text: "Student Medical Records - 2017"
             },
             axisX: {
-                title: "Diseases"
+                title: "Diagnostics"
             },
             data: [
                 {
