@@ -21,8 +21,9 @@
         $cperson = $_POST['cperson'];
         $cphone = $_POST['cphone'];
         $StudentID = $_POST['StudentID'];
+        $physician = $_POST['physician'];
     		
-        mysqli_query($DB_con,'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET first_name="'.$first_name.'", middle_name="'.$middle_name.'", last_name="'.$last_name.'",  ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dept="'.$dept.'", program="'.$program.'", yearLevel="'.$yearLevel.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'" WHERE StudentID="'.$StudentID.'"');	
+        mysqli_query($DB_con,'UPDATE `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` SET first_name="'.$first_name.'", middle_name="'.$middle_name.'", last_name="'.$last_name.'",  ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dept="'.$dept.'", program="'.$program.'", yearLevel="'.$yearLevel.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", physician="'.$physician.'" WHERE StudentID="'.$StudentID.'"');	
     }
 }
 ?>

@@ -75,33 +75,32 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li class="active">
-              <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
           </li>
           <li>
-              <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
           </li>
           <li role="presentation" class="have-child">
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
-                  <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                  <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
               </li>
-              <?php 
-                  if ($userData['role'] === 'admin') {?>
-                  <li>
-                      <a href="tbl_users"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Users</a>
-                  </li>
-              <?php    }
-              ?>
+              <li>
+                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+              </li>
             </ul>
           </li>
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -369,7 +368,7 @@
 <!--graphs-->
 <script src="charts/canvasjs.min.js"></script>
 <script src="charts/jquery.canvasjs.min.js"></script>
-<script src="charts.js"></script>
+<script src="charts/charts.js"></script>
     
 </body>
 </html>

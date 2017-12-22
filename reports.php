@@ -20,7 +20,7 @@
   else {
     $data_points = array();
     
-    $result = $DB_con->query("SELECT sysRev, COUNT(*) as total FROM `students_med` GROUP BY sysRev") or die(mysqli_error());
+    $result = $DB_con->query("SELECT `sysRev`, COUNT(*) as `total` FROM `students_med` GROUP BY `sysRev`") or die(mysqli_error());
 
     while($row = mysqli_fetch_array($result)) {
       $point = array("label" => $row['sysRev'], "y" => $row['total']);      

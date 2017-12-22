@@ -22,10 +22,10 @@ class Pagination{
     var $lastLink        = 'Last';
     var $fullTagOpen    = '<center><div class="pagination">';
     var $fullTagClose    = '</div></center>';
-    var $firstTagOpen    = '<ul class="pagination pull-right">';
+    var $firstTagOpen    = '';
     var $firstTagClose    = '';
     var $lastTagOpen    = '';
-    var $lastTagClose    = '</ul>';
+    var $lastTagClose    = '';
     var $curTagOpen        = '<li class="active"><a href="javascript:void(0)"><b>';
     var $curTagClose    = '</b></a></li>';
     var $nextTagOpen    = '';

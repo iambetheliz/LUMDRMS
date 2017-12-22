@@ -65,20 +65,12 @@
 
         if (!$error) {        
 
-          $sql = "INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('" . $sys . "','". $med . "','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','".$StudentID."')";
+          mysqli_multi_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sys','$med','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID'); INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo');");
 
-          $result = mysqli_query($DB_con,$sql);
-
-          if (!$result) {
-            header("Location: index.php?error");
-          }
-          else{
-            header('Location: profile.php?StudentID='.$StudentID);
-          }
-          // show an error message if the query has an error        
+          header('Location: profile.php?StudentID='.$StudentID);      
 
         } else {
-            echo "ERROR: could not prepare SQL statement.";
+          header("Location: index.php?error");
         }
     }
   }

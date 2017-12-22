@@ -78,7 +78,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Records | Laguna University - Clinic | Medical Records System</title>
+<title>Calendar Activities | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <!-- bootstrap -->
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -121,14 +121,27 @@
                     <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
                     <ul id="demo" class="panel-collapse collapse">
                         <li>
-                            <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-                        </li>
-                        <li>
-                            <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
-                        </li>
+                        <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                      </li>
+                      <li>
+                        <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+                      </li>
+                      <li>
+                        <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+                      </li>
+                      <li>
+                        <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+                      </li>
                     </ul>
-                </li>
-            </ul>
+                  </li>
+                  <?php 
+                    if ($userRow['role'] === 'superadmin') {?>
+                    <li>
+                      <a href="tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
+                    </li>
+                  <?php    }
+                  ?>
+                </ul>
           </nav>
         </div>  
         <!-- End of Sidebar --> 

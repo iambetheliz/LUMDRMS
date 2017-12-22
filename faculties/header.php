@@ -21,18 +21,20 @@
 
     <!-- Top Menu Items -->
     <div id="navbar" class="navbar-collapse collapse">
-      <form class="navbar-form navbar-right navbar-form-search" role="search">
-        <div class="form-inline">
-          <div class="btn-group search-box">
-            <span class="fa fa-search"></span>
-            <input type="text" id="search-box" class="search form-control" placeholder="Quick Search">
-            <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
-            <span class="sr-only">Loading...</span>
-            <div id="suggesstion-box"></div>
-          </div>
-        </div>
-      </form>
       <ul class="nav navbar-nav navbar-right top-menu">
+        <li>
+          <form class="navbar-form navbar-right navbar-form-search" role="search">
+            <div class="form-inline">
+              <div class="btn-group search-box">
+                <span class="fa fa-search"></span>
+                <input type="text" id="search-box" class="search form-control" placeholder="Quick Search">
+                <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
+                <span class="sr-only">Loading...</span>
+                <div id="suggesstion-box"></div>
+              </div>
+            </div>
+          </form>
+        </li>
         <?php
           if(!empty($userRow)){?>
             <li class="dropdown"><?php echo $account; ?>

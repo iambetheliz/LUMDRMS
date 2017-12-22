@@ -2,7 +2,7 @@
   include '../includes/dbconnect.php';
 	$DB_con = mysqli_connect("localhost", "root", "", "records");
 
-    if(isset($_POST['add'])){
+    if(!empty($_POST['dept'])){
 		$facultyNo = $_POST['facultyNo'];
         $first_name = $_POST['first_name'];
         $middle_name = $_POST['middle_name'];

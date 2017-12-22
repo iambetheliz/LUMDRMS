@@ -50,5 +50,9 @@ class DBController {
 		$rowcount = mysqli_num_rows($result);
 		return $rowcount;
 	}
+	function cleanData($data) {
+		$data = mysqli_real_escape_string($this->conn,strip_tags($data));
+		return $data;
+	}
 }
 ?>

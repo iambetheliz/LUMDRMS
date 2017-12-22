@@ -26,10 +26,10 @@
   $output = '';
   if(!empty($userRow)){
     $account = '<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-    $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
+    $logout = '<a href="../logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
   } else{
     $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-    header("Refresh:3; logout.php?logout");
+    header("Refresh:3; ../logout.php?logout");
   }
 
   function fill_program($DB_con) {  
@@ -51,23 +51,23 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Records | Laguna University - Clinic | Medical Records System</title>
+<title>Dental Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css"> 
-#add_stud input.error {
+#user_form input.error {
   border:1px solid red;
 }
-#add_stud select.error {
+#user_form select.error {
   border:1px solid red;
 }
-#add_stud textarea.error {
+#user_form textarea.error {
   border:1px solid red;
 }
-#add_stud span.error {
+#user_form span.error {
   color: red;
 }
 .col-2 {
@@ -97,16 +97,16 @@
           <li class="active have-child" role="presentation">
             <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
-              <li class="active">
+              <li>
                 <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+                <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
               </li>
               <li>
                 <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
               </li>
-              <li>
+              <li class="active">
                 <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
               </li>
             </ul>
@@ -114,7 +114,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -131,7 +131,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="container-fluid">
-                        <h1 class="page-header">Student Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                        <h1 class="page-header">Dental Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
@@ -187,7 +187,7 @@
                     <img src="../includes/loading.gif" width="64px" height="64px"/>
                   </div>
                 </div>
-				        <div id="tbl_students">
+				        <div id="userTable">
                   <!--
                     This is where data will be shown.
                   -->
@@ -204,7 +204,7 @@
         <!-- Modal HTML -->    
         <div id="userModal" class="modal fade">
         <div class="modal-dialog">
-          <form method="post" id="add_stud" autocomplete>
+          <form method="post" id="user_form" autocomplete>
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -335,13 +335,15 @@
                   <div class="col-lg-5">
                     <div class="form-group">
                       <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                      <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="0935 830 6457">
+                      <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="09358306457">
                     </div>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">   
-                <input type="text" name="physician" value="<?php echo $userRow['userName'];?>" id="physician">    
+                <input type="text" name="physician" value="<?php echo $userRow['userName'];?>">    
+              	<input type="hidden" name="med" id="med" value="Pending">  
+                <input type="hidden" name="dent" id="dent" value="Pending">
                 <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
@@ -353,7 +355,7 @@
       <!-- View Modal -->
       <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog"> 
-          <form method="post" id="edit_stud" autocomplete>
+          <form method="post" id="user_form2" autocomplete>
           <div class="modal-content">         
             <div class="modal-header"> 
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
@@ -389,7 +391,7 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/crud.js"></script>
+<script src="crud.js"></script>
 <script>
 function searchFilter(page_num) {
   page_num = page_num?page_num:0;
@@ -404,7 +406,7 @@ function searchFilter(page_num) {
       $('#overlay').show();
     },
     success: function (data) {
-      $('#tbl_students').html(data);
+      $('#userTable').html(data);
       $('#overlay').fadeOut("fast");
     }
   });

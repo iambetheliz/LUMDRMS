@@ -44,7 +44,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Medical Form | Laguna University - Clinic | Medical Records System</title>
+<title>Dental Form | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -73,10 +73,10 @@
           <li class="active have-child" role="presentation">
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
-              <li>
+              <li class="active">
                 <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
-              <li class="active">
+              <li>
                 <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
               </li>
             </ul>
@@ -103,10 +103,10 @@
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
-            if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
+            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
-              $FacultyID = $_GET['FacultyID'];
-              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
+              $StudentID = $_GET['StudentID'];
+              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -115,8 +115,8 @@
     
           <!-- Page Heading -->
           <div class="row">
-            <div class="col-lg-12">             
-              <h1 class="page-header">Faculty's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+            <div class="container-fluid">             
+              <h1 class="page-header">Student Dental Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  
@@ -125,100 +125,64 @@
           <form action="action.php" method="post" autocomplete="">
 
             <div class="row">
-              <div class="col-lg-12">
-                <!-- Review of System -->
-                <div class="panel panel-success">
-                  <div class="panel-heading">REVIEW OF SYSTEM</div>
-                  <div class="panel-body">
-                    <div class="col-lg-4">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> Recurrent Headache
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> Blurring of Vision
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> Abdominal Pain
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherSysRevCheck"> Other <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" disabled="">
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> Chest pain
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> LOC/Seizure
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> Easy fatigability
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> Easy bruisability
-                      </div>
-                    </div>
-                    <div class="col-lg-4">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> Fever
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Review of System -->
+              <div class="container-fluid">
 
                 <!-- Past Medical History -->
                 <div class="panel panel-success">
-                  <div class="panel-heading">PAST MEDICAL HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>MEDICAL HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="col-lg-4">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bronchial Asthma"> Bronchial Asthma
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Hypertension"> Hypertension
+                        </label>
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="PTB"> PTB
+                        <label class="checkbox-inline" title="Pulmonary Tuberculosis" data-toggle="tooltip" data-placement="right">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Diabetes"> Diabetes
+                        </label>
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergy"> Allergy
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other <input type="text" class="form-control" name="medHis_list[]" id="otherMedHis" disabled="">
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Cardiovascular DSE"> Cardiovascular DSE
+                        </label>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Hypertension"> Hypertension
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Epilepsy"> Epilepsy
+                        </label>
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="UTI"> UTI
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bleeding Disorder"> Bleeding Disorder
+                        </label>
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Surgery"> Surgery
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Asthma"> Asthma
+                        </label>
                       </div>
                     </div>
                     <div class="col-lg-4">
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Cardiovascular DSE"> Cardiovascular DSE
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Allergies"> Allergies
+                        </label>
                       </div>
                       <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Bleeding Disorder"> Bleeding Disorder
-                      </div>
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="medHis_list[]" value="Skin Disorder"> Skin Disorder
+                        <label class="checkbox-inline">
+                          <input type="checkbox" class="form-check-input" id="otherMedHisCheck"> Other
+                        </label> 
+                        <input type="text" class="form-control" name="medHis_list[]" id="otherMedHis" style="display: none;">
                       </div>
                     </div>
+
                   </div>
                 </div>
                 <!-- End Past Medical History -->
@@ -227,51 +191,97 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="panel panel-success">
-                  <div class="panel-heading">PERSONAL AND SOCIAL HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>PERSONAL AND SOCIAL HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="form-check">
                       <table width="100%">
                         <tr>
                           <td><label class="form-check-label">Alcoholic Drinker: </label></td>
-                          <td><input type="checkbox" class="form-check-input" name="drinker" value="Yes"> Yes</td>
-                          <td><input type="checkbox" class="form-check-input" name="drinker" value="No"> No</td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="drinker" value="Yes">Yes
+                            </label> 
+                          </td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="drinker" value="No">No
+                            </label> 
+                          </td>
                         </tr>     
                         <tr>
                           <td><label class="form-check-label">Smoker: </label></td>
-                          <td><input type="checkbox" class="form-check-input" name="smoker" value="Yes"> Yes</td>
-                          <td><input type="checkbox" class="form-check-input" name="smoker" value="No"> No</td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="smoker" value="Yes">Yes
+                            </label> 
+                          </td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="smoker" value="No">No
+                            </label> 
+                          </td>
                         </tr>
                         <tr>
                           <td><label class="form-check-label">Use of Illicit Drugs: </label></td>
-                          <td><input type="checkbox" class="form-check-input" name="drug_user" value="Yes"> Yes</td>
-                          <td><input type="checkbox" class="form-check-input" name="drug_user" value="No"> No</td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="drug_user" value="Yes">Yes
+                            </label> 
+                          </td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="drug_user" value="No">No
+                            </label> 
+                          </td>
                         </tr>
                       </table>
-                      <br>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="col-lg-6">
                 <div class="panel panel-success">
-                  <div class="panel-heading">OB/GYNE HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>OB/GYNE HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="form-check">
                       <table width="100%">
                         <tr>
-                          <td><input class="form-check-input" type="checkbox"> Regular</td>
-                          <td><input type="checkbox" class="form-check-input" name=""> Irregular</td>
+                          <td><label>Menstrual Cycle:</label></td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="mens" value="Regular">Regular
+                            </label> 
+                            <label class="radio-inline">
+                              <input type="radio" name="mens" value="Irregular">Irregular
+                            </label>
+                          </td>
                         </tr>
                         <tr>
-                          <td><div class="form-inline">Duration: <input type="text" class="form-control" name=""></div></td>
-                          <td></td>
+                          <td><label>Duration:</label></td>
+                          <td><input type="text" class="form-control input-sm" name="duration"></td>
                         </tr>
                         <tr>
-                          <td><input class="form-check-input" type="checkbox"> Dsymenorrhea</td>
-                          <td></td>
-                        </tr>
-                        <tr>
-                          <td>G <input class="form-check-input" type="checkbox"> P <input class="form-check-input" type="checkbox"></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" value="Dysmenorrhea" id="dysmenorrhea"><strong>Dysmenorrhea</strong>
+                            </label> 
+                          </td>
+                          <td>
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">G
+                            </label> 
+                            <label class="radio-inline">
+                              <input type="radio" name="optradio">P
+                            </label>
+                          </td>
                         </tr>
                       </table>  
                     </div>
@@ -283,54 +293,47 @@
 
             <!-- Physical Exam -->
             <div class="row">
-              <div class="col-lg-12">
+              <div class="container-fluid">
                 <div class="panel panel-success">
-                  <div class="panel-heading">PHYSICAL EXAMINATION</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>PHYSICAL EXAMINATION</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
 
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Weight:</label>  
-                        <input type="decimal" class="form-control" name="weight" id="weight"> 
+                        <label>Height (cm):</label>
+                        <input type="text" class="form-control value" name="height" id="height"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>Height:</label> 
-                        <input type="text" class="form-control" name="height" id="height"> 
+                        <label>Weight (kg):</label>  
+                        <input type="decimal" class="form-control value" name="weight" id="weight"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>BMI:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi">
+                        <label>Body Mass Index:</label> 
+                        <input type="text" class="form-control" name="bmi" id="bmi" readonly="readonly" title="Content not editable" data-toggle="tooltip">
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>BP:</label> 
+                        <label>Blood Pressure:</label> 
                         <input type="text" class="form-control" name="bp"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>CR:</label>
+                        <label>Cardiac Rate:</label>
                         <input type="text" class="form-control" name="cr"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>RR:</label>
+                        <label>Respiratory Rate:</label>
                         <input type="text" class="form-control" name="rr"> 
                       </div>
                       <div class="col-lg-3">
-                        <label>T:</label>
-                        <input type="text" class="form-control" name="t"> 
+                        <label>Temperature:</label>
+                        <input type="text" class="form-control" name="temp"> 
                       </div>
                     </div>    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="panel panel-success">
-                  <div class="panel-heading"></div>
-                  <div class="panel-body">
                     <table class="table table-bordered table-responsive">
                       <thead>
                         <tr>
@@ -342,7 +345,7 @@
                       <tbody>
                         <tr>
                           <td>General Survey</td>
-                          <td contenteditable="true"></td>
+                          <td></td>
                           <td></td>
                         </tr>
                         <tr>
@@ -377,29 +380,48 @@
                         </tr>
                       </tbody>
                     </table>
+                    <br>
 
-                    <div class="form-inline">
-                      <label>Chest X ray:</label> <input type="text" class="form-control" name="xray">
-                    </div>
-                    <br>
-                    <div class="form-inline">
-                      <label>Assessment:</label> Physically <input type="checkbox" class="form-check" name="assess" value="fit"> <label>fit</label>  <input type="checkbox" class="form-check" name="assess" value="unfit"> <label>unfit</label> at the same time of examination
-                    </div>
-                    <br>
-                    <div class="form-group row">
+                    <div class="row">
                       <div class="col-lg-6">
-                        <label>Plan/Recommendation:</label> 
-                        <input type="text" class="form-control" name="plan">
+                        <div class="form-group">
+                          <label>Chest X ray:</label> <input type="text" class="form-control" name="xray">
+                        </div>
+
+                        <div class="form-inline">
+                          <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>unfit</strong></label>&nbsp; at the same time of examination
+                        </div>
+                        <br>
+                        <div class="form-group">
+                          <label>Plan/Recommendation:</label> 
+                          <input type="text" class="form-control" name="plan">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label>Date of Check-up:</label>
+                          <br><br>
+
+                          <label>School Nurse:</label>
+                          <p><?php echo $userRow['userName'];?></p>
+
+                          <br>
+                          <label>School Physician:</label>
+                          <select class="form-control">
+                            <option></option>
+                          </select>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>
             </div>
 
                 <div class="form-group">
-                  <input type="hidden" name="facultyNo" value="<?php echo $row['facultyNo']; ?>"/>
-                  <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
+                  <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
+                  <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                   <input type="hidden" name="action_type" value="save"/>
                   <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
                 </div>
@@ -430,12 +452,56 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
 <script type="text/javascript">
-  $('#otherSysRevCheck').change(function(){
-    $("#otherSysRev").prop("disabled", !$(this).is(':checked'));
+  $(function () {
+    $("#otherSysRevCheck").click(function () {
+      if ($(this).is(":checked")) {
+        $("#otherSysRev").show().focus();
+      } else {
+        $("#otherSysRev").hide();
+      }
+    });
+    $("#otherMedHisCheck").click(function () {
+      if ($(this).is(":checked")) {
+        $("#otherMedHis").show().focus();
+      } else {
+        $("#otherMedHis").hide();
+      }
+    });
   });
-  $('#otherMedHisCheck').change(function(){
-    $("#otherMedHis").prop("disabled", !$(this).is(':checked'));
+  $('#height').keypress(function (e) {
+      $("#errSN").hide();
+
+    if ((e.which < 0 || e.which > 32) && (e.which < 48 || e.which > 57)) {
+      return false;
+    } 
+
+    var keyChr = this.value.length;
+    var heightval = $(this).val();
+
+    if (keyChr == 1 && heightval.indexOf("(") <= -1) {
+      $(this).val(heightval + ".");
+    } else if (keyChr == 4) {
+      $(this).val(heightval);
+      $(this).attr('maxlength', '4'); 
+      return true;
+    } else if (keyChr == 4) {
+      $("#errSN").html("8 characters only!").show().fadeOut("slow");
+        return false;
+    } 
   });
+  jQuery(document).ready(function ($) {
+    var $bmi = $('#bmi'), $value = $('.value');
+    $value.on('input', function (e) {
+      var weight = $("#weight").val();
+      var bmi = Math.pow($("#height").val(),2);
+      $value.each(function (index, elem) {
+        if (!Number.isNaN(parseFloat(this.value))) {
+          bmi = bmi;
+        }         
+    });
+    $bmi.val(weight / bmi);
+  });
+});
 </script>
     
 </body>

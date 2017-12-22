@@ -121,9 +121,10 @@ $(document).ready(function () {
       if(!(inputValue >= 65 && inputValue <= 90 || inputValue >=97 && inputValue <= 122) && (inputValue != 32 && inputValue != 0)) { 
         //display error message
         $("#errFirst").html("Letters Only").show().fadeOut("slow");
-            return false;
-      } else if($("#first_name").val().length >= 0){
-        $("#first_name").removeClass("error");
+          return false;
+      } 
+      else if($(this).val().length >= 0){
+        $(this).removeClass("error");
       } 
   });
   $("#middle_name").keypress(function(event){

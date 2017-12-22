@@ -94,6 +94,13 @@
                 <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
               </li>
             </ul>
+            <?php 
+              if ($userRow['role'] === 'superadmin') {?>
+              <li>
+                <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              </li>
+            <?php    }
+            ?>
           </li>
         </ul>
       </nav>
@@ -162,6 +169,12 @@
                               <td><?php echo $row['age'];?> years old</td>
                               <td><label>Gender:</label></td>
                               <td><?php echo $row['sex'];?></td>
+                            </tr>
+                            <tr>
+                              <td><label>Date of Birth:</label></td>
+                              <td><?php if ($row['dob'] != '0000-00-00') echo date('F j, Y', strtotime($row['dob'])) ;?></td>
+                              <td><label>Marital Status:</label></td>
+                              <td><?php echo $row['stat'] ;?></td>
                             </tr>
                             <tr>
                               <td><label>Program:</label></td>
@@ -322,13 +335,11 @@
                             if (!empty($row['mens'])) {
                               echo "<tr>
                                       <th>Menstrual Period:</th>
-                                      <td>" .$row['mens']. "</td>
-                                      <td></td>
+                                      <td colspan='3'>" .$row['mens']. "</td>
                                     </tr>";
                               echo "<tr>
                                       <th>Duration:</th>
-                                      <td>" .$row['duration']. "</td>
-                                      <td></td>
+                                      <td colspan='3'>" .$row['duration']. "</td>
                                     </tr>";
                             }
                             else {
@@ -353,7 +364,7 @@
                       </div>
                       <div class="tab-pane fade" id="tab2default">
                         <div class="btn-toolbar">
-                          <a href="" class="btn btn-success">ADD NEW</a>
+                          <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
                         </div>
                         <br>
                         <div class="alert alert-warning">
@@ -361,7 +372,13 @@
                         </div>
                       </div>
                       <div class="tab-pane fade" id="tab3default">
-                        Default 3
+                        <div class="btn-toolbar">
+                          <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
+                        </div>
+                        <br>
+                        <div class="alert alert-warning">
+                          No records found
+                        </div>
                       </div>
                     </div>
                   </div>

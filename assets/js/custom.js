@@ -6,16 +6,17 @@ $(document).ready(function () {
     })
   });
 
-  /*Menu-toggle*/
+  /*Sidebar Menu-toggle*/
   $("#menu-toggle").click(function(e) {
     e.preventDefault();
     $("#wrapper").toggleClass("toggled");
   });
 
-  // Menu Collapse
+
+  //Sidebar Menu Collapse
   $("[data-toggle=tooltip]").tooltip();
   
-  //Menu Links
+  //Sidebar Menu Links
   $('ul[role="menu"]') 
     .on('show.bs.collapse', function (e) {
       $(e.target).prev('a[role="menuitem"]').addClass('active');

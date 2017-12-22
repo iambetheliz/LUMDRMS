@@ -60,11 +60,11 @@ body {
 .sidebar-nav> li.active> a,
 .sidebar-nav li a:active,
 .sidebar-nav> li> a.active {
-  text-indent: 7.5px;
   color: #fff;
   background-color: #1d3813;
   text-decoration: none;
-  border-left: 5px solid goldenrod;    
+  border-left: 5px solid goldenrod;  
+  text-indent: 7.5px;  
 }
 
 .sidebar-nav li a:hover,
@@ -84,31 +84,29 @@ body {
 
 #demo li {
   line-height: 30px;
-  text-indent: 7.5px;
+  margin-left: -20px;
 }
 
 #demo li a {
-    background-color: #335628;
-    color: darkseagreen;
-    margin-left: -10px;
+  background-color: transparent;
 }
 
 #demo> li.active> a,
 #demo li a:active {
   color: #fff;
   border-left: 0px;
-  text-indent: 7.5px;
 }
 
 #demo li a:hover,
 #demo> li.active> a:hover {
   color: #fff;
   text-decoration: none;
+  text-indent: 10px;
 }
 
 #demo li a:toggled,
 #demo li a:focus  {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .sidebar-nav > .sidebar-brand {
@@ -127,14 +125,14 @@ body {
 }
 
 #menu-toggle {
-    text-decoration: none;
-    float: left;
-    color: #fff;
-    margin-left: 10px;
-    margin-right: -5px;
+  text-decoration: none;
+  float: left;
+  color: #fff;
+  margin-left: 10px;
+  margin-right: 0;
 }
 
-@media (max-width:767px) {
+@media (max-width:768px) {
   #wrapper {
     padding-left: 0;
   }

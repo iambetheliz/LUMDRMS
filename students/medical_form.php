@@ -12,31 +12,30 @@
 
   $DB_con = new mysqli("localhost", "root", "", "records");
 
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
+  if ($DB_con->connect_errno) {
+    echo "Connect failed: ", $DB_con->connect_error;
+  exit();
+  }
 
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
   $userRow = $result->fetch_array(MYSQLI_BOTH);
     
-    //Render facebook profile data
-    //Render facebook profile data
-    $output = '';
-    if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-        $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-    }else{
-        $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; logout.php?logout");
-    }
+  //Render facebook profile data
+  $output = '';
+  if(!empty($userRow)){
+    $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
+    $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
+  } else{
+    $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
+    header("Refresh:3; logout.php?logout");
+  }
 
   if (isset($_GET['error'])) {
-        $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
-        header('Refresh:3; medical_form.php');
-    }
+    $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
+    header('Refresh:3; medical_form.php');
+  }
 
 ?>
 <!DOCTYPE html>
@@ -45,7 +44,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Add New Student Record | Laguna University - Clinic | Medical Records System</title>
+<title>Medical Form | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -82,6 +81,13 @@
               </li>
             </ul>
           </li>
+          <?php 
+            if ($userRow['role'] === 'superadmin') {?>
+            <li>
+              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+            </li>
+          <?php    }
+          ?>
         </ul>
       </nav>
     </div>  
@@ -109,8 +115,8 @@
     
           <!-- Page Heading -->
           <div class="row">
-            <div class="col-lg-12">             
-              <h1 class="page-header">Student's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+            <div class="container-fluid">             
+              <h1 class="page-header">Student Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  
@@ -119,10 +125,14 @@
           <form action="action.php" method="post" autocomplete="">
 
             <div class="row">
-              <div class="col-lg-12">
+              <div class="container-fluid">
                 <!-- Review of System -->
                 <div class="panel panel-success">
-                  <div class="panel-heading">REVIEW OF SYSTEM</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>REVIEW OF SYSTEM</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="col-lg-3">
                       <div class="form-check">
@@ -204,7 +214,11 @@
 
                 <!-- Past Medical History -->
                 <div class="panel panel-success">
-                  <div class="panel-heading">PAST MEDICAL HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>MEDICAL HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="col-lg-3">
                       <div class="form-check">
@@ -273,7 +287,11 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="panel panel-success">
-                  <div class="panel-heading">PERSONAL AND SOCIAL HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>PERSONAL AND SOCIAL HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="form-check">
                       <table width="100%">
@@ -323,7 +341,11 @@
               </div>
               <div class="col-lg-6">
                 <div class="panel panel-success">
-                  <div class="panel-heading">OB/GYNE HISTORY</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>OB/GYNE HISTORY</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
                     <div class="form-check">
                       <table width="100%">
@@ -367,9 +389,13 @@
 
             <!-- Physical Exam -->
             <div class="row">
-              <div class="col-lg-12">
+              <div class="container-fluid">
                 <div class="panel panel-success">
-                  <div class="panel-heading">PHYSICAL EXAMINATION</div>
+                  <div class="panel-heading">
+                    <div class="panel-title">
+                      <strong>PHYSICAL EXAMINATION</strong>
+                    </div>
+                  </div>
                   <div class="panel-body">
 
                     <div class="form-group row">
@@ -404,21 +430,6 @@
                         <input type="text" class="form-control" name="temp"> 
                       </div>
                     </div>    
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- End -->
-
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="panel panel-success">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      GENERAL
-                    </div>
-                  </div>
-                  <div class="panel-body">
                     <table class="table table-bordered table-responsive">
                       <thead>
                         <tr>
@@ -430,7 +441,7 @@
                       <tbody>
                         <tr>
                           <td>General Survey</td>
-                          <td contenteditable="true" name="gen_sur"></td>
+                          <td></td>
                           <td></td>
                         </tr>
                         <tr>
@@ -465,21 +476,41 @@
                         </tr>
                       </tbody>
                     </table>
+                    <br>
 
-                    <div class="form-inline">
-                      <label>Chest X ray:</label> <input type="text" class="form-control" name="xray">
-                    </div>
-                    <br>
-                    <div class="form-inline">
-                      <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>unfit</strong></label>&nbsp; at the same time of examination
-                    </div>
-                    <br>
-                    <div class="form-group row">
+                    <div class="row">
                       <div class="col-lg-6">
-                        <label>Plan/Recommendation:</label> 
-                        <input type="text" class="form-control" name="plan">
+                        <div class="form-group">
+                          <label>Chest X ray:</label> <input type="text" class="form-control" name="xray">
+                        </div>
+
+                        <div class="form-inline">
+                          <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>unfit</strong></label>&nbsp; at the same time of examination
+                        </div>
+                        <br>
+                        <div class="form-group">
+                          <label>Plan/Recommendation:</label> 
+                          <input type="text" class="form-control" name="plan">
+                        </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group">
+                          <label>Date of Check-up:</label>
+                          <br><br>
+
+                          <label>School Nurse:</label>
+                          <p><?php echo $userRow['userName'];?></p>
+                          <input type="hidden" name="physician" id="physician" value="<?php echo $userRow['userName'] ;?>">
+
+                          <br>
+                          <label>School Physician:</label>
+                          <select class="form-control">
+                            <option></option>
+                          </select>
+                        </div>
                       </div>
                     </div>
+
                   </div>
                 </div>
               </div>

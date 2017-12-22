@@ -39,7 +39,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Edit faculty Record | Laguna University - Clinic | Medical Records System</title>
+<title>Faculty Profile | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
@@ -81,6 +81,13 @@
               </li>
             </ul>
           </li>
+          <?php 
+            if ($userRow['role'] === 'superadmin') {?>
+            <li>
+              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+            </li>
+          <?php    }
+          ?>
         </ul>
       </nav>
     </div>  
@@ -117,7 +124,7 @@
           <div class="container-fluid">
             <div class="row">     
               <!-- Basic Info -->
-              <div class="panel panel-success">
+              <div class="panel panel-success panel-table">
                 <div class="panel-heading">
                   <div class="panel-title">
                     <strong>BASIC INFORMATION</strong>
