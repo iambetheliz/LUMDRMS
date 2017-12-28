@@ -138,7 +138,7 @@
             <div class="row">
               <!-- Start btn-toolbar -->
           	  <div class="btn-toolbar">
-      			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New Faculty</button>
+      			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                 <div class="btn-group">
                   <select class="form-control" name="dept_list" id="dept_list" onchange="searchFilter()" style="cursor: pointer;">  
@@ -364,7 +364,7 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/crud.js"></script>
+<script src="../assets/js/faculty_crud.js"></script>
 <script>
 function searchFilter(page_num) {
   page_num = page_num?page_num:0;

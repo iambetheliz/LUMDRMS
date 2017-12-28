@@ -1,6 +1,7 @@
 <?php
   ob_start();
   require_once 'includes/dbconnect.php';
+  include 'includes/date_time_diff.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
   
@@ -122,6 +123,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
+                        <th>Login Date</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -134,6 +136,7 @@
                         <td><?php echo $userRow["userName"]; ?></td>
                         <td><?php echo $userRow["userEmail"]; ?></td>
                         <td><?php echo $userRow["role"]; ?></td>
+                        <td><?php echo timeAgo(strtotime($userRow['login_date'])); ?></td>
                         <td></td>
                       </tr>
                     <?php } ?>

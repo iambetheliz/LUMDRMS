@@ -1,6 +1,7 @@
 <?php
   ob_start();
   require_once '../includes/dbconnect.php';
+  include '../includes/date_time_diff.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
   

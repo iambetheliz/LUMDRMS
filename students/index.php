@@ -57,6 +57,9 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="../datepicker/css/custom_datepicker.css">
+<link rel="stylesheet" type="text/css" href="../datepicker/css/jquery.ui.datepicker.monthyearpicker.css">
 <style type="text/css"> 
 #add_stud input.error {
   border:1px solid red;
@@ -143,7 +146,7 @@
                 	  <div class="col-lg-6 left-pane">
                       <div class="row">
                         <div class="btn-toolbar">
-                			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New</button>
+                			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                           <div class="btn-group">
                             <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
@@ -192,7 +195,6 @@
                     This is where data will be shown.
                   -->
                 </div>
-
               </div>  
             </div>
           </div>
@@ -208,30 +210,29 @@
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add New Student
-                  <span id="msg" class="error pull-right"></span>
-                </h4>
+                <h4 class="modal-title">Add New Student <small>(<i class="fa fa-asterisk text-danger"></i> Required fields)</small></h4>
               </div>
               <div class="modal-body">
-                <div class="row">
+                <div id="msg"></div>
+                <div class="row">                  
                   <div class="col-lg-6">
                     <div class="form-group"> 
-                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                      <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
+                      <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                      <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="autofocus"><span id="result"></span>
                       <br>
-                      <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
+                      <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
                       <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
                       <br>                        
-                      <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
-                      <input type="text" class="form-control required" placeholder="Magdayao" name="middle_name" id="middle_name">
+                      <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
+                      <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
                       <br>
-                      <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
+                      <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
                       <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
                       <br>
                       <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
                       <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                       <br>
-                      <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
+                      <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
                       <input class="form-control" type="text" placeholder="00" name="age" id="age">
                       <br>
                       <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
@@ -246,10 +247,12 @@
                   <div class="col-lg-5">
                     <div class="form-group">
                       <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
-                      <input type="date" class="form-control" name="dob" id="dob">
+                      <div class="input-group date">
+                        <input type="text" name="dob" id="datepicker" class="form-control datepicker" placeholder="Pick a date"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                      </div>
                       <br>
                       <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
-                      <select class="form-control required" name="stat" id="stat">
+                      <select class="form-control" name="stat" id="stat">
                         <option value="">Select</option>
                         <option value="Single">Single</option>
                         <option value="Married">Married</option>
@@ -327,21 +330,22 @@
                   </div>
                   <div class="col-lg-6">
                     <div class="form-group">
-                      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
-                      <input type="text" class="form-control required" name="cperson" id="cperson">
+                      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
+                      <input type="text" class="form-control" name="cperson" id="cperson">
                     </div>
                   </div>
                   <div class="col-lg-1"></div>
                   <div class="col-lg-5">
                     <div class="form-group">
-                      <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                      <input type="text" name="cphone" id="cphone" class="form-control required" placeholder="0935 830 6457">
+                      <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                      <input type="text" name="cphone" id="cphone" class="form-control">
+                      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="modal-footer">   
-                <input type="text" name="physician" value="<?php echo $userRow['userName'];?>" id="physician">    
+                <input type="hidden" name="physician" value="<?php echo $userRow['userName'];?>" id="physician">    
                 <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
@@ -389,26 +393,13 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
-<script src="../assets/js/crud.js"></script>
-<script>
-function searchFilter(page_num) {
-  page_num = page_num?page_num:0;
-  var keywords = $('#keywords').val();
-  var sortBy = $('#sortBy').val();
-  var program_id = $('#prog_list').val(); 
-  $.ajax({
-    type: 'POST',
-    url: 'tbl_students.php',
-    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
-    beforeSend: function () {
-      $('#overlay').show();
-    },
-    success: function (data) {
-      $('#tbl_students').html(data);
-      $('#overlay').fadeOut("fast");
-    }
-  });
-}
+<script src="../assets/js/students_crud.js"></script>
+
+<!-- DAtepicker -->
+<script src="../datepicker/js/jquery-ui.js"></script>
+<script src="../datepicker/js/jquery.ui.datepicker.monthyearpicker.js"></script>
+<script type="text/javascript">
+  $('.datepicker').datepicker();  
 </script>
 </body>
 </html>

@@ -77,7 +77,7 @@ $(document).ready(function () {
     } 
   });
 
-    $("#cphone").keypress(function (e) {
+  $("#cphone").keypress(function (e) {
     $("#errTel").hide();
 
     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
@@ -90,7 +90,19 @@ $(document).ready(function () {
     var phonechr = this.value.length;
     var phoneval = $(this).val(); 
 
-    if (phonechr == 4 && phoneval.indexOf("(") <= -1) {
+    if (phonechr == 0) {
+      if (e.which != 48) {
+        $("#errTel").html("Start at 0").show().fadeOut("slow");
+        return false;
+      }      
+    }
+    else if (phonechr == 1) {
+      if (e.which != 57) {
+        $("#errTel").html("09-- format!").show().fadeOut("slow");
+        return false;
+      }      
+    }
+    else if (phonechr == 4 && phoneval.indexOf("(") <= -1) {
       $(this).val(phoneval + " ");
     } else if (phonechr == 8 && phoneval.indexOf("(") <= -1) {
       $(this).val(phoneval + " ");
@@ -107,7 +119,7 @@ $(document).ready(function () {
   });
 
   //Capitalize each word
-  $("#user_form input, #user_form textarea").keyup(function(e) {
+  $("#add_stud input, #add_stud textarea").keyup(function(e) {
     var arr = $(this).val().split(' ');
     var result = '';
     for (var x = 0; x < arr.length; x++)

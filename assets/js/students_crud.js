@@ -37,10 +37,32 @@ $(document).ready(function(){
       $('#program').html('<option value="">Select departmentt first</option>');
     }
   });
+  //Check availability
+  $("#studentNo").keyup(function() {  
+    var studentNo = $(this).val(); 
+    
+    if(studentNo.length > 3) {  
+      $("#result").html('Checking ... <i class="fa fa-circle-o-notch fa-spin"></i>');
+     
+      $.ajax({      
+        type : 'POST',
+        url  : 'availability_check.php',
+        data : $(this).serialize(),
+        success : function(data)
+          {
+            $("#result").html(data);
+          }
+        });
+        return false;
+    }
+    else {
+      $("#result").html('');
+    }
+  });
 	//Add New
 	$(document).on('click', '#addnew', function(){
 		if($('.required').val() == "")  {  
-      $("#msg").html("* Required Fields!").show();
+      $("#msg").html("<div class='alert alert-danger'>Required fields!</div>").show();
       $(".required").addClass('error');
       $("#studentNo").focus();
         return false; 
@@ -91,18 +113,6 @@ $(document).ready(function(){
       $("#msg").html("Please select academic year!").show();
       $("#acadYear").addClass('error');
       $("#acadYear").focus();
-        return false; 
-    }
-    else if($('#cperson').val() == "")  {  
-      $("#msg").html("Please enter your guardian's name!").show();
-      $("#cperson").addClass('error');
-      $("#cperson").focus();
-        return false; 
-    }
-    else if($('#cphone').val() == "")  {  
-      $("#msg").html("Please enter your contact number!").show();
-      $("#cphone").addClass('error');
-      $("#cphone").focus();
         return false; 
     }
 		else {
@@ -169,7 +179,7 @@ $(document).ready(function(){
   $(document).on('click', '#update', function(){
     $.ajax({
       type: "POST",
-      url: "../students/update.php",
+      url: "update.php",
       cache: false,
       data: $('#edit_stud').serialize(), 
       beforeSend:function() {  
@@ -179,140 +189,28 @@ $(document).ready(function(){
         $('#view-modal').modal('hide'); 
         $("#edit_stud")[0].reset();
         $('#update').val("Update Record"); 
-        $("#tbl_students").load("../students/tbl_students.php");
-        $.notify("Data updated successfully", "success");
+        $("#tbl_students").load("tbl_students.php");
+        $.notify("Data updated successfully", "success")
       }
     });
   });
 });
 
-//Faculties
-$(document).ready(function(){
-    $('#overlay').show();
-    $("#tbl_faculties").load("tbl_faculties.php");
-    $('#overlay').fadeOut('fast');  
-    $('#add_fac').submit(function() {
-      return false;
-      $.ajaxSetup ({
-        cache: false
-      });
-      $("#add_fac")[0].reset();
-      $('#addnew').val();
-      $('#userModal').modal('hide'); 
-    });
-    $('#edit_fac').submit(function() {
-      return false;
-      $.ajaxSetup ({
-        cache: false
-      });
-        $("#edit_fac")[0].reset();
-        $('#addnew').val();
-        $('#view-modal').modal('hide'); 
-    });
-    //Select department            
-    $('#dept').on('change',function(){
-      var deptID = $(this).val();
-      if(deptID){
-        $.ajax({
-          type:'POST',
-          url:'../courses.php',
-          data:'dept_id='+deptID,
-          success:function(html){
-            $('#program').html(html); 
-          }
-        }); 
-      } 
-    });
-    //Add New
-    $(document).on('click', '#addnew', function(){
-      if($('.required').val() == "")  {  
-        $("#msg").html("* Required Fields!").show();
-        $(".required").addClass('error');
-        $("#facultyNo").focus();
-        return false; 
-      } 
-      else if($('#dept').val() == "")  {  
-        $("#msg").html("* Required!").show();
-        $("#dept").addClass('error');
-        $("#dept").focus();
-        return false; 
-      }  
-      else {
-        $.ajax({
-          type: "POST",
-          url: "../faculties/addnew.php",
-          data: $('#add_fac').serialize(),  
-          cache: false,
-          beforeSend:function() {  
-            $('#addnew').val("Inserting");  
-          },  
-          success: function(){  
-            $('#userModal').modal('hide'); 
-            $("#add_fac")[0].reset();
-            $('#addnew').val("Add New"); 
-            $("#tbl_faculties").load("tbl_faculties.php");
-            $.notify("Data added successfully", "success");
-          }
-        });
-      }
-    });
-    //Delete
-    $(document).on('click', '.delete', function(){
-      $FacultyID=$(this).val();
-        $.ajax({
-          type: "POST",
-          url: "../faculties/delete.php",
-          data: {
-            FacultyID: $FacultyID,
-            del: 1,
-          },
-          success: function(){
-            $("#tbl_faculties").load("tbl_faculties.php");
-            $.notify("Data successfully deleted.", "success");
-          }
-        });
-        return false;
-    });
-    //View
-    $(document).on('click', '#getUser', function(e){  
-      e.preventDefault();
-      var uid = $(this).data('id'); // get id of clicked row
-      $('#dynamic-content').html(''); // leave this div blank
-      $('#modal-loader').show();      // load ajax loader on button click
-      $.ajax({
-        url: '../faculties/edit_data.php',
-        type: 'POST',
-        data: 'FacultyID='+uid,
-        dataType: 'html'
-      })
-      .done(function(data){
-        console.log(data); 
-        $('#dynamic-content').html(''); // blank before load.
-        $('#dynamic-content').html(data); // load here
-        $('#modal-loader').fadeOut('fast');; // hide loader  
-      })
-      .fail(function(){
-        $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
-        $('#modal-loader').fadeOut('fast');;
-      });
-    });
-    //Update
-    $(document).on('click', '#update', function(){
-      $.ajax({
-        type: "POST",
-        url: "../faculties/update.php",
-        cache: false,
-        data: $('#edit_fac').serialize(), 
-        beforeSend:function() {  
-          $('#update').val("Updating");  
-        },  
-        success: function(){
-          $('#view-modal').modal('hide'); 
-          $("#edit_fac")[0].reset();
-          $('#update').val("Update Record"); 
-          $("#tbl_faculties").load("tbl_faculties.php");
-          $.notify("Data updated successfully", "success");
-        }
-      });
-    });
+function searchFilter(page_num) {
+  page_num = page_num?page_num:0;
+  var keywords = $('#keywords').val();
+  var sortBy = $('#sortBy').val();
+  var program_id = $('#prog_list').val(); 
+  $.ajax({
+    type: 'POST',
+    url: '../students/tbl_students.php',
+    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    beforeSend: function () {
+      $('#overlay').show();
+    },
+    success: function (data) {
+      $('#tbl_students').html(data);
+      $('#overlay').fadeOut("fast");
+    }
   });
+}

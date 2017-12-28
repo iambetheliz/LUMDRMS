@@ -20,10 +20,21 @@
   else {
     $data_points = array();
     
-    $result = $DB_con->query("SELECT `alias`, COUNT(*) as `total` FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` GROUP BY `program`") or die(mysqli_error());
+    $result = $DB_con->query("SELECT `sysRev`, COUNT(*) as `total` FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` GROUP BY `program`");
+
+    $diseases = $row['sysRev'];
+    $array  = explode(",", $diseases);
+
+    print_r($array);
+    
+    $no = 1;
+foreach ($array as $line) {
+    echo $no . ". " . $line . PHP_EOL;
+    $no++;
+};
 
     while($row = mysqli_fetch_array($result)) {
-      $point = array("label" => $row['alias'], "y" => $row['total']);      
+      $point = array("label" => $pieces, "y" => $row['total']);      
       array_push($data_points, $point);        
     }
     

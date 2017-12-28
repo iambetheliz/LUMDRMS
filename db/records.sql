@@ -410,7 +410,7 @@ CREATE TABLE `students` (
   `ext` varchar(4) NOT NULL,
   `age` int(2) NOT NULL,
   `sex` varchar(9) NOT NULL,
-  `dob` date NOT NULL,
+  `dob` varchar(20) NOT NULL,
   `stat` varchar(10) NOT NULL,
   `dept` int(11) NOT NULL,
   `program` int(11) NOT NULL,
@@ -906,6 +906,7 @@ CREATE TABLE `users` (
   `userPass` varchar(255) NOT NULL,
   `position` varchar(20) NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'admin',
+  `login_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
@@ -916,8 +917,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userId`, `userName`, `first_name`, `middle_name`, `last_name`, `ext_name`, `userEmail`, `userPass`, `position`, `role`) VALUES
-(1, 'admin', '', '', '', '', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', '', 'superadmin');
+INSERT INTO `users` (`userId`, `userName`, `first_name`, `middle_name`, `last_name`, `ext_name`, `userEmail`, `userPass`, `position`, `role`, `login_date`) VALUES
+(1, 'admin', '', '', '', '', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', '', 'superadmin', '2017-12-22 07:10:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
