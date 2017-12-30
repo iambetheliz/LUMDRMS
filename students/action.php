@@ -24,9 +24,6 @@
   	if($_REQUEST['action_type'] == 'save'){
 
         //checkbox
-
-        $sysRev = $_POST['sysRev_list'];
-        $medHis = $_POST['medHis_list'];
        
         $drinker = $_POST['drinker'];
         $smoker = $_POST['smoker'];
@@ -36,6 +33,7 @@
         $weight = $_POST['weight'];
         $height = $_POST['height'];
         $bmi = $_POST['bmi'];
+        $bmi_cat = $_POST['bmi_cat'];
         $bp = $_POST['bp'];
         $cr = $_POST['cr'];
         $rr = $_POST['rr'];
@@ -46,26 +44,15 @@
         $studentNo = $_POST['studentNo'];
         $StudentID = $_POST['StudentID'];
 
-        foreach($sysRev as $one_sys){
-            $source1 .= $one_sys.", ";
-        }
-        $sys = substr($source1, 0, -2);
-
-        foreach($medHis as $one_med){
-            $source2 .= $one_med.", ";
-        }
-        $med = substr($source2, 0, -2);
-
-        if (empty($sysRev)) {
-          $sys = 'none';
-        }
-        if (empty($medHis)) {
-          $med = 'none';
-        }
-
         if (!$error) {        
 
-          mysqli_multi_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sys','$med','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID'); INSERT INTO students_stats(med,dent,studentNo) VALUES('$med','$dent','$studentNo');");
+          if(!empty($_POST['sysRev_list'])) {
+            foreach($_POST['sysRev_list'] as $sys_rev) {
+              mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,StudentID) VALUES('$sys_rev','$StudentID');");
+            }
+          }
+
+          mysqli_query($DB_con,"INSERT INTO students_med (drinker,smoker,drug_user,mens,duration,weight,height,bmi,bmi_cat,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
 
           header('Location: profile.php?StudentID='.$StudentID);      
 

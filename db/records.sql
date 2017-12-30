@@ -216,9 +216,10 @@ CREATE TABLE `faculty_med` (
   `drug_user` varchar(3) NOT NULL,
   `mens` varchar(10) NOT NULL,
   `duration` varchar(20) NOT NULL,
-  `weight` int(11) NOT NULL,
-  `height` decimal(11,0) NOT NULL,
-  `bmi` decimal(11,0) NOT NULL,
+  `weight` varchar(6) NOT NULL,
+  `height` varchar(6) NOT NULL,
+  `bmi` varchar(5) NOT NULL,
+  `bmi_cat` varchar(20) NOT NULL,
   `bp` varchar(10) NOT NULL,
   `cr` varchar(10) NOT NULL,
   `rr` varchar(10) NOT NULL,
@@ -647,10 +648,11 @@ CREATE TABLE `students_med` (
   `drug_user` varchar(3) NOT NULL,
   `mens` varchar(10) NOT NULL,
   `duration` varchar(20) NOT NULL,
-  `weight` int(11) NOT NULL,
-  `height` varchar(5) NOT NULL,
+  `weight` varchar(6) NOT NULL,
+  `height` varchar(6) NOT NULL,
   `bmi` varchar(5) NOT NULL,
-  `bp` varchar(3) NOT NULL,
+  `bmi_cat` varchar(20) NOT NULL,
+  `bp` varchar(10) NOT NULL,
   `cr` varchar(3) NOT NULL,
   `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,
@@ -895,6 +897,19 @@ INSERT INTO `students_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date
 -- Table structure for table `users`
 --
 
+CREATE TABLE `tbl_diseases` (
+  `Dis_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `diseases` varchar(30) NOT NULL,
+  `StudentID` int(11) NOT NULL,
+  PRIMARY KEY (`Dis_ID`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
 CREATE TABLE `users` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(30) NOT NULL,
@@ -910,7 +925,7 @@ CREATE TABLE `users` (
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`userId`),
-  UNIQUE KEY `userEmail` (`userEmail`)
+  UNIQUE KEY `userName` (`userName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

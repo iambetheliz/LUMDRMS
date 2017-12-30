@@ -1,36 +1,4 @@
 <?php
-  ob_start();
-  require_once '../includes/dbconnect.php';
-  if(empty($_SESSION)) // if the session not yet started 
-  session_start();
-  
-  // if session is not set this will redirect to login page
-  if( !isset($_SESSION['user']) ) {
-    header("Location: ../index.php?attempt");
-    exit;
-  }
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-  if ($DB_con->connect_errno) {
-    echo "Connect failed: ", $DB_con->connect_error;
-  exit();
-  }
-
-  // select loggedin users detail
-  $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
-  $result = $DB_con->query($res);
-  $userRow = $result->fetch_array(MYSQLI_BOTH);
-    
-  //Render facebook profile data
-  $output = '';
-  if(!empty($userRow)){
-    $account = '<a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-    $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-  } else{
-    $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-    header("Refresh:3; logout.php?logout");
-  }
 
   function fill_program($DB_con) {  
     $prog_out = '';  
@@ -57,9 +25,8 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="../datepicker/css/custom_datepicker.css">
-<link rel="stylesheet" type="text/css" href="../datepicker/css/jquery.ui.datepicker.monthyearpicker.css">
+
+<link href="../datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 <style type="text/css"> 
 #add_stud input.error {
   border:1px solid red;
@@ -117,7 +84,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -248,7 +215,10 @@
                     <div class="form-group">
                       <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
                       <div class="input-group date">
-                        <input type="text" name="dob" id="datepicker" class="form-control datepicker" placeholder="Pick a date"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                        <input type="text" class="form-control" name="dob" id="dob" />  
+                        <span class="input-group-addon">
+                          <span class="fa fa-calendar"></span>
+                        </span>
                       </div>
                       <br>
                       <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
@@ -384,7 +354,7 @@
 
     <footer class="footer">
       <div class="container-fluid">
-        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
+        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
       </div>
     </footer>
 
@@ -396,10 +366,19 @@
 <script src="../assets/js/students_crud.js"></script>
 
 <!-- DAtepicker -->
-<script src="../datepicker/js/jquery-ui.js"></script>
-<script src="../datepicker/js/jquery.ui.datepicker.monthyearpicker.js"></script>
+<script src="../datepicker/js/moment-with-locales.js"></script>
+<script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-  $('.datepicker').datepicker();  
+  $('#dob, #dob_edit').datetimepicker({
+    format:'MM/DD/YYYY',
+    keepOpen: true,
+    icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down"
+      }
+  });
 </script>
 </body>
 </html>

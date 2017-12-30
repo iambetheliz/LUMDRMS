@@ -112,8 +112,7 @@
                   <div class="control-group">
                     <label class="control-label">Current Password</label>
                     <div class="controls">
-                    <input class="form-control" type="text" id="password" name="password" value="<?php echo $userRow['userPass']; ?>"  placeholder="Current Password">
-                    <input class="form-control" type="password" id="current_password" name="current_password"  placeholder="Current Password" required/>
+                    <input class="form-control" type="password" id="current_password" name="current_password" autofocus placeholder="Current Password" required/>
                     </div>
                   </div>
 
@@ -171,7 +170,6 @@
     $("#change_password").submit(function(e){
       e.preventDefault();
       
-      var password = $('#password').val();
       var current_password = $('#current_password').val();
       var new_password = $('#new_password').val();
       var retype_password = $('#retype_password').val();
@@ -181,11 +179,10 @@
         return false;
       }
 
-      if (password != current_password) {
-        $.notify("Password does not match with current password!", "error");
-      } else if (new_password != retype_password){
+      if (new_password != retype_password){
         $.notify("Password does not match with your new password", "error");
-      } else if ((password == current_password) && (new_password == retype_password)){
+        return false;
+      } else if (current_password != "" && (new_password == retype_password)){
         var formData = $(this).serialize();
         $.ajax({
           type: "POST",

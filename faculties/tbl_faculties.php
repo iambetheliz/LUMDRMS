@@ -181,7 +181,7 @@ else {
 
 <script type="text/javascript">
 //  for select / deselect all
-$('document').ready(function() {
+$(document).ready(function() {
     $("[data-toggle=tooltip]").tooltip();
     $(".select-all").change(function () {
         $(".chk-box").prop('checked', $(this).prop("checked"));

@@ -1,5 +1,67 @@
 //Form Validation
+$(function () {
+  $("#otherSysRevCheck").click(function () {
+    if ($(this).is(":checked")) {
+      $("#otherSysRev").show().focus();
+      $("#otherSysRev").prop("disabled", false);
+    } else {
+      $("#otherSysRev").hide();
+      $("#otherSysRev").prop("disabled", true);
+    }
+  });
+  $("#otherMedHisCheck").click(function () {
+    if ($(this).is(":checked")) {
+      $("#otherMedHis").show().focus();
+    } else {
+      $("#otherMedHis").hide();
+    }
+  });
+});
+
 $(document).ready(function () {
+
+  $('#height').keypress(function (e) {
+    $("#errHeight").hide();
+
+    if ((e.which < 0 || e.which > 32) && (e.which < 48 || e.which > 57)) {
+      $("#errHeight").html("numbers only!").show().fadeOut("slow");
+      return false;
+    } 
+
+    var keyChr = this.value.length;
+    var heightval = $(this).val();
+
+    if (keyChr == 3) {
+      $("input[decimaldigits]").decimalDigitify();
+    }
+    else if (keyChr == 6) {
+      $(this).val(heightval);
+      $(this).attr('maxlength', '6'); 
+      $("#errHeight").html("5 digits only!").show().fadeOut("slow");
+        return false;
+    } 
+  });
+  $('#weight').keypress(function (e) {
+    $("#errWeight").hide();
+
+    if ((e.which < 0 || e.which > 32) && (e.which < 48 || e.which > 57)) {
+      $("#errWeight").html("numbers only!").show().fadeOut("slow");
+      return false;
+    } 
+
+    var keyChr = this.value.length;
+    var heightval = $(this).val();
+
+    if (keyChr == 3) {
+      $("input[decimaldigits]").decimalDigitify();
+    }
+    else if (keyChr == 6) {
+      $(this).val(heightval);
+      $(this).attr('maxlength', '6'); 
+      $("#errWeight").html("5 digits only!").show().fadeOut("slow");
+        return false;
+    } 
+  });
   
   // Inputt Fields
   $('#facultyNo').keypress(function (e) {

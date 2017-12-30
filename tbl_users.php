@@ -142,7 +142,7 @@
                     <?php } ?>
                     </tbody>
                   </table>
-                </div>
+                </div>              
               </div>
             </div>
 
@@ -163,6 +163,7 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/custom.js" type="text/javascript"></script>
+<script src="assets/js/password.js"></script>
 
 </body>
 </html>

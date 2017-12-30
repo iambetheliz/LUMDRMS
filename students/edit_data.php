@@ -49,7 +49,10 @@ $row = mysqli_fetch_array($query);
 	    <div class="form-group">
           <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
           <div class="input-group date">
-            <input type="text" name="dob" id="datepicker" class="form-control datepicker"> <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+            <input type="text" class="form-control" name="dob" id="dob_edit" /> 
+            <span class="input-group-addon">
+              <span class="fa fa-calendar"></span>
+            </span>
           </div>
           <br>
           <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
@@ -172,9 +175,15 @@ $row = mysqli_fetch_array($query);
 
 <!-- DAtepicker -->
 <script type="text/javascript">
-	var dateValue = $('#datepicker').val();
-  $('.datepicker').datepicker();
-  $('.datepicker').datepicker('setDate', '<?php echo $row['dob']; ?>');
+  $('#dob, #dob_edit').datetimepicker({
+    format:'MM/DD/YYYY',
+    icons: {
+				time: "fa fa-clock-o",
+				date: "fa fa-calendar",
+				up: "fa fa-arrow-up",
+				down: "fa fa-arrow-down"
+			}
+  });
 </script>
 <script type="text/javascript">
 $(document).ready(function(){

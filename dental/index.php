@@ -114,7 +114,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>

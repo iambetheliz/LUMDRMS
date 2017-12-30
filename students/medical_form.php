@@ -1,43 +1,3 @@
-<?php
-  ob_start();
-  require_once '../includes/dbconnect.php';
-  if(empty($_SESSION)) // if the session not yet started 
-   session_start();
-  
-  // if session is not set this will redirect to login page
-  if( !isset($_SESSION['user']) ) {
-    header("Location: ../index.php?attempt");
-    exit;
-  }
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-  if ($DB_con->connect_errno) {
-    echo "Connect failed: ", $DB_con->connect_error;
-  exit();
-  }
-
-  // select loggedin users detail
-  $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
-  $result = $DB_con->query($res);
-  $userRow = $result->fetch_array(MYSQLI_BOTH);
-    
-  //Render facebook profile data
-  $output = '';
-  if(!empty($userRow)){
-    $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-    $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-  } else{
-    $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-    header("Refresh:3; logout.php?logout");
-  }
-
-  if (isset($_GET['error'])) {
-    $errorMSG = "<span class='glyphicon glyphicon-warning text-danger'></span> Something went wrong, try again later.";
-    header('Refresh:3; medical_form.php');
-  }
-
-?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -51,6 +11,11 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 </head>
+<style type="text/css">
+  span.error {
+  color: red;
+}
+</style>
 <body>
 
   <!-- Navbar -->
@@ -84,7 +49,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -203,7 +168,7 @@
                     <div class="col-lg-3">
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" id="otherSysRevCheck"> Other 
+                          <input type="checkbox" class="form-check-input" id="otherSysRevCheck" /> Other 
                         </label>
                         <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" style="display: none;">
                       </div>
@@ -400,16 +365,20 @@
 
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Height (cm):</label>
-                        <input type="text" class="form-control value" name="height" id="height"> 
+                        <label>Height (cm):</label> <span class="error pull-right" id="errHeight"></span>
+                        <input type="text" class="form-control value" name="height" id="height" decimaldigits='2'> 
                       </div>
                       <div class="col-lg-3">
                         <label>Weight (kg):</label>  
-                        <input type="decimal" class="form-control value" name="weight" id="weight"> 
+                        <input type="text" class="form-control value" name="weight" id="weight" decimaldigits='2'> 
                       </div>
                       <div class="col-lg-3">
                         <label>Body Mass Index:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi" readonly="readonly" title="Content not editable" data-toggle="tooltip">
+                        <input type="text" class="form-control" name="bmi" id="bmi" readonly title="Content not editable" data-toggle="tooltip">
+                      </div>
+                      <div class="col-lg-3">
+                        <label>BMI Category:</label> 
+                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly>
                       </div>
                     </div>
                     <div class="form-group row">
@@ -548,57 +517,40 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
+<script src="../assets/js/form_validate_custom.js"></script> 
+<script src="../assets/js/jquery.decimalize.js"></script> 
 <script type="text/javascript">
-  $(function () {
-    $("#otherSysRevCheck").click(function () {
-      if ($(this).is(":checked")) {
-        $("#otherSysRev").show().focus();
-      } else {
-        $("#otherSysRev").hide();
-      }
-    });
-    $("#otherMedHisCheck").click(function () {
-      if ($(this).is(":checked")) {
-        $("#otherMedHis").show().focus();
-      } else {
-        $("#otherMedHis").hide();
-      }
-    });
-  });
-  $('#height').keypress(function (e) {
-      $("#errSN").hide();
-
-    if ((e.which < 0 || e.which > 32) && (e.which < 48 || e.which > 57)) {
-      return false;
-    } 
-
-    var keyChr = this.value.length;
-    var heightval = $(this).val();
-
-    if (keyChr == 1 && heightval.indexOf("(") <= -1) {
-      $(this).val(heightval + ".");
-    } else if (keyChr == 4) {
-      $(this).val(heightval);
-      $(this).attr('maxlength', '4'); 
-      return true;
-    } else if (keyChr == 4) {
-      $("#errSN").html("8 characters only!").show().fadeOut("slow");
-        return false;
-    } 
-  });
-  jQuery(document).ready(function ($) {
-    var $bmi = $('#bmi'), $value = $('.value');
-    $value.on('input', function (e) {
-      var weight = $("#weight").val();
-      var bmi = Math.pow($("#height").val(),2);
-      $value.each(function (index, elem) {
-        if (!Number.isNaN(parseFloat(this.value))) {
-          bmi = bmi;
-        }         
-    });
-    $bmi.val(weight / bmi);
+$(document).ready(function() {
+  $("#category").val('Calculating...');
+  $("#bmi").val('0.0');
+  //this calculates values automatically 
+  bmi(); 
+  $("#height, #weight").on("keydown keyup", function() {
+    bmi();
+    if ($("#bmi").val() <= 18.5) {
+      $("#category").val('Underweight');
+    }
+    else if (($("#bmi").val() >= 18.5) && ($("#bmi").val() <= 24.9)) {
+      $("#category").val('Normal weight');
+    }
+    else if (($("#bmi").val() >= 25) && ($("#bmi").val() <= 29.9)) {
+      $("#category").val('Overweight');
+    }
+    else if ($("#bmi").val() >= 30) {
+      $("#category").val('Obese');
+    }
   });
 });
+
+function bmi() {
+  var height = document.getElementById('height').value;
+  var weight = document.getElementById('weight').value;
+  var result = (parseFloat(weight) / parseFloat(height) / parseFloat(height)) * 10000;
+
+  if (!isNaN(result)) {
+    document.getElementById('bmi').value = result.toFixed(2);
+  }
+}
 </script>
     
 </body>

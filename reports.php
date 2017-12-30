@@ -20,12 +20,14 @@
   else {
     $data_points = array();
     
-    $result = $DB_con->query("SELECT `alias`, COUNT(*) as `total` FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` GROUP BY `program`") or die(mysqli_error());
+    $result = $DB_con->query("SELECT `diseases`, COUNT(*) as `total` FROM `tbl_diseases` GROUP BY `diseases`") or die(mysqli_error());
 
-    while($row = mysqli_fetch_array($result)) {
-      $point = array("label" => $row['alias'], "y" => $row['total']);      
-      array_push($data_points, $point);        
-    }
+      while($row = mysqli_fetch_array($result)) {
+        if (!empty($row['diseases'])) {
+          $point = array("label" => $row['diseases'], "y" => $row['total']);      
+          array_push($data_points, $point);    
+        }    
+      }
     
     echo json_encode($data_points, JSON_NUMERIC_CHECK);
   }

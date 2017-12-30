@@ -1,12 +1,12 @@
 <?php
-require_once("../includes/dbconnect.php");
+require_once("includes/dbconnect.php");
 $DB_con = new mysqli("localhost", "root", "", "records");
 
 if(!empty($_POST["keyword"])) {
-    $query ="SELECT * FROM faculties WHERE facultyNo LIKE '%" . $_POST["keyword"] . "%' OR first_name LIKE '%" . $_POST["keyword"] . "%' OR middle_name LIKE '%" . $_POST["keyword"] . "%' OR last_name LIKE '%" . $_POST["keyword"] . "%' ORDER BY first_name LIMIT 0,6";
+    $query ="SELECT * FROM students WHERE studentNo LIKE '%" . $_POST["keyword"] . "%' OR first_name LIKE '%" . $_POST["keyword"] . "%' OR middle_name LIKE '%" . $_POST["keyword"] . "%' OR last_name LIKE '%" . $_POST["keyword"] . "%' ORDER BY first_name LIMIT 0,6";
     $result = $DB_con->query($query);
 ?>
-    <ul id="country-list">
+        <ul id="country-list">
         <?php 
         if($result->num_rows > 0) {
             foreach($result as $row) { ?>
@@ -18,6 +18,6 @@ if(!empty($_POST["keyword"])) {
             echo "<li>No result</li>";
         }
         ?>
-    </ul>
+        </ul>
 <?php } 
 ?>

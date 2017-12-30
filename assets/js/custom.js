@@ -13,8 +13,9 @@ $(document).ready(function () {
   });
 
 
-  //Sidebar Menu Collapse
-  $("[data-toggle=tooltip]").tooltip();
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
   
   //Sidebar Menu Links
   $('ul[role="menu"]') 

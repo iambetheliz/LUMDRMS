@@ -1,38 +1,5 @@
 <?php
-  ob_start();
-  require_once '../includes/dbconnect.php';
   include '../includes/date_time_diff.php';
-  if(empty($_SESSION)) // if the session not yet started 
-   session_start();
-  
-  // if session is not set this will redirect to login page
-  if( !isset($_SESSION['user']) ) {
-    header("Location: ../index.php?attempt");
-    exit;
-  }
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
-
-  // select loggedin users detail
-  $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
-  $result = $DB_con->query($res);
-  $userRow = $result->fetch_array(MYSQLI_BOTH);
-    
-    //Render facebook profile data
-    $output = '';
-    if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-        $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-    }else{
-        $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; logout.php?logout");
-    }
-
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -98,7 +65,7 @@
             <?php 
               if ($userRow['role'] === 'superadmin') {?>
               <li>
-                <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+                <a href="/lu_clinic/tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
               </li>
             <?php    }
             ?>
@@ -173,7 +140,7 @@
                             </tr>
                             <tr>
                               <td><label>Date of Birth:</label></td>
-                              <td><?php if ($row['dob'] != '0000-00-00') echo date('F j, Y', strtotime($row['dob'])) ;?></td>
+                              <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
                               <td><label>Marital Status:</label></td>
                               <td><?php echo $row['stat'] ;?></td>
                             </tr>
@@ -290,13 +257,13 @@
                               <td>
                                 <label>Weight:</label> <?php echo $row['weight'] ;?> kg.
                               </td>
-                              <td><label>BMI:</label> <?php echo $row['bmi'] ;?></td>
+                              <td><label>BMI:</label> <?php echo $row['bmi']. ' - ' .$row['bmi_cat'];?></td>
                               <td><label>Blood Pressure:</label> <?php echo $row['bp'] ;?></td>
                             </tr>
                             <tr>
-                              <td><label>Cardiac Rate:</label> <?php echo $row['cr'] ;?></td>
-                              <td><label>Respirtory Rate:</label> <?php echo $row['rr'] ;?></td>
-                              <td colspan="2"><label>Temperature:</label> <?php echo $row['temp'] ;?></td>
+                              <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $row['cr']. ' bpm.' ;?></span></td>
+                              <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php echo $row['rr']. " bpm." ;?></span></td>
+                              <td colspan="2"><label>Temperature:</label> <?php echo $row['temp']. " &#x2103;" ;?></td>
                             </tr>
                           </tbody>
                           <thead>

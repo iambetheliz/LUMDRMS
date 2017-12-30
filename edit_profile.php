@@ -45,7 +45,9 @@
 		$name = strip_tags($name);
 		$name = htmlspecialchars($name);
 		
-		$position = $_POST['position'];
+		$email = trim($_POST['email']);
+		$email = strip_tags($email);
+		$email = htmlspecialchars($email);
 		
 		$pass = trim($_POST['pass']);
 		$pass = strip_tags($pass);
@@ -58,8 +60,11 @@
 		} else if (strlen($name) < 3) {
 			$error = true;
 			$nameError = "Name must have atleat 3 characters.";
+		} else if (!preg_match("/^[a-zA-Z0-9 ]+$/",$name)) {
+			$error = true;
+			$nameError = "Name must contain alphabets and space.";
 		} else {
-			// check username exist or not
+			// check email exist or not
 			$query = "SELECT userName FROM users WHERE userName='$name'";
 			$result = $DB_con->query($query);
 			if($result->num_rows != 0){
@@ -67,12 +72,20 @@
 				$nameError = "Username is already in use.";
 			}
 		}
-		//position
-		if (empty($position)) {
-			$error = true;
-			$positionError = "Please select your position.";
-		}
 		
+		//basic email validation
+		if ( !filter_var($email,FILTER_VALIDATE_EMAIL) ) {
+			$error = true;
+			$emailError = "Please enter valid email address.";
+		} else {
+			// check email exist or not
+			$query = "SELECT userEmail FROM users WHERE userEmail='$email'";
+			$result = $DB_con->query($query);
+			if($result->num_rows != 0){
+				$error = true;
+				$emailError = "Provided Email is already in use.";
+			}
+		}
 		// password validation
 		if (empty($pass)){
 			$error = true;
@@ -88,12 +101,12 @@
 		// if there's no error, continue to signup
 		if( !$error ) {
 			
-			$stmt = mysqli_query($DB_con,"INSERT INTO users(userName,userPass,position) VALUES('$name','$password','$position')");
+			$stmt = mysqli_query($DB_con,"INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')");
 				
 			if ($stmt) {
 				unset($name);
+				unset($email);
 				unset($pass);
-				unset($position);
 			}	
 				
 		}	
@@ -127,26 +140,14 @@
 		            </div>
 		            
 		            <div class="form-group">
-		            	<label>Position:</label>
-		            	<select class="form-control" name="position" id="position">
-		            		<option value="<?php echo $position ?>">Select</option>
-		            		<option value="Nurse">Nurse</option>
-		            		<option value="Physician">Physician</option>
-		            		<option value="Dentist">Dentist</option>
-		            	</select>		                
-		            	<span class="text-danger"><?php echo $positionError; ?></span>         
+		            	<label>Email:</label>
+		            	<input type="email" name="email" class="form-control" maxlength="40" value="<?php echo $email ?>" />
+		                <span class="text-danger"><?php echo $emailError; ?></span>         
 		            </div>
 		            
 		            <div class="form-group">
 		            	<label>Password:</label>
-		            	<div class="input-group">
-                        <input type="text" name="pass" class="form-control"  maxlength="15" id="password" />  
-                        <span class="input-group-btn" onclick="$('#password').val(password.generate());">
-                        	<button class="btn btn-default" type="button">
-		                        <span class="fa fa-lock"></span>
-		                    </button>                          
-                        </span>
-                      </div>
+		            	<input type="password" name="pass" class="form-control"  maxlength="15" />
 		                <span class="text-danger"><?php echo $passError; ?></span>
 		            </div>
 		            
