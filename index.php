@@ -1,3 +1,26 @@
+<?php
+  ob_start();
+  require_once 'includes/dbconnect.php';
+  if(empty($_SESSION)) // if the session not yet started 
+   session_start();
+  
+  // it will never let you open index(login) page if session is set
+  if ( isset($_SESSION['user'])!="" ) {
+  header("Location: dashboard.php");
+  exit;
+  }
+
+  if (isset($_GET['attempt'])) {
+    $errMSG = "You need to login first!";
+  }
+
+  $DB_con = new mysqli("localhost", "root", "", "records");
+
+  if ($DB_con->connect_errno) {
+    echo "Connect failed: ", $DB_con->connect_error;
+  exit();
+  }
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -80,3 +103,4 @@
 
 </body>
 </html>
+<?php ob_end_flush(); ?>

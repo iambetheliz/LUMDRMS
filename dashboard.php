@@ -76,9 +76,9 @@
 
 	          <!-- Page Heading -->
             <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-header">Dashboard</h2>
-                </div>
+              <div class="col-lg-12">
+                <h2 class="page-header">Dashboard</h2>
+              </div>
             </div>  
             <?php 
             if (isset($_GET['loginSuccess'])) {?>  
@@ -98,11 +98,11 @@
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-success">
                   <?php    
-                    $stmt = mysqli_query($DB_con,"SELECT COUNT(*) as rows FROM `students_stats` WHERE DAY(date_registered) = DAY(NOW())");  
-                    $resultNum = $stmt->fetch_assoc();   
-                    $count = $resultNum['rows'];
-                  ?>               
-                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE DAY(date_registered) = DAY(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE DAY(date_registered) = DAY(NOW())) AS total_faculties");
+                    $row = mysqli_fetch_array($query);
+                    $count = $row['total_students'] + $row['total_faculties'];
+                  ?>            
+                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
                   <div class="offer-content">
                     <h4><i class="fa fa-calendar" aria-hidden="true"></i> Today</h4>  
                     <?php 
@@ -119,10 +119,11 @@
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-info">
                   <?php    
-                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())");
-                    $count = $stmt->num_rows;
-                  ?>            
-                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE WEEKOFYEAR(date_registered) = WEEKOFYEAR(NOW())) AS total_faculties");
+                    $row = mysqli_fetch_array($query);
+                    $count = $row['total_students'] + $row['total_faculties'];
+                  ?>          
+                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
                   <div class="offer-content">
                     <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Week</h4>
                     <?php 
@@ -139,10 +140,11 @@
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-warning">
                   <?php    
-                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())");
-                    $count = $stmt->num_rows;
-                  ?>           
-                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1> 
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered) = MONTH(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE YEAR(date_registered) = YEAR(NOW()) AND MONTH(date_registered)=MONTH(NOW())) AS total_faculties");
+                    $row = mysqli_fetch_array($query);
+                    $count = $row['total_students'] + $row['total_faculties'];
+                  ?>          
+                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1> 
                   <div class="offer-content">
                     <h4><i class="fa fa-calendar" aria-hidden="true"></i> This Month</h4>
                     <?php 
@@ -159,10 +161,11 @@
               <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
                 <div class="offer offer-danger">
                   <?php    
-                    $stmt = mysqli_query($DB_con,"SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE YEAR(date_registered) = YEAR(NOW())");
-                    $count = $stmt->num_rows;
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` WHERE YEAR(date_registered) = YEAR(NOW())) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` WHERE YEAR(date_registered) = YEAR(NOW())) AS total_faculties");
+                    $row = mysqli_fetch_array($query);
+                    $count = $row['total_students'] + $row['total_faculties'];
                   ?>           
-                  <h1 class="stats"><strong><?php echo $count; ?></strong></h1>
+                  <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
                   <div class="offer-content">
                     <h4><i class="fa fa-calendar"></i> This Year</h4>
                     <?php 
@@ -329,6 +332,19 @@
 <script src="charts/canvasjs.min.js"></script>
 <script src="charts/jquery.canvasjs.min.js"></script>
 <script src="charts/charts.js"></script>
+<script type="text/javascript">
+  $('.count').each(function () {
+    $(this).prop('Counter',0).animate({
+        Counter: $(this).text()
+    }, {
+        duration: 3000,
+        easing: 'swing',
+        step: function (now) {
+            $(this).text(Math.ceil(now));
+        }
+    });
+  });
+</script>
     
 </body>
 </html>

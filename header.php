@@ -128,9 +128,10 @@
     $('.fa-spinner').fadeOut("slow");
   })
   //To select country name
-  function selectCountry(val) {
+  function selectStudents(val) {
     $("#search-box").val(val);
     $('.fa-spinner').fadeOut("slow");
     $("#suggesstion-box").hide();
+    window.location.href='/lu_clinic/students/profile.php?StudentID=198';
   }
 </script>

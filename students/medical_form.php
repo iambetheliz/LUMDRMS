@@ -365,37 +365,37 @@
 
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Height (cm):</label> <span class="error pull-right" id="errHeight"></span>
-                        <input type="text" class="form-control value" name="height" id="height" decimaldigits='2'> 
+                        <label>Height: <small><i>(cm)</i></small></label> <span class="error pull-right" id="errHeight"></span>
+                        <input type="text" class="form-control value" name="height" id="height" decimaldigits='1' /> 
                       </div>
                       <div class="col-lg-3">
-                        <label>Weight (kg):</label>  
-                        <input type="text" class="form-control value" name="weight" id="weight" decimaldigits='2'> 
+                        <label>Weight: <small><i>(kg)</i></small></label>  
+                        <input type="text" class="form-control value" name="weight" id="weight" decimaldigits='2' /> 
                       </div>
                       <div class="col-lg-3">
                         <label>Body Mass Index:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi" readonly title="Content not editable" data-toggle="tooltip">
+                        <input type="text" class="form-control" name="bmi" id="bmi" readonly disabled />
                       </div>
                       <div class="col-lg-3">
                         <label>BMI Category:</label> 
-                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly>
+                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly disabled />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Blood Pressure:</label> 
-                        <input type="text" class="form-control" name="bp"> 
+                        <label>Blood Pressure: <small><i>(mmHg)</i></small></label> 
+                        <input type="text" class="form-control" name="bp" /> 
                       </div>
                       <div class="col-lg-3">
-                        <label>Cardiac Rate:</label>
+                        <label>Cardiac Rate: <small><i>(beats per minute)</i></small></label>
                         <input type="text" class="form-control" name="cr"> 
                       </div>
-                      <div class="col-lg-3">
-                        <label>Respiratory Rate:</label>
+                      <div class="col-lg-4">
+                        <label>Respiratory Rate: <small><i>(breaths per minute)</i></small></label>
                         <input type="text" class="form-control" name="rr"> 
                       </div>
-                      <div class="col-lg-3">
-                        <label>Temperature:</label>
+                      <div class="col-lg-2">
+                        <label>Temperature: <small><i>(&#x2103; )</i></small></label>
                         <input type="text" class="form-control" name="temp"> 
                       </div>
                     </div>    

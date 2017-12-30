@@ -135,11 +135,6 @@
 
                     <div class="col-lg-6 right-pane">
                       <div class="row">
-                        <div class="btn-group" role="group" aria-label="...">
-                          <button type="button" class="btn btn-primary">All</button>
-                          <button type="button" class="btn btn-success">Ok</button>
-                          <button type="button" class="btn btn-danger">Pending</button>
-                        </div>
                         <div class="btn-group filter">
                           <span class="fa fa-filter"></span>
                           <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>

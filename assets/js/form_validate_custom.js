@@ -34,9 +34,9 @@ $(document).ready(function () {
     if (keyChr == 3) {
       $("input[decimaldigits]").decimalDigitify();
     }
-    else if (keyChr == 6) {
+    else if (keyChr == 5) {
       $(this).val(heightval);
-      $(this).attr('maxlength', '6'); 
+      $(this).attr('maxlength', '5'); 
       $("#errHeight").html("5 digits only!").show().fadeOut("slow");
         return false;
     } 

@@ -900,7 +900,9 @@ INSERT INTO `students_stats` (`StatsID`, `med`, `dent`, `date_registered`, `date
 CREATE TABLE `tbl_diseases` (
   `Dis_ID` int(11) NOT NULL AUTO_INCREMENT,
   `diseases` varchar(30) NOT NULL,
-  `StudentID` int(11) NOT NULL,
+  `category` varchar(20) NOT NULL,
+  `identity` varchar(20) NOT NULL,
+  `PatientID` int(11) NOT NULL,
   PRIMARY KEY (`Dis_ID`)
 );
 

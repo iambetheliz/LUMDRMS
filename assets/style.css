@@ -13,9 +13,6 @@ a.demo {
     margin-right: 0;
   }
 }
-input#keywords {
-    width: 359px;
-}
 @media (max-width: 768px) {
   .left-pane {
     margin-bottom: 15px;

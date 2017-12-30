@@ -5,16 +5,20 @@ $(document).ready(function () {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
-                text: "Student Medical Records - 2017"
+                text: "Medical Records - 2017"
             },
             axisX: {
-                title: "Diagnostics"
+                title: "Diseases"
             },
-            data: [
-                {
-                    dataPoints: result
-                }
-            ]
+            axisY:{
+                includeZero: false,
+                minimum: 0,
+                maximum: 100
+            },
+            data: [{
+                type: "line",
+                dataPoints: result
+            }]
         });
 
         chart.render();

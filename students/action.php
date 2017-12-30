@@ -24,6 +24,9 @@
   	if($_REQUEST['action_type'] == 'save'){
 
         //checkbox
+
+        $sysRev = implode(", ",$_POST['sysRev_list']);
+        $medHis = implode(", ",$_POST['medHis_list']);
        
         $drinker = $_POST['drinker'];
         $smoker = $_POST['smoker'];
@@ -44,15 +47,24 @@
         $studentNo = $_POST['studentNo'];
         $StudentID = $_POST['StudentID'];
 
+        $identity = 'student';
+
         if (!$error) {        
 
           if(!empty($_POST['sysRev_list'])) {
+            $category = 'sysRev';
             foreach($_POST['sysRev_list'] as $sys_rev) {
-              mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,StudentID) VALUES('$sys_rev','$StudentID');");
+              mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$sys_rev','$category','$identity','$StudentID');");
+            }
+          }
+          if(!empty($_POST['medHis_list'])) {
+            $category = 'medHis';
+            foreach($_POST['medHis_list'] as $med_his) {
+              mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$med_his','$category','$identity','$StudentID');");
             }
           }
 
-          mysqli_query($DB_con,"INSERT INTO students_med (drinker,smoker,drug_user,mens,duration,weight,height,bmi,bmi_cat,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
+          mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bmi_cat,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
 
           header('Location: profile.php?StudentID='.$StudentID);      
 

@@ -49,7 +49,7 @@ $row = mysqli_fetch_array($query);
 	    <div class="form-group">
           <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
           <div class="input-group date">
-            <input type="text" class="form-control" name="dob" id="dob_edit" /> 
+            <input type="text" class="form-control" value="<?php echo $row['dob'] ;?>" name="dob" id="dob_edit" /> 
             <span class="input-group-addon">
               <span class="fa fa-calendar"></span>
             </span>

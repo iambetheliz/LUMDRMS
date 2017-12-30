@@ -1,0 +1,24 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+#RewriteRule ^([a-z]+)\/?$ $1.php [NC]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+#RewriteRule ^([a-z]+)\/?$ $1.html [NC]
+
+RewriteEngine on
+RewriteRule ^(.*) $1 [L]
+RewriteRule ^students/$ profile.php?StudentID=([0-9]+) [L]
+
+Options -Indexes
+
+ErrorDocument 403 /ovcaa/administrator/403-error.php
+ErrorDocument 404 /ovcaa/administrator/404-error.php
+ErrorDocument 500 /ovcaa/administrator/500-error.php
+
+</IfModule>
