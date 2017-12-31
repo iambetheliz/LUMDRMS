@@ -71,10 +71,6 @@
 				
 	}		
 
-  	if (isset($_GET['loginError'])) {
-    	$errMSG = "Incorrect Username or Password.";
-  	}
-
   ob_end_flush();
 	
 ?>

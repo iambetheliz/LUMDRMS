@@ -73,6 +73,11 @@
 .col-2 {
   padding-right: 20px;
 }
+@media (min-width: 768px) {
+.modal-dialog {
+    width: 800px;
+    margin: 30px auto;
+}}
 </style>
 </head>
 <body>
@@ -95,13 +100,13 @@
             <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
           </li>
           <li class="active have-child" role="presentation">
-            <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+            <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li>
                 <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
               </li>
               <li>
                 <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
@@ -114,7 +119,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -137,50 +142,40 @@
                 <!-- End of Page Heading -->
                 
                 <!-- Buttons -->
-                <div class="container-fluid">
-                  <!-- Start btn-toolbar -->
-                  <div class="row">
-                	  <div class="col-lg-6 left-pane">
-                      <div class="row">
-                        <div class="btn-toolbar">
-                			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success">Add New</button>
+            <div class="row">
+              <!-- Start btn-toolbar -->
+              <div class="col-lg-8">
+                <div class="btn-toolbar">
+                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
-                          <div class="btn-group">
-                            <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                              <option value="">Show All students</option>  
-                              <?php echo fill_program($DB_con); ?>  
-                            </select>
-                          </div>
-
-                          <div class="btn-group sort">
-                            <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                              <option value="">Sort A-Z</option>
-                              <option value="asc">Ascending</option>
-                              <option value="desc">Descending</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-6 right-pane">
-                      <div class="row">
-                        <div class="btn-group" role="group" aria-label="...">
-                          <button type="button" class="btn btn-primary">All</button>
-                          <button type="button" class="btn btn-success">Ok</button>
-                          <button type="button" class="btn btn-danger">Pending</button>
-                        </div>
-                        <div class="btn-group filter">
-                          <span class="fa fa-filter"></span>
-                          <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="btn-group">
+                    <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
+                      <option value="">Show All Programs</option>  
+                      <?php echo fill_program($DB_con); ?>  
+                    </select>
                   </div>
-                  <!-- End btn-toolbar -->
-            	  </div>
-                <br>
-                <!-- End of Buttons -->
+
+                  <div class="btn-group sort">
+                    <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                      <option value="">Sort A-Z</option>
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!-- End btn-toolbar -->
+
+              <div class="col-lg-4">
+                <div class="form-group filter">
+                  <span class="fa fa-filter"></span>
+                  <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                </div>
+              </div>
+            </div>
+            <!-- End of Buttons -->
+
+            <br>
 				      
                 <div id="overlay" align="center">
                   <div>

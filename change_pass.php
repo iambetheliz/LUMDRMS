@@ -78,14 +78,20 @@
                   <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                  <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                  <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
               </li>
             </ul>
           </li>
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -156,13 +162,6 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/custom.js"></script> 
 <script src="assets/js/notify.js"></script> 
-<script src="http://www.bichlmeier.info/sha256.js"></script>
-<script src="http://www.webtoolkit.info/djs/webtoolkit.sha256.js"></script>
-<script src="http://crypto-js.googlecode.com/files/2.2.0-crypto-sha256.js"></script>
-<script src="http://point-at-infinity.org/jssha256/jssha256.js"></script>
-<script src="http://code.alexweber.com.br/jquery/sha256/jquery.sha256.js"></script>
-<script src="https://raw.github.com/h2non/jsHashes/master/client/src/hashes.js"></script>
-<script src="https://s-static.ak.fbcdn.net/rsrc.php/v2/yy/r/vQZdFsFf84Z.js"></script>
 
 <script>
   $(document).ready(function(){

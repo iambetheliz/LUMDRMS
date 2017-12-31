@@ -51,18 +51,23 @@
 <!-- bootstrap -->
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
+<link href="../assets/style.css" rel="stylesheet" type="text/css" />
 <!-- fullcalendar -->
-<link href="../calendar/assets/fullcalendar.css" rel="stylesheet" />
+<link href="../calendar/assets/cal.css" rel="stylesheet" />
+<link href="../calendar/assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="../calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
-<style>
- #calendar {
-  width: 100%;
-  }
-  .modal-dialog {
-    width: 500px;
-  }
+<style type="text/css">  
+.fc-unthemed td.fc-today {
+  background: #c3eec3;
+}
+.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
+  background: #428b42;
+}
+.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
+    /*background: white;*/
+    border-color: #ddd;
+}
 </style>
 </head>
 
@@ -73,134 +78,136 @@
 <!-- End of Navbar -->
 
 <!-- Content -->
-    <div id="wrapper">
+<div id="wrapper">
 
-        <!-- Sidebar Menu Items -->
-        <div id="sidebar-wrapper">
-          <nav id="spy">
-            <ul class="sidebar-nav">                    
-                <li>
-                    <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-                </li>
-                <li class="active">
-                    <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
-                </li>
-                <li role="presentation" class="have-child">
-                    <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
-                    <ul id="demo" class="panel-collapse collapse">
-                        <li>
-                        <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-                      </li>
-                      <li>
-                        <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
-                      </li>
-                      <li>
-                        <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
-                      </li>
-                      <li>
-                        <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <?php 
-                    if ($userRow['role'] === 'superadmin') {?>
-                    <li>
-                      <a href="/lu_clinic/tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
-                    </li>
-                  <?php    }
-                  ?>
-                </ul>
-          </nav>
-        </div>  
-        <!-- End of Sidebar --> 
+  <!-- Sidebar Menu Items -->
+  <div id="sidebar-wrapper">
+    <nav id="spy">
+      <ul class="sidebar-nav">                    
+        <li>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+        </li>
+        <li class="active">
+            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+        </li>
+        <li role="presentation" class="have-child">
+          <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+          <ul id="demo" class="panel-collapse collapse">
+              <li>
+              <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+            </li>
+            <li>
+              <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+            </li>
+            <li>
+              <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+            </li>
+            <li>
+              <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+            </li>
+          </ul>
+        </li>
+        <?php 
+          if ($userRow['role'] === 'superadmin') {?>
+          <li>
+            <a href="/lu_clinic/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+          </li>
+        <?php    }
+        ?>
+      </ul>
+    </nav>
+  </div>  
+  <!-- End of Sidebar --> 
 
-        <!-- Begin Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+  <!-- Begin Main Screen -->
+  <div id="page-content-wrapper">
+    <div class="page-content">
+      <div class="container-fluid">   
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="container-fluid">
-                        <h1 class="page-header">Calendar Activities <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
-                    </div>
-                </div>
-                <!-- End of Page Heading -->
-
-                <!-- add calander in this div -->
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div id='calendar'></div>
-                    </div>
-                </div> 
-
-            </div>
+        <!-- Page Heading -->
+        <div class="row">
+          <div class="container-fluid">
+            <h1 class="page-header">Calendar Activities <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
           </div>
         </div>
-    </div>
+        <!-- End of Page Heading -->
 
-    <!-- Modal  to Add Event -->
-    <div id="createEventModal" class="modal fade" role="dialog">
-      <div class="modal-dialog"> 
+        <!-- add calander in this div -->
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                 <h4 class="modal-title">Add Event</h4>
-            </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div id='calendar'></div>
+          </div>
+        </div> 
 
-            <div class="modal-body">
-                <div class="control-group">
-                    <label class="control-label" for="inputPatient">Event:</label>
-                    <div class="field desc">
-                        <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
-                    </div>
-                </div>
-                <input type="hidden" id="startTime"/>
-                <input type="hidden" id="endTime"/>
-                <div class="control-group">
-                    <label class="control-label" for="when">When:</label>
-                    <div class="controls controls-row" id="when" style="margin-top:5px;">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-            </div>
-        </div>
       </div>
     </div>
+  </div>
+  <!-- End -->
 
-    <!-- Modal to Event Details -->
-    <div id="calendarModal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Event Details</h4>
-                </div>
-                <div id="modalBody" class="modal-body">
-                    <h4 id="modalTitle" class="modal-title"></h4>
-                    <div id="modalWhen" style="margin-top:5px;"></div>
-                </div>
-                <input type="hidden" id="eventID"/>
-                <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                    <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
-                </div>
-            </div>
+</div>
+<!-- End of Content -->
+
+<!-- Modal  to Add Event -->
+<div id="createEventModal" class="modal fade" role="dialog">
+  <div class="modal-dialog"> 
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+         <h4 class="modal-title">Add Event</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Event:</label>
+          <div class="field desc">
+            <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
+          </div>
         </div>
+        <input type="hidden" id="startTime"/>
+        <input type="hidden" id="endTime"/>
+        <div class="form-group">
+          <label class="control-label" for="when">When:</label>
+          <div class="controls controls-row" id="when" style="margin-top:5px;">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
+      </div>
     </div>
-    <!--Modal-->
+  </div>
+</div>
 
-    <footer class="footer">
-        <div class="container-fluid">
-            <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
-        </div>
-    </footer>
+<!-- Modal to Event Details -->
+<div id="calendarModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Event Details</h4>
+      </div>
+      <div id="modalBody" class="modal-body">
+        <h4 id="modalTitle" class="modal-title"></h4>
+        <div id="modalWhen" style="margin-top:5px;"></div>
+      </div>
+      <input type="hidden" id="eventID"/>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal-->
+
+<footer class="footer">
+  <div class="container-fluid">
+    <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
+  </div>
+</footer>
 
 </body>
 <!-- jQuery -->
@@ -210,8 +217,9 @@
 <!-- calendar scripts --> 
 <script src="../calendar/assets/jquery-ui.min.js"></script>
 <script src="../calendar/assets/moment.min.js"></script>
+
 <script src="../calendar/assets/fullcalendar.min.js"></script>
-<script type="text/javascript" src="../calendar/assets/calendar.js"></script>
+<script type="text/javascript" src="../calendar/assets/calendar_sample.js"></script>
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>

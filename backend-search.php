@@ -10,7 +10,7 @@ if(!empty($_POST["keyword"])) {
         <?php 
         if($result->num_rows > 0) {
             foreach($result as $row) { ?>
-                <li onClick="selectStudents('<?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?>');"><?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?>
+                <li onClick="selectStudents('<?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?>');"><a href="profile.php?StudentID=<?php echo $row['StudentID'];?>"><?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?></a>
                 </li>
                 <?php 
             }

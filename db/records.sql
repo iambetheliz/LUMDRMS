@@ -63,8 +63,9 @@ INSERT INTO `department` (`dept_id`, `dept_name`, `cat`, `status`) VALUES
 CREATE TABLE `events` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL,
-  `start` varchar(48) NOT NULL,
-  `end` varchar(48) NOT NULL,
+  `color` varchar(7) DEFAULT NULL,
+  `start` datetime NOT NULL,
+  `end` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

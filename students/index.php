@@ -43,6 +43,12 @@
 .col-2 {
   padding-right: 20px;
 }
+
+@media (min-width: 768px) {
+.modal-dialog {
+    width: 800px;
+    margin: 30px auto;
+}}
 </style>
 </head>
 <body>
@@ -84,7 +90,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -93,236 +99,231 @@
     </div>  
     <!-- End of Sidebar --> 
 
-	    <!-- Begin Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+    <!-- Begin Main Screen -->
+      <div id="page-content-wrapper">
+        <div class="page-content">
+          <div class="container-fluid">   
 
-    	        <!-- Page Heading -->
-                <div class="row">
-                    <div class="container-fluid">
-                        <h1 class="page-header">Student Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
-                    </div>
+  	        <!-- Page Heading -->
+            <div class="row">
+              <div class="container-fluid">
+                <h1 class="page-header">Student Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+              </div>
+            </div>
+            <!-- End of Page Heading -->
+              
+            <!-- Buttons -->
+            <div class="row">
+              <!-- Start btn-toolbar -->
+              <div class="col-lg-8">
+                <div class="btn-toolbar">
+        			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+
+                  <div class="btn-group">
+                    <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
+                      <option value="">Show All Programs</option>  
+                      <?php echo fill_program($DB_con); ?>  
+                    </select>
+                  </div>
+
+                  <div class="btn-group sort">
+                    <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                      <option value="">Sort A-Z</option>
+                      <option value="asc">Ascending</option>
+                      <option value="desc">Descending</option>
+                    </select>
+                  </div>
                 </div>
-                <!-- End of Page Heading -->
-                
-                <!-- Buttons -->
+              </div>
+              <!-- End btn-toolbar -->
+
+              <div class="col-lg-4">
+                <div class="form-group filter">
+                  <span class="fa fa-filter"></span>
+                  <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                </div>
+              </div>
+            </div>
+            <!-- End of Buttons -->
+
+              <br>
+			      
+              <div id="overlay" align="center">
+                <div>
+                  <img src="../includes/loading.gif" width="64px" height="64px"/>
+                </div>
+              </div>
+			        <div id="tbl_students">
+                <!--
+                  This is where data will be shown.
+                -->
+              </div>
+            </div>  
+          </div>
+        </div>
+        <!-- End of Main Screen -->
+
+      </div>
+      <!-- End of Content -->
+
+      <!-- Modal HTML -->    
+      <div id="userModal" class="modal fade">
+      <div class="modal-dialog">
+        <form method="post" id="add_stud" autocomplete>
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Add New Student <small>(<i class="fa fa-asterisk text-danger"></i> Required fields)</small></h4>
+            </div>
+            <div class="modal-body">
+              <div id="msg"></div>
+              <div class="row">                  
+                <div class="col-lg-6">
+                  <div class="form-group"> 
+                    <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                    <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="autofocus"><span id="result"></span>
+                    <br>
+                    <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
+                    <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
+                    <br>                        
+                    <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
+                    <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
+                    <br>
+                    <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
+                    <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
+                    <br>
+                    <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
+                    <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
+                    <br>
+                    <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
+                    <input class="form-control" type="text" placeholder="00" name="age" id="age">
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
+                    <select class="form-control required" name="sex" id="sex">
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="dob" id="dob" />  
+                      <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                      </span>
+                    </div>
+                    <br>
+                    <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
+                    <select class="form-control" name="stat" id="stat">
+                      <option value="">Select</option>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                    </select>
+                    <br>
+                    <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
+                    <?php
+                      //Include database configuration file
+                      include('../includes/dbconnect.php');
+                      $DB_con = new mysqli("localhost", "root", "", "records");
+  
+                      //Get all dept data
+                      $query = $DB_con->query("SELECT * FROM department WHERE status = 1 AND cat = 2 ORDER BY dept_name ASC");
+  
+                      //Count total number of rows
+                      $rowCount = $query->num_rows;
+                    ?>
+                    <select class="form-control required" name="dept" id="dept">
+                      <option value="">Select Department</option>
+                        <?php
+                          if($rowCount > 0){
+                            while($row = $query->fetch_assoc()){ 
+                              echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
+                            }
+                          } else{
+                              echo '<option value="">Department not available</option>';
+                          }
+                        ?>
+                    </select>
+                    <br>
+                    <label>Program</label>                            
+                    <select class="form-control required" name="program" id="program">
+                      <option value="">Select department first</option>
+                    </select>
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
+                    <select class="form-control required" name="yearLevel" id="yearLevel">
+                      <option value="">Select</option>
+                      <option value="1st">1st Year</option>
+                      <option value="2nd">2nd Year</option>
+                      <option value="3rd">3rd Year</option>
+                      <option value="4th">4th Year</option>
+                    </select>
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
+                    <select class="form-control required" name="sem" id="sem">
+                      <option value="">Select</option>
+                      <option value="1st">1st</option>
+                      <option value="2nd">2nd</option>
+                    </select>
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+                    <?php
+                      $currently_selected = date('Y'); 
+                      $earliest_year = 2006; 
+                      $latest_year = date('Y');
+                    ?>
+                    <select class="form-control required" name="acadYear" id="acadYear">
+                      <option value="">Select</option>
+                      <?php 
+                        foreach ( range( $latest_year, $earliest_year ) as $i ) {
+                          print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
+                          print '</option>';
+                            }
+                      ?> 
+                    </select>
+                  </div>
+                </div>
+
                 <div class="container-fluid">
-                  <!-- Start btn-toolbar -->
-                  <div class="row">
-                	  <div class="col-lg-6 left-pane">
-                      <div class="row">
-                        <div class="btn-toolbar">
-                			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
-
-                          <div class="btn-group">
-                            <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                              <option value="">Show All students</option>  
-                              <?php echo fill_program($DB_con); ?>  
-                            </select>
-                          </div>
-
-                          <div class="btn-group sort">
-                            <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                              <option value="">Sort A-Z</option>
-                              <option value="asc">Ascending</option>
-                              <option value="desc">Descending</option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="col-lg-6 right-pane">
-                      <div class="row">
-                        <div class="btn-group filter">
-                          <span class="fa fa-filter"></span>
-                          <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- End btn-toolbar -->
-            	  </div>
-                <br>
-                <!-- End of Buttons -->
-				      
-                <div id="overlay" align="center">
-                  <div>
-                    <img src="../includes/loading.gif" width="64px" height="64px"/>
+                  <div class="form-group">
+                    <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+                    <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                   </div>
                 </div>
-				        <div id="tbl_students">
-                  <!--
-                    This is where data will be shown.
-                  -->
+                <div class="col-lg-6">
+                  <div class="form-group">
+                    <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
+                    <input type="text" class="form-control" name="cperson" id="cperson">
+                  </div>
                 </div>
-              </div>  
+                <div class="col-lg-1"></div>
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                    <input type="text" name="cphone" id="cphone" class="form-control">
+                    <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">   
+              <input type="hidden" name="physician" value="<?php echo $userRow['userName'];?>" id="physician">    
+              <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
-          <!-- End of Main Screen -->
-  
-        </div>
-        <!-- End of Content -->
-
-        <!-- Modal HTML -->    
-        <div id="userModal" class="modal fade">
-        <div class="modal-dialog">
-          <form method="post" id="add_stud" autocomplete>
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add New Student <small>(<i class="fa fa-asterisk text-danger"></i> Required fields)</small></h4>
-              </div>
-              <div class="modal-body">
-                <div id="msg"></div>
-                <div class="row">                  
-                  <div class="col-lg-6">
-                    <div class="form-group"> 
-                      <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
-                      <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="autofocus"><span id="result"></span>
-                      <br>
-                      <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                      <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
-                      <br>                        
-                      <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
-                      <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
-                      <br>
-                      <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                      <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
-                      <br>
-                      <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
-                      <br>
-                      <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
-                      <input class="form-control" type="text" placeholder="00" name="age" id="age">
-                      <br>
-                      <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
-                      <select class="form-control required" name="sex" id="sex">
-                        <option value="">Select</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                      </select>
-                    </div>
-                  </div>
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-5">
-                    <div class="form-group">
-                      <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
-                      <div class="input-group date">
-                        <input type="text" class="form-control" name="dob" id="dob" />  
-                        <span class="input-group-addon">
-                          <span class="fa fa-calendar"></span>
-                        </span>
-                      </div>
-                      <br>
-                      <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
-                      <select class="form-control" name="stat" id="stat">
-                        <option value="">Select</option>
-                        <option value="Single">Single</option>
-                        <option value="Married">Married</option>
-                      </select>
-                      <br>
-                      <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
-                      <?php
-                        //Include database configuration file
-                        include('../includes/dbconnect.php');
-                        $DB_con = new mysqli("localhost", "root", "", "records");
-    
-                        //Get all dept data
-                        $query = $DB_con->query("SELECT * FROM department WHERE status = 1 AND cat = 2 ORDER BY dept_name ASC");
-    
-                        //Count total number of rows
-                        $rowCount = $query->num_rows;
-                      ?>
-                      <select class="form-control required" name="dept" id="dept">
-                        <option value="">Select Department</option>
-                          <?php
-                            if($rowCount > 0){
-                              while($row = $query->fetch_assoc()){ 
-                                echo '<option value="'.$row['dept_id'].'">'.$row['dept_name'].'</option>';
-                              }
-                            } else{
-                                echo '<option value="">Department not available</option>';
-                            }
-                          ?>
-                      </select>
-                      <br>
-                      <label>Program</label>                            
-                      <select class="form-control required" name="program" id="program">
-                        <option value="">Select department first</option>
-                      </select>
-                      <br>
-                      <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
-                      <select class="form-control required" name="yearLevel" id="yearLevel">
-                        <option value="">Select</option>
-                        <option value="1st">1st Year</option>
-                        <option value="2nd">2nd Year</option>
-                        <option value="3rd">3rd Year</option>
-                        <option value="4th">4th Year</option>
-                      </select>
-                      <br>
-                      <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
-                      <select class="form-control required" name="sem" id="sem">
-                        <option value="">Select</option>
-                        <option value="1st">1st</option>
-                        <option value="2nd">2nd</option>
-                      </select>
-                      <br>
-                      <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
-                      <?php
-                        $currently_selected = date('Y'); 
-                        $earliest_year = 2006; 
-                        $latest_year = date('Y');
-                      ?>
-                      <select class="form-control required" name="acadYear" id="acadYear">
-                        <option value="">Select</option>
-                        <?php 
-                          foreach ( range( $latest_year, $earliest_year ) as $i ) {
-                            print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';
-                            print '</option>';
-                              }
-                        ?> 
-                      </select>
-                    </div>
-                  </div>
-
-                  <div class="container-fluid">
-                    <div class="form-group">
-                      <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
-                      <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="form-group">
-                      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
-                      <input type="text" class="form-control" name="cperson" id="cperson">
-                    </div>
-                  </div>
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-5">
-                    <div class="form-group">
-                      <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
-                      <input type="text" name="cphone" id="cphone" class="form-control">
-                      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">   
-                <input type="hidden" name="physician" value="<?php echo $userRow['userName'];?>" id="physician">    
-                <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </form>
-        </div>
+        </form>
       </div>
+    </div>
 
-      <!-- View Modal -->
-      <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog"> 
-          <form method="post" id="edit_stud" autocomplete>
+    <!-- View Modal -->
+    <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+      <div class="modal-dialog"> 
+        <form method="post" id="edit_stud" autocomplete>
           <div class="modal-content">         
             <div class="modal-header"> 
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
@@ -344,14 +345,14 @@
             </div>                             
           </div> 
         </form>
-        </div>
       </div>
+    </div>
 
-    <footer class="footer">
-      <div class="container-fluid">
-        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
-      </div>
-    </footer>
+  <footer class="footer">
+    <div class="container-fluid">
+      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+    </div>
+  </footer>
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>

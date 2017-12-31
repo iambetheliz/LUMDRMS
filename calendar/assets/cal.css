@@ -1,0 +1,26 @@
+#calendar {
+  width: 100%;
+}
+.modal-dialog {
+	width: 500px;
+}
+.fc-unthemed a {
+	color: white;
+}
+.fc-unthemed td {
+    border-color: #ddd;
+}
+.fc-day-top .fc-day-number {
+    float: right;
+    color: green;
+}
+th.fc-day-header.fc-widget-header {
+    padding: 10px;
+    background: #428b42;
+    border-color: green;
+    color: white;
+}
+.fc-list-heading {
+    border-top-width: 0;
+    background: #428b42;
+}

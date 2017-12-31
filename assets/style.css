@@ -52,26 +52,13 @@ a.demo {
   line-height: 30px;
 }
 
-select {
-  overflow: hidden;
-  max-height: 100%;
-  max-width: 100%;
-}
 .panel-heading h3 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    width: 75%;
-    padding-top: 8px;
-}
-@media (min-width: 768px) {
-.modal-dialog {
-    width: 800px;
-    margin: 30px auto;
-}}
-.container .text-muted {
-  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: normal;
+  width: 75%;
+  padding-top: 8px;
 }
 .page-header {
   padding-bottom:9px;
@@ -88,27 +75,17 @@ select {
 .vertical-offset-100{
     padding-top:10px;
 }
-.profile-img
-{
-    width: 80px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
+.profile-img {
+  width: 80px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
 }
-
-/* Style to reverse the caret icon from pointing downwards to upwards */
-  .caret.caret-up {
-    border-top-width: 0;
-    border-bottom: 4px solid #fff;
-  }
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html, body {
-  height: 100%;
-  margin: 0;
-}
+
 .footer {
   padding: 20px 0 5px;
   bottom: 0;
@@ -117,143 +94,23 @@ html, body {
   border-top: 1px solid lightgray;
 }
 
-
-/* Custom page CSS
--------------------------------------------------- */
-/* Not required for template or sticky footer method. */
-body > .container {
-  padding: 60px 15px 0;
-}
-
-.footer > .container {
-  padding-right: 15px;
-  padding-left: 15px;
-}
-
-code {
-  font-size: 80%;
-}
-
-/* Sortable tables */
-table.sortable thead {
-    background-color:#eee;
-    color:#666666;
-    font-weight: bold;
-    cursor: pointer;
-}
-
 thead {
-    background-color:#eee;
-    color:#666666;
-    font-weight: bold;
+  background-color:#eee;
+  color:#666666;
+  font-weight: bold;
 }
-
-.table-borderless > tbody > tr > td,
-.table-borderless > tbody > tr > th,
-.table-borderless > tfoot > tr > td,
-.table-borderless > tfoot > tr > th,
-.table-borderless > thead > tr > td,
-.table-borderless > thead > tr > th {
-    border: none;
-}
-
-/*Modal*/
-
-  .modal-confirm {    
-    color: #636363;
-    width: 400px;
-  }
-  .modal-confirm .modal-content {
-    padding: 20px;
-    border-radius: 5px;
-    border: none;
-        text-align: center;
-    font-size: 14px;
-  }
-  .modal-confirm .modal-header {
-    border-bottom: none;   
-        position: relative;
-  }
-  .modal-confirm h4 {
-    text-align: center;
-    font-size: 26px;
-    margin: 30px 0 -10px;
-  }
-  .modal-confirm .close {
-        position: absolute;
-    top: -5px;
-    right: -2px;
-  }
-  .modal-confirm .modal-body {
-    color: #999;
-  }
-  .modal-confirm .modal-footer {
-    border: none;
-    text-align: center;   
-    border-radius: 5px;
-    font-size: 13px;
-    padding: 10px 15px 25px;
-  }
-  .modal-confirm .modal-footer a {
-    color: #999;
-  }   
-  .modal-confirm .icon-box {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    border-radius: 50%;
-    z-index: 9;
-    text-align: center;
-    border: 3px solid #f15e5e;
-  }
-  .modal-confirm .icon-box i {
-    color: #f15e5e;
-    font-size: 46px;
-    display: inline-block;
-    margin-top: 13px;
-  }
-    .modal-confirm .btn {
-        color: #fff;
-        border-radius: 4px;
-    background: #60c7c1;
-    text-decoration: none;
-    transition: all 0.4s;
-        line-height: normal;
-    min-width: 120px;
-        border: none;
-    min-height: 40px;
-    border-radius: 3px;
-    margin: 0 5px;
-    outline: none !important;
-    }
-  .modal-confirm .btn-info {
-        background: #c1c1c1;
-    }
-    .modal-confirm .btn-info:hover, .modal-confirm .btn-info:focus {
-        background: #a8a8a8;
-    }
-    .modal-confirm .btn-danger {
-        background: #f15e5e;
-    }
-    .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
-        background: #ee3535;
-    }
-  .trigger-btn {
-    display: inline-block;
-    margin: 100px auto;
-  }
 
 /* Pagination */
 .pagination {
-    display: inline-block;
-    padding-left: 0;
-    border-radius: 4px;
+  display: inline-block;
+  padding-left: 0;
+  border-radius: 4px;
 }
 .pagination>.active>a {
-    background-color: #316d1e;
-    border-color: #316d1e;
-    color: #fff;
-    cursor: pointer;
+  background-color: #316d1e;
+  border-color: #316d1e;
+  color: #fff;
+  cursor: pointer;
 }
 
 .pagination>.active>a:focus, 
@@ -261,10 +118,10 @@ thead {
 .pagination>.active>span, 
 .pagination>.active>span:focus, 
 .pagination>.active>span:hover {
-    background-color: #46992c;
-    border-color: #46992c;
-    color: #fff;
-    cursor: pointer;
+  background-color: #46992c;
+  border-color: #46992c;
+  color: #fff;
+  cursor: pointer;
 }
 .pagination>li>a {
     color: #316d1e;
@@ -272,31 +129,31 @@ thead {
     float: inherit;
 }
 div.pagination a:hover {
-    background-color: #46992c;
-    border-color: #46992c;
-    color: #fff;
-    cursor: pointer;
+  background-color: #46992c;
+  border-color: #46992c;
+  color: #fff;
+  cursor: pointer;
 }
 div.pagination>.active> a {
-    background-color: #316d1e;
-    border-color: #316d1e;
-    color: #fff;
-    cursor: pointer;
+  background-color: #316d1e;
+  border-color: #316d1e;
+  color: #fff;
+  cursor: pointer;
 }
 
 .filter input { text-indent: 20px;}
 .filter .fa-filter { 
   position: absolute;
   top: 10px;
-  left: 10px;
+  left: 30px;
 }
 /* Formatting search box */
 .navbar-form {
-    margin: 0;
-    border-top: 0;
-    border-bottom: 1px solid transparent;
-    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+  margin: 0;
+  border-top: 0;
+  border-bottom: 1px solid transparent;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1), 0 1px 0 rgba(255,255,255,.1);
 }
 @media only screen and (min-width:768px){
   .navbar-form {
@@ -394,27 +251,4 @@ div.pagination>.active> a {
 
 .panel-table .panel-body{
   padding:0;
-}
-
-.panel-table .panel-body .table-bordered{
-  border-style: none;
-  margin:0;
-}
-
-.panel-table .panel-body .table-bordered > thead > tr > th:last-of-type,
-.panel-table .panel-body .table-bordered > tbody > tr > td:last-of-type {
-  border-right: 0px;
-}
-
-.panel-table .panel-body .table-bordered > thead > tr > th:first-of-type,
-.panel-table .panel-body .table-bordered > tbody > tr > td:first-of-type {
-  border-left: 0px;
-}
-
-.panel-table .panel-body .table-bordered > tbody > tr:first-of-type > td{
-  border-bottom: 0px;
-}
-
-.panel-table .panel-body .table-bordered > thead > tr:first-of-type > th{
-  border-top: 0px;
 }

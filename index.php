@@ -44,15 +44,21 @@
     		<table class="table table-borderless">
     			<tr>
     				<td><a href="/lu_clinic"><img class="profile-img" src="images/logo.png" alt=""></a></td>
-    				<td><h3 style="padding-bottom: 10px;">Laguna University Clinic</h3></td>
+    				<td align="center"><h3 style="padding-bottom: 10px;">Laguna University Clinic</h3></td>
     			</tr>
     		</table>
-        <div id="error">
-          <!-- error will be shown here ! -->
-        </div>
         <div class="panel panel-default">
           <div class="panel-body">
             <form class="form-signin" id="login-form" method="post" action="login_process.php" autocomplete />
+              <?php if(isset($_GET['loginError'])){ 
+                echo "<div class='alert alert-danger'>";
+                echo "Incorrect username or password!";
+                echo "</div>";
+              } else if(isset($_GET['attempt'])){ 
+                echo "<div class='alert alert-danger'>";
+                echo "You need to login first!";
+                echo "</div>";
+              }  ?>
     	        <fieldset>          
               <div class="form-group">
                 <label>Username</label>
@@ -73,7 +79,7 @@
               </div><br>
             
               <div class="form-group">
-            	  <button type="submit" class="btn btn-success btn-block" name="btn-login" id="btn-login">Sign In</button>
+            	  <button type="submit" class="btn btn-success btn-lg btn-block" name="btn-login" id="btn-login">Sign In</button>
               </div>
     	        </fieldset>   
             </form> 
@@ -85,6 +91,12 @@
 
 </div>
 <!-- End of Main Screen -->
+<br>
+<footer>
+  <div class="container-fluid" align="center">
+      <p class="text-muted"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+    </div>
+</footer>
 
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>

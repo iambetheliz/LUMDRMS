@@ -97,7 +97,7 @@
     <div id="sidebar-wrapper">
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
-          <li class="active">
+          <li>
               <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
           </li>
           <li>
@@ -110,14 +110,20 @@
                   <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                  <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                  <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
               </li>
             </ul>
           </li>
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
-            <li>
-              <a href="tbl_users.php"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+            <li class="active">
+              <a href="tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -130,78 +136,82 @@
     <div id="page-content-wrapper">
       <div class="page-content">
         <div class="container-fluid"> 
+
 			<!-- Page Heading -->
             <div class="row">
                 <div class="container-fluid">
                     <h2 class="page-header">Change Password</h2>
                 </div>
             </div> 
+
 			<div class="row">
-				<div class="container-fluid">					
-			 		<?php if(isset($_GET['success'])){ ?>
-			    	<div class="alert alert-success">
-			    		Successfully changed password!
-			    	</div>   
-					<?php } else if(isset($_GET['fail'])){?>
-			        <div class="alert alert-danger">
-			    		Wrong password!
-			    	</div>
-					<?php } else if(isset($_GET['match'])){ // end else fail?>
-			        <div class="alert alert-warning">
-			    		Passwords do not match!
-			    	</div>
-					<?php }  ?>
-				</div>
-			</div>
-			<div class="container-fluid">
-				<form name="formchange" method = "POST" action="changepswd.php" data-toggle="validator" role="form" class="form-horizontal">
-					<div class="form-group">
-						<label class="control-label col-sm-5">Username:
-						</label>
-						<div class="col-xs-2">
+				<div class="container-fluid">	
+
+					<form name="formchange" method = "POST" action="changepswd.php" data-toggle="validator" role="form" class="auth-form" >
+					  <div class="row">
+
+					  	<?php if(isset($_GET['success'])){ ?>
+				    	<div class="alert alert-success">
+				    		<strong>Successfully changed password!</strong> <span class="pull-right fa fa-check"></span>
+				    	</div>   
+						<?php } else if(isset($_GET['fail'])){ ?>
+				        <div class="alert alert-danger">
+				    		Wrong password!
+				    	</div>
+						<?php } else if(isset($_GET['match'])){ ?>
+				        <div class="alert alert-warning">
+				    		Passwords do not match!
+				    	</div>
+						<?php }  ?>
+
+						<div class="form-group">
+							<label>Username:</label>
 							<input id="userName" type="text" value="<?php echo $userRow['userName'] ; ?>" name="userName" class="form-control" readonly />
-						</div>
-						<div class="help-block with-errors">
-						</div>
-					</div>	
-					<div class="form-group row">
-						<label class="control-label col-sm-5">Enter Current Password:
-						</label>
-						<div class="col-xs-2">
+							<br>
+							<label>Enter Current Password:</label>
 							<input id="current_password" type="text" name="current_password" class="form-control" data-minlength="5" required/>
 						</div>
-						<div class="help-block with-errors">
-						</div>
-					</div>
-					<hr>
-					<div class="form-group row">
-						<label class="control-label col-sm-5">Enter New Password:
-						</label>
-						<div class="col-xs-2">
+						<hr>
+						<div class="form-group">
+							<label>Enter New Password:
+							</label>
 							<input id="new_password" type="text" name="new_password" class="form-control" data-minlength="5" required/>
+							<br>
+							<label>Confirm New Password:
+							</label>
+							<input id="retype_password" type="text" name="retype_password" class="form-control" data-minlength="5" required />
 						</div>
-						<div class="help-block with-errors">
-						</div>
-					</div>
-					<div class="form-group row">
-						<label class="control-label col-sm-5">Re-enter New Password:
-						</label>
-						<div class="col-xs-2">
-							<input id="retype_password" type="text" name="retype_password" class="form-control" data-minlength="5" required/>
-						</div>
-						<div class="help-block with-errors">
-						</div>
-					</div>
-					<div class="form-group" align="center">
-						<a type="cancel" href="mainmenu2.php" class="btn btn-default">CANCEL
-						</a>
-						<button id="change" name="change" align="middle" type="submit" class="btn btn-primary"> SAVE 
-						</button>
-					</div> 
-				</form>
-			</div>	
-		</div>
-	</div>
-</div>
+						<br>
+						<div class="form-group" align="center">
+							<a type="cancel" href="mainmenu2.php" class="btn btn-default">CANCEL
+							</a>
+							<button id="change" name="change" align="middle" type="submit" class="btn btn-primary"> SAVE 
+							</button>
+						</div> 
+					  </div>
+					</form>
+
+				</div>
+			</div>
+
+		</div>  
+      </div>
+    </div>
+    <!-- End of Main Screen -->
+  
+  </div>
+  <!-- End of Content -->
+
+  <footer class="footer">
+	  <div class="container-fluid">
+	      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; <?php echo date("Y"); ?></p>
+	  </div>
+  </footer>
+  
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/custom.js"></script> 
+<script src="assets/js/notify.js"></script> 
+
 </body>
 </html>

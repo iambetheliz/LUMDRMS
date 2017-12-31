@@ -79,14 +79,20 @@
                   <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                  <a href="/lu_clinic/faculties/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Faculties</a>
+                  <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              </li>
+              <li>
+                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
               </li>
             </ul>
           </li>
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li class="active">
-              <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="#"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -136,7 +142,7 @@
                         <td><?php echo $userRow["userName"]; ?></td>
                         <td><?php echo $userRow["userEmail"]; ?></td>
                         <td><?php echo $userRow["role"]; ?></td>
-                        <td><?php echo timeAgo(strtotime($userRow['login_date'])); ?></td>
+                        <td><?php echo get_timeago(strtotime($userRow['login_date'])); ?></td>
                         <td></td>
                       </tr>
                     <?php } ?>

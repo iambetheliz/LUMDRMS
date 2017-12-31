@@ -13,12 +13,23 @@
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="assets/style.css" rel="stylesheet" type="text/css">
 <!-- fullcalendar -->
-<link href="calendar/assets/fullcalendar.css" rel="stylesheet" />
+<link href="calendar/assets/cal.css" rel="stylesheet" />
+<link href="calendar/assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <style type="text/css">
   .modal-dialog {
     width: 500px;
   }
+.fc-unthemed td.fc-today {
+  background: #c3eec3;
+}
+.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
+  background: #428b42;
+}
+.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
+    /*background: white;*/
+    border-color: #ddd;
+}
 </style>
 </head>
 <body>
@@ -41,7 +52,7 @@
             <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
           </li>
           <li role="presentation" class="have-child">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
                 <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
@@ -60,7 +71,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users.php"><span class="fa fa-users"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -76,16 +87,17 @@
 
 	          <!-- Page Heading -->
             <div class="row">
-              <div class="col-lg-12">
+              <div class="container-fluid">
                 <h2 class="page-header">Dashboard</h2>
               </div>
             </div>  
+
             <?php 
             if (isset($_GET['loginSuccess'])) {?>  
-            <div class="alert alert-success success-login" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <?php echo $successMSG; ?>
-            </div>              
+              <div class="alert alert-success success-login" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <?php echo $successMSG; ?>
+              </div>              
             <?php }?>
             <div class="alert alert-info" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -184,7 +196,6 @@
 
             <hr><br>
 
-
             <!--Graphs -->
             <div class="row">
               <div class="container-fluid">
@@ -193,51 +204,55 @@
             </div>
 
             <hr><br>
-            <!-- Table -->
+            
             <div class="row">
+              <!-- Calendar -->
               <div class="col-md-8">
                 <div id='calendar'></div>
               </div>
-            <div class="col-md-4">
-            <div class="panel panel-default panel-table">
-              <div class="panel-heading">
-                <div class="row">
-                  <div class="col col-lg-6">
-                    <div class="panel-title">
-                      <strong>Students Table</strong>
+              <!-- Table -->
+              <div class="col-md-4">
+                <div class="panel panel-default panel-table">
+                  <div class="panel-heading">
+                    <div class="row">
+                      <div class="col col-lg-6">
+                        <div class="panel-title">
+                          <strong>Students Table</strong>
+                        </div>
+                      </div>
+                      <div class="col col-lg-6 text-right">
+                        <button type="button" class="btn btn-sm btn-primary btn-create">View Details</button>
+                      </div>
                     </div>
                   </div>
-                  <div class="col col-lg-6 text-right">
-                    <button type="button" class="btn btn-sm btn-primary btn-create">View Details</button>
-                  </div>
+                  <div class="panel-body">
+                  <table class="table table-striped table-bordered table-list">
+                    <thead>
+                      <tr>
+                        <th>Gender</th>
+                        <th>Total Number</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <?php    
+                      foreach($DB_con->query('SELECT sex,COUNT(*) FROM students GROUP BY sex') as $row) {
+                        echo "<tr>";
+                        echo "<td>" . $row['sex'] . "</td>";
+                        echo "<td>" . $row['COUNT(*)'] . "</td>";
+                        echo "</tr>"; 
+                    } 
+                      if (empty($row)) {
+                        echo "<tr><td colspan='2'>No records found</td></tr>";
+                      }
+                    ?>
+                    </tbody>
+                  </table>
                 </div>
+                <div class="panel-footer"></div>
               </div>
-              <div class="panel-body">
-              <table class="table table-striped table-bordered table-list">
-                <thead>
-                  <tr>
-                    <th>Gender</th>
-                    <th>Total Number</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php    
-                  foreach($DB_con->query('SELECT sex,COUNT(*) FROM students GROUP BY sex') as $row) {
-                    echo "<tr>";
-                    echo "<td>" . $row['sex'] . "</td>";
-                    echo "<td>" . $row['COUNT(*)'] . "</td>";
-                    echo "</tr>"; 
-                } 
-                  if (empty($row)) {
-                    echo "<tr><td colspan='2'>No records found</td></tr>";
-                  }
-                ?>
-                </tbody>
-              </table>
-              </div>
-              <div class="panel-footer"></div>
-            </div></div></div>
-            <!-- End of tables -->
+            </div>
+          </div>
+          <!-- End of tables -->
 
         </div>  
       </div>
@@ -326,7 +341,7 @@
 <script src="calendar/assets/jquery-ui.min.js"></script>
 <script src="calendar/assets/moment.min.js"></script>
 <script src="calendar/assets/fullcalendar.min.js"></script>
-<script type="text/javascript" src="calendar/assets/calendar.js"></script>
+<script type="text/javascript" src="calendar/assets/calendar_sample.js"></script>
 
 <!--graphs-->
 <script src="charts/canvasjs.min.js"></script>
