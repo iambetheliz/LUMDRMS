@@ -380,11 +380,11 @@
                       </div>
                       <div class="col-lg-3">
                         <label>Body Mass Index:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi" readonly disabled />
+                        <input type="text" class="form-control" name="bmi" id="bmi" readonly style="cursor: not-allowed;" />
                       </div>
                       <div class="col-lg-3">
                         <label>BMI Category:</label> 
-                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly disabled />
+                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly style="cursor: not-allowed;" />
                       </div>
                     </div>
                     <div class="form-group row">
@@ -554,7 +554,7 @@ function bmi() {
   var result = (parseFloat(weight) / parseFloat(height) / parseFloat(height)) * 10000;
 
   if (!isNaN(result)) {
-    document.getElementById('bmi').value = result.toFixed(2);
+    document.getElementById('bmi').value = result.toFixed(1);
   }
 }
 </script>

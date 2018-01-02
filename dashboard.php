@@ -276,9 +276,6 @@
 $(document).ready(function(){
   $("#badges").load("badges.php");
   $('#year').click(function(){
-    var day = $('#day').val();
-    var week = $('#week').val();
-    var month = $('#month').val();
     var year = $('#year').val();
     $.ajax({    
       type:'POST',
@@ -290,10 +287,7 @@ $(document).ready(function(){
     }); 
   });
   $('#month').click(function(){
-    var day = $('#day').val();
-    var week = $('#week').val();
     var month = $('#month').val();
-    var year = $('#year').val();
     $.ajax({    
       type:'POST',
       url:'badges.php',
@@ -304,10 +298,7 @@ $(document).ready(function(){
     }); 
   });
   $('#week').click(function(){
-    var day = $('#day').val();
     var week = $('#week').val();
-    var month = $('#month').val();
-    var year = $('#year').val();
     $.ajax({    
       type:'POST',
       url:'badges.php',
@@ -319,9 +310,6 @@ $(document).ready(function(){
   });
   $('#day').click(function(){
     var day = $('#day').val();
-    var week = $('#week').val();
-    var month = $('#month').val();
-    var year = $('#year').val();
     $.ajax({    
       type:'POST',
       url:'badges.php',

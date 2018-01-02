@@ -142,7 +142,7 @@
 		            	<div class="input-group">
                         <input type="text" name="pass" class="form-control"  maxlength="15" id="password" />  
                         <span class="input-group-btn" onclick="$('#password').val(password.generate());">
-                        	<button class="btn btn-default" type="button">
+                        	<button class="btn btn-default" type="button" data-toggle="tooltip" title="Click to generate password" data-placement="right">
 		                        <span class="fa fa-lock"></span>
 		                    </button>                          
                         </span>

@@ -1,4 +1,7 @@
 /*CUSTOM STYLES*/
+textarea {
+  resize: none;
+}
 a.demo {
   text-indent: 7.5px;
 }

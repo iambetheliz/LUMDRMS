@@ -10,10 +10,6 @@
   exit;
   }
 
-  if (isset($_GET['attempt'])) {
-    $errMSG = "You need to login first!";
-  }
-
   $DB_con = new mysqli("localhost", "root", "", "records");
 
   if ($DB_con->connect_errno) {
@@ -64,7 +60,12 @@
           echo "<div class='alert alert-danger'>";
           echo "You need to login first!";
           echo "</div>";
-        }  ?>
+        } elseif (isset($_GET['reset'])) {
+          echo "<div class='alert alert-success'>";
+          echo "Password reset successful. <br />Please login with your new password.";
+          echo "</div>";
+        }
+        ?>
         <div class="panel panel-default">
           <div class="panel-body">
             <form class="form-signin" id="login-form" method="post" action="login_process.php" autocomplete />

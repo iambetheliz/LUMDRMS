@@ -227,11 +227,11 @@
                         <div class="form-group row">
                           <div class="col-lg-6">
                             <label>Body Mass Index:</label> 
-                            <input type="text" class="form-control" name="bmi" id="bmi" readonly disabled />
+                            <input type="text" class="form-control" name="bmi" id="bmi" readonly style="cursor: not-allowed;" />
                           </div>
                           <div class="col-lg-6">
                             <label>BMI Category:</label> 
-                            <input type="text" class="form-control" name="bmi_cat" id="category" readonly disabled />
+                            <input type="text" class="form-control" name="bmi_cat" id="category" readonly style="cursor: not-allowed;" />
                           </div>
                         </div>
                         <div class="form-group row">
@@ -270,7 +270,7 @@
                               <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
                               <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                               <input type="hidden" name="action_type" value="save_soap"/>
-                              <input type="submit" class="btn btn-primary" id="save_soap" name="btn-save" value="Save Record" />
+                              <input type="submit" class="btn btn-primary" id="save_soap" name="btn-soap" value="Save Record" />
                             </div>
                           </div>
                         </div>
@@ -334,7 +334,7 @@ function bmi() {
   var result = (parseFloat(weight) / parseFloat(height) / parseFloat(height)) * 10000;
 
   if (!isNaN(result)) {
-    document.getElementById('bmi').value = result.toFixed(2);
+    document.getElementById('bmi').value = result.toFixed(1);
   }
 }
 </script>

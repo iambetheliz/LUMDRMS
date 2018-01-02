@@ -117,6 +117,7 @@
                 <div id="add-product">
                   <div class="alert alert-success"><strong>Add User</strong></div>
                   <?php include 'add_user.php'; ?>
+                  <small><i>(Note: You can create a user's password using the button on password's right side or create your own.)</i></small>
                 </div>
               </div>
               <div class="col-lg-8">
@@ -127,7 +128,7 @@
                       <tr>
                         <th>User ID</th>
                         <th>Username</th>
-                        <th>Email</th>
+                        <th>Position</th>
                         <th>Role</th>
                         <th>Login Date</th>
                         <th>Action</th>
@@ -140,7 +141,7 @@
                       <tr>
                         <td><?php echo $userRow["userId"]; ?></td>
                         <td><?php echo $userRow["userName"]; ?></td>
-                        <td><?php echo $userRow["userEmail"]; ?></td>
+                        <td><?php echo $userRow["position"]; ?></td>
                         <td><?php echo $userRow["role"]; ?></td>
                         <td><?php echo get_timeago(strtotime($userRow['login_date'])); ?></td>
                         <td></td>

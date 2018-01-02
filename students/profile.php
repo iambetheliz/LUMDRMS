@@ -1,5 +1,8 @@
 <?php
+  require_once '../includes/dbconnect.php';
   include '../includes/date_time_diff.php';
+
+  $DB_con = new mysqli("localhost", "root", "", "records");
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -74,9 +77,6 @@
         <div class="container-fluid">
 
           <?php 
-            require_once '../includes/dbconnect.php';
-
-            $DB_con = new mysqli("localhost", "root", "", "records");
 
             if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
@@ -85,275 +85,135 @@
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
-              if(!empty($row)){
+              if(!empty($row)) { ?>
+    
+        	      <!-- Page Heading -->
+                <div class="row">
+                  <div class="container-fluid">
+                    <h1 class="page-header">Student's Information 
+                      <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">SN: <?php echo $row['studentNo'];?></span>
+                    </h1>             
+                  </div>
+                </div>
+                <!-- End of Page Heading -->
+
+                <div class="container-fluid">
+                  <div class="row">     
+                    <!-- Basic Info -->
+                    <div class="panel panel-success panel-table">
+                      <div class="panel-heading">
+                        <div class="panel-title">
+                          <strong>BASIC INFORMATION</strong>
+                        </div>
+                      </div>
+                      <div class="panel-body">  
+                        <div class="row">   
+                          <div class="container-fluid">               
+                            <table class="table table-bordered">
+                              <tbody>
+                                <tr>
+                                  <td colspan="4"><strong>FULL NAME:</strong></td>
+                                </tr>
+                                <tr>
+                                  <td><?php echo $row['first_name'] ;?><br>
+                                  <span class="text-muted"><small><i>First Name</i></small></span></td>
+                                  <td><?php echo $row['middle_name'] ;?><br>
+                                  <span class="text-muted"><small><i>Middle Name</i></small></span></td>
+                                  <td><?php echo $row['last_name'];?><br>
+                                    <span class="text-muted"><small><i>Last Name</i></small></span></td>
+                                  <td><?php echo $row['ext'];?><br>
+                                    <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
+                                </tr>
+                                <tr>
+                                  <td><label>Age:</label></td>
+                                  <td><?php echo $row['age'];?> years old</td>
+                                  <td><label>Gender:</label></td>
+                                  <td><?php echo $row['sex'];?></td>
+                                </tr>
+                                <tr>
+                                  <td><label>Date of Birth:</label></td>
+                                  <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
+                                  <td><label>Marital Status:</label></td>
+                                  <td><?php echo $row['stat'] ;?></td>
+                                </tr>
+                                <tr>
+                                  <td><label>Program:</label></td>
+                                  <td><?php echo $row['program_name'];?></td>
+                                  <td><label>Year Level:</label></td>
+                                  <td><?php echo $row['yearLevel'];?> Year</td>
+                                </tr>
+                                <tr>
+                                  <td><label>Semester: </label></td>
+                                  <td><?php echo $row['sem'];?> Semester</td>
+                                  <td><label>Academic Year:</label></td>
+                                  <td><?php echo $row['acadYear'];?></td>
+                                </tr>
+                                <tr>
+                                  <td><label>Address:</label></td>
+                                  <td colspan="3"><?php echo $row['address'];?></td>
+                                </tr>
+                                <tr>
+                                  <td><label>Contact Person:</label></td>
+                                  <td><?php echo $row['cperson'];?></td>
+                                  <td><label>Cel/Tel No.:</label></td>
+                                  <td><?php echo $row['cphone'];?></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- End of Basic Infor --> 
+                  </div>
+                </div>
+
+                <div class="container-fluid">
+                  <div class="row">
+
+                    <div class="panel with-nav-tabs panel-success">
+                      <div class="panel-heading">
+                        <strong>
+                          <ul class="nav nav-tabs panel-title">
+                            <li class="active">
+                              <a href="#medical" data-toggle="tab">MEDICAL</a>
+                            </li>
+                            <li>
+                              <a href="#dental" data-toggle="tab">DENTAL</a>
+                            </li>
+                            <li>
+                              <a href="#soap" data-toggle="tab">S.O.A.P</a>
+                            </li>
+                          </ul>
+                        </strong>
+                      </div>
+                      <div class="panel-body">
+                        <div class="tab-content">
+                          <div class="tab-pane fade in active" id="medical">
+                            <?php include 'students_med.php';?>
+                          </div>
+                          <div class="tab-pane fade" id="dental">
+                            <?php include 'students_den.php';?>
+                          </div>
+                          <div class="tab-pane fade" id="soap">
+                            <?php include 'students_soap.php';?>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+                <?php 
+              }
+            }
           ?>
     
-    	      <!-- Page Heading -->
-            <div class="row">
-              <div class="container-fluid">
-                <h1 class="page-header">Student's Information 
-                  <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">SN: <?php echo $row['studentNo'];?></span>
-                </h1>             
-              </div>
-            </div>
-            <!-- End of Page Heading -->
-
-            <div class="container-fluid">
-              <div class="row">     
-                <!-- Basic Info -->
-                <div class="panel panel-success panel-table">
-                  <div class="panel-heading">
-                    <div class="panel-title">
-                      <strong>BASIC INFORMATION</strong>
-                    </div>
-                  </div>
-                  <div class="panel-body">  
-                    <div class="row">   
-                      <div class="container-fluid">               
-                        <table class="table table-bordered">
-                          <tbody>
-                            <tr>
-                              <td colspan="4"><strong>FULL NAME:</strong></td>
-                            </tr>
-                            <tr>
-                              <td><?php echo $row['first_name'] ;?><br>
-                              <span class="text-muted"><small><i>First Name</i></small></span></td>
-                              <td><?php echo $row['middle_name'] ;?><br>
-                              <span class="text-muted"><small><i>Middle Name</i></small></span></td>
-                              <td><?php echo $row['last_name'];?><br>
-                                <span class="text-muted"><small><i>Last Name</i></small></span></td>
-                              <td><?php echo $row['ext'];?><br>
-                                <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
-                            </tr>
-                            <tr>
-                              <td><label>Age:</label></td>
-                              <td><?php echo $row['age'];?> years old</td>
-                              <td><label>Gender:</label></td>
-                              <td><?php echo $row['sex'];?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Date of Birth:</label></td>
-                              <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
-                              <td><label>Marital Status:</label></td>
-                              <td><?php echo $row['stat'] ;?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Program:</label></td>
-                              <td><?php echo $row['program_name'];?></td>
-                              <td><label>Year Level:</label></td>
-                              <td><?php echo $row['yearLevel'];?> Year</td>
-                            </tr>
-                            <tr>
-                              <td><label>Semester: </label></td>
-                              <td><?php echo $row['sem'];?> Semester</td>
-                              <td><label>Academic Year:</label></td>
-                              <td><?php echo $row['acadYear'];?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Address:</label></td>
-                              <td colspan="3"><?php echo $row['address'];?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Contact Person:</label></td>
-                              <td><?php echo $row['cperson'];?></td>
-                              <td><label>Cel/Tel No.:</label></td>
-                              <td><?php echo $row['cphone'];?></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- End of Basic Infor --> 
-              </div>
-            </div>
-
-            <?php 
-              require_once '../includes/dbconnect.php';
-              $DB_con = new mysqli("localhost", "root", "", "records");
-
-                if (isset($_GET['StudentID'])) {
-                  $StudentID = $_GET['StudentID'];
-
-                  $statement = "`students_med` WHERE StudentID = '".$_GET['StudentID']."'";
-                  $result = mysqli_query($DB_con,"SELECT * FROM $statement"); 
-                  $count = $result->num_rows;
-                }
-            ?>
-
-            <div class="container-fluid">
-              <div class="row">
-
-                <div class="panel with-nav-tabs panel-success">
-                  <div class="panel-heading">
-                    <strong>
-                      <ul class="nav nav-tabs panel-title">
-                        <li class="active">
-                          <a href="#medical" data-toggle="tab">MEDICAL</a>
-                        </li>
-                        <li>
-                          <a href="#dental" data-toggle="tab">DENTAL</a>
-                        </li>
-                        <li>
-                          <a href="#soap" data-toggle="tab">S.O.A.P</a>
-                        </li>
-                      </ul>
-                    </strong>
-                  </div>
-                  <div class="panel-body">
-                    <div class="tab-content">
-                      <div class="tab-pane fade in active" id="medical">
-                        <?php
-                        if ($result->num_rows == 0) {
-                          $errMSG = "No records found."; ?>
-                          <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
-                        <?php }
-                        else { 
-                          $query = mysqli_query($DB_con,"SELECT date_checked_up FROM students_med");
-                            while ($row = $query->fetch_assoc()){ 
-                              $update = date('F j, Y; h:i a', strtotime($row['date_checked_up']));
-                            } ?>
-                        <div class="btn-toolbar">  
-                          <?php echo $add_btn; ?>
-                          <a href="#" id="edit_med" class="btn btn-info">
-                            <i class="fa fa-pencil"></i> EDIT RECORD
-                          </a>                  
-                          
-                          <i><span class="pull-right text-muted" id="date_time" style="line-height: 15px;padding: 10px;">Last updated: <?php echo $update;?></span></i>
-                        </div>
-
-                        <br>                       
-                        
-                        <table class="table table-bordered">
-                          <thead>
-                            <th colspan="2">CURRENT SYSTEM</th>
-                            <th colspan="2">PAST MEDICAL HISTORY</th>
-                          </thead>
-                          <?php 
-                          // displaying records.
-                          while ($row = $result->fetch_assoc()){ ?>
-                          <tbody>
-                            <tr>
-                              <td colspan="2"><?php echo $row['sysRev'];?></td>
-                              <td colspan="2"><?php echo $row['medHis'];?></td>
-                            </tr>
-                          </tbody>
-                          <thead>
-                            <th colspan="4">PHYSICAL</th>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <label>Height:</label> <?php echo $row['height'] ;?> cm.
-                              </td>
-                              <td>
-                                <label>Weight:</label> <?php echo $row['weight'] ;?> kg.
-                              </td>
-                              <td><label>BMI:</label> <?php echo $row['bmi']. ' - ' .$row['bmi_cat'];?></td>
-                              <td><label>Blood Pressure:</label> <?php echo $row['bp'] ;?></td>
-                            </tr>
-                            <tr>
-                              <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $row['cr']. ' bpm.' ;?></span></td>
-                              <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php echo $row['rr']. " bpm." ;?></span></td>
-                              <td colspan="2"><label>Temperature:</label> <?php echo $row['temp']. " &#x2103;" ;?></td>
-                            </tr>
-                          </tbody>
-                          <thead>
-                            <tr>
-                              <th colspan="4"><label>PERSONAL AND SOCIAL HISTORY</label></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <?php 
-                            if ($row['drinker'] == 'Yes') {
-                              echo "<tr>
-                                      <td colspan='2' id='drinker'>Alcoholic Drinker</td>
-                                    </tr>";
-                            } else if ($row['smoker'] == 'Yes') {
-                              echo "<tr>
-                                      <td colspan='2' id='smoker'>Smoker</td>
-                                    </tr>";
-                            } else if ($row['drug_user'] == 'Yes') {
-                              echo "<tr>
-                                      <td colspan='2' id='drug_user'>Drug User</td>
-                                    </tr>";
-                            }
-                            else {
-                              echo "<tr>
-                                      <td colspan='4'>None</td>
-                                    </tr>";
-                            }
-                          ?>
-                          </tbody>
-                          <thead>
-                            <tr>                          
-                              <th colspan="4"><label>O.B. GYNE</label></th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          <?php 
-                            if (!empty($row['mens'])) {
-                              echo "<tr>
-                                      <th>Menstrual Period:</th>
-                                      <td colspan='3'>" .$row['mens']. "</td>
-                                    </tr>";
-                              echo "<tr>
-                                      <th>Duration:</th>
-                                      <td colspan='3'>" .$row['duration']. "</td>
-                                    </tr>";
-                            }
-                            else {
-                              echo "<tr>
-                                      <td colspan='4'>Not Applicable</td>
-                                    </tr>";
-                            }
-                          ?>                        
-                          </tbody>
-                        </table>  
-                        <br>
-                        <?php }
-                          } 
-                          if(isset($errMSG)){ ?>
-
-                          <div class="alert alert-warning">
-                            <span class="glyphicon glyphicon-info"></span> <?php echo $errMSG; ?>
-                          </div>
-                                
-                        <?php }
-                        ?>
-                      </div>
-                      <div class="tab-pane fade" id="dental">
-                        <div class="btn-toolbar">
-                          <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
-                        </div>
-                        <br>
-                        <div class="alert alert-warning">
-                          No records found
-                        </div>
-                      </div>
-                      <div class="tab-pane fade" id="soap">
-                        <div class="btn-toolbar">
-                          <a href="soap_form.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a>
-                        </div>
-                        <br>
-                        <div class="alert alert-warning">
-                          No records found
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-
-          <?php }}?>
-    
         </div>  
-        </div>
       </div>
-        <!-- End of Main Screen -->
+    </div>
+    <!-- End of Main Screen -->
 
   </div>
   <!-- End of Content -->

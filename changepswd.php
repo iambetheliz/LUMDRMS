@@ -49,24 +49,24 @@
 	 	
 	  	$curr_pwd = hash('sha256', $curr_pass);
 		
-        if ($old_pwd == $curr_pwd) {
-			//echo $pssw;
-			if ($new_pass == $retype_pass) {
-				
-				$new_pwd = hash('sha256',$new_pass);
- 
-				mysqli_query($DB_con, "UPDATE users SET userPass='$new_pwd' WHERE userId=".$_SESSION['user']) or die ('cannot connect to the server');
+      if ($old_pwd == $curr_pwd) {
+  			//echo $pssw;
+  			if ($new_pass == $retype_pass) {
+  				
+  				$new_pwd = hash('sha256',$new_pass);
+   
+  				mysqli_query($DB_con, "UPDATE users SET userPass='$new_pwd' WHERE userId=".$_SESSION['user']) or die ('cannot connect to the server');
 
-				header("Location: changepswd.php?success");
-			}
-			else if ($new_pass != $retype_pass) {
-				header("Location: changepswd.php?match");
-			}
-		}
-    	else { 
-			header("Location: changepswd.php?fail");
-		} 
-	}
+  				header("Location: changepswd.php?success");
+  			}
+  			else if ($new_pass != $retype_pass) {
+  				header("Location: changepswd.php?match");
+  			}
+  		}
+      else { 
+  			header("Location: changepswd.php?fail");
+  		} 
+  	}
   }
 ?>
 
@@ -150,11 +150,18 @@
 					<form name="formchange" method = "POST" action="changepswd.php" data-toggle="validator" role="form" class="auth-form" >
 					  <div class="row">
 
-					  	<?php if(isset($_GET['success'])){ ?>
+					  <?php if(isset($_GET['success'])){ ?>
 				    	<div class="alert alert-success">
-				    		<strong>Successfully changed password!</strong> <span class="pull-right fa fa-check"></span>
+				    		<strong>Successfully changed password!</strong> <span class="pull-right fa fa-check"></span><br />
+                Redirecting to login page ...
 				    	</div>   
-						<?php } else if(isset($_GET['fail'])){ ?>
+						<?php 
+              unset($_SESSION['user']);
+              session_unset();
+              session_destroy();
+              $sql = mysqli_query($DB_con,'UPDATE `users` SET `login_date` = now()');
+              header("Refresh:3; index.php?reset");
+            } else if(isset($_GET['fail'])){ ?>
 				        <div class="alert alert-danger">
 				    		Wrong password!
 				    	</div>
