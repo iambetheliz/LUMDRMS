@@ -277,6 +277,9 @@
   }, 3000);
 </script>
 
+<!-- Growl -->
+<script src="assets/js/jquery.bootstrap-growl.js"></script>
+
 <!--calendar-->
 <script src="calendar/assets/jquery-ui.min.js"></script>
 <script src="calendar/assets/moment.min.js"></script>

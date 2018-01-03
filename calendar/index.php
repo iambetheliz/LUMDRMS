@@ -210,16 +210,21 @@
 </footer>
 
 </body>
+
 <!-- jQuery -->
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
+
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
+
 <!-- calendar scripts --> 
 <script src="../calendar/assets/jquery-ui.min.js"></script>
 <script src="../calendar/assets/moment.min.js"></script>
-
 <script src="../calendar/assets/fullcalendar.min.js"></script>
-<script type="text/javascript" src="../calendar/assets/calendar_sample.js"></script>
+<script src="../calendar/assets/calendar_sample.js"></script>
+
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
@@ -227,14 +232,14 @@
   $(function () {
     var sd = new Date(), ed = new Date();
   
-    $('#startDate').datetimepicker({ 
+    $('#startTime').datetimepicker({ 
       pickTime: false, 
       format: "YYYY/MM/DD", 
       defaultDate: sd, 
       maxDate: ed 
     });
   
-    $('#endDate').datetimepicker({ 
+    $('#endTime').datetimepicker({ 
       pickTime: false, 
       format: "YYYY/MM/DD", 
       defaultDate: ed, 

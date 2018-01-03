@@ -358,8 +358,10 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
-<script src="../assets/js/notify.js"></script> 
 <script src="../assets/js/students_crud.js"></script>
+
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>

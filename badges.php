@@ -81,7 +81,7 @@ $whereCert = '';
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1> 
     <div class="offer-content">
-      <h4><i class="fa fa-calendar" aria-hidden="true"></i> Certificates Issued</h4>
+      <h4><i class="fa fa-file" aria-hidden="true"></i> Certificates Issued</h4>
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</small>

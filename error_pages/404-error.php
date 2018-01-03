@@ -82,8 +82,8 @@
 </footer>
 
 <!--Scripts-->
-<script src="..assets/js/jquery.min.js"></script>
-<script src="..assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   function loadDomain() {
     var display = document.getElementById("display-domain");

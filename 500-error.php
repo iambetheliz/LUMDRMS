@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="403 Forbidden">
 <title>500 Internal Error</title>
-<link rel="icon" href="../images/favicon.ico">
+<link rel="icon" href="images/favicon.ico">
 <!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
-<link href="../assets/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="assets/fonts/css/font-awesome.min.css">
+<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+<link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
+<link href="assets/style.css" rel="stylesheet" type="text/css" />
 <style>
 /* Error Page Inline Styles */
 #wrapper {
@@ -64,7 +64,7 @@
             <p><a href="javascript:history.go(-1)" class="btn btn-warning btn-lg">Go back to previous page</a></p>
           </div>
           <div class="center-block">
-            <img class="profile-img" src="../images/logo.png" alt="LU logo" />
+            <img class="profile-img" src="images/logo.png" alt="LU logo" />
           </div>
         </div>
       </div>
@@ -82,8 +82,8 @@
 </footer>
 
 <!--Scripts-->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
   function loadDomain() {
     var display = document.getElementById("display-domain");

@@ -7,20 +7,19 @@ RewriteCond %{REQUEST_FILENAME}.php -f
 RewriteRule ^(.*)$ $1.php
 #RewriteRule ^([a-z]+)\/?$ $1.php [NC]
 
-
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*)$ $1.html
 #RewriteRule ^([a-z]+)\/?$ $1.html [NC]
 
-RewriteEngine on
-RewriteRule ^(.*) $1 [L]
-RewriteRule ^students/([A-Za-z0-9-]+)/?$ profile.php?StudentID=$1 [NC]
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^profile/(.*)$ profile.php?q=$1 [QSA]
 
 Options -Indexes
 
-ErrorDocument 403 /lu_clinic/error_pages/403-error.php
-ErrorDocument 404 /lu_clinic/error_pages/404-error.php
-ErrorDocument 500 /lu_clinic/error_pages/500-error.php
+ErrorDocument 403 /lu_clinic/403-error.php
+ErrorDocument 404 /lu_clinic/404-error.php
+ErrorDocument 500 /lu_clinic/500-error.php
 
 </IfModule>
