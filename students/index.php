@@ -133,6 +133,8 @@
                       <option value="desc">Descending</option>
                     </select>
                   </div>
+
+                  <a href="/lu_clinic/printform.php" class="btn btn-primary" role="button">Print</a>
                 </div>
               </div>
               <!-- End btn-toolbar -->
