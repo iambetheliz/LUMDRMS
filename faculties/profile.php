@@ -72,8 +72,6 @@
           <?php 
             require_once '../includes/dbconnect.php';
 
-            $DB_con = new mysqli("localhost", "root", "", "records");
-
             if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
               $FacultyID = $_GET['FacultyID'];
@@ -164,26 +162,6 @@
                     </div>
                   </div>
                   <!-- End of Buttons -->
-                  <?php 
-                    require_once '../includes/dbconnect.php';
-                    include '../includes/pagination.php';
-
-                    $DB_con = new mysqli("localhost", "root", "", "records");
-
-                    $page = (int)(!isset($_GET["page"]) ? 1 : $_GET["page"]);
-              
-                    if ($page <= 0) $page = 1;
-                      $per_page = 5; // Set how many records do you want to display per page.
-      
-                      if (isset($_GET['FacultyID'])) {
-                        $FacultyID = $_GET['FacultyID'];
-
-                        $startpoint = ($page * $per_page) - $per_page;
-                        $statement = "`faculty_med` WHERE FacultyID = '".$_GET['FacultyID']."'";
-                        $result = mysqli_query($DB_con,"SELECT * FROM $statement ORDER BY {$table_data} {$sort} LIMIT {$startpoint} , {$per_page}"); 
-                        $count = $result->num_rows;
-                      }
-                  ?>
                   <br>
                   <div class="table-responsive">
                     <?php

@@ -180,7 +180,7 @@
               <div class="row">                  
                 <div class="col-lg-6">
                   <div class="form-group"> 
-                    <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                    <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"></span>
                     <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="autofocus"><span id="result"></span>
                     <br>
                     <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>

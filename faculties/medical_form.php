@@ -82,7 +82,7 @@
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">             
-              <h1 class="page-header">Faculty's Medical Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+              <h1 class="page-header">Faculty's Medical Form <span class="text-danger pull-right" id="errmsg"></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  
