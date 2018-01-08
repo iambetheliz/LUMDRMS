@@ -97,20 +97,20 @@
     </div>  
     <!-- End of Sidebar --> 
 
-	    <!-- Begin Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+    <!-- Begin Main Screen -->
+      <div id="page-content-wrapper">
+        <div class="page-content">
+          <div class="container-fluid">   
 
-    	        <!-- Page Heading -->
-                <div class="row">
-                    <div class="container-fluid">
-                        <h1 class="page-header">Medical Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
-                    </div>
+  	        <!-- Page Heading -->
+            <div class="row">
+                <div class="container-fluid">
+                    <h1 class="page-header">Medical Records</h1>
                 </div>
-                <!-- End of Page Heading -->
-                
-                <!-- Buttons -->
+            </div>
+            <!-- End of Page Heading -->
+              
+            <!-- Buttons -->
             <div class="row">
               <!-- Start btn-toolbar -->
               <div class="col-lg-8">
@@ -131,6 +131,7 @@
                       <option value="desc">Descending</option>
                     </select>
                   </div>
+                  
                 </div>
               </div>
               <!-- End btn-toolbar -->
@@ -180,7 +181,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group"> 
-                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"></span>
                       <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
                       <br>
                       <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
@@ -355,6 +356,8 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 <script src="crud.js"></script>
 <script>
 function searchFilter(page_num) {

@@ -102,7 +102,7 @@
           <!-- Page Heading -->
           <div class="row">
             <div class="container-fluid">
-              <h1 class="page-header">Faculty and Staff Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+              <h1 class="page-header">Faculty and Staff Records</h1>
             </div>
           </div>
           <!-- End of Page Heading -->
@@ -177,7 +177,7 @@
             <div class="row">
               <div class="col-lg-3">
                 <div class="form-group"> 
-                  <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"><?php echo $errorMSG; ?></span>
+                  <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
                   <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="on">
                   <br>
                   <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
@@ -213,15 +213,10 @@
                   <label class="col-2 col-form-label">Department</label> 
                   <span class="error pull-right" id="errProg"></span>
                   <?php
-                  //Include database configuration file
-                  include('../includes/dbconnect.php');
-                  $DB_con = new mysqli("localhost", "root", "", "records");
-
-                  //Get all dept data
-                  $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_id ASC");
-
-                  //Count total number of rows
-                  $rowCount = $query->num_rows;
+                    //Get all dept data
+                    $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_id ASC");
+                    //Count total number of rows
+                    $rowCount = $query->num_rows;
                   ?>
                   <select class="form-control" name="dept" id="dept">
                     <option value="">Select Department</option>
@@ -341,6 +336,8 @@
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
 <script src="../assets/js/faculty_crud.js"></script>
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 <script>
 function searchFilter(page_num) {
   page_num = page_num?page_num:0;

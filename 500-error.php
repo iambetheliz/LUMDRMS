@@ -11,42 +11,7 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="assets/style.css" rel="stylesheet" type="text/css" />
-<style>
-/* Error Page Inline Styles */
-#wrapper {
-  padding:0;
-}
-/* Layout */
-.jumbotron {
-  font-size: 21px;
-  font-weight: 200;
-  line-height: 2.1428571435;
-  color: inherit;
-  padding: 10px 0px;
-  margin-top: 5%;
-}
-/* Everything but the jumbotron gets side spacing for mobile-first views */
-.masthead, .body-content, {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  background-color: transparent;
-}
-.jumbotron .btn {
-  padding: 14px 24px;
-}
-.profile-img {
-  width: 200px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%; 
-}
-</style>
+<link href="assets/errors.css" rel="stylesheet" type="text/css" />
 </head>
 <body onload="javascript:loadDomain();">
 
@@ -56,12 +21,12 @@
   <div id="page-content-wrapper">
     <div class="page-content">
       <!-- Error Page Content -->
-      <div class="container-fluid">
-        <div class="row">
+      <div class="row">
+        <div class="container">
           <div class="jumbotron">
-            <h2><i class="fa fa-frown-o text-danger"></i> <strong>Internal Service Error</strong></h2><hr>
-            <p>The server encountered an internal error or misconfiguration and was unable to complete your request.</p>
-            <p><a href="javascript:history.go(-1)" class="btn btn-warning btn-lg">Go back to previous page</a></p>
+            <h2><i class="fa fa-exclamation text-danger"></i> <strong>Internal Service Error</strong></h2><hr>
+            <p>The server encountered an internal error or misconfiguration and was unable to complete your request.</p><br>
+            <a href="javascript:history.go(-1)" class="btn btn-warning btn-lg">Go back to previous page</a>
           </div>
           <div class="center-block">
             <img class="profile-img" src="images/logo.png" alt="LU logo" />

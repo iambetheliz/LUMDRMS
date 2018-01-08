@@ -4,19 +4,12 @@
   include 'calendar.php';
   include 'includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
-   session_start();
+    session_start();
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: index.php?attempt");
+    header("Location: login_process.php");
     exit;
-  }
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-  if ($DB_con->connect_errno) {
-    echo "Connect failed: ", $DB_con->connect_error;
-  exit();
   }
 
   // select loggedin users detail

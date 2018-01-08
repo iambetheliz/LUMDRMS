@@ -104,7 +104,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="container-fluid">
-                        <h1 class="page-header">Dental Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                        <h1 class="page-header">Dental Records</h1>
                     </div>
                 </div>
                 <!-- End of Page Heading -->
@@ -179,7 +179,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="form-group"> 
-                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+                      <label for="studentNo">Student No.: </label> <span class="error pull-right" id="errSN"></span>
                       <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="on">
                       <br>
                       <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
@@ -354,6 +354,8 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/notify.js"></script> 
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 <script src="crud.js"></script>
 <script>
 function searchFilter(page_num) {

@@ -272,7 +272,7 @@
   window.setTimeout(function() {
     $(".success-login").fadeTo(1000,0).slideUp('fast', function(){
       $(this).remove();
-      window.location.href='dashboard';
+      window.location.href='dashboard.php';
     });
   }, 3000);
 </script>

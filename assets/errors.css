@@ -1,0 +1,39 @@
+
+/* Error Page Inline Styles */
+#wrapper {
+  padding:0;
+}
+/* Layout */
+@media screen and (min-width: 768px) {
+  .jumbotron {
+    padding-top: 48px;
+    padding-bottom: 48px;
+    margin-left: 15%;
+    width: 800px;
+  }
+}
+.jumbotron {
+  margin-bottom: 0;
+  text-align: center;
+  background-color: transparent;
+}
+.jumbotron p {
+  margin: 0;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+}
+/* Everything but the jumbotron gets side spacing for mobile-first views */
+.masthead, .body-content, {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Main marketing message and sign up button */
+.profile-img {
+  width: 200px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%; 
+}

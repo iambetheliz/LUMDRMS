@@ -1,4 +1,10 @@
 /*CUSTOM STYLES*/
+.table {
+  margin-bottom: 0;
+}
+.table.no-border tr td, .table.no-border tr th {
+  border-width: 0;
+}
 a.demo {
   text-indent: 7.5px;
 }
@@ -23,9 +29,6 @@ a.demo {
   input#keywords {
     width: 396px;
   }
-}
-.table {
-  margin-bottom: 0;
 }
 @media only screen and (min-width:768px){
   .dropdown:hover .dropdown-menu {

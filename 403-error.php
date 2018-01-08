@@ -12,42 +12,7 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="assets/style.css" rel="stylesheet" type="text/css" />
-<style>
-/* Error Page Inline Styles */
-#wrapper {
-  padding:0;
-}
-/* Layout */
-.jumbotron {
-  font-size: 21px;
-  font-weight: 200;
-  line-height: 2.1428571435;
-  color: inherit;
-  padding: 10px 0px;
-  margin-top: 5%;
-}
-/* Everything but the jumbotron gets side spacing for mobile-first views */
-.masthead, .body-content, {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  background-color: transparent;
-}
-.jumbotron .btn {
-  padding: 14px 24px;
-}
-.profile-img {
-  width: 200px;
-  margin: 0 auto 10px;
-  display: block;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%; 
-}
-</style>
+<link rel="stylesheet" type="text/css" href="assets/errors.css" />
 </head>
 <body onload="javascript:loadDomain();">
 
@@ -57,12 +22,13 @@
   <div id="page-content-wrapper">
     <div class="page-content">
       <!-- Error Page Content -->
-      <div class="container-fluid">
-        <div class="row">
+      <div class="row">
+        <div class="container">
           <div class="jumbotron">
             <h2><i class="fa fa-ban text-danger"></i> <strong>Access Forbidden</strong></h2><hr>
             <p class="lead">You do not have access permissions for that page.</p>
-            <p><a href="javascript:history.go(-1)" class="btn btn-lg btn-warning"><span class="maroon">Go back to previous page</span></a></p>
+            <br>
+            <a href="javascript:history.go(-1)" class="btn btn-lg btn-warning"><span class="maroon">Go back to previous page</span></a>
           </div>
           <div class="center-block">
             <img class="profile-img" src="images/logo.png" alt="LU logo" />

@@ -2,7 +2,6 @@
 //Include database configuration file
 include('../includes/dbconnect.php');
 include '../includes/date_time_diff.php';
-$DB_con = new mysqli("localhost", "root", "", "records");
 //Include pagination class file
 include('../includes/Pagination.php');
 
@@ -15,18 +14,27 @@ if(isset($_POST['page'])){
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
+    $prog = $_POST["program_id"];
 
-    if(!empty($keywords)){
-      $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%'";
+    if ( !empty($keywords) && !empty($prog) ) {
+      $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+    }
+    elseif ( !empty($keywords) ) {
+      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+    }
+    elseif ( !empty($prog) ) {
+      $whereSQL = " WHERE program = '".$prog."' ";
     }
 
-    if(!empty($sortBy)){
+    if ( !empty($sortBy) ){
       $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
-
-    if(!empty($_POST["program_id"])) {  
-      $whereSQL = " WHERE program = '".$_POST["program_id"]."'"; 
-    }  
+    elseif ( !empty($sortBy) && !empty($prog) ) {
+      $orderSQL = " ORDER BY last_name ".$sortBy;
+    }
+    elseif (empty($prog) || empty($sortBy)) {
+      $orderSQL = " ORDER BY date_updated DESC ";
+    } 
 
     //get number of rows
     $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`".$whereSQL.$orderSQL);
@@ -207,16 +215,46 @@ else {
       }
     });
   });
-
-  //  for select / deselect all
   function delete_records() {
-    document.frm.action = "delete_mul.php";
-    document.frm.submit();
+    var id = [];       
+    $(':checkbox:checked').each(function(i){
+      id[i] = $(this).val();
+    });
+           
+    if(id.length === 0) { //tell you if the array is empty
+      alert("Please Select atleast one checkbox");
+      return false;
+    }
+    else {
+      confirm("Are you sure you want to delete this?");
+      $.ajax({
+        url:'delete_mul.php',
+        method:'POST',
+        data:{id:id},
+        success:function() {
+          for(var i=0; i<id.length; i++) {
+            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+            $('tr#table-row-'+id[i]+'').fadeOut('slow');
+          }
+          $("#tbl_students").load("../students/tbl_students.php");
+          $.bootstrapGrowl("Deleted successfully", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
+        }
+      });
+    }  
   }
-  $('#close').click(function() {
-    window.location.href = 'index.php';
-    return false;
-  });
 
   // Quick Edit 
   $('document').ready(function() {

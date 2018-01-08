@@ -134,7 +134,7 @@ $(document).ready(function(){
 			});
 		}
 	});
-	//Delete
+	//Delete Single
 	$(document).on('click', '.delete', function(){
 		$StudentID = $(this).val();
 		$.ajax({

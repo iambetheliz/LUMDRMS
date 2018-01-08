@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="403 Forbidden">
-<title>404 Not Found</title>
+<title>500 Internal Error</title>
 <link rel="icon" href="images/favicon.ico">
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="assets/fonts/css/font-awesome.min.css">
@@ -24,9 +24,10 @@
       <div class="row">
         <div class="container">
           <div class="jumbotron">
-            <h2><i class="fa fa-frown-o text-danger"></i> <strong>File Not Found</strong></h2><hr>
-              <p>The link you followed may be broken or the page may have been removed.</p><br>
-              <a href="javascript:history.go(-1)" class="btn btn-warning btn-lg">Go back to previous page</a>
+            <h2><i class="fa fa-exclamation-triangle text-danger"></i> <strong>Database Connection Error</strong></h2><hr>
+            <p>It looks like you are connecting to an unknown database.
+            Please contact your system administrator to fix the issue.</p><br>
+            <a onclick="javascript:history.go(-1)" class="btn btn-warning btn-lg">Go back to previous page</a>
           </div>
           <div class="center-block">
             <img class="profile-img" src="images/logo.png" alt="LU logo" />

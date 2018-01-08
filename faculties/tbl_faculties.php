@@ -2,7 +2,6 @@
 //Include database configuration file
 include('../includes/dbconnect.php');
 include '../includes/date_time_diff.php';
-$DB_con = new mysqli("localhost", "root", "", "records");
 //Include pagination class file
 include('../includes/Pagination.php');
 
@@ -15,19 +14,26 @@ if(isset($_POST['page'])){
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
+    $dept = $_POST["dept_id"];
 
-    if(!empty($keywords)){
-        $whereSQL = "WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%'";
+    if ( !empty($keywords) && !empty($dept) ) {
+      $whereSQL = " WHERE dept = '".$dept."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
     }
-    if(!empty($sortBy)){
-        $orderSQL = " ORDER BY last_name ".$sortBy;
+    elseif ( !empty($keywords) ) {
+      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+    }
+    elseif ( !empty($dept) ) {
+      $whereSQL = " WHERE dept = '".$dept."' ";
+    }
+
+    if ( !empty($sortBy) ){
+      $orderSQL = " ORDER BY last_name ".$sortBy;
     } 
-    else{
-        $orderSQL = " ORDER BY date_updated DESC";
+    elseif ( !empty($sortBy) && !empty($dept) ) {
+      $orderSQL = " ORDER BY last_name ".$sortBy;
     }
-
-    if(!empty($_POST["dept_id"])) {  
-      $whereSQL = " WHERE dept = '".$_POST["dept_id"]."'"; 
+    elseif (empty($dept) || empty($sortBy)) {
+      $orderSQL = " ORDER BY date_updated DESC ";
     }
 
     //get number of rows
@@ -79,15 +85,15 @@ if(isset($_POST['page'])){
                 <tr data-row-id="<?php echo $row['StatsID'];?>">
                     <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
                 <td><?php echo $row['FacultyID'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['last_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['first_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['middle_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $extension.strtoupper($row['ext']);?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['dept_name'];?></td>
-                    <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
-                    </td>
-                </tr>
+                <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                </td>
+            </tr>
             <?php } ?>
             </tbody>
         </table>
@@ -154,10 +160,10 @@ else {
               <tr data-row-id="<?php echo $row['StatsID'];?>">
                 <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
                 <td><?php echo $row['FacultyID'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['last_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['first_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo strtoupper($row['middle_name']); ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $extension.strtoupper($row['ext']);?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['dept_name'];?></td>
                 <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
@@ -198,11 +204,46 @@ $(document).ready(function() {
     });
 });
 
-//  for select / deselect all
 function delete_records() {
-    document.frm.action = "delete_mul.php";
-    document.frm.submit();
-}
+    var id = [];       
+    $(':checkbox:checked').each(function(i){
+      id[i] = $(this).val();
+    });
+           
+    if(id.length === 0) { //tell you if the array is empty
+      alert("Please Select atleast one checkbox");
+      return false;
+    }
+    else {
+      confirm("Are you sure you want to delete this?");
+      $.ajax({
+        url:'delete_mul.php',
+        method:'POST',
+        data:{id:id},
+        success:function() {
+          for(var i=0; i<id.length; i++) {
+            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+            $('tr#table-row-'+id[i]+'').fadeOut('slow');
+          }
+          $("#tbl_faculties").load("../faculties/tbl_faculties.php");
+          $.bootstrapGrowl("Deleted successfully", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
+        }
+      });
+    }  
+  }
 $('#close').click(function() {
     window.location.href = 'index.php';
     return false;

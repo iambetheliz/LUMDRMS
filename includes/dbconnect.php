@@ -1,17 +1,15 @@
 <?php
-
-error_reporting(~E_NOTICE);
  
 $DB_HOST = 'localhost';
 $DB_USER = 'root';
 $DB_PASS = '';
 $DB_NAME = 'records';
 $item_per_page = 5;
+
+// Create connection
+$DB_con = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
  
-try{
-  $DB_con = new PDO("mysql:host={$DB_HOST};dbname={$DB_NAME}",$DB_USER,$DB_PASS);
-  $DB_con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch(PDOException $e){
-  echo $e->getMessage();
+// Check connection
+if ($DB_con->connect_error) {
+    header('Location: /lu_clinic/no_connection_error.php');
 }

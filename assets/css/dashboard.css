@@ -49,9 +49,10 @@ h1.stats {
 .offer-info .shape{
   border-color: transparent #5bc0de transparent transparent;
 }
-.offer-info h1.stats{
-  background: #5bc0de;
-  color: white;
+.offer-info h1.stats {
+    background: #5bc0de;
+    color: white;
+    font-weight: bold;
 }
 .offer-warning {  border-color: #f0ad4e; border-radius: 5px; }
 .offer-warning .shape{

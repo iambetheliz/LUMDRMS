@@ -9,37 +9,13 @@
     header("Location: ../index.php?attempt");
     exit;
   }
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
  
- $chk = $_POST['chk'];
- $chkcount = count($chk);
- 
- if(!isset($chk)) {
-    header("Location:index.php?deleteError");
- }
- else {
-  for($i=0; $i<$chkcount; $i++) {
-    $del = $chk[$i];
-    $sql = $DB_con->query("DELETE FROM faculties WHERE FacultyID=".$del);
-  } 
-  
-  if($sql) {
-   ?>
-   <script>
-   alert('<?php echo $chkcount; ?> Records Was Deleted !!!');
-   window.location.href='index.php';
-   </script>
-   <?php
+ if(isset($_POST["id"]))
+  {
+   foreach($_POST["id"] as $id)
+   {
+    $query = "DELETE FROM faculties WHERE FacultyID = '".$id."'";
+    mysqli_query($DB_con, $query);
+   }
   }
-  else {
-   header("Location:index.php?deleteError");
-  }
-  
- }
 ?>

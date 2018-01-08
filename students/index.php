@@ -107,7 +107,7 @@
   	        <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h1 class="page-header">Student Records <small class="text-muted text-success pull-right" id="message"><?php  echo $successMSG; echo $errorMSG; ?></small></h1>
+                <h1 class="page-header">Student Records</h1>
               </div>
             </div>
             <!-- End of Page Heading -->

@@ -11,13 +11,6 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
-
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
@@ -67,7 +60,6 @@
         ?>
             <li class="dropdown"><?php echo $account; ?>
               <ul class="dropdown-menu">
-                <li><a href=""><i class="glyphicon glyphicon-cog"></i>&nbsp;&nbsp;Edit Profile</a></li>
                 <li><a href="/lu_clinic/change_pass.php"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp; Change Password</a></li>
                 <li><?php echo $logout; ?></li>
               </ul>

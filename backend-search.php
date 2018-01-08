@@ -1,6 +1,13 @@
 <?php
 require_once("includes/dbconnect.php");
-$DB_con = new mysqli("localhost", "root", "", "records");
+if(empty($_SESSION)) // if the session not yet started 
+    session_start();
+
+// if session is not set this will redirect to login page
+if( !isset($_SESSION['user']) ) {
+    header("Location: /lu_clinic/403-error.php");
+exit;
+}
 
 if(!empty($_POST["keyword"])) {
     $query ="SELECT * FROM students WHERE studentNo LIKE '%" . $_POST["keyword"] . "%' OR first_name LIKE '%" . $_POST["keyword"] . "%' OR middle_name LIKE '%" . $_POST["keyword"] . "%' OR last_name LIKE '%" . $_POST["keyword"] . "%' ORDER BY first_name LIMIT 0,6";
