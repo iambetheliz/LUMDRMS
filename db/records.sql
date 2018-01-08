@@ -85,6 +85,8 @@ CREATE TABLE `faculties` (
   `ext` varchar(4) NOT NULL,
   `age` int(2) NOT NULL,
   `sex` varchar(9) NOT NULL,
+  `dob` varchar(20) NOT NULL,
+  `stat` varchar(10) NOT NULL,
   `dept` int(11) NOT NULL,
   `sem` varchar(9) NOT NULL,
   `acadYear` varchar(20) NOT NULL,

@@ -10,6 +10,8 @@
         $ext = $_POST['ext'];
         $age = $_POST['age'];
         $sex = $_POST['sex'];
+        $dob = $_POST['dob'];
+        $stat = $_POST['stat'];
         $dept = $_POST['dept'];
         $sem = $_POST['sem'];
         $acadYear = $_POST['acadYear'];
@@ -23,6 +25,6 @@
             $cphone = 'none';
         }
 		
-		mysqli_multi_query($DB_con,"INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,dept,sem,acadYear,address,cperson,cphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dept','$sem','$acadYear','$address','$cperson','$cphone'); INSERT INTO faculty_stats(med,dent,facultyNo) VALUES('$med','$dent','$facultyNo');");
+		mysqli_multi_query($DB_con,"INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,sem,acadYear,address,cperson,cphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$sem','$acadYear','$address','$cperson','$cphone'); INSERT INTO faculty_stats(med,dent,facultyNo) VALUES('$med','$dent','$facultyNo');");
 	}
 ?>

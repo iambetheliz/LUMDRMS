@@ -209,10 +209,15 @@
                   <div class="col-lg-5">
                     <div class="form-group">
                       <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
-                      <input type="date" class="form-control" name="dob" id="dob">
+                      <div class="input-group date">
+                        <input type="text" class="form-control" name="dob" id="dob" />  
+                        <span class="input-group-addon">
+                          <span class="fa fa-calendar"></span>
+                        </span>
+                      </div>
                       <br>
                       <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
-                      <select class="form-control required" name="stat" id="stat">
+                      <select class="form-control" name="stat" id="stat">
                         <option value="">Select</option>
                         <option value="Single">Single</option>
                         <option value="Married">Married</option>

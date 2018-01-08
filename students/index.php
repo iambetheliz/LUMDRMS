@@ -228,7 +228,6 @@
                     <?php
                       //Include database configuration file
                       include('../includes/dbconnect.php');
-                      $DB_con = new mysqli("localhost", "root", "", "records");
   
                       //Get all dept data
                       $query = $DB_con->query("SELECT * FROM department WHERE status = 1 AND cat = 2 ORDER BY dept_name ASC");

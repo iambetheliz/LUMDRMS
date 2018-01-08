@@ -81,10 +81,11 @@ if(isset($_POST['page'])){
             </thead>
             <tbody>
             <?php
-                while($row = $query->fetch_assoc()){ ?>
-                <tr data-row-id="<?php echo $row['StatsID'];?>">
-                    <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
-                <td><?php echo $row['FacultyID'];?></td>
+              while($row = $query->fetch_assoc()){ 
+              $start++; ?>
+              <tr id="table-row-<?php echo $row["StatsID"]; ?>">
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
@@ -110,7 +111,8 @@ if(isset($_POST['page'])){
     }
 }
 else {
-    $limit = 5;
+  $start = !empty($_POST['page'])?$_POST['page']:0;
+  $limit = 5;
 
   //get number of rows
   $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM faculties");
@@ -156,10 +158,11 @@ else {
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ ?>
-              <tr data-row-id="<?php echo $row['StatsID'];?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
-                <td><?php echo $row['FacultyID'];?></td>
+              while($row = $query->fetch_assoc()){ 
+              $start++; ?>
+              <tr id="table-row-<?php echo $row["StatsID"]; ?>">
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>

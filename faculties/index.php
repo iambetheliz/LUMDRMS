@@ -174,9 +174,10 @@
             </h4>
           </div>
           <div class="modal-body">
-            <div class="row">
-              <div class="col-lg-3">
-                <div class="form-group"> 
+            <div id="msg"></div>
+              <div class="row">                  
+                <div class="col-lg-6">
+                  <div class="form-group">
                   <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
                   <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="on">
                   <br>
@@ -191,28 +192,39 @@
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
                   <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
-                </div>
-              </div>
-              <div class="col-2"></div>
-              <div class="col-lg-2">
-                <div class="form-group">
+                  <br>
                   <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
                   <input class="form-control required" type="text" placeholder="00" name="age" id="age">
-                  <br>
+                </div>
+              </div>
+              <div class="col-lg-1"></div>
+              <div class="col-lg-5">
+                <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
                   <select class="form-control required" name="sex" id="sex">
                     <option value="undefined">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
-                </div>
-              </div>
-              <div class="col-2"></div>
-              <div class="col-lg-3">
-                <div class="form-group">
-                  <label class="col-2 col-form-label">Department</label> 
-                  <span class="error pull-right" id="errProg"></span>
-                  <?php
+                  <br>
+                  <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
+                    <div class="input-group date">
+                      <input type="text" class="form-control" name="dob" id="dob" />  
+                      <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                      </span>
+                    </div>
+                    <br>
+                    <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
+                    <select class="form-control" name="stat" id="stat">
+                      <option value="">Select</option>
+                      <option value="Single">Single</option>
+                      <option value="Married">Married</option>
+                    </select>
+                    <br>
+                    <label class="col-2 col-form-label">Department</label> 
+                    <span class="error pull-right" id="errProg"></span>
+                    <?php
                     //Get all dept data
                     $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_id ASC");
                     //Count total number of rows
@@ -237,11 +249,7 @@
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                   </select>
-                </div>
-              </div>
-              <div class="col-2"></div>
-              <div class="col-lg-2">
-                <div class="form-group">
+                  <br>
                   <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
                     <?php
                       $currently_selected = date('Y'); 
@@ -258,26 +266,21 @@
                     </select>
                 </div>
               </div>
-              <div class="col-2"></div>
-              <div class="col-lg-7">
-                <hr>
-              </div>
-              <div class="col-2"></div>
-              <div class="col-lg-7">
+
+              <div class="container-fluid">
                 <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                 </div>
               </div>
-              <div class="col-2"></div>
-              <div class="col-lg-4">
+              <div class="col-lg-6">
                 <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
                   <input type="text" class="form-control" name="cperson" id="cperson">
                 </div>
               </div>
-              <div class="col-2"></div>
-              <div class="col-lg-3">
+              <div class="col-lg-1"></div>
+              <div class="col-lg-5">
                 <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
                   <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">

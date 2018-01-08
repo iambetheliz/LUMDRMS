@@ -85,10 +85,11 @@ if(isset($_POST['page'])){
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ ?>
+              while($row = $query->fetch_assoc()){ 
+              $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                <td><?php echo $row['StudentID'];?></td>
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
@@ -118,6 +119,7 @@ if(isset($_POST['page'])){
   }
 } 
 else {
+  $start = !empty($_POST['page'])?$_POST['page']:0;
   $limit = 5;
 
   //get number of rows
@@ -167,10 +169,11 @@ else {
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ ?>
+              while($row = $query->fetch_assoc()){ 
+              $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                <td><?php echo $row['StudentID'];?></td>
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>

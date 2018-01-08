@@ -83,10 +83,11 @@ if(isset($_POST['page'])){
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ ?>
+              while($row = $query->fetch_assoc()){
+              $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                <td><?php echo $row['StudentID'];?></td>
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
@@ -95,7 +96,7 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
@@ -115,6 +116,7 @@ if(isset($_POST['page'])){
   }
 } 
 else {
+  $start = !empty($_POST['page'])?$_POST['page']:0;
   $limit = 5;
 
   //get number of rows
@@ -163,10 +165,11 @@ else {
             </thead>
             <tbody>
             <?php
-              while($row = $query->fetch_assoc()){ ?>
+              while($row = $query->fetch_assoc()){
+              $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
-                <td><?php echo $row['StudentID'];?></td>
+                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['StudentID']; ?>"  /></td>
+                <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
@@ -175,7 +178,7 @@ else {
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a id="view_profile" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
