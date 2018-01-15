@@ -3,6 +3,8 @@
   require_once 'includes/dbconnect.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
+
+   error_reporting(~E_NOTICE);
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
@@ -10,10 +12,8 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
   if ($DB_con->connect_errno) {
-    echo "Connect failed: ", $DB_con->connect_error;
+    header('Location: /lu_clinic/no_connection_error.php');
   exit();
   }
 
@@ -41,9 +41,9 @@
 	if ( isset($_POST['btn-signup']) ) {
 		
 		// clean user inputs to prevent sql injections
-		$name = trim($_POST['name']);
-		$name = strip_tags($name);
-		$name = htmlspecialchars($name);
+		$name = trim($_POST['userName']);
+		$userName = strip_tags($userName);
+		$userName = htmlspecialchars($userName);
 		
 		$email = trim($_POST['email']);
 		$email = strip_tags($email);
@@ -53,23 +53,23 @@
 		$pass = strip_tags($pass);
 		$pass = htmlspecialchars($pass);
 		
-		// basic name validation
-		if (empty($name)) {
+		// basic userName validation
+		if (empty($userName)) {
 			$error = true;
-			$nameError = "Please enter your full name.";
-		} else if (strlen($name) < 3) {
+			$userNameError = "Please enter your username.";
+		} else if (strlen($userName) < 6) {
 			$error = true;
-			$nameError = "Name must have atleat 3 characters.";
-		} else if (!preg_match("/^[a-zA-Z0-9 ]+$/",$name)) {
+			$userNameError = "Username must have atleat 6 characters.";
+		} else if (!preg_match("/^[a-zA-Z0-9 ]+$/",$userName)) {
 			$error = true;
-			$nameError = "Name must contain alphabets and space.";
+			$userNameError = "Username must contain alphabets and numbers only.";
 		} else {
 			// check email exist or not
-			$query = "SELECT userName FROM users WHERE userName='$name'";
+			$query = "SELECT userName FROM users WHERE userName='$userName'";
 			$result = $DB_con->query($query);
 			if($result->num_rows != 0){
 				$error = true;
-				$nameError = "Username is already in use.";
+				$userNameError = "Username is already in use.";
 			}
 		}
 		
@@ -101,10 +101,10 @@
 		// if there's no error, continue to signup
 		if( !$error ) {
 			
-			$stmt = mysqli_query($DB_con,"INSERT INTO users(userName,userEmail,userPass) VALUES('$name','$email','$password')");
+			$stmt = mysqli_query($DB_con,"UPDATE users SET userName = '$userName', userEmail = '$email' AND position = '$position' WHERE userId=").$_SESSION['user'];
 				
 			if ($stmt) {
-				unset($name);
+				unset($userName);
 				unset($email);
 				unset($pass);
 			}	
@@ -135,8 +135,8 @@
 		            
 		            <div class="form-group">
 		            	<label>Username:</label>
-		            	<input type="text" name="name" class="form-control" maxlength="50" value="<?php echo $name ?>" autofocus />
-		                <span class="text-danger"><?php echo $nameError; ?></span>
+		            	<input type="text" name="userName" class="form-control" maxlength="50" value="<?php echo $userName ?>" autofocus />
+		                <span class="text-danger"><?php echo $userNameError; ?></span>
 		            </div>
 		            
 		            <div class="form-group">

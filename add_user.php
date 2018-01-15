@@ -1,5 +1,5 @@
 <?php
-	ob_start();
+  ob_start();
   require_once 'includes/dbconnect.php';
   if(empty($_SESSION)) // if the session not yet started 
    session_start();
@@ -10,12 +10,7 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-  if ($DB_con->connect_errno) {
-    echo "Connect failed: ", $DB_con->connect_error;
-  exit();
-  }
+  error_reporting( ~E_NOTICE );
 
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
@@ -55,9 +50,9 @@
 		if (empty($name)) {
 			$error = true;
 			$nameError = "Please enter your full name.";
-		} else if (strlen($name) < 3) {
+		} else if (strlen($name) < 6) {
 			$error = true;
-			$nameError = "Name must have atleat 3 characters.";
+			$nameError = "Name must have atleat 6 characters.";
 		} else {
 			// check username exist or not
 			$query = "SELECT userName FROM users WHERE userName='$name'";
@@ -157,6 +152,8 @@
 		            <div class="form-group">
 		            	<button type="submit" class="btn btn-success" name="btn-signup">Add User</button>
 		            </div>
+
+		            <i><small class="text-muted">(Note: You can add your desired password or click &nbsp;<i class="fa fa-lock"></i>&nbsp; to generate a pre-built password.)</small></i>
 		        
 		        </div>
 		    </fieldset>   

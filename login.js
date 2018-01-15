@@ -48,7 +48,8 @@ $('document').ready(function() {
         data : data,
         beforeSend: function() {  
           $("#error").fadeOut();
-          $("#btn-login").html("<span class='fa fa-spinner fa-spin'></span> &nbsp; Signing in ...");
+          $("#btn-login").attr("disabled","disabled");
+          $("#btn-login").html("<span class='fa fa-refresh fa-spin'></span> &nbsp; Signing in ...");
         },
         success :  function(response) {           
           if(response=="ok"){

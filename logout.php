@@ -1,7 +1,6 @@
 <?php
   require_once 'includes/dbconnect.php';
   session_start();
-  $DB_con = new mysqli("localhost", "root", "", "records");
 	
 	if (!isset($_SESSION['user'])) {
 		header("Location: index.php?attempt");

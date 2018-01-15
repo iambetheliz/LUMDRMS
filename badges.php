@@ -44,14 +44,14 @@ $whereMed = '';
     ?>            
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-users" aria-hidden="true"></i> Patients Registered</h4>  
+      <h4><i class="fa fa-users"></i> Patients Registered</h4>  
       <?php 
-        if ($count != 0) {?> 
-          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records today.</small>
-          <?php    }
-        else {?>
-          <small>You haven't added any record today.</small>
-        <?php    }
+        if ($count != 0) { ?> 
+          <small>You have added <strong><i><?php echo NumbersToWords::convert($count); ?></i></strong> records.</small>
+          <?php }
+        else { ?>
+          <small>You haven't added any record.</small>
+        <?php }
       ?>
     </div>
   </div>
@@ -65,13 +65,13 @@ $whereMed = '';
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-home" aria-hidden="true"></i> SOAP Records</h4>
+      <h4><i class="fa fa-file-o" aria-hidden="true"></i> SOAP Records</h4>
       <?php 
         if ($count != 0) {?> 
-          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this week.</small>
+          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
         <?php    }
         else {?>
-          <small>You haven't added any record this week.</small>
+          <small>You haven't added any records.</small>
         <?php    }
       ?>
     </div>
@@ -89,10 +89,10 @@ $whereMed = '';
       <h4><i class="fa fa-file" aria-hidden="true"></i> Dental Records</h4>
       <?php 
         if ($count != 0) {?> 
-          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this month.</small>
+          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
         <?php    }
         else {?>
-          <small>You haven't added any records this month.</small>
+          <small>You haven't added any records.</small>
         <?php    }
       ?>
     </div>
@@ -110,10 +110,10 @@ $whereMed = '';
       <h4><i class="fa fa-calendar"></i> Medical Records</h4>
       <?php 
         if ($count != 0) {?> 
-          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records this year.</small>
+          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
         <?php    }
         else {?>
-          <small>You haven't added any records this year.</small>
+          <small>You haven't added any records.</small>
         <?php    }
       ?>
     </div>

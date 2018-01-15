@@ -166,25 +166,25 @@
                                 <input type="radio" name="per_con" value="Normal" /> Normal
                               </label>
                               <br>
-                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem1" />
+                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem" />
                               <br>
                               <label class="radio-inline"> 
                                 <input type="radio" name="per_con" value="Gingivitis" /> Gingivitis
                               </label>
                               <br>
-                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem2" id="con_rem2">
+                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem" id="con_rem">
                               <br>
                               <label class="radio-inline">
                                 <input type="radio" name="per_con" value="Periodontal Disease" /> <strong>Periodontal Disease</strong>
                               </label>                  
                               <br>
                               <label>Remarks:</label> 
-                              <input type="text" class="form-control input-sm" name="con_rem3" >
+                              <input type="text" class="form-control input-sm" name="con_rem" >
                               <br>
                               <label class="radio-inline">
                                 <input type="radio" name="per_con" value="Other Abnormal Conditions" /> <strong>Other Abnormal Conditions</strong>
                               </label><br>      
-                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem4" id="con_rem4"><br>      
+                              <label>Remarks:</label> <input type="text" class="form-control input-sm" name="con_rem" id="con_rem"><br>      
                               <label>Please specify:</label> <input type="text" class="form-control input-sm" name="con_spec" id="con_spec">
                             </div>
                           </div>                      

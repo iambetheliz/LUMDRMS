@@ -217,8 +217,8 @@ CREATE TABLE `faculty_cert` (
   `date_issued` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `FacultyID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`,`FacultyID`),
-  UNIQUE KEY `FacultyID` (`FacultyID`),
+  PRIMARY KEY (`ID`),
+  KEY `FacultyID` (`FacultyID`),
   CONSTRAINT `fk_fcert_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -236,10 +236,7 @@ CREATE TABLE `faculty_den` (
   `missing` int(11) NOT NULL,
   `filled` int(11) NOT NULL,
   `per_con` varchar(50) NOT NULL,
-  `con_rem1` varchar(50) NOT NULL,
-  `con_rem2` varchar(50) NOT NULL,
-  `con_rem3` varchar(50) NOT NULL,
-  `con_rem4` varchar(50) NOT NULL,
+  `con_rem` varchar(50) NOT NULL,
   `con_spec` varchar(50) NOT NULL,
   `denture` varchar(5) NOT NULL,
   `pro_rem1` varchar(50) NOT NULL,
@@ -251,8 +248,8 @@ CREATE TABLE `faculty_den` (
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `FacultyID` int(11) NOT NULL,
-  PRIMARY KEY (`DID`,`FacultyID`),
-  UNIQUE KEY `FacultyID` (`FacultyID`),
+  PRIMARY KEY (`DID`),
+  KEY `FacultyID` (`FacultyID`),
   CONSTRAINT `fk_fdent_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -280,6 +277,13 @@ CREATE TABLE `faculty_med` (
   `cr` varchar(10) NOT NULL,
   `rr` varchar(10) NOT NULL,
   `temp` varchar(5) NOT NULL,
+  `gen_sur` varchar(50) NOT NULL,
+  `skin` varchar(50) NOT NULL,
+  `heent` varchar(50) NOT NULL,
+  `lungs` varchar(50) NOT NULL,
+  `heart` varchar(50) NOT NULL,
+  `abdomen` varchar(50) NOT NULL,
+  `extreme` varchar(50) NOT NULL,
   `xray` varchar(20) NOT NULL,
   `assess` varchar(3) NOT NULL,
   `plan` text(200) NOT NULL,
@@ -287,8 +291,8 @@ CREATE TABLE `faculty_med` (
   `checked_by` varchar(50) NOT NULL,
   `facultyNo` varchar(9) NOT NULL,
   `FacultyID` int(11) NOT NULL,
-  PRIMARY KEY (`MedID`,`FacultyID`),
-  UNIQUE KEY `FacultyID` (`FacultyID`),
+  PRIMARY KEY (`MedID`),
+  KEY `FacultyID` (`FacultyID`),
   CONSTRAINT `fk_fmed_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -314,8 +318,8 @@ CREATE TABLE `faculty_soap` (
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `FacultyID` int(11) NOT NULL,
-  PRIMARY KEY (`SID`,`FacultyID`),
-  UNIQUE KEY `FacultyID` (`FacultyID`),
+  PRIMARY KEY (`SID`),
+  KEY `FacultyID` (`FacultyID`),
   CONSTRAINT `fk_fsoap_id` FOREIGN KEY (`FacultyID`) REFERENCES `faculties` (`FacultyID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -730,8 +734,8 @@ CREATE TABLE `students_cert` (
   `date_issued` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  PRIMARY KEY (`ID`,`StudentID`),
-  UNIQUE KEY `StudentID` (`StudentID`),
+  PRIMARY KEY (`ID`),
+  KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_cert_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -749,10 +753,7 @@ CREATE TABLE `students_den` (
   `missing` int(11) NOT NULL,
   `filled` int(11) NOT NULL,
   `per_con` varchar(50) NOT NULL,
-  `con_rem1` varchar(50) NOT NULL,
-  `con_rem2` varchar(50) NOT NULL,
-  `con_rem3` varchar(50) NOT NULL,
-  `con_rem4` varchar(50) NOT NULL,
+  `con_rem` varchar(50) NOT NULL,
   `con_spec` varchar(50) NOT NULL,
   `denture` varchar(5) NOT NULL,
   `pro_rem1` varchar(50) NOT NULL,
@@ -764,8 +765,8 @@ CREATE TABLE `students_den` (
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  PRIMARY KEY (`DID`,`StudentID`),
-  UNIQUE KEY `StudentID` (`StudentID`),
+  PRIMARY KEY (`DID`),
+  KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_dent_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -792,6 +793,13 @@ CREATE TABLE `students_med` (
   `cr` varchar(3) NOT NULL,
   `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,
+  `gen_sur` varchar(50) NOT NULL,
+  `skin` varchar(50) NOT NULL,
+  `heent` varchar(50) NOT NULL,
+  `lungs` varchar(50) NOT NULL,
+  `heart` varchar(50) NOT NULL,
+  `abdomen` varchar(50) NOT NULL,
+  `extreme` varchar(50) NOT NULL,
   `xray` varchar(3) NOT NULL,
   `assess` varchar(3) NOT NULL,
   `plan` text(200) NOT NULL,
@@ -799,8 +807,8 @@ CREATE TABLE `students_med` (
   `checked_by` varchar(50) NOT NULL,
   `studentNo` varchar(8) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  PRIMARY KEY (`MedID`,`StudentID`),
-  UNIQUE KEY `StudentID` (`StudentID`),
+  PRIMARY KEY (`MedID`),
+  KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_med_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -826,8 +834,8 @@ CREATE TABLE `students_soap` (
   `date_checked` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `checked_by` varchar(50) NOT NULL,
   `StudentID` int(11) NOT NULL,
-  PRIMARY KEY (`SID`,`StudentID`),
-  UNIQUE KEY `StudentID` (`StudentID`),
+  PRIMARY KEY (`SID`),
+  KEY `StudentID` (`StudentID`),
   CONSTRAINT `fk_soap_id` FOREIGN KEY (`StudentID`) REFERENCES `students` (`StudentID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

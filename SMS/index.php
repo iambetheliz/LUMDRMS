@@ -150,14 +150,10 @@ input[type=submit]:hover {
               </div>
               <div class="row">
                 <div class="col-25">
-                  <label for="country">Country</label>
+                  <label for="subject">Subject</label>
                 </div>
                 <div class="col-75">
-                  <select id="country" name="country">
-                    <option value="australia">Australia</option>
-                    <option value="canada">Canada</option>
-                    <option value="usa">USA</option>
-                  </select>
+                  <input type="text" name="subject" placeholder="Enter subject.." />
                 </div>
               </div>
               <div class="row">

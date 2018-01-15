@@ -8,18 +8,18 @@ $(document).ready(function(){
 		$.ajaxSetup ({
       cache: false
   	});
-      $("#add_stud")[0].reset();
-      $('#addnew').val();
-      $('#userModal').modal('hide'); 
+    $("#add_stud")[0].reset();
+    $('#addnew').val();
+    $('#userModal').modal('hide'); 
 	});
   $('#edit_stud').submit(function() {
     return false;
     $.ajaxSetup ({
       cache: false
     });
-      $("#edit_stud")[0].reset();
-      $('#addnew').val();
-      $('#view-modal').modal('hide'); 
+    $("#edit_stud")[0].reset();
+    $('#addnew').val();
+    $('#view-modal').modal('hide'); 
   });
 	//Select courses on Add Function            
   $('#dept').on('change',function(){
@@ -53,7 +53,7 @@ $(document).ready(function(){
             $("#result").html(data);
           }
         });
-        return false;
+      return false;
     }
     else {
       $("#result").html('');
@@ -185,7 +185,7 @@ $(document).ready(function(){
     })
     .fail(function(){
       $('#dynamic-content').html('<i class="glyphicon glyphicon-info-sign"></i> Something went wrong, Please try again...');
-      $('#modal-loader').fadeOut('fast');;
+      $('#modal-loader').fadeOut('fast');
     });
   });
   //Update

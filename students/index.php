@@ -51,7 +51,7 @@
 }}
 </style>
 </head>
-<body>
+<body id="content_page">
 
   <!-- Navbar -->
   <?php include 'header.php'; ?>

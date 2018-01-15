@@ -52,7 +52,7 @@ if (isset($_GET['StudentID'])) {
             <td>
               <label>Weight:</label> <?php echo $soap['weight'] ;?> kg.
             </td>
-            <td><label>BMI:</label> <?php echo $soap['bmi']. ' - ' .$soap['bmi_cat'];?></td>
+            <td><label>BMI:</label> <?php echo $soap['bmi'];?></td>
             <td><label>Blood Pressure:</label> <?php echo $soap['bp'] ;?></td>
           </tr>
           <tr>
@@ -68,7 +68,13 @@ if (isset($_GET['StudentID'])) {
         </thead>
         <tbody>
           <tr>
-            <td><?php echo $soap['med'];?></td>
+            <td colspan="4">
+            <?php if (!empty($soap['med'])) {
+              echo $soap['med'];
+            } else {
+              echo "None"; 
+            }?>
+            </td>
           </tr>
         </tbody>
 

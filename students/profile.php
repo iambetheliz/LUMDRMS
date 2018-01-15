@@ -1,8 +1,6 @@
 <?php
   require_once '../includes/dbconnect.php';
   include '../includes/date_time_diff.php';
-
-  $DB_con = new mysqli("localhost", "root", "", "records");
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -174,7 +172,7 @@
                     <div class="panel with-nav-tabs panel-success">
                       <div class="panel-heading">
                         <strong>
-                          <ul class="nav nav-tabs panel-title">
+                          <ul class="nav nav-tabs panel-title" id="myTab">
                             <li class="active">
                               <a href="#medical" data-toggle="tab">MEDICAL</a>
                             </li>
@@ -227,6 +225,17 @@
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
+<script type="text/javascript">
+$(document).ready(function(){
+  $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+  });
+  var activeTab = localStorage.getItem('activeTab');
+  if(activeTab){
+    $('#myTab a[href="' + activeTab + '"]').tab('show');
+  }
+});
+</script>
     
 </body>
 </html>

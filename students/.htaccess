@@ -1,0 +1,28 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.*)$ $1.php
+#RewriteRule ^([a-z]+)\/?$ $1.php [NC]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*)$ $1.html
+#RewriteRule ^([a-z]+)\/?$ $1.html [NC]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteRule ^profile/(.*)$ profile.php?q=$1 [QSA]
+
+# Rewrite for profile.php?StudentID=xxxxx
+RewriteRule ^profile/([0-9a-zA-Z]+)$ profile.php?StudentID=$1 [NC,L]
+
+Options -Indexes
+
+ErrorDocument 403 /lu_clinic/error_pages/403-error.php
+ErrorDocument 404 /lu_clinic/error_pages/404-error.php
+ErrorDocument 500 /lu_clinic/error_pages/500-error.php
+
+</IfModule>

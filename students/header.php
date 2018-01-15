@@ -3,7 +3,12 @@
   require_once '../includes/dbconnect.php';
   include '../includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
-   session_start();
+  session_start();
+
+  // Check connection
+  if ($DB_con->connect_error) {
+    header('Location: /lu_clinic/no_connection_error.php');
+  }
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {

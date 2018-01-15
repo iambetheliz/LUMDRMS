@@ -122,15 +122,13 @@
               <div class="col-lg-8">
               <div id="list-product">
                 <div class="alert alert-success">Users Table</div>
-                  <table class="table table-bordered" cellpadding="10" cellspacing="1">
+                  <table id="userTable" class="table table-bordered" cellpadding="10" cellspacing="1">
                     <thead>
                       <tr>
                         <th>User ID</th>
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Login Date</th>
-                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody id="ajax-response">
@@ -142,8 +140,6 @@
                         <td><?php echo $userRow["userName"]; ?></td>
                         <td><?php echo $userRow["userEmail"]; ?></td>
                         <td><?php echo $userRow["role"]; ?></td>
-                        <td><?php echo get_timeago(strtotime($userRow['login_date'])); ?></td>
-                        <td></td>
                       </tr>
                     <?php } ?>
                     </tbody>
@@ -170,6 +166,8 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/custom.js" type="text/javascript"></script>
 <script src="assets/js/password.js"></script>
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 </body>
 </html>

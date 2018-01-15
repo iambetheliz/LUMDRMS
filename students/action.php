@@ -10,8 +10,6 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
   if ($DB_con->connect_errno) {
     echo "Connect failed: ", $DB_con->connect_error;
   exit();
@@ -40,9 +38,17 @@
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
       $temp = $_POST['temp'];
+      $gen_sur = $_POST['gen_sur'];
+      $skin = $_POST['skin'];
+      $heent = $_POST['heent'];
+      $lungs = $_POST['lungs'];
+      $heart = $_POST['heart'];
+      $abdomen = $_POST['abdomen'];
+      $extreme = $_POST['extreme'];
       $xray = $_POST['xray'];
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
+      $checked_by = $_POST['checked_by'];
       $studentNo = $_POST['studentNo'];
       $StudentID = $_POST['StudentID'];
 
@@ -63,7 +69,7 @@
           }
         }
 
-        mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,gen_sur,skin,heent,lungs,heart,abdomen,extreme,xray,assess,plan,checked_by,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$gen_sur','$skin','$heent','$lungs','$heart','$abdomen','$extreme','$xray','$assess','$plan','$checked_by','$studentNo','$StudentID');");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 
@@ -101,7 +107,7 @@
           }
         }
 
-        mysqli_query($DB_con,"INSERT INTO students_soap (sysRev,med,weight,height,bmi,bmi_cat,bp,cr,rr,temp,assess,plan,checked_by,StudentID) VALUES ('$sysRev','$med','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$assess','$plan','$checked_by','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_soap (sysRev,med,weight,height,bmi,bp,cr,rr,temp,assess,plan,checked_by,StudentID) VALUES ('$sysRev','$med','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$assess','$plan','$checked_by','$StudentID');");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 
@@ -120,10 +126,7 @@
       $missing = $_POST['missing'];
       $filled = $_POST['filled'];
       $per_con = $_POST['per_con'];
-      $con_rem1 = $_POST['con_rem1'];
-      $con_rem2 = $_POST['con_rem2'];
-      $con_rem3 = $_POST['con_rem3'];
-      $con_rem4 = $_POST['con_rem4'];
+      $con_rem = $_POST['con_rem'];
       $con_spec = $_POST['con_spec'];
       $denture = $_POST['denture'];
       $pro_rem1 = $_POST['pro_rem1'];
@@ -146,7 +149,7 @@
           }
         }
 
-        mysqli_query($DB_con,"INSERT INTO students_dental (medHis,dec_x,dec_f,missing,filled,per_con,con_rem1,con_rem2,con_rem3,con_rem4,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem1','$con_rem2','$con_rem3','$con_rem4','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_den (medHis,dec_x,dec_f,missing,filled,per_con,con_rem,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 

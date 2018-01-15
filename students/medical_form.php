@@ -421,7 +421,7 @@
                           <td>General Survey</td>
                           <td>
                             <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="gen_sur" value="Normal"> &nbsp;
+                              <input type="checkbox" class="form-check-input" name="gen_sur" value="Normal"> Normal
                             </label>
                           </td>
                           <td>
@@ -515,18 +515,8 @@
                       </div>
                       <div class="col-lg-6">
                         <div class="form-group">
-                          <label>Date of Check-up:</label>
-                          <br><br>
-
                           <label>School Nurse:</label>
-                          <p><?php echo $userRow['userName'];?></p>
-                          <input type="hidden" name="checked_by" id="checked_by" value="<?php echo $userRow['userName'] ;?>">
-
-                          <br>
-                          <label>School Physician:</label>
-                          <select class="form-control">
-                            <option></option>
-                          </select>
+                          <input type="text" class="form-control" name="checked_by" id="checked_by" />
                         </div>
                       </div>
                     </div>
