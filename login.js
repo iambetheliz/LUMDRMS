@@ -48,7 +48,7 @@ $('document').ready(function() {
         data : data,
         beforeSend: function() {  
           $("#error").fadeOut();
-          $("#btn-login").html('<span class="glyphicon glyphicon-transfer"></span> &nbsp; Signing in ...');
+          $("#btn-login").html("<span class='fa fa-spinner fa-spin'></span> &nbsp; Signing in ...");
         },
         success :  function(response) {           
           if(response=="ok"){

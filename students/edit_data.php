@@ -15,10 +15,10 @@ $row = mysqli_fetch_array($query);
 ?>
    
 	<div class="row">
-		<div id="msg"></div>
+	  <div id="msg"></div>
 	  <div class="col-lg-6">
 	    <div class="form-group"> 
-	      <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"><?php echo $errorMSG; ?></span>
+	      <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"></span>
 	      <input type="text" class="form-control" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly title="Cannot be edited" data-toggle="tooltip">
 	      <br>
 	      <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>

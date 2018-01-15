@@ -76,7 +76,7 @@
           <!-- Page Heading -->
           <div class="row">
             <div class="container-fluid">             
-              <h1 class="page-header">Student Dental Form <span class="text-danger pull-right" id="errmsg"><?php echo $errorMSG; ?></span></h1>
+              <h1 class="page-header">Student Dental Form <span class="text-danger pull-right" id="errmsg"></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  

@@ -107,7 +107,9 @@
   	        <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h1 class="page-header">Student Records</h1>
+                <h1 class="page-header">Student Records
+                  <a class="btn btn-primary pull-right" name="input" type="button" href="javascript:child_open()" style="cursor:pointer;" class="btn btn-primary" id="print">Print</a>
+                </h1>
               </div>
             </div>
             <!-- End of Page Heading -->
@@ -133,8 +135,7 @@
                       <option value="desc">Descending</option>
                     </select>
                   </div>
-
-                  <a href="/lu_clinic/printform.php" class="btn btn-primary" role="button">Print</a>
+                    
                 </div>
               </div>
               <!-- End btn-toolbar -->
@@ -378,6 +379,16 @@
         down: "fa fa-arrow-down"
       }
   });
+</script>
+<script type="text/javascript">
+
+var popupWindow = null;
+
+function child_open() { 
+
+popupWindow = window.open('/lu_clinic/printform.php',"_blank","directories=no, status=no, menubar=no, scrollbars=no, resizable=no");
+
+}
 </script>
 </body>
 </html>

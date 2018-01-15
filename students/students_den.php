@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/dbconnect.php';
-$DB_con = new mysqli("localhost", "root", "", "records");
 
 if (isset($_GET['StudentID'])) {
   $StudentID = $_GET['StudentID'];

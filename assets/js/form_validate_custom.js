@@ -16,6 +16,13 @@ $(function () {
       $("#otherMedHis").hide();
     }
   });
+  $("#dys").click(function () {
+    if ($(this).is(":checked")) {
+      $(".dys").prop("disabled", false);
+    } else {
+      $(".dys").prop("disabled", true);
+    }
+  });
 });
 
 $(document).ready(function () {

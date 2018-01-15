@@ -16,7 +16,7 @@ include('includes/dbconnect.php');
 <link rel="shortcut icon" href="images/logo.png" />
 </head>
 
-<body>
+<body onload="javascript:window.print()">
 
 <div class="row">
     <div class="container">
@@ -24,15 +24,13 @@ include('includes/dbconnect.php');
         <h4 align="center">
           <input name="form logo" type="image" class="media-heading" id="form logo" src="images/logo.png" width="48px" align="top" />
         </h4>
-        <p align="center">DTI-Laguna<br>
-        No. 38 Purok, Km. 75, Brgy. Banca-banca<br>
-        National Highway, Victoria, Laguna<br>
-        Tel. Nos.: (+6349) 559.0151 / 559.0254<br>
-        Fax: (+6349) 559.0520<br>
-        <span class="style2"><span class="style3">E-mail</span>: dtilaguna@hotmail.com/ R04a.Laguna@dti.gov.ph</span></p>
+        <p align="center">
+            <strong>Laguna University Clinic</strong><br>
+            Laguna Sports Complex, Sta. Cruz, Laguna
+        </p>
 
         <center>
-            <button type="button" class="btn btn-primary" value="Print" onClick="javascript:window.print()">Print</button>
+            <button type="button" class="btn btn-primary" value="Print">Print</button>
         </center>
 
         <?php

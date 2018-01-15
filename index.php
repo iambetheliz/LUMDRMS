@@ -84,7 +84,7 @@ body {
               </div><br>
             
               <div class="form-group">
-                <button type="submit" class="btn btn-success btn-lg btn-block" name="btn-login" id="btn-login"><i class="fa fa-sign-in"></i> Sign In</button>
+                <button type="submit" class="btn btn-success btn-lg btn-block" name="btn-login" id="btn-login">Sign In</button>
               </div>
               </fieldset>   
             </form> 

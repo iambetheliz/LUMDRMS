@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/dbconnect.php';
-$DB_con = new mysqli("localhost", "root", "", "records");
 
 if (isset($_GET['StudentID'])) {
   $StudentID = $_GET['StudentID'];
@@ -64,7 +63,7 @@ if (isset($_GET['StudentID'])) {
             <td>
               <label>Weight:</label> <?php echo $med['weight'] ;?> kg.
             </td>
-            <td><label>BMI:</label> <?php echo $med['bmi']. ' - ' .$med['bmi_cat'];?></td>
+            <td><label>BMI:</label> <?php echo $med['bmi'];?></td>
             <td><label>Blood Pressure:</label> <?php echo $med['bp'] ;?></td>
           </tr>
           <tr>
@@ -80,18 +79,25 @@ if (isset($_GET['StudentID'])) {
         </thead>
         <tbody>
           <?php 
-          if ($med['drinker'] == 'Yes') {
-            echo "<tr>
-                    <td colspan='2' id='drinker'>Alcoholic Drinker</td>
-                  </tr>";
-          } else if ($med['smoker'] == 'Yes') {
-            echo "<tr>
-                    <td colspan='2' id='smoker'>Smoker</td>
-                  </tr>";
-          } else if ($med['drug_user'] == 'Yes') {
-            echo "<tr>
-                    <td colspan='2' id='drug_user'>Drug User</td>
-                  </tr>";
+          if (!empty($med['drinker']) || !empty($med['smoker']) || !empty($med['drug_user'])) {
+            if ($med['drinker'] == 'Yes') {
+              echo "<tr>
+                      <td colspan='2' id='drinker'>Alcoholic Drinker</td>
+                    </tr>";
+            } else if ($med['smoker'] == 'Yes') {
+              echo "<tr>
+                      <td colspan='2' id='smoker'>Smoker</td>
+                    </tr>";
+            } else if ($med['drug_user'] == 'Yes') {
+              echo "<tr>
+                      <td colspan='2' id='drug_user'>Drug User</td>
+                    </tr>";
+            }
+            else {
+              echo "<tr>
+                      <td colspan='4'>None</td>
+                    </tr>";
+            }
           }
           else {
             echo "<tr>
@@ -107,7 +113,7 @@ if (isset($_GET['StudentID'])) {
         </thead>
         <tbody>
         <?php 
-          if (!empty($med['mens'])) {
+          if (!empty($med['mens']) || !empty($med['dys'])) {
             echo "<tr>
                     <th>Menstrual Period:</th>
                     <td colspan='3'>" .$med['mens']. "</td>

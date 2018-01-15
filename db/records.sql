@@ -93,6 +93,7 @@ CREATE TABLE `faculties` (
   `address` varchar(100) NOT NULL,
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
+  `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`FacultyID`,`facultyNo`),
   UNIQUE KEY `facultyNo` (`facultyNo`),
   KEY `dept` (`dept`),
@@ -224,10 +225,10 @@ CREATE TABLE `faculty_cert` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `faculty_dental`
+-- Table structure for table `faculty_den`
 --
 
-CREATE TABLE `faculty_dental` (
+CREATE TABLE `faculty_den` (
   `DID` int(11) NOT NULL AUTO_INCREMENT,
   `medHis` varchar(500) NOT NULL,
   `dec_x` int(11) NOT NULL,
@@ -271,11 +272,11 @@ CREATE TABLE `faculty_med` (
   `drug_user` varchar(3) NOT NULL,
   `mens` varchar(10) NOT NULL,
   `duration` varchar(20) NOT NULL,
+  `dys` varchar(20) NOT NULL,
   `weight` varchar(6) NOT NULL,
   `height` varchar(6) NOT NULL,
-  `bmi` varchar(5) NOT NULL,
-  `bmi_cat` varchar(20) NOT NULL,
-  `bp` varchar(10) NOT NULL,
+  `bmi` varchar(30) NOT NULL,
+  `bp` varchar(30) NOT NULL,
   `cr` varchar(10) NOT NULL,
   `rr` varchar(10) NOT NULL,
   `temp` varchar(5) NOT NULL,
@@ -303,9 +304,8 @@ CREATE TABLE `faculty_soap` (
   `med` varchar(500) NOT NULL,
   `weight` varchar(6) NOT NULL,
   `height` varchar(6) NOT NULL,
-  `bmi` varchar(5) NOT NULL,
-  `bmi_cat` varchar(20) NOT NULL,
-  `bp` varchar(10) NOT NULL,
+  `bmi` varchar(30) NOT NULL,
+  `bp` varchar(30) NOT NULL,
   `cr` varchar(3) NOT NULL,
   `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,
@@ -504,6 +504,7 @@ CREATE TABLE `students` (
   `address` varchar(100) NOT NULL,
   `cperson` varchar(50) NOT NULL,
   `cphone` varchar(15) NOT NULL,
+  `modified` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`StudentID`,`studentNo`),
   UNIQUE KEY `studentNo` (`studentNo`),
   KEY `program` (`program`),
@@ -737,10 +738,10 @@ CREATE TABLE `students_cert` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students_dental`
+-- Table structure for table `students_den`
 --
 
-CREATE TABLE `students_dental` (
+CREATE TABLE `students_den` (
   `DID` int(11) NOT NULL AUTO_INCREMENT,
   `medHis` varchar(500) NOT NULL,
   `dec_x` int(11) NOT NULL,
@@ -783,11 +784,11 @@ CREATE TABLE `students_med` (
   `drug_user` varchar(3) NOT NULL,
   `mens` varchar(10) NOT NULL,
   `duration` varchar(20) NOT NULL,
+  `dys` varchar(20) NOT NULL,
   `weight` varchar(6) NOT NULL,
   `height` varchar(6) NOT NULL,
-  `bmi` varchar(5) NOT NULL,
-  `bmi_cat` varchar(20) NOT NULL,
-  `bp` varchar(10) NOT NULL,
+  `bmi` varchar(30) NOT NULL,
+  `bp` varchar(30) NOT NULL,
   `cr` varchar(3) NOT NULL,
   `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,
@@ -815,9 +816,8 @@ CREATE TABLE `students_soap` (
   `med` varchar(500) NOT NULL,
   `weight` varchar(6) NOT NULL,
   `height` varchar(6) NOT NULL,
-  `bmi` varchar(5) NOT NULL,
-  `bmi_cat` varchar(20) NOT NULL,
-  `bp` varchar(10) NOT NULL,
+  `bmi` varchar(30) NOT NULL,
+  `bp` varchar(30) NOT NULL,
   `cr` varchar(3) NOT NULL,
   `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,

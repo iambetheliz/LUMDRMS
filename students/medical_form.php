@@ -93,7 +93,7 @@
           <!-- End of Page Heading -->  
 
           <!-- Start of Form -->
-          <form action="action.php" method="post" autocomplete="">
+          <form action="action.php" id="med_form" method="post" autocomplete="">
 
             <div class="row">
               <div class="container-fluid">
@@ -338,15 +338,15 @@
                         <tr>
                           <td>
                             <label class="checkbox-inline">
-                              <input type="checkbox" value="Dysmenorrhea" id="dysmenorrhea"><strong>Dysmenorrhea</strong>
+                              <input type="checkbox" value="Dysmenorrhea" name="dys[]" id="dys"><strong>Dysmenorrhea</strong>
                             </label> 
                           </td>
                           <td>
                             <label class="radio-inline">
-                              <input type="radio" name="optradio">G
+                              <input type="radio" value="G" name="dys[]" class="dys" disabled />G
                             </label> 
                             <label class="radio-inline">
-                              <input type="radio" name="optradio">P
+                              <input type="radio" value="P" name="dys[]" class="dys" disabled />P
                             </label>
                           </td>
                         </tr>
@@ -380,17 +380,20 @@
                       </div>
                       <div class="col-lg-3">
                         <label>Body Mass Index:</label> 
-                        <input type="text" class="form-control" name="bmi" id="bmi" readonly style="cursor: not-allowed;" />
+                        <input type="text" class="form-control" name="bmi[]" id="bmi" readonly style="cursor: not-allowed;" />
                       </div>
                       <div class="col-lg-3">
                         <label>BMI Category:</label> 
-                        <input type="text" class="form-control" name="bmi_cat" id="category" readonly style="cursor: not-allowed;" />
+                        <input type="text" class="form-control" name="bmi[]" id="category" readonly style="cursor: not-allowed;" />
                       </div>
                     </div>
                     <div class="form-group row">
                       <div class="col-lg-3">
-                        <label>Blood Pressure: <small><i>(mmHg)</i></small></label> 
-                        <input type="text" class="form-control" name="bp" /> 
+                        <label>Blood Pressure: <small><i>(mmHg)</i></small></label>
+                        <div class="form-inline">
+                          <input type="text" style="width: 80px;" class="form-control" name="bp[]" /> = 
+                          <input type="text" class="form-control" style="width: 135px;" name="bp[]" id="bp_reading" placeholder="Category" /> 
+                        </div>
                       </div>
                       <div class="col-lg-3">
                         <label>Cardiac Rate: <small><i>(beats per minute)</i></small></label>
@@ -416,38 +419,80 @@
                       <tbody>
                         <tr>
                           <td>General Survey</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="gen_sur" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="gen_sur">
+                          </td>
                         </tr>
                         <tr>
                           <td>Skin</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="skin" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="skin">
+                          </td>
                         </tr>
                         <tr>
                           <td>HEENT</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="heent" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="heent">
+                          </td>
                         </tr>
                         <tr>
                           <td>Lungs</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="lungs" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="lungs">
+                          </td>
                         </tr>
                         <tr>
                           <td>Heart</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="heart" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="heart">
+                          </td>
                         </tr>
                         <tr>
                           <td>Abdomen</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="abdomen" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="abdomen">
+                          </td>
                         </tr>
                         <tr>
                           <td>Extremities</td>
-                          <td></td>
-                          <td></td>
+                          <td>
+                            <label class="checkbox-inline">
+                              <input type="checkbox" class="form-check-input" name="extreme" value="Normal"> &nbsp;
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" name="extreme">
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -527,8 +572,12 @@
 <script src="../assets/js/jquery.decimalize.js"></script> 
 <script type="text/javascript">
 $(document).ready(function() {
-  $("#category").val('Calculating...');
-  $("#bmi").val('0.0');
+  $("#save").click(function() {    
+    if ($("input #med_form").val() == '') {
+      $("#errmsg").html("Please input some data!");
+      return false;
+    }
+  })
   //this calculates values automatically 
   bmi(); 
   $("#height, #weight").on("keydown keyup", function() {

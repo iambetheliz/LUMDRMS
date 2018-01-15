@@ -33,7 +33,7 @@ if(isset($_POST['page'])){
       $orderSQL = " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($prog) || empty($sortBy)) {
-      $orderSQL = " ORDER BY date_updated DESC ";
+      $orderSQL = " ORDER BY modified DESC ";
     } 
 
     //get number of rows
@@ -96,7 +96,8 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;">
+                  <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
@@ -133,7 +134,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_updated DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY modified DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -178,7 +179,8 @@ else {
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a id="view_profile" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;">
+                  <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" id="view_profile" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>

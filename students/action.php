@@ -26,18 +26,17 @@
       //checkbox
 
       $sysRev = implode(", ",$_POST['sysRev_list']);
-      $medHis = implode(", ",$_POST['medHis_list']);
-     
+      $medHis = implode(", ",$_POST['medHis_list']);     
       $drinker = $_POST['drinker'];
       $smoker = $_POST['smoker'];
       $drug_user = $_POST['drug_user'];
       $mens = $_POST['mens'];
       $duration = $_POST['duration'];
+      $dysMe = implode(" - ",$_POST['dys']);
       $weight = $_POST['weight'];
       $height = $_POST['height'];
-      $bmi = $_POST['bmi'];
-      $bmi_cat = $_POST['bmi_cat'];
-      $bp = $_POST['bp'];
+      $bmi_cat = implode(" - ",$_POST['bmi']);
+      $bp_val = implode(" - ",$_POST['bp']);
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
       $temp = $_POST['temp'];
@@ -64,7 +63,7 @@
           }
         }
 
-        mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,weight,height,bmi,bmi_cat,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$weight','$height','$bmi','$bmi_cat','$bp','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,xray,assess,plan,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$xray','$assess','$plan','$studentNo','$StudentID');");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 
