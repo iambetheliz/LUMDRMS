@@ -43,10 +43,11 @@
 }
 
 @media (min-width: 768px) {
-.modal-dialog {
-    width: 800px;
-    margin: 30px auto;
-}}
+  .modal-dialog {
+      width: 800px;
+      margin: 30px auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -115,7 +116,7 @@
               <!-- Start btn-toolbar -->
               <div class="col-lg-8">
                 <div class="btn-toolbar">
-                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                  <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                   <div class="btn-group">
                     <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
@@ -144,6 +145,32 @@
               </div>
             </div>
             <!-- End of Buttons -->
+
+            <div class="row">
+              <div class="container-fluid">
+                <div id="optSelect" style="display: none;">
+                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing</button>
+                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-warning">New</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="container-fluid">
+                <div id="optSearch" style="display: none;">
+                  <form>
+                    <div class="form-inline">
+                      <div class="btn-group search-info">
+                        <input type="text" id="search-info" class="search-info form-control" placeholder="Enter Student No.">
+                        <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
+                        <span class="sr-only">Loading...</span>
+                        <div id="suggestion-info"></div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
 
             <br>
 				      
@@ -372,7 +399,7 @@ function searchFilter(page_num) {
   var program_id = $('#prog_list').val(); 
   $.ajax({
     type: 'POST',
-    url: 'tbl_students.php',
+    url: 'tbl_medical.php',
     data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
     beforeSend: function () {
       $('#overlay').show();
@@ -383,6 +410,14 @@ function searchFilter(page_num) {
     }
   });
 }
+$("#option").click(function () {
+  $("#optSelect").toggle();
+  $("#optSearch").hide();
+});
+$("#exist").click(function () {
+  $("#optSearch").show();
+  $("#optSelect").hide();
+});
 </script>
 </body>
 </html>

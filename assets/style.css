@@ -27,7 +27,7 @@ a.demo {
     margin: 0;
   }
   input#keywords {
-    width: 396px;
+    margin-top: 20px;
   }
 }
 @media only screen and (min-width:768px){

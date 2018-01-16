@@ -1,7 +1,7 @@
 //students
 $(document).ready(function(){
   $('#overlay').show();
-	$("#userTable").load("tbl_students.php");
+	$("#userTable").load("tbl_medical.php");
   $('#overlay').fadeOut('fast');	
 	$('#user_form').submit(function() {
 		return false;
@@ -118,7 +118,7 @@ $(document).ready(function(){
           $('#userModal').modal('hide'); 
           $("#user_form")[0].reset();
           $('#addnew').val("Add New"); 
-					$("#userTable").load("tbl_students.php");
+					$("#userTable").load("tbl_medical.php");
           $.notify("Data added successfully", "success");
 				}
 			});
@@ -126,17 +126,17 @@ $(document).ready(function(){
 	});
 	//Delete
 	$(document).on('click', '.delete', function(){
-		$StudentID = $(this).val();
+		$MedID = $(this).val();
 		$.ajax({
 			type: "POST",
-			url: "../students/delete.php",
+			url: "delete_med.php",
       cache: false,
 			data: {
-				StudentID: $StudentID,
+				MedID: $MedID,
 				del: 1,
 			},
 			success: function(){
-				$("#userTable").load("tbl_students.php");
+				$("#userTable").load("tbl_medical.php");
         $.notify("Data successfully deleted.", "success");
 			}
 		});
@@ -179,9 +179,45 @@ $(document).ready(function(){
         $('#view-modal').modal('hide'); 
         $("#user_form2")[0].reset();
         $('#update').val("Update Record"); 
-        $("#userTable").load("tbl_students.php");
+        $("#userTable").load("tbl_medical.php");
         $.notify("Data updated successfully", "success");
       }
     });
   });
 });
+// AJAX call for autocomplete 
+  $(document).ready(function(){
+    $('#search-info').keyup(function(){
+      var min_length = 2; // min caracters to display the autocomplete
+      var keyword = $('#search-info').val();
+      if (keyword.length >= min_length) {
+        $.ajax({
+          type: "POST",
+          url: "../students/backend-search.php",
+          data:'keyword='+$(this).val(),
+          beforeSend: function(){
+            $(".fa-spinner").show();
+          },
+          success: function(data){
+            $("#suggestion-info").show();
+            $("#suggestion-info").html(data);
+            $('.fa-spinner').fadeOut("slow");
+          }
+        });
+      }
+      else if (keyword.length >= 0) {
+        $('#suggestion-info').hide();
+        $('.fa-spinner').fadeOut("slow");
+      }
+    });
+  });
+  $(document).click(function () {
+    $('#suggestion-info').hide();
+    $('.fa-spinner').fadeOut("slow");
+  })
+  //To select country name
+  function selectCountry(val) {
+    $("#search-info").val(val);
+    $('.fa-spinner').fadeOut("slow");
+    $("#suggestion-info").hide();
+  }

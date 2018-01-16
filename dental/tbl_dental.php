@@ -18,7 +18,7 @@ if(isset($_POST['page'])){
     $prog = $_POST["program_id"];
 
     if ( !empty($keywords) && !empty($prog) ) {
-      $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%' ";
     }
     elseif ( !empty($keywords) ) {
       $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
@@ -35,10 +35,10 @@ if(isset($_POST['page'])){
     }
     elseif (empty($prog) || empty($sortBy)) {
       $orderSQL = " ORDER BY date_updated DESC ";
-    }  
+    }
 
     //get number of rows
-    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`".$whereSQL.$orderSQL);
+    $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_den` ON `students`.`StudentID`=`students_den`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL");
     $resultNum = $queryNum->fetch_assoc();
     $rowCount = $resultNum['postNum'];
 
@@ -52,7 +52,7 @@ if(isset($_POST['page'])){
     $pagination =  new Pagination($pagConfig);
     
     //get rows
-    $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
+    $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_den` ON `students`.`StudentID`=`students_den`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
     
     if($query->num_rows > 0){ ?>
     <div class="row">
@@ -77,9 +77,9 @@ if(isset($_POST['page'])){
                 <th width="120px">Middle Name</th>
                 <th>Ext.</th>
                 <th width="100px">Student No.</th>
-                <th>Program</th>
-                <th width="50px">Year</th>   
-                <th width="100px">Date Added</th>         
+                <th>Current System</th>
+                <th width="50px">School Nurse</th>   
+                <th width="100px">Date of Checkup</th>         
                 <th>Action</th>
               </tr>
             </thead>
@@ -96,10 +96,10 @@ if(isset($_POST['page'])){
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['program_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
-                <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td><?php echo $row['medHis'];?></td>
+                <td><?php echo $row['checked_by'];?></td>
+                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
+                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
@@ -123,7 +123,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_den` ON `students`.`StudentID`=`students_den`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id`");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -136,7 +136,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_updated DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_den` ON `students`.`StudentID`=`students_den`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_updated DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -161,9 +161,9 @@ else {
                 <th width="120px">Middle Name</th>
                 <th>Ext.</th>
                 <th width="100px">Student No.</th>
-                <th>Program</th>
-                <th width="50px">Year</th>    
-                <th width="100px">Date Added</th>        
+                <th>Current System</th>
+                <th width="50px">School Nurse</th>    
+                <th width="100px">Date of Checkup</th>        
                 <th>Action</th>
               </tr>
             </thead>
@@ -180,10 +180,10 @@ else {
                 <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['program_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
-                <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td><?php echo $row['medHis'];?></td>
+                <td><?php echo $row['checked_by'];?></td>
+                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
+                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
@@ -204,7 +204,7 @@ else {
 ?>
 
 <script type="text/javascript">
-  $('document').ready(function() {
+  $(document).ready(function() {
 
     $("[data-toggle=tooltip]").tooltip();
 
@@ -239,9 +239,13 @@ else {
       confirm("Are you sure you want to delete this?");
       $.ajax({
         url:'delete_mul.php',
-        method:'POST',
+        type:'POST',
         data:{id:id},
         success:function() {
+          for(var i=0; i<id.length; i++) {
+            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+            $('tr#table-row-'+id[i]+'').fadeOut('slow');
+          }
           $("#tbl_students").load("tbl_students.php");
           $.bootstrapGrowl("Deleted successfully", // Messages
             { // options
