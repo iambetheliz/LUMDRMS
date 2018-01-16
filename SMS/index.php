@@ -139,7 +139,7 @@ input[type=submit]:hover {
           <!-- End of Page Heading -->
 
           <div class="container-fluid">
-            <form action="/action_page.php">
+            <form method="POST" action="send_sms.php">
               <div class="row">
                 <div class="col-25">
                   <label for="phone">Phone Number:</label>
