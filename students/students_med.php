@@ -56,88 +56,88 @@ if (isset($_GET['StudentID'])) {
       // displaying records.
       while ($med = $med_res->fetch_assoc()) { ?>
 
-      <tbody>
-        <tr>
-          <td colspan="2"><?php echo $med['sysRev'];?></td>
-          <td colspan="2"><?php echo $med['medHis'];?></td>
-        </tr>
-      </tbody>
-      <thead>
-        <th colspan="4">PHYSICAL</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <label>Height:</label> <?php echo $med['height'] ;?> cm.
-          </td>
-          <td>
-            <label>Weight:</label> <?php echo $med['weight'] ;?> kg.
-          </td>
-          <td><label>BMI:</label> <?php echo $med['bmi'];?></td>
-          <td><label>Blood Pressure:</label> <?php echo $med['bp'] ;?></td>
-        </tr>
-        <tr>
-          <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $med['cr']. ' bpm.' ;?></span></td>
-          <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php echo $med['rr']. " bpm." ;?></span></td>
-          <td colspan="2"><label>Temperature:</label> <?php echo $med['temp']. " &#x2103;" ;?></td>
-        </tr>
-      </tbody>
-      <thead>
-        <tr>
-          <th colspan="4"><label>PERSONAL AND SOCIAL HISTORY</label></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php 
-          if (!empty($med['drinker']) || !empty($med['smoker']) || !empty($med['drug_user'])) {
-            if ($med['drinker'] == 'Yes') {
-              echo "<tr>
-                      <td colspan='2' id='drinker'>Alcoholic Drinker</td>
-                    </tr>";
-            } else if ($med['smoker'] == 'Yes') {
-              echo "<tr>
-                      <td colspan='2' id='smoker'>Smoker</td>
-                    </tr>";
-            } else if ($med['drug_user'] == 'Yes') {
-              echo "<tr>
-                      <td colspan='2' id='drug_user'>Drug User</td>
-                    </tr>";
+        <tbody>
+          <tr>
+            <td colspan="2"><?php echo $med['sysRev'];?></td>
+            <td colspan="2"><?php echo $med['medHis'];?></td>
+          </tr>
+        </tbody>
+        <thead>
+          <th colspan="4">PHYSICAL</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label>Height:</label> <?php echo $med['height'] ;?> cm.
+            </td>
+            <td>
+              <label>Weight:</label> <?php echo $med['weight'] ;?> kg.
+            </td>
+            <td><label>BMI:</label> <?php echo $med['bmi'];?></td>
+            <td><label>Blood Pressure:</label> <?php echo $med['bp'] ;?></td>
+          </tr>
+          <tr>
+            <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $med['cr']. ' bpm.' ;?></span></td>
+            <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php echo $med['rr']. " bpm." ;?></span></td>
+            <td colspan="2"><label>Temperature:</label> <?php echo $med['temp']. " &#x2103;" ;?></td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="4"><label>PERSONAL AND SOCIAL HISTORY</label></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php 
+            if (!empty($med['drinker']) || !empty($med['smoker']) || !empty($med['drug_user'])) {
+              if ($med['drinker'] == 'Yes') {
+                echo "<tr>
+                        <td colspan='2' id='drinker'>Alcoholic Drinker</td>
+                      </tr>";
+              } else if ($med['smoker'] == 'Yes') {
+                echo "<tr>
+                        <td colspan='2' id='smoker'>Smoker</td>
+                      </tr>";
+              } else if ($med['drug_user'] == 'Yes') {
+                echo "<tr>
+                        <td colspan='2' id='drug_user'>Drug User</td>
+                      </tr>";
+              }
+              else {
+                echo "<tr>
+                        <td colspan='4'>None</td>
+                      </tr>";
+              }
             }
             else {
               echo "<tr>
                       <td colspan='4'>None</td>
                     </tr>";
             }
+          ?>
+        </tbody>
+        <thead>
+          <tr>                          
+            <th colspan="4"><label>O.B. GYNE</label></th>
+          </tr>
+        </thead>
+        <?php 
+          if (!empty($med['mens']) || !empty($med['dys'])) {
+            echo "<tr>
+                    <th>Menstrual Period:</th>
+                    <td colspan='3'>" .$med['mens']. "</td>
+                  </tr>";
+            echo "<tr>
+                    <th>Duration:</th>
+                    <td colspan='3'>" .$med['duration']. "</td>
+                  </tr>";
           }
           else {
             echo "<tr>
-                    <td colspan='4'>None</td>
+                    <td colspan='4'>Not Applicable</td>
                   </tr>";
           }
         ?>
-      </tbody>
-      <thead>
-        <tr>                          
-          <th colspan="4"><label>O.B. GYNE</label></th>
-        </tr>
-      </thead>
-      <?php 
-        if (!empty($med['mens']) || !empty($med['dys'])) {
-          echo "<tr>
-                  <th>Menstrual Period:</th>
-                  <td colspan='3'>" .$med['mens']. "</td>
-                </tr>";
-          echo "<tr>
-                  <th>Duration:</th>
-                  <td colspan='3'>" .$med['duration']. "</td>
-                </tr>";
-        }
-        else {
-          echo "<tr>
-                  <td colspan='4'>Not Applicable</td>
-                </tr>";
-        }
-      ?>
     </table>
     <br>
     <div class="alert alert-success">
@@ -154,7 +154,15 @@ if (isset($_GET['StudentID'])) {
         </tr>
       </thead>
       <tbody>
-        <?php echo $output; ?>
+        <?php
+        $query = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID'");
+        while ($med = $query->fetch_assoc()) { 
+          echo "<tr>
+                      <td>".date('F j, Y; h:i a', strtotime($med['date_checked_up']))."</td>
+                      <td>".$med['checked_by']."</td>
+                    </tr>";
+        }
+        ?>
       </tbody>
     </table>
     <?php
