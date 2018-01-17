@@ -1,14 +1,12 @@
 <?php
   ob_start();
   require_once 'includes/dbconnect.php';
-  include 'calendar.php';
-  include 'includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
     session_start();
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: login_process.php");
+    header("Location: /lu_clinic/index.php?attempt");
     exit;
   }
 
@@ -18,18 +16,8 @@
   $userRow = $result->fetch_array(MYSQLI_BOTH);
 
   if (isset($_GET['loginSuccess'])) {
-    $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
+    $successMSG = "Hello, <strong>". $userRow['userName'] ."!</strong> You have been signed in successfully!";
   }
-    
-    //Render facebook profile data
-    $output = '';
-    if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-        $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-    }else{
-        $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; logout.php?logout");
-    }
 
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -72,11 +60,13 @@
         </li>
         <?php
           if(!empty($userRow)){ ?>
-            <li class="dropdown"><?php echo $account; ?>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<b class="caret"></b></a>
               <ul class="dropdown-menu">
-                <li><a href="changepswd.php"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp; Change Password</a></li>
+                <li><a href="/lu_clinic/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
+                <li><a href="/lu_clinic/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>
                 <li role="separator" class="divider"></li>
-                <li><?php echo $logout; ?></li>
+                <li><a href="logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
               </ul>
             </li>            
             <?php 

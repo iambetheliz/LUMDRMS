@@ -1,6 +1,6 @@
 $('document').ready(function() { 
   /* validation */
-  $("#login-form").validate({
+  $("#edit_prof_pass_form").validate({
     rules: {
       password: {
         required: true,
@@ -9,19 +9,13 @@ $('document').ready(function() {
         required: true,
       },
     },
-    messages: {
-      password: {
-        required: "Please enter your password"
-      },
-      username: "Please enter your userName",
-    },
     submitHandler: submitForm 
   });  
   /* validation */
 
   /* login submit */
   function submitForm() {   
-    var data = $("#login-form").serialize();
+    var data = $("#edit_prof_pass_form").serialize();
 
     var username = $("#username").val();  
     var password = $("#password").val();
@@ -44,11 +38,11 @@ $('document').ready(function() {
     else {
       $.ajax({
         type : 'POST',
-        url  : 'login_process.php',
+        url  : 'edit_profile.php',
         data : data,
         success :  function(response) {           
           if(response=="ok"){
-            $.bootstrapGrowl("<span class='fa fa-check'></span> Access granted!", // Messages
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Password edit_profd successfully!", // Messages
               { // options
                 type: "success", // info, success, warning and danger
                 ele: "body", // parent container
@@ -58,17 +52,25 @@ $('document').ready(function() {
                 },
                 align: "right", // right, left or center
                 width: 300,
+                delay: 2000,
                 allow_dismiss: true, // add a close button to the message
                 stackup_spacing: 10
             });
             $("#error").fadeOut();
-            $("#btn-login").prop("disabled",true);
-            $("#btn-login").html("<span class='fa fa-refresh fa-spin'></span> &nbsp; Signing in ...");
+            $("#edit_prof").prop("disabled",true);
+            $("#edit_prof").html("<span class='fa fa-refresh fa-spin'></span> &nbsp; Updating");
+            setTimeout(function() {
+              $("#edit_prof_pass_form").hide().fadeOut("slow");
+              $("#msg").show();
+            }, 3000);
             setTimeout(function() {
               window.location.href = "dashboard.php";
-            }, 2000);
+            }, 6000);
           }
           else {
+            $("#edit_prof").val('Checking passwords');
+            $("#edit_prof").prop("disabled",false);
+            setTimeout(function() {
               $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
                 // options
                 type: "danger", // info, success, warning and danger
@@ -82,8 +84,7 @@ $('document').ready(function() {
                 allow_dismiss: true, // add a close button to the message
                 stackup_spacing: 10
               });
-              $("#btn-login").prop("disabled",false);
-              $("#btn-login").val('Sign In');
+            }, 2000);
           }
         }
       });

@@ -1088,12 +1088,9 @@ CREATE TABLE `users` (
   `userId` int(11) NOT NULL AUTO_INCREMENT,
   `userName` varchar(30) NOT NULL,
   `first_name` varchar(30) NOT NULL,
-  `middle_name` varchar(30) NOT NULL,
   `last_name` varchar(30) NOT NULL,
-  `ext_name` varchar(3) NOT NULL,
-  `userEmail` varchar(60) NOT NULL,
   `userPass` varchar(255) NOT NULL,
-  `position` varchar(20) NOT NULL,
+  `position` varchar(50) NOT NULL,
   `role` varchar(10) NOT NULL DEFAULT 'admin',
   `login_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -1106,8 +1103,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userId`, `userName`, `first_name`, `middle_name`, `last_name`, `ext_name`, `userEmail`, `userPass`, `position`, `role`, `login_date`) VALUES
-(1, 'admin', '', '', '', '', 'admin@gmail.com', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', 'Head Nurse', 'superadmin', '2017-12-22 07:10:00');
+INSERT INTO `users` (`userId`, `userName`, `first_name`, `last_name`, `userPass`, `position`, `role`, `login_date`) VALUES
+(1, 'admin', '', '', '41e5653fc7aeb894026d6bb7b2db7f65902b454945fa8fd65a6327047b5277fb', 'School Nurse', 'superadmin', '2017-12-22 07:10:00');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

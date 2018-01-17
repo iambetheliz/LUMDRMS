@@ -55,7 +55,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>

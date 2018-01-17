@@ -1,3 +1,7 @@
+<?php  
+  include 'calendar.php';
+  include 'includes/Class.NumbersToWords.php';
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -70,7 +74,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="tbl_users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -268,14 +272,6 @@
 <script src="assets/js/jquery.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/custom.js" type="text/javascript"></script>
-<script type="text/javascript">
-  window.setTimeout(function() {
-    $(".success-login").fadeTo(1000,0).slideUp('fast', function(){
-      $(this).remove();
-      window.location.href='dashboard.php';
-    });
-  }, 3000);
-</script>
 
 <!-- Growl -->
 <script src="assets/js/jquery.bootstrap-growl.js"></script>

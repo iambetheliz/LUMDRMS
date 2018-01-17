@@ -87,7 +87,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -384,7 +384,6 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
-<script src="../assets/js/notify.js"></script> 
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
 <script src="crud.js"></script>

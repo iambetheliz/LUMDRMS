@@ -1,9 +1,8 @@
-<?php 
+<?php
   ob_start();
   require_once '../includes/dbconnect.php';
-  include '../includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
-   session_start();
+    session_start();
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
@@ -17,27 +16,28 @@
   $userRow = $result->fetch_array(MYSQLI_BOTH);
 
   if (isset($_GET['loginSuccess'])) {
-    $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
+    $successMSG = "Hello, <strong>". $userRow['userName'] ."!</strong> You have been signed in successfully!";
   }
-    
+
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
   <div class="container-fluid">
-      
+    <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle" aria-expanded="false" aria-controls="navbar">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-      <a class="navbar-brand" style="color: white;" href="/lu_clinic">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/lu_clinic" class="navbar-brand">
         <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
       </a>
     </div>
@@ -59,7 +59,7 @@
           </form>
         </li>
         <?php
-          if(!empty($userRow)){?>
+          if(!empty($userRow)){ ?>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -68,15 +68,16 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="/lu_clinic/logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
               </ul>
-            </li>             
-        <?php }?>
+            </li>            
+            <?php 
+          }
+        ?>
       </ul> 
-    </div> 
-        
+    </div>
+
   </div>
 </nav>
-
-<script src="../assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.min.js"></script>
 
 <script type="text/javascript">
   // AJAX call for autocomplete 
@@ -111,7 +112,7 @@
     $('.fa-spinner').fadeOut("slow");
   })
   //To select country name
-  function selectCountry(val) {
+  function selectStudents(val) {
     $("#search-box").val(val);
     $('.fa-spinner').fadeOut("slow");
     $("#suggesstion-box").hide();

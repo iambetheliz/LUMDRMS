@@ -13,3 +13,5 @@ $DB_con = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 if ($DB_con->connect_error) {
     header('Location: /lu_clinic/no_connection_error.php');
 }
+
+error_reporting(~E_NOTICE);

@@ -40,6 +40,13 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
 }
+label.error {
+  color: indianred;
+  font-weight: 500;
+}
+.form-control.error {
+  border-color: indianred;
+}
 </style>
 </head>
 <body>
@@ -67,13 +74,13 @@ body {
               <fieldset>          
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="name" id="username" class="form-control" maxlength="40" autofocus />
+                <input type="text" name="name" id="username" class="form-control" maxlength="40" autofocus required />
                 <small><span class="text-danger" id="name_error"></span></small>
               </div>
             
               <div class="form-group">
                 <label>Password</label>
-                <input type="password" name="pass" id="password" class="form-control"  maxlength="15" />
+                <input type="password" name="pass" id="password" class="form-control"  maxlength="15" required />
                 <small><span class="text-danger" id="pass_error"></span></small>
               </div>
 
@@ -106,7 +113,7 @@ body {
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/custom.js"></script>
 <script src="assets/js/jquery.bootstrap-growl.js"></script>
-<script src="assets/js/validation.min.js"></script>
+<script src="assets/js/jquery.validate.min.js"></script>
 <script src="login.js"></script>
 <script type="text/javascript">
   $('#chkShow').change(function() {
