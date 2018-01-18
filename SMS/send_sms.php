@@ -1,6 +1,6 @@
 <?php
 
-$phone = $_POST["phone"];
+$phone = $_POST["cphone"];
 $message = $_POST["message"];
 
 send_sms($phone, $message);

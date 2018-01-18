@@ -4,7 +4,7 @@ require_once '../includes/dbconnect.php';
 if (isset($_GET['StudentID'])) {
 
   $StudentID = $_GET['StudentID'];
-  $med_res = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID' AND date_checked_up IN (SELECT max(date_checked_up) FROM students_med)"); 
+  $med_res = mysqli_query($DB_con,"SELECT *, max(`date_checked_up`) FROM `students_med` WHERE StudentID = '$StudentID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `students_med`)"); 
 
   if ($med_res->num_rows == 0) {
     $errMSG = "No records found."; ?>
@@ -49,7 +49,7 @@ if (isset($_GET['StudentID'])) {
     <table class="table table-bordered">
       <thead>
         <th colspan="2">CURRENT SYSTEM</th>
-        <th colspan="2">PAST MEDICAL HISTORY</th>
+        <th colspan="2">MEDICAL HISTORY</th>
       </thead>
 
       <?php
@@ -59,7 +59,14 @@ if (isset($_GET['StudentID'])) {
         <tbody>
           <tr>
             <td colspan="2"><?php echo $med['sysRev'];?></td>
-            <td colspan="2"><?php echo $med['medHis'];?></td>
+            <td colspan="2">
+              <?php if (!empty($med['medHis'])) {
+                echo $med['medHis'];
+              } 
+                else {
+                  echo "None";
+                }?>
+            </td>
           </tr>
         </tbody>
         <thead>
@@ -68,13 +75,13 @@ if (isset($_GET['StudentID'])) {
         <tbody>
           <tr>
             <td>
-              <label>Height:</label> <?php echo $med['height'] ;?> cm.
+              <label>Height:</label> <?php echo $med['height']." cm."; ?> 
             </td>
             <td>
-              <label>Weight:</label> <?php echo $med['weight'] ;?> kg.
+              <label>Weight:</label> <?php echo $med['weight']." kg."; ?> 
             </td>
             <td><label>BMI:</label> <?php echo $med['bmi'];?></td>
-            <td><label>Blood Pressure:</label> <?php echo $med['bp'] ;?></td>
+            <td><label>Blood Pressure:</label> <?php echo $med['bp']; ?></td>
           </tr>
           <tr>
             <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $med['cr']. ' bpm.' ;?></span></td>
@@ -90,24 +97,26 @@ if (isset($_GET['StudentID'])) {
         <tbody>
           <?php 
             if (!empty($med['drinker']) || !empty($med['smoker']) || !empty($med['drug_user'])) {
+              echo "<tr><td colspan='4'>";
               if ($med['drinker'] == 'Yes') {
-                echo "<tr>
-                        <td colspan='2' id='drinker'>Alcoholic Drinker</td>
-                      </tr>";
-              } else if ($med['smoker'] == 'Yes') {
-                echo "<tr>
-                        <td colspan='2' id='smoker'>Smoker</td>
-                      </tr>";
-              } else if ($med['drug_user'] == 'Yes') {
-                echo "<tr>
-                        <td colspan='2' id='drug_user'>Drug User</td>
-                      </tr>";
+                echo "Alcoholic Drinker";
+              } 
+              else {
+                echo "No";
+              }
+              if ($med['smoker'] == 'Yes') {
+                echo "Smoker";
+              } 
+              else {
+                echo "";
+              }
+              if ($med['drug_user'] == 'Yes') {
+                echo "Drug User";
               }
               else {
-                echo "<tr>
-                        <td colspan='4'>None</td>
-                      </tr>";
+                echo "";
               }
+              echo "</td></tr>";
             }
             else {
               echo "<tr>
@@ -134,7 +143,7 @@ if (isset($_GET['StudentID'])) {
           }
           else {
             echo "<tr>
-                    <td colspan='4'>Not Applicable</td>
+                    <td colspan='4'>Not data added</td>
                   </tr>";
           }
         ?>
@@ -149,8 +158,9 @@ if (isset($_GET['StudentID'])) {
     <table class='table table-bordered'>
       <thead>
         <tr>
-          <td>Date of Checkup</td>
-          <td>Physician</td>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Attending Physician</td>
         </tr>
       </thead>
       <tbody>
@@ -158,9 +168,10 @@ if (isset($_GET['StudentID'])) {
         $query = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID'");
         while ($med = $query->fetch_assoc()) { 
           echo "<tr>
-                      <td>".date('F j, Y; h:i a', strtotime($med['date_checked_up']))."</td>
-                      <td>".$med['checked_by']."</td>
-                    </tr>";
+                  <td>".date('F j, Y', strtotime($med['date_checked_up']))."</td>
+                  <td>".date('h:i a', strtotime($med['date_checked_up']))."</td>
+                  <td>".$med['checked_by']."</td>
+                </tr>";
         }
         ?>
       </tbody>

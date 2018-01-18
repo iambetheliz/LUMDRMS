@@ -5,7 +5,11 @@
   if(empty($_SESSION)) // if the session not yet started 
   session_start();
 ?>
-<div class="alert alert-success">Users Table</div>
+<div class="panel panel-success panel-table">
+  <div class="panel-heading">
+    <div class="panel-title"><strong>USERS TABLE</strong></div>
+  </div>
+  <div class="panel-body">
   <table id="userTable" class="table table-bordered" cellpadding="10" cellspacing="1">
     <thead>
       <tr>
@@ -30,4 +34,5 @@
     <?php } ?>
     </tbody>
   </table>
+  </div>
 </div>     

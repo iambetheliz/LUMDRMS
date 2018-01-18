@@ -299,7 +299,7 @@ CREATE TABLE `faculty_med` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `students_soap`
+-- Table structure for table `faculty_soap`
 --
 
 CREATE TABLE `faculty_soap` (

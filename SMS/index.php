@@ -1,3 +1,23 @@
+<?php include 'itext.php';
+
+if (isset($_POST['send'])) {
+  $phone = $_POST['phone'];
+  $msg = $_POST['message'];
+  $result = itexmo($phone,$msg,"TR-ELIZA306457_AUYQD");
+  if ($result == ""){
+    $error = "<div class='row'><div class='alert alert-danger'>iTexMo: No response from server!!!
+    Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.  
+    Please CONTACT US for help.</div></div>";  
+  } else if ($result == 0){
+    $success = "<div class='row'><div class='alert alert-success'>Message Sent!</div></div>";
+  }
+  else { 
+    $error = "<div class='row'><div class='alert alert-danger'>
+    Trial version. Maximum of 10 messages per day only! <br>Error #". $result . " was encountered!</div></div>";
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -139,7 +159,8 @@ input[type=submit]:hover {
           <!-- End of Page Heading -->
 
           <div class="container-fluid">
-            <form method="POST" action="send_sms.php">
+            <?php echo $success; echo $error; ?>
+            <form method="POST" action="">
               <div class="row">
                 <div class="col-25">
                   <label for="phone">Phone Number:</label>
@@ -165,7 +186,7 @@ input[type=submit]:hover {
                 </div>
               </div>
               <div class="row">
-                <input type="submit" value="Submit">
+                <input type="submit" name="send" value="Submit">
               </div>
             </form>
           </div>

@@ -14,16 +14,6 @@
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
   $userRow = $result->fetch_array(MYSQLI_BOTH);
-    
-    //Render facebook profile data
-    $output = '';
-    if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
-        $logout = '<a href="logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
-    }else{
-        $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; logout.php?logout");
-    }
   
   if(isset($_POST['action']) or isset($_GET['view'])) { //show all events
 
