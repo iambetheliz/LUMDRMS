@@ -58,14 +58,23 @@ if (isset($_GET['StudentID'])) {
 
         <tbody>
           <tr>
-            <td colspan="2"><?php echo $med['sysRev'];?></td>
             <td colspan="2">
-              <?php if (!empty($med['medHis'])) {
+              <?php               
+              if (!empty($med['sysRev'])) {
+                echo $med['sysRev'];
+              } 
+              else {
+                echo "None";
+              }?>
+            </td>
+            <td colspan="2">
+              <?php 
+              if (!empty($med['medHis'])) {
                 echo $med['medHis'];
               } 
-                else {
-                  echo "None";
-                }?>
+              else {
+                echo "None";
+              }?>
             </td>
           </tr>
         </tbody>
@@ -100,21 +109,15 @@ if (isset($_GET['StudentID'])) {
               echo "<tr><td colspan='4'>";
               if ($med['drinker'] == 'Yes') {
                 echo "Alcoholic Drinker";
-              } 
-              else {
-                echo "No";
               }
               if ($med['smoker'] == 'Yes') {
                 echo "Smoker";
-              } 
-              else {
-                echo "";
               }
               if ($med['drug_user'] == 'Yes') {
                 echo "Drug User";
               }
               else {
-                echo "";
+                echo "None";
               }
               echo "</td></tr>";
             }

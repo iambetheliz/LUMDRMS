@@ -208,98 +208,98 @@ else {
 ?>
 
 <script type="text/javascript">
-  $(document).ready(function() {
+$(document).ready(function() {
 
-    $("[data-toggle=tooltip]").tooltip();
-
-    //  for select / deselect all
-    $(".select-all").change(function () {
-      $(".chk-box").prop('checked', $(this).prop("checked"));
-      $("#uncheck-all").toggle();
-      $("#check-all").toggle();
-    });        
-    $(".chk-box").click(function() {
-      if($(".chk-box").length == $(".chk-box:checked").length) {
-          $(".select-all").attr("checked", "checked");
-      }
-      else {
-          $(".select-all").removeAttr("checked");
-      }
-    });
-  });
+  $("[data-toggle=tooltip]").tooltip();
 
   //  for select / deselect all
-  function delete_records() {
-    var id = [];       
-    $(':checkbox:checked').each(function(i){
-      id[i] = $(this).val();
-    });
-           
-    if(id.length === 0) { //tell you if the array is empty
-      alert("Please Select atleast one checkbox");
-      return false;
+  $(".select-all").change(function () {
+    $(".chk-box").prop('checked', $(this).prop("checked"));
+    $("#uncheck-all").toggle();
+    $("#check-all").toggle();
+  });        
+  $(".chk-box").click(function() {
+    if($(".chk-box").length == $(".chk-box:checked").length) {
+      $(".select-all").attr("checked", "checked");
     }
     else {
-      confirm("Are you sure you want to delete this?");
-      $.ajax({
-        url:'delete_mul.php',
-        type:'POST',
-        data:{id:id},
-        success:function() {
-          for(var i=0; i<id.length; i++) {
-            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
-            $('tr#table-row-'+id[i]+'').fadeOut('slow');
-          }
-          $("#tbl_students").load("tbl_students.php");
-          $.bootstrapGrowl("Deleted successfully", // Messages
-            { // options
-              type: "success", // info, success, warning and danger
-              ele: "body", // parent container
-              offset: {
-                from: "top",
-                amount: 20
-              },
-              align: "right", // right, left or center
-              width: 300,
-              delay: 4000,
-              allow_dismiss: true, // add a close button to the message
-              stackup_spacing: 10
-          });
-        }
-      });
-    }  
-  }
-  $('#close').click(function() {
-    window.location.href = 'index.php';
+      $(".select-all").removeAttr("checked");
+    }
+  });
+});
+
+//  for select / deselect all
+function delete_records() {
+  var id = [];       
+  $('input[name="chk[]"]:checked').each(function(i){
+    id[i] = $(this).val();
+  });
+         
+  if(id.length === 0) { //tell you if the array is empty
+    alert("Please Select atleast one checkbox");
     return false;
-  });
-
-  // Quick Edit 
-  $('document').ready(function() {
-    $('td:contains("Pending")').css('color', 'red');
-    $('td:contains("Ok")').css('color', 'green');
-  });
-  
-  function editRow(editableObj) {
-    $(editableObj).css("background","#FFF");
   }
-
-  function saveToDatabase(editableObj,column,id) {
-    $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
+  else {
+    confirm("Are you sure you want to delete this?");
     $.ajax({
-      url: "../students/quick_edit.php",
-      type: "POST",
-      data:'med='+column+'&dent='+column+'&last_name='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
-      success: function(data){
-        $(editableObj).css("background","#FDFDFD");
-
-        $('#overlay').show();
-        $('#overlay').fadeOut('fast');
-
-        $('td:contains("Pending")').css('color', 'red');
-        $('td:contains("Ok")').css('color', 'green');
-
+      url:'delete_mul.php',
+      type:'POST',
+      data:{id:id},
+      success:function() {
+        for(var i=0; i<id.length; i++) {
+          $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+          $('tr#table-row-'+id[i]+'').fadeOut('slow');
+        }
+        $("#tbl_students").load("tbl_students.php");
+        $.bootstrapGrowl("Deleted successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
       }
     });
-  }
+  }  
+}
+$('#close').click(function() {
+  window.location.href = 'index.php';
+  return false;
+});
+
+// Quick Edit 
+$('document').ready(function() {
+  $('td:contains("Pending")').css('color', 'red');
+  $('td:contains("Ok")').css('color', 'green');
+});
+
+function editRow(editableObj) {
+  $(editableObj).css("background","#FFF");
+}
+
+function saveToDatabase(editableObj,column,id) {
+  $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
+  $.ajax({
+    url: "../students/quick_edit.php",
+    type: "POST",
+    data:'med='+column+'&dent='+column+'&last_name='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
+    success: function(data){
+      $(editableObj).css("background","#FDFDFD");
+
+      $('#overlay').show();
+      $('#overlay').fadeOut('fast');
+
+      $('td:contains("Pending")').css('color', 'red');
+      $('td:contains("Ok")').css('color', 'green');
+
+    }
+  });
+}
 </script>

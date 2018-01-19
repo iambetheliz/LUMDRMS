@@ -340,7 +340,21 @@
 <script src="../assets/js/faculty_crud.js"></script>
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
-<script>
+
+<!-- DAtepicker -->
+<script src="../datepicker/js/moment-with-locales.js"></script>
+<script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
+<script type="text/javascript">
+$('#dob, #dob_edit').datetimepicker({
+  format:'MM/DD/YYYY',
+  keepOpen: true,
+  icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+});
 function searchFilter(page_num) {
   page_num = page_num?page_num:0;
   var keywords = $('#keywords').val();

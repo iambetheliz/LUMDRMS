@@ -72,8 +72,6 @@
           <?php 
             require_once '../includes/dbconnect.php';
 
-            $DB_con = new mysqli("localhost", "root", "", "records");
-
             if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
               $StudentID = $_GET['StudentID'];
@@ -514,7 +512,7 @@
                         </div>
 
                         <div class="form-inline">
-                          <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><strong>unfit</strong></label>&nbsp; at the same time of examination
+                          <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><span class="lbl"></span><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><span class="lbl"></span><strong>unfit</strong></label>&nbsp; at the same time of examination
                         </div>
                         <br>
                         <div class="form-group">
@@ -548,7 +546,10 @@
 
           </form>
           <!-- End of Form -->
-          <?php }}?>
+          <?php }}
+          else { header("Location: /lu_clinic/students/");
+          }
+            ?>
 
         </div>  
       </div>
