@@ -108,7 +108,7 @@
             <div class="row">
               <div class="container-fluid">
                 <h1 class="page-header">Student Records
-                  <a class="btn btn-primary pull-right" name="input" type="button" href="javascript:child_open()" style="cursor:pointer;" class="btn btn-primary" id="print">Print</a>
+                  <a class="btn btn-primary pull-right" name="input" type="button" href="javascript:window.print()" style="cursor:pointer;" id="print">Print</a>
                 </h1>
               </div>
             </div>
@@ -369,25 +369,20 @@
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-  $('#dob, #dob_edit').datetimepicker({
-    format:'MM/DD/YYYY',
-    keepOpen: true,
-    icons: {
-        time: "fa fa-clock-o",
-        date: "fa fa-calendar",
-        up: "fa fa-arrow-up",
-        down: "fa fa-arrow-down"
-      }
-  });
-</script>
-<script type="text/javascript">
-
+$('#dob, #dob_edit').datetimepicker({
+  format:'MM/DD/YYYY',
+  keepOpen: true,
+  icons: {
+      time: "fa fa-clock-o",
+      date: "fa fa-calendar",
+      up: "fa fa-arrow-up",
+      down: "fa fa-arrow-down"
+    }
+});
 var popupWindow = null;
 
 function child_open() { 
-
-popupWindow = window.open('/lu_clinic/printform.php',"_blank","directories=no, status=no, menubar=no, scrollbars=no, resizable=no");
-
+  popupWindow = window.open('/lu_clinic/students/printform.php',"_blank","width=1000,directories=no, status=no, menubar=no, scrollbars=no, resizable=no, location=no");
 }
 </script>
 </body>

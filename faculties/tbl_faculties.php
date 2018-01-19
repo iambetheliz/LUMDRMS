@@ -57,7 +57,7 @@ if(isset($_POST['page'])){
     <div class="row">
       <div class="container-fluid">
         <form method="post" name="frm">
-          <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
+          <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
           <span style="word-spacing:normal;"> | With selected :</span>
           <label id="actions">
             <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
@@ -84,7 +84,9 @@ if(isset($_POST['page'])){
               while($row = $query->fetch_assoc()){ 
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                <td>
+                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
+                </td>
                 <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
@@ -92,7 +94,7 @@ if(isset($_POST['page'])){
                 <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['dept_name'];?></td>
-                <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
             </tr>
             <?php } ?>
@@ -134,7 +136,7 @@ else {
   <div class="row">
     <div class="container-fluid">
       <form method="post" name="frm">
-        <label class="checkbox-inline"><input type="checkbox" class="select-all" /> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
+        <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
         <span style="word-spacing:normal;"> | With selected :</span>
         <label id="actions">
           <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
@@ -161,7 +163,9 @@ else {
               while($row = $query->fetch_assoc()){ 
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td><input type="checkbox" name="chk[]" id="check" class="chk-box" value="<?php echo $row['FacultyID']; ?>"  /></td>
+                <td>
+                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
+                </td>
                 <td><?php echo $start;?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
@@ -169,7 +173,7 @@ else {
                 <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onBlur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" onClick="editRow(this);"><?php echo $row['dept_name'];?></td>
-                <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View More Details" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>

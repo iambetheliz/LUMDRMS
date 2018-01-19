@@ -4,7 +4,7 @@ require_once '../includes/dbconnect.php';
 if (isset($_GET['StudentID'])) {
 
   $StudentID = $_GET['StudentID'];
-  $med_res = mysqli_query($DB_con,"SELECT *, max(`date_checked_up`) FROM `students_med` WHERE StudentID = '$StudentID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `students_med`)"); 
+  $med_res = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `students_med`)"); 
 
   if ($med_res->num_rows == 0) {
     $errMSG = "No records found."; ?>
