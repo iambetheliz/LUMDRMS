@@ -1,4 +1,8 @@
 /*CUSTOM STYLES*/
+.btn-toolbar h4 {
+  line-height: 35px;
+  padding-left: 5px;
+}
 @media print {
   /* style sheet for print goes here */
   .btn, .form-control {  display:none; }
@@ -71,6 +75,11 @@ a.demo {
   padding-bottom:9px;
   margin:20px 0 20px;
   border-bottom:1px solid #eee
+}
+.letterhead {
+    width: 600px;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
 /*For Login Page*/

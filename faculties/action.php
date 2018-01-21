@@ -21,75 +21,7 @@
 
 if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
-	if($_REQUEST['action_type'] == 'add'){
-
-  		$facultyNo = $_POST['facultyNo'];
-  		$first_name = $_POST['first_name'];
-  		$middle_name = $_POST['middle_name'];
-      $last_name = $_POST['last_name'];
-      $ext = $_POST['ext'];
-  		$age = $_POST['age'];
-  		$sex = $_POST['sexOption'];
-  		$program = $_POST['program'];
-  		$sem = $_POST['semOption'];
-  		$acadYear = $_POST['acadYear'];
-  		$address = $_POST['address'];
-  		$cperson = $_POST['cperson'];
-  		$cphone = $_POST['cphone'];
-  		$tphone = $_POST['tphone'];
-
-  		if (empty($cphone)) {
-  			$cphone = 'none';
-  		}
-
-  		if (empty($tphone)) {
-  			$tphone = 'none';
-  		}
-
-      $med = 'Pending';
-      $dent = 'Pending';
-
-      //Validations
-      if (strlen($facultyNo) < 8) {
-        $error = true;
-        header("Location: new_student.php?error");
-      }
-      else {
-        $query = "SELECT facultyNo FROM faculties WHERE facultyNo='$facultyNo'";
-        $result = $DB_con->query($query);
-
-        if($result->num_rows != 0){
-          $error = true;
-          header("Location: new_student.php?error");
-        }
-      }
-
-      // if there's no error, continue to signup
-  		if( !$error ) {
-
-        $query1 = "INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,program,sem,acadYear,address,cperson,cphone,tphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$program','$sem','$acadYear','$address','$cperson','$cphone','$tphone')";
-        $query3 = "INSERT INTO faculty_stats(med,dent,facultyNo) VALUES('$med','$dent','$facultyNo')";
-
-  			$stmt1 = $DB_con->prepare($query1);
-        $stmt3 = $DB_con->prepare($query3);
-
-   			$stmt1->bind_param($facultyNo,$first_name,$middle_name,$last_name,$ext,$age,$sex,$program,$sem,$acadYear,$address,$cperson,$cphone,$tphone);
-        $stmt3->bind_param($med,$dent);
-
-   			if (!$stmt1 || !$stmt3){
-          header("Location: add_student.php?error");
-   			} else {
-          BEGIN;
-      			$stmt1->execute();
-            $stmt3->execute();
-          $stmt1->close();
-          $stmt3->close();
-          COMMIT;
-        		header("Location: index.php?success");
-  			} 
-  		}
-	}
-  elseif($_REQUEST['action_type'] == 'save'){
+	if($_REQUEST['action_type'] == 'save'){
 
       //checkbox
       $sysRev = implode(', ', $_POST['sysRev_list']);

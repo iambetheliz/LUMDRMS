@@ -1,5 +1,5 @@
 <?php
-include('includes/dbconnect.php');
+include('../includes/dbconnect.php');
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -8,37 +8,43 @@ include('includes/dbconnect.php');
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Student Records | Laguna University - Clinic | Medical Records System</title>
-<link rel="icon" href="images/favicon.ico">
-<link rel="stylesheet" href="assets/fonts/css/font-awesome.min.css">
-<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="assets/style.css" rel="stylesheet" type="text/css">
-<link rel="shortcut icon" href="images/logo.png" />
+<link rel="icon" href="../images/favicon.ico">
+<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
+<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link rel="shortcut icon" href="../images/logo.png" />
 </head>
 
 <body>
 
-<div class="row">
-    <div class="container">
- 
-        <h4 align="center">
-          <input name="form logo" type="image" class="media-heading" id="form logo" src="images/logo.png" width="48px" align="top" />
-        </h4>
-        <p align="center">
-            <strong>Laguna University Clinic</strong><br>
-            Laguna Sports Complex, Sta. Cruz, Laguna
-        </p>
+<div class="container">
+  <div class="row">
 
-        <center>
-            <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print">Print</button>
-        </center>
+    <h3 class="page-header" align="center">
+      <div class="letterhead">
+        <img src="../images/logo.png" height="100px" align="left" />
+        <strong>LAGUNA UNIVERSITY</strong><br>
+        <small style="color: black;">
+          Laguna Sports Complex, Brgy. Bubukal, Santa Cruz, Laguna<br>
+          (049) 501-4360 or (049) 576-4359<br>
+          E-mail: info@lu.edu.ph
+        </small>
+      </div>
+    </h3>
 
-        <?php
+    <div class="btn-toolbar" role="toolbar">
+      <h4><strong>STUDENT RECORD</strong>
+      <button type="button" class="btn btn-primary pull-right"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
+      </h4>
+    </div>
+
+<?php
 //Include database configuration file
-include('includes/dbconnect.php');
-include 'includes/date_time_diff.php';
+include('../includes/dbconnect.php');
+include '../includes/date_time_diff.php';
 //Include pagination class file
-include('includes/Pagination.php');
+include('../includes/Pagination.php');
 
 
   $start = !empty($_POST['page'])?$_POST['page']:0;
@@ -49,7 +55,7 @@ include('includes/Pagination.php');
   $rowCount = $resultNum['postNum'];
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_updated DESC");
+  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY last_name ASC");
 
   if($query->num_rows > 0){ ?>
   <br>
@@ -63,7 +69,7 @@ include('includes/Pagination.php');
                 <th>Last Name</th>
                 <th>First Name</th>
                 <th>Middle Name</th>
-                <th>Ext.</th>
+                <th>Suffix</th>
                 <th>Student No.</th>
                 <th>Program</th>
                 <th>Year</th>    
@@ -83,7 +89,7 @@ include('includes/Pagination.php');
                 <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
-                <td><?php echo get_timeago(strtotime($row['date_registered']));?></td>
+                <td><?php echo date("F m, Y", strtotime($row['date_registered']));?></td>
               </tr>
             <?php } ?>
             </tbody>

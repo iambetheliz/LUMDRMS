@@ -262,6 +262,7 @@ CREATE TABLE `faculty_den` (
 
 CREATE TABLE `faculty_med` (
   `MedID` int(11) NOT NULL AUTO_INCREMENT,
+  `MedID` int(11) NOT NULL AUTO_INCREMENT,
   `sysRev` varchar(500) NOT NULL,
   `medHis` varchar(500) NOT NULL,
   `drinker` varchar(3) NOT NULL,
@@ -274,8 +275,8 @@ CREATE TABLE `faculty_med` (
   `height` varchar(6) NOT NULL,
   `bmi` varchar(30) NOT NULL,
   `bp` varchar(30) NOT NULL,
-  `cr` varchar(10) NOT NULL,
-  `rr` varchar(10) NOT NULL,
+  `cr` varchar(3) NOT NULL,
+  `rr` varchar(3) NOT NULL,
   `temp` varchar(5) NOT NULL,
   `gen_sur` varchar(50) NOT NULL,
   `skin` varchar(50) NOT NULL,
@@ -284,7 +285,7 @@ CREATE TABLE `faculty_med` (
   `heart` varchar(50) NOT NULL,
   `abdomen` varchar(50) NOT NULL,
   `extreme` varchar(50) NOT NULL,
-  `xray` varchar(20) NOT NULL,
+  `xray` varchar(3) NOT NULL,
   `assess` varchar(3) NOT NULL,
   `plan` text(200) NOT NULL,
   `date_checked_up` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

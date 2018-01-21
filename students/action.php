@@ -30,11 +30,11 @@
       $drug_user = $_POST['drug_user'];
       $mens = $_POST['mens'];
       $duration = $_POST['duration'];
-      $dysMe = implode(" - ",$_POST['dys']);
+      $dysMe = implode(" ",$_POST['dys']);
       $weight = $_POST['weight'];
       $height = $_POST['height'];
-      $bmi_cat = implode(" - ",$_POST['bmi']);
-      $bp_val = implode(" - ",$_POST['bp']);
+      $bmi_cat = implode(" ",$_POST['bmi']);
+      $bp_val = implode(" ",$_POST['bp']);
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
       $temp = $_POST['temp'];

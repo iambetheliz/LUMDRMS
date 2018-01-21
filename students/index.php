@@ -9,7 +9,11 @@
       $prog_out .= '<option value="'.$row["program_id"].'">'.$row["alias"].'</option>';  
     }  
     return $prog_out;  
- }
+  }
+
+  if (!empty($row['program_id'])) {
+    # code...
+  }
 
 ?>
 
@@ -85,6 +89,9 @@
               <li>
                 <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
               </li>
+            <li>
+              <a href="/lu_clinic/soap/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; S.O.A.P.</a>
+            </li>
             </ul>
           </li>
           <?php 
@@ -108,7 +115,7 @@
             <div class="row">
               <div class="container-fluid">
                 <h1 class="page-header">Student Records
-                  <a class="btn btn-primary pull-right" name="input" type="button" href="javascript:window.print()" style="cursor:pointer;" id="print">Print</a>
+                  <a class="btn btn-primary pull-right" name="input" type="button" href="print_student.php" style="cursor:pointer;" id="print">Print</a>
                 </h1>
               </div>
             </div>
