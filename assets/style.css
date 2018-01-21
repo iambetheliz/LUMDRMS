@@ -1,4 +1,14 @@
 /*CUSTOM STYLES*/
+.modal-header {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.modal-title {  
+  font-weight: bolder;
+}
 .btn-toolbar h4 {
   line-height: 35px;
   padding-left: 5px;
@@ -110,7 +120,7 @@ a.demo {
   border-top: 1px solid lightgray;
 }
 
-thead {
+#userTable thead {
   background-color:#eee;
   color:#666666;
   font-weight: bold;

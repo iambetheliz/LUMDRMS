@@ -11,8 +11,6 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
   if ($DB_con->connect_errno) {
     echo "Connect failed: ", $DB_con->connect_error;
   exit();

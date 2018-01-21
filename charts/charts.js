@@ -5,7 +5,7 @@ $(document).ready(function () {
         var chart = new CanvasJS.Chart("chartContainer", {
             animationEnabled: true,
             title: {
-                text: "Medical Diagnosis for year 2017"
+                text: "Medical and Dental Health Issues"
             },
             axisX: {
                 title: "Diseases"

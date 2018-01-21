@@ -65,7 +65,7 @@ $whereMed = '';
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-file-o" aria-hidden="true"></i> SOAP Records</h4>
+      <h4><i class="fa fa-file-text-o" aria-hidden="true"></i> SOAP Records</h4>
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
@@ -86,7 +86,7 @@ $whereMed = '';
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1> 
     <div class="offer-content">
-      <h4><i class="fa fa-file" aria-hidden="true"></i> Dental Records</h4>
+      <h4><i class="fa fa-smile-o" aria-hidden="true"></i> Dental Records</h4>
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
@@ -107,7 +107,7 @@ $whereMed = '';
     ?>           
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-calendar"></i> Medical Records</h4>
+      <h4><i class="fa fa-medkit"></i> Medical Records</h4>
       <?php 
         if ($count != 0) {?> 
           <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>

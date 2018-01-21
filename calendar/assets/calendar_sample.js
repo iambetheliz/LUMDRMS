@@ -1,5 +1,4 @@
 $(document).ready(function() {
-  $.ajaxSetup({ cache:false });
   var date = new Date();
   var d = date.getDate();
   var m = date.getMonth();
