@@ -15,6 +15,9 @@
   span.error {
   color: red;
 }
+table#physical td {
+  text-align: center;
+}
 </style>
 <body>
 
@@ -39,20 +42,20 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="fa fa-book"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li class="active">
-                <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
               </li>
               <li>
-                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+                <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
               </li>
               <li>
-                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+                <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
               </li>
-            <li>
-              <a href="/lu_clinic/soap/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; S.O.A.P.</a>
-            </li>
+              <li>
+                <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
+              </li>
             </ul>
           </li>
           <?php 
@@ -418,90 +421,125 @@
                         <input type="text" class="form-control" name="temp"> 
                       </div>
                     </div>    
-                    <table class="table table-bordered table-responsive">
+                    <table class="table table-bordered table-responsive" id="physical">
                       <thead>
                         <tr>
-                          <td></td>
-                          <td>Normal</td>
-                          <td>Abnormal</td>
+                          <th>Category</th>
+                          <th width="70px">Normal</th>
+                          <th colspan="2">Abnormal</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td>General Survey</td>
+                          <th>General Survey</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="gen_sur" value="Normal"> <span class="lbl"></span>
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="gen_sur" value="Normal" id="normal_gen"> <span class="lbl"></span>
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="gen_sur">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="gen_sur" value="Abnormal" id="abnormal_gen"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_gen" class="form-control" name="gen_sur" disabled>
                           </td>
                         </tr>
                         <tr>
-                          <td>Skin</td>
+                          <th>Skin</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="skin" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="skin" value="Normal" id="normal_skin"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="skin">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="skin" value="Abnormal" id="abnormal_skin"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_skin" class="form-control" name="skin" disabled>
                           </td>
                         </tr>
                         <tr>
-                          <td>HEENT</td>
+                          <th>HEENT</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="heent" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="heent" value="Normal" id="normal_heent"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="heent">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="heent" value="Abnormal" id="abnormal_heent"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_heent" class="form-control" name="heent">
                           </td>
                         </tr>
                         <tr>
-                          <td>Lungs</td>
+                          <th>Lungs</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="lungs" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="lungs" value="Normal" id="normal_lungs"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="lungs">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="lungs" value="Abnormal" id="abnormal_lungs"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_lungs" class="form-control" name="lungs">
                           </td>
                         </tr>
                         <tr>
-                          <td>Heart</td>
+                          <th>Heart</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="heart" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="heart" value="Normal" id="normal_heart"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="heart">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="heart" value="Abnormal" id="abnormal_heart"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_heart" class="form-control" name="heart">
                           </td>
                         </tr>
                         <tr>
-                          <td>Abdomen</td>
+                          <th>Abdomen</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="abdomen" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="abdomen" value="Normal" id="normal_abdomen"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="abdomen">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="abdomen" value="Abnormal" id="abnormal_abdomen"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_abdomen" class="form-control" name="abdomen">
                           </td>
                         </tr>
                         <tr>
-                          <td>Extremities</td>
+                          <th>Extremities</th>
                           <td>
-                            <label class="checkbox-inline">
-                              <input type="checkbox" class="form-check-input" name="extreme" value="Normal"> <span class="lbl"></span>&nbsp;
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="extreme" value="Normal" id="normal_extreme"> <span class="lbl"></span>&nbsp;
                             </label>
                           </td>
                           <td>
-                            <input type="text" class="form-control" name="extreme">
+                            <label class="radio-inline">
+                              <input type="radio" class="form-check-input" name="extreme" value="Abnormal" id="abdomen_extreme"> <span class="lbl"></span>
+                            </label>
+                          </td>
+                          <td>
+                            <input type="text" id="input_abnormal_extreme" class="form-control" name="extreme">
                           </td>
                         </tr>
                       </tbody>
@@ -517,16 +555,20 @@
                         <div class="form-inline">
                           <label>Assessment:</label> Physically &nbsp;<label class="radio-inline"><input type="radio" name="assess" value="fit"><span class="lbl"></span><strong>fit</strong></label>&nbsp;&nbsp; / <label class="radio-inline"><input type="radio" name="assess" value="fit"><span class="lbl"></span><strong>unfit</strong></label>&nbsp; at the same time of examination
                         </div>
-                        <br>
+                      </div>
+                      <div class="col-lg-6">
                         <div class="form-group">
                           <label>Plan/Recommendation:</label> 
                           <input type="text" class="form-control" name="plan">
                         </div>
-                      </div>
-                      <div class="col-lg-6">
                         <div class="form-group">
-                          <label>School Nurse:</label>
-                          <input type="text" class="form-control" name="checked_by" id="checked_by" />
+                          <?php if (!empty($userRow['first_name']) && !empty($userRow['last_name'])) {
+                            $checked_by = $userRow['first_name']. " " .$userRow['last_name'];
+                          } 
+                          else {
+                            $checked_by = $userRow['userName'];
+                          }?>
+                          <input type="hidden" name="checked_by" value="<?php echo $checked_by; ?>">
                         </div>
                       </div>
                     </div>
@@ -536,7 +578,7 @@
               </div>
             </div>
 
-                <div class="form-group">
+                <div class="form-group" align="center">
                   <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
                   <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
                   <input type="hidden" name="action_type" value="save"/>
@@ -575,6 +617,43 @@
 <script src="../assets/js/jquery.decimalize.js"></script> 
 <script type="text/javascript">
 $(document).ready(function() {
+  $("input[type=radio]").click(function () {
+    if ($("#normal_gen").is(":checked")) {
+      $("#input_abnormal_gen").prop("disabled", true);
+    } else if ($("#abnormal_gen").is(":checked")) {
+      $("#input_abnormal_gen").prop("disabled", false);
+    }
+    if ($("#normal_skin").is(":checked")) {
+      $("#input_abnormal_skin").prop("disabled", true);
+    } else if ($("#abnormal_skin").is(":checked")) {
+      $("#input_abnormal_skin").prop("disabled", false);
+    }
+    if ($("#normal_heent").is(":checked")) {
+      $("#input_abnormal_heent").prop("disabled", true);
+    } else if ($("#abnormal_heent").is(":checked")) {
+      $("#input_abnormal_heent").prop("disabled", false);
+    }
+    if ($("#normal_heart").is(":checked")) {
+      $("#input_abnormal_heart").prop("disabled", true);
+    } else if ($("#abnormal_heart").is(":checked")) {
+      $("#input_abnormal_heart").prop("disabled", false);
+    } 
+    if ($("#normal_lungs").is(":checked")) {
+      $("#input_abnormal_lungs").prop("disabled", true);
+    } else if ($("#abnormal_lungs").is(":checked")) {
+      $("#input_abnormal_lungs").prop("disabled", false);
+    }
+    if ($("#normal_abdomen").is(":checked")) {
+      $("#input_abnormal_abdomen").prop("disabled", true);
+    } else if ($("#abnormal_abdomen").is(":checked")) {
+      $("#input_abnormal_abdomen").prop("disabled", false);
+    }
+    if ($("#normal_extreme").is(":checked")) {
+      $("#input_abnormal_extreme").prop("disabled", true);
+    } else if ($("#abnormal_extreme").is(":checked")) {
+      $("#input_abnormal_extreme").prop("disabled", false);
+    }
+  });
   //this calculates values automatically 
   bmi(); 
   $("#height, #weight").on("keydown keyup", function() {

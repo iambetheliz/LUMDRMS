@@ -44,20 +44,20 @@
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="fa fa-book"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li class="active">
-                <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
                 <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
               </li>
               <li>
-                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+                <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
               </li>
               <li>
-                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+                <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
               </li>
-            <li>
-              <a href="/lu_clinic/soap/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; S.O.A.P.</a>
-            </li>
+              <li>
+                <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
+              </li>
             </ul>
             <?php 
               if ($userRow['role'] === 'superadmin') {?>
@@ -127,7 +127,11 @@
                                 </tr>
                                 <tr>
                                   <td><label>Age:</label></td>
-                                  <td><?php echo $row['age'];?> years old</td>
+                                  <td>
+                                    <?php if (!empty($row['age'])) {
+                                      echo $row['age']." years old";
+                                    }?>
+                                  </td>
                                   <td><label>Gender:</label></td>
                                   <td><?php echo $row['sex'];?></td>
                                 </tr>
@@ -141,11 +145,15 @@
                                   <td><label>Program:</label></td>
                                   <td><?php echo $row['program_name'];?></td>
                                   <td><label>Year Level:</label></td>
-                                  <td><?php echo $row['yearLevel'];?> Year</td>
+                                  <td><?php if (!empty($row['yearLevel'])) {
+                                      echo $row['yearLevel']." Year";
+                                    }?></td>
                                 </tr>
                                 <tr>
                                   <td><label>Semester: </label></td>
-                                  <td><?php echo $row['sem'];?> Semester</td>
+                                  <td><?php if (!empty($row['sem'])) {
+                                      echo $row['sem']." Semester";
+                                    }?></td>
                                   <td><label>Academic Year:</label></td>
                                   <td><?php echo $row['acadYear'];?></td>
                                 </tr>
@@ -172,16 +180,27 @@
                 <div class="container-fluid">
                   <div class="row">
 
-                    <div class="panel panel-success">
+                    <div class="panel with-nav-tabs panel-success">
                       <div class="panel-heading">
-                        <div class="panel-title">
-                          <strong>
-                            MEDICAL INFORMATION
-                          </strong>
-                        </div>
+                        <strong>
+                          <ul class="nav nav-tabs panel-title" id="myTab">
+                            <li class="active">
+                              <a href="#medical" data-toggle="tab">MEDICAL</a>
+                            </li>
+                            <li>
+                              <a href="#dental" data-toggle="tab">DENTAL</a>
+                            </li>
+                          </ul>
+                        </strong>
                       </div>
                       <div class="panel-body">
-                        <?php include 'students_med.php';?>
+                        <div class="tab-content">
+                          <div class="tab-pane fade in active" id="medical">
+                          </div>
+                          <div class="tab-pane fade" id="dental">
+                            <?php include 'students_den.php';?>
+                          </div>
+                        </div>
                       </div>
                     </div>
 

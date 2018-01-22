@@ -1,4 +1,8 @@
 /*CUSTOM STYLES*/
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+  }
 .btn-toolbar h4 {
   line-height: 35px;
   padding-left: 5px;
@@ -6,6 +10,11 @@
 @media print {
   /* style sheet for print goes here */
   .btn, .form-control {  display:none; }
+  thead {
+    background-color: #eee;
+    color: #666666;
+    font-weight: bold;
+  }
 }
 .table {
   margin-bottom: 0;

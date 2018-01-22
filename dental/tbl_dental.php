@@ -70,16 +70,11 @@ if(isset($_POST['page'])){
             <thead>
               <tr>
                 <th></th>
-                <th>No.</th>
-                <th>Status</th>
-                <th width="100px">Last Name</th>
-                <th width="100px">First Name</th>
-                <th width="120px">Middle Name</th>
-                <th>Ext.</th>
+                <th>No.</th>      
                 <th width="100px">Student No.</th>
-                <th>Current System</th>
-                <th width="50px">School Nurse</th>   
-                <th width="100px">Date of Checkup</th>         
+                <th colspan="2">Diagnosis</th>
+                <th>School Nurse</th>   
+                <th>Date of Checkup</th>         
                 <th>Action</th>
               </tr>
             </thead>
@@ -92,13 +87,9 @@ if(isset($_POST['page'])){
                   <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['medHis'];?></td>
+                <td><?php echo $row['studentNo']; ?></td>
+                <td><?php echo $row['per_con'];?></td>
+                <td><?php echo $row['con_rem1']."".$row['con_rem2']."".$row['con_rem3']."".$row['con_rem4'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
                 <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
@@ -156,16 +147,11 @@ else {
             <thead>
               <tr>
                 <th></th>
-                <th>No.</th>
-                <th>Status</th>
-                <th width="100px">Last Name</th>
-                <th width="100px">First Name</th>
-                <th width="120px">Middle Name</th>
-                <th>Ext.</th>
+                <th>No.</th>      
                 <th width="100px">Student No.</th>
-                <th>Current System</th>
-                <th width="50px">School Nurse</th>    
-                <th width="100px">Date of Checkup</th>        
+                <th colspan="2">Diagnosis</th>
+                <th>School Nurse</th>   
+                <th>Date of Checkup</th>         
                 <th>Action</th>
               </tr>
             </thead>
@@ -178,13 +164,9 @@ else {
                   <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['medHis'];?></td>
+                <td><?php echo $row['studentNo']; ?></td>
+                <td><?php echo $row['per_con'];?></td>
+                <td><?php echo $row['con_rem1']."".$row['con_rem2']."".$row['con_rem3']."".$row['con_rem4'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
                 <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>

@@ -33,10 +33,10 @@
           <li class="active have-child" role="presentation">
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><span class="fa fa-book"></span>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
-              <li class="active">
+              <li>
                 <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
               </li>
-              <li>
+              <li class="active">
                 <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
               </li>
               <li>
@@ -70,12 +70,10 @@
           <?php 
             require_once '../includes/dbconnect.php';
 
-            $DB_con = new mysqli("localhost", "root", "", "records");
+            if (isset($_GET['FacultyID']) && is_numeric($_GET['FacultyID']) && $_GET['FacultyID'] > 0) {
 
-            if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
-
-              $StudentID = $_GET['StudentID'];
-              $res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` WHERE StudentID=".$_GET['StudentID'];
+              $FacultyID = $_GET['FacultyID'];
+              $res = "SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` WHERE FacultyID=".$_GET['FacultyID'];
               $result = $DB_con->query($res);
               $row = $result->fetch_array(MYSQLI_BOTH);
            
@@ -85,7 +83,7 @@
           <!-- Page Heading -->
           <div class="row">
             <div class="container-fluid">             
-              <h1 class="page-header">Student Dental Form <span class="text-danger pull-right" id="errmsg"></span></h1>
+              <h1 class="page-header">Faculty Dental Form <span class="text-danger pull-right" id="errmsg"></span></h1>
             </div>
           </div>            
           <!-- End of Page Heading -->  
@@ -205,7 +203,7 @@
                             </tr>
                             <tr>
                               <td colspan="16" style="padding-left: 3px; padding-right: 3px;">
-                                <img src="../images/dental2.jpg" class="dental img-fluid" alt="Responsive image">
+                                <img src="../images/dental2.jpg" class="dental img-fluid">
                               </td>
                             </tr>
                             <tr>
@@ -355,8 +353,8 @@
                     $checked_by = $userRow['userName'];
                   }?>
                   <input type="hidden" name="checked_by" value="<?php echo $checked_by; ?>">
-                  <input type="hidden" name="studentNo" value="<?php echo $row['studentNo']; ?>"/>
-                  <input type="hidden" name="StudentID" value="<?php echo $row['StudentID']; ?>"/>
+                  <input type="hidden" name="facultyNo" value="<?php echo $row['facultyNo']; ?>"/>
+                  <input type="hidden" name="FacultyNo" value="<?php echo $row['FacultyNo']; ?>"/>
                   <input type="hidden" name="action_type" value="save_dental"/>
                   <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
                 </div>

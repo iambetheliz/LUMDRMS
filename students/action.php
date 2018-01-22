@@ -123,13 +123,47 @@
       //checkbox
 
       $medHis = implode(", ",$_POST['medHis_list']);
-
+      $D18 = $_POST['D18'];
+      $D17 = $_POST['D17'];
+      $D16 = $_POST['D16'];
+      $D15 = $_POST['D15'];
+      $D14 = $_POST['D14'];
+      $D13 = $_POST['D13'];
+      $D12 = $_POST['D12'];
+      $D11 = $_POST['D11'];
+      $D21 = $_POST['D21'];
+      $D22 = $_POST['D22'];
+      $D23 = $_POST['D23'];
+      $D24 = $_POST['D24'];
+      $D25 = $_POST['D25'];
+      $D26 = $_POST['D26'];
+      $D27 = $_POST['D27'];
+      $D28 = $_POST['D28'];
+      $D48 = $_POST['D48'];
+      $D47 = $_POST['D47'];
+      $D46 = $_POST['D46'];
+      $D45 = $_POST['D45'];
+      $D44 = $_POST['D44'];
+      $D43 = $_POST['D43'];
+      $D42 = $_POST['D42'];
+      $D41 = $_POST['D41'];
+      $D31 = $_POST['D31'];
+      $D32 = $_POST['D32'];
+      $D33 = $_POST['D33'];
+      $D34 = $_POST['D34'];
+      $D35 = $_POST['D35'];
+      $D36 = $_POST['D36'];
+      $D37 = $_POST['D37'];
+      $D38 = $_POST['D38'];
       $dec_x = $_POST['dec_x'];
       $dec_f = $_POST['dec_f'];
       $missing = $_POST['missing'];
       $filled = $_POST['filled'];
       $per_con = $_POST['per_con'];
-      $con_rem = $_POST['con_rem'];
+      $con_rem1 = $_POST['con_rem1'];
+      $con_rem2 = $_POST['con_rem2'];
+      $con_rem3 = $_POST['con_rem3'];
+      $con_rem4 = $_POST['con_rem4'];
       $con_spec = $_POST['con_spec'];
       $denture = $_POST['denture'];
       $pro_rem1 = $_POST['pro_rem1'];
@@ -139,6 +173,7 @@
       $pro_spec2 = $_POST['pro_spec2'];
       $pro_rem3 = $_POST['pro_rem3'];
       $checked_by = $_POST['checked_by'];
+      $studentNo = $_POST['studentNo'];
       $StudentID = $_POST['StudentID'];
 
       $identity = 'student';
@@ -153,7 +188,7 @@
         }
 
         mysqli_query($DB_con,"START TRANSACTION;");
-        mysqli_query($DB_con,"INSERT INTO students_den (medHis,dec_x,dec_f,missing,filled,per_con,con_rem,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
+        mysqli_query($DB_con,"INSERT INTO students_den (medHis,D18,D17,D16,D15,D14,D13,D12,D11,D21,D22,D23,D24,D25,D26,D27,D28,D48,D47,D46,D45,D44,D43,D42,D31,D32,D33,D34,D35,D36,D37,D38,dec_x,dec_f,missing,filled,per_con,con_rem1,con_rem2,con_rem3,con_rem4,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$D18','$D17','$D16','$D15','$D14','$D13','$D12','$D11','$D21','$D22','$D23','$D24','$D25','$D26','$D27','$D28','$D48','$D47','$D46','$D45','$D44','$D43','$D42','$D31','$D32','$D33','$D34','$D35','$D36','$D37','$D38','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem1','$con_rem2','$con_rem3','$con_rem4','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
         mysqli_query($DB_con,"UPDATE students_stats SET dent='Ok' WHERE studentNo='$studentNo';");
         mysqli_query($DB_con,"COMMIT;");
 

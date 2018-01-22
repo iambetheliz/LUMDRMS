@@ -64,7 +64,7 @@ if (isset($_GET['FacultyID'])) {
                 echo $med['sysRev'];
               } 
               else {
-                echo "None";
+                echo "No current illness.";
               }?>
             </td>
             <td colspan="2">
@@ -84,18 +84,30 @@ if (isset($_GET['FacultyID'])) {
         <tbody>
           <tr>
             <td>
-              <label>Height:</label> <?php echo $med['height']." cm."; ?> 
+              <label>Height:</label> 
+              <?php if (!empty($med['height'])) {
+                echo $med['height']." cm.";
+              } ?> 
             </td>
             <td>
-              <label>Weight:</label> <?php echo $med['weight']." kg."; ?> 
+              <label>Weight:</label> 
+              <?php if (!empty($med['weight'])) {
+                echo $med['weight']." kg.";
+              } ?> 
             </td>
             <td><label>BMI:</label> <?php echo $med['bmi'];?></td>
             <td><label>Blood Pressure:</label> <?php echo $med['bp']; ?></td>
           </tr>
           <tr>
-            <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php echo $med['cr']. ' bpm.' ;?></span></td>
-            <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php echo $med['rr']. " bpm." ;?></span></td>
-            <td colspan="2"><label>Temperature:</label> <?php echo $med['temp']. " &#x2103;" ;?></td>
+            <td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php if (!empty($med['cr'])) {
+                echo $med['cr']." bpm.";
+              } ?></span></td>
+            <td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php if (!empty($med['rr'])) {
+                echo $med['rr']." bpm.";
+              } ?></span></td>
+            <td colspan="2"><label>Temperature:</label> <?php if (!empty($med['temp'])) {
+                echo $med['temp']." &#x2103;";
+              } ?></td>
           </tr>
         </tbody>
         <thead>
@@ -105,27 +117,11 @@ if (isset($_GET['FacultyID'])) {
         </thead>
         <tbody>
           <?php 
-            if (!empty($med['drinker']) || !empty($med['smoker']) || !empty($med['drug_user'])) {
-              echo "<tr><td colspan='4'>";
-              if ($med['drinker'] == 'Yes') {
-                echo "Alcoholic Drinker";
-              }
-              if ($med['smoker'] == 'Yes') {
-                echo "Smoker";
-              }
-              if ($med['drug_user'] == 'Yes') {
-                echo "Drug User";
-              }
-              else {
-                echo "None";
-              }
-              echo "</td></tr>";
-            }
-            else {
-              echo "<tr>
-                      <td colspan='4'>None</td>
-                    </tr>";
-            }
+            echo "<tr>";
+            echo "<td><label>Alcoholic Drinker:</label> ".$med['drinker']."</td>";
+            echo "<td><label>Smoker:</label> ".$med['smoker']."</td>";
+            echo "<td colspan='2'><label>Drug User:</label> ".$med['drug_user']."</td>";
+            echo "</tr>";
           ?>
         </tbody>
         <thead>
@@ -134,20 +130,23 @@ if (isset($_GET['FacultyID'])) {
           </tr>
         </thead>
         <?php 
-          if (!empty($med['mens']) || !empty($med['dys'])) {
-            echo "<tr>
-                    <th>Menstrual Period:</th>
-                    <td colspan='3'>" .$med['mens']. "</td>
-                  </tr>";
-            echo "<tr>
-                    <th>Duration:</th>
-                    <td colspan='3'>" .$med['duration']. "</td>
-                  </tr>";
+          if ($med['mens'] == 'Not Applicable') {
+            echo "<tr>";
+            echo "<td colspan='4'>Not Applicable</td>";
+            echo "</tr>";
           }
           else {
-            echo "<tr>
-                    <td colspan='4'>Not data added</td>
-                  </tr>";
+            echo "<tr>";
+            echo "<th>Menstrual Period:</th>
+                  <td colspan='3'>" .$med['mens']. "</td></tr>";
+            echo "<tr><th>Duration:</th>
+                  <td colspan='3'>" .$med['duration']. "</td>";
+            echo "</tr>";
+          }
+          if (empty($med['mens'])) {
+            echo "<tr>";
+            echo "<td colspan='4'>&nbsp;</td>";
+            echo "</tr>";
           }
         ?>
     </table>
