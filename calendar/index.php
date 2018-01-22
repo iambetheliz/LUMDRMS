@@ -24,20 +24,14 @@ $events = $req->fetchAll();
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="../assets/style.css" rel="stylesheet" type="text/css" />
 <!-- fullcalendar -->
-<link href="../calendar/assets/cal.css" rel="stylesheet" />
-
-<link href="../calendar/assets/cal.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.min.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
-
-
+<link href="assets/cal.css" rel="stylesheet" />
+<link href="assets/cal.css" rel="stylesheet" />
+<link href="assets/fullcalendar.min.css" rel="stylesheet" />
+<link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <!-- Custom CSS -->
 <style>
 #calendar {
 	max-width: 1200px;
-}
-.fc-unthemed td.fc-today {
-  background: #c3eec3;
 }
 </style>
 
@@ -251,9 +245,12 @@ $events = $req->fetchAll();
 <!-- FullCalendar -->
 <script src='js/moment.min.js'></script>
 <script src='js/fullcalendar.min.js'></script>
+
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 <script>
 
@@ -342,7 +339,7 @@ $(document).ready(function() {
 				if(rep == 'OK'){
 					$.bootstrapGrowl("Event updated!", // Messages
 		            { // options
-		              type: "info", // info, success, warning and danger
+		              type: "success", // info, success, warning and danger
 		              ele: "body", // parent container
 		              offset: {
 		                from: "top",
@@ -353,9 +350,22 @@ $(document).ready(function() {
 		              delay: 4000,
 		              allow_dismiss: true, // add a close button to the message
 		              stackup_spacing: 10
-		          });
+		          	});
 				}else{
-					alert('Could not be saved. try again.'); 
+					$.bootstrapGrowl("Event cannot be saved!", // Messages
+		            { // options
+		              type: "danger", // info, success, warning and danger
+		              ele: "body", // parent container
+		              offset: {
+		                from: "top",
+		                amount: 20
+		              },
+		              align: "right", // right, left or center
+		              width: 300,
+		              delay: 4000,
+		              allow_dismiss: true, // add a close button to the message
+		              stackup_spacing: 10
+		          	}); 
 				}
 			}
 		});

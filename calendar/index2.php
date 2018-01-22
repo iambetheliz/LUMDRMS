@@ -1,19 +1,5 @@
 <?php
-  ob_start();
-  require_once '../includes/dbconnect.php';
-  if(empty($_SESSION)) // if the session not yet started 
-   session_start();
-  
-  // if session is not set this will redirect to login page
-  if( !isset($_SESSION['user']) ) {
-    header("Location: index.php?attempt");
-    exit;
-  }
-
-  // select loggedin users detail
-  $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
-  $result = $DB_con->query($res);
-  $userRow = $result->fetch_array(MYSQLI_BOTH);
+require '../includes/dbconnect.php';
   
   if(isset($_POST['action']) or isset($_GET['view'])) { //show all events
 
@@ -55,8 +41,6 @@
 }
 
 ?>
-
-<?php ob_end_flush(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,9 +55,9 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="../assets/style.css" rel="stylesheet" type="text/css" />
 <!-- fullcalendar -->
-<link href="../calendar/assets/cal.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.min.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="assets/cal.css" rel="stylesheet" />
+<link href="assets/fullcalendar.min.css" rel="stylesheet" />
+<link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <style type="text/css">  
 .fc-unthemed td.fc-today {
   background: #c3eec3;
@@ -240,10 +224,10 @@
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 <!-- calendar scripts --> 
-<script src="../calendar/assets/jquery-ui.min.js"></script>
-<script src="../calendar/assets/moment.min.js"></script>
-<script src="../calendar/assets/fullcalendar.min.js"></script>
-<script src="../calendar/assets/calendar_sample.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
+<script src="assets/moment.min.js"></script>
+<script src="assets/fullcalendar.min.js"></script>
+<script src="assets/calendar_sample.js"></script>
 
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>

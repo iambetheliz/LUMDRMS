@@ -23,23 +23,34 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
 	if($_REQUEST['action_type'] == 'save'){
 
-      //checkbox
-      $sysRev = implode(', ', $_POST['sysRev_list']);
-      $medHis = implode(', ', $_POST['medHis_list']);
-     
+      $sysRev = implode(", ",$_POST['sysRev_list']);
+      $medHis = implode(", ",$_POST['medHis_list']);     
       $drinker = $_POST['drinker'];
       $smoker = $_POST['smoker'];
       $drug_user = $_POST['drug_user'];
+      $mens = $_POST['mens'];
+      $duration = $_POST['duration'];
+      $dysMe = implode(" ",$_POST['dys']);
       $weight = $_POST['weight'];
       $height = $_POST['height'];
-      $bmi = $_POST['bmi'];
-      $bp = $_POST['bp'];
+      $bmi_cat = implode(" ",$_POST['bmi']);
+      $bp_val = implode(" ",$_POST['bp']);
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
-      $t = $_POST['t'];
+      $temp = $_POST['temp'];
+      $gen_sur = $_POST['gen_sur'];
+      $skin = $_POST['skin'];
+      $heent = $_POST['heent'];
+      $lungs = $_POST['lungs'];
+      $heart = $_POST['heart'];
+      $abdomen = $_POST['abdomen'];
+      $extreme = $_POST['extreme'];
       $xray = $_POST['xray'];
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
+      $checked_by = $_POST['checked_by'];
+
+      $identity = 'faculty';
       $facultyNo = $_POST['facultyNo'];
       $FacultyID = $_POST['FacultyID'];
 
@@ -51,6 +62,19 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       }
 
       if (!$error) {
+
+        if(!empty($_POST['sysRev_list'])) {
+          $category = 'sysRev';
+          foreach($_POST['sysRev_list'] as $sys_rev) {
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$sys_rev','$category','$identity','$StudentID');");
+          }
+        }
+        if(!empty($_POST['medHis_list'])) {
+          $category = 'medHis';
+          foreach($_POST['medHis_list'] as $med_his) {
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$med_his','$category','$identity','$StudentID');");
+          }
+        }
 
         $sql = "INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,facultyNo,FacultyID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$facultyNo','".$FacultyID."')";
         $result = mysqli_query($DB_con,$sql);

@@ -24,3 +24,22 @@ th.fc-day-header.fc-widget-header {
     border-top-width: 0;
     background: #428b42;
 }
+td.fc-day-number {
+    color: green;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: right;
+}
+td.fc-day-number.fc-other-month {
+    color: lightslategray;
+}
+
+td.fc-day.fc-widget-content.fc-today.fc-state-highlight {
+    background: lightcyan;
+}
+.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
+  background: #428b42;
+}
+.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
+    border-color: #ddd;
+}

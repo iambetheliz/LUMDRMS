@@ -2,7 +2,7 @@
 
  $json = array();
 
- $requete = "SELECT * FROM events ORDER BY id";
+ $events = "SELECT * FROM events ORDER BY id";
 
  try {
  	require "../includes/dbconnect.php";
@@ -10,8 +10,8 @@
     exit('Unable to connect to database.');
  }
 
- $resultat = $DB_con->query($requete) or die(print_r($DB_con->errorInfo()));
+ $result = $DB_con->query($events) or die(print_r($DB_con->errorInfo()));
 
- echo json_encode($resultat->fetchAll(PDO::FETCH_ASSOC));
+ echo json_encode($result->fetchAll(PDO::FETCH_ASSOC));
 
 ?>

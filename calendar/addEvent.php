@@ -10,6 +10,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$end = $_POST['end'];
 	$color = $_POST['color'];
 
+	mysqli_query($DB_con,"START TRANSACTION;");
 	$sql = "INSERT INTO events(title, start, end, color) values ('$title', '$start', '$end', '$color')";
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
@@ -28,7 +29,7 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	}
 
 }
-header('Location: '.$_SERVER['HTTP_REFERER']);
+header('Location: sms.php');
 
 	
 ?>
