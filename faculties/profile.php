@@ -128,7 +128,9 @@
                           </tr>
                           <tr>
                             <td><label>Age:</label></td>
-                            <td><?php echo $row['age'];?> years old</td>
+                            <td><?php if (!empty($row['age'])) {
+                              echo $row['age']." years old";
+                            }?></td>
                             <td><label>Gender:</label></td>
                             <td><?php echo $row['sex'];?></td>
                           </tr>

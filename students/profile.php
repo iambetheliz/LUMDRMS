@@ -127,7 +127,11 @@
                                 </tr>
                                 <tr>
                                   <td><label>Age:</label></td>
-                                  <td><?php echo $row['age'];?> years old</td>
+                                  <td>
+                                    <?php if (!empty($row['age'])) {
+                                      echo $row['age']." years old";
+                                    }?>
+                                  </td>
                                   <td><label>Gender:</label></td>
                                   <td><?php echo $row['sex'];?></td>
                                 </tr>
@@ -141,11 +145,15 @@
                                   <td><label>Program:</label></td>
                                   <td><?php echo $row['program_name'];?></td>
                                   <td><label>Year Level:</label></td>
-                                  <td><?php echo $row['yearLevel'];?> Year</td>
+                                  <td><?php if (!empty($row['yearLevel'])) {
+                                      echo $row['yearLevel']." Year";
+                                    }?></td>
                                 </tr>
                                 <tr>
                                   <td><label>Semester: </label></td>
-                                  <td><?php echo $row['sem'];?> Semester</td>
+                                  <td><?php if (!empty($row['sem'])) {
+                                      echo $row['sem']." Semester";
+                                    }?></td>
                                   <td><label>Academic Year:</label></td>
                                   <td><?php echo $row['acadYear'];?></td>
                                 </tr>
