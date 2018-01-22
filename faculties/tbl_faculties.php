@@ -67,18 +67,20 @@ if(isset($_POST['page'])){
           <div class="table-responsive">
           <table class="table  table-striped table-bordered" id="myTable">
             <thead>
-                <tr>
-                    <th></th>
-                    <th>No.</th>
-                    <th>Last Name</th>
-                    <th>First Name</th>
-                    <th>Middle Name</th>
-                    <th>Ext.</th>
-                    <th>Faculty No.</th>
-                    <th>Deparment</th>   
-                    <th>Date Added</th>     
-                    <th>Action</th>
-                </tr>
+              <tr>
+                <th></th>
+                <th>No.</th>
+                <th>Dental</th>
+                <th>Medical</th>
+                <th width="100px">Last Name</th>
+                <th width="100px">First Name</th>
+                <th>Middle</th>
+                <th>Suffix</th>
+                <th width="110px">Faculty No.</th>
+                <th>Deparment</th>   
+                <th>Date Added</th>     
+                <th>Action</th>
+              </tr>
             </thead>
             <tbody>
             <?php
@@ -89,13 +91,15 @@ if(isset($_POST['page'])){
                   <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'med','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['med']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['dept_name'];?></td>
-                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_registered']));?></td>
+                <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
                 <td>
                   <div class="btn-toolbar" role="toolbar"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button></div>
                 </td>
@@ -152,11 +156,13 @@ else {
               <tr>
                 <th></th>
                 <th>No.</th>
-                <th>Last Name</th>
-                <th>First Name</th>
-                <th>Middle Name</th>
-                <th>Ext. </th>
-                <th>Faculty No.</th>
+                <th>Dental</th>
+                <th>Medical</th>
+                <th width="100px">Last Name</th>
+                <th width="100px">First Name</th>
+                <th>Middle</th>
+                <th>Suffix</th>
+                <th width="110px">Faculty No.</th>
                 <th>Department</th>     
                 <th>Date Added</th>      
                 <th>Action</th>
@@ -171,13 +177,15 @@ else {
                   <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['dent']; ?></td>
+                <td contenteditable="true" onBlur="saveToDatabase(this,'med','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['med']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'dept','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['dept_name'];?></td>
-                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_registered']));?></td>
+                <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
                 <td>
                   <div class="btn-toolbar" role="toolbar"><a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button></div>
                 </td>
