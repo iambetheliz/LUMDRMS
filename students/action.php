@@ -69,7 +69,10 @@
           }
         }
 
+        mysqli_query($DB_con,"START TRANSACTION;");
         mysqli_query($DB_con,"INSERT INTO students_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,gen_sur,skin,heent,lungs,heart,abdomen,extreme,xray,assess,plan,checked_by,studentNo,StudentID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$gen_sur','$skin','$heent','$lungs','$heart','$abdomen','$extreme','$xray','$assess','$plan','$checked_by','$studentNo','$StudentID');");
+        mysqli_query($DB_con,"UPDATE students_stats SET med='Ok' WHERE studentNo='$studentNo';");
+        mysqli_query($DB_con,"COMMIT;");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 
@@ -149,7 +152,10 @@
           }
         }
 
+        mysqli_query($DB_con,"START TRANSACTION;");
         mysqli_query($DB_con,"INSERT INTO students_den (medHis,dec_x,dec_f,missing,filled,per_con,con_rem,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,StudentID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$StudentID');");
+        mysqli_query($DB_con,"UPDATE students_stats SET dent='Ok' WHERE studentNo='$studentNo';");
+        mysqli_query($DB_con,"COMMIT;");
 
         header('Location: profile.php?StudentID='.$StudentID);      
 

@@ -1,4 +1,5 @@
 <?php
+require '../includes/dbconnect.php';
   
   if(isset($_POST['action']) or isset($_GET['view'])) { //show all events
 
@@ -54,9 +55,9 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="../assets/style.css" rel="stylesheet" type="text/css" />
 <!-- fullcalendar -->
-<link href="../calendar/assets/cal.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.min.css" rel="stylesheet" />
-<link href="../calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="assets/cal.css" rel="stylesheet" />
+<link href="assets/fullcalendar.min.css" rel="stylesheet" />
+<link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <style type="text/css">  
 .fc-unthemed td.fc-today {
   background: #c3eec3;
@@ -93,20 +94,20 @@
         <li role="presentation" class="have-child">
           <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
           <ul id="demo" class="panel-collapse collapse">
-              <li>
-              <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+            <li>
+              <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
             </li>
             <li>
               <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
             </li>
             <li>
-              <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
             </li>
             <li>
-              <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
+              <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
             </li>
             <li>
-              <a href="/lu_clinic/soap/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; S.O.A.P.</a>
+              <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
             </li>
           </ul>
         </li>
@@ -223,10 +224,10 @@
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 <!-- calendar scripts --> 
-<script src="../calendar/assets/jquery-ui.min.js"></script>
-<script src="../calendar/assets/moment.min.js"></script>
-<script src="../calendar/assets/fullcalendar.min.js"></script>
-<script src="../calendar/assets/calendar_sample.js"></script>
+<script src="assets/jquery-ui.min.js"></script>
+<script src="assets/moment.min.js"></script>
+<script src="assets/fullcalendar.min.js"></script>
+<script src="assets/calendar_sample.js"></script>
 
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
