@@ -10,18 +10,18 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
-    if ($DB_con->connect_errno) {
-      echo "Connect failed: ", $DB_con->connect_error;
-    exit();
-    }
+  if ($DB_con->connect_errno) {
+    echo "Connect failed: ", $DB_con->connect_error;
+  exit();
+  }
 
   $error = false;
 
-if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
+  if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
 
-	if($_REQUEST['action_type'] == 'save'){
+    if($_REQUEST['action_type'] == 'save') {
+
+      //checkbox
 
       $sysRev = implode(", ",$_POST['sysRev_list']);
       $medHis = implode(", ",$_POST['medHis_list']);     
@@ -49,112 +49,138 @@ if(isset($_REQUEST['action_type']) && !empty($_REQUEST['action_type'])) {
       $assess = $_POST['assess'];
       $plan = $_POST['plan'];
       $checked_by = $_POST['checked_by'];
-
-      $identity = 'faculty';
       $facultyNo = $_POST['facultyNo'];
       $FacultyID = $_POST['FacultyID'];
 
-      if (empty($sysRev)) {
-        $sysRev = 'none';
-      }
-      if (empty($medHis)) {
-        $medHis = 'none';
-      }
+      $identity = 'faculty';
 
-      if (!$error) {
+      if (!$error) {        
 
         if(!empty($_POST['sysRev_list'])) {
           $category = 'sysRev';
           foreach($_POST['sysRev_list'] as $sys_rev) {
-            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$sys_rev','$category','$identity','$StudentID');");
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$sys_rev','$category','$identity','$FacultyID');");
           }
         }
         if(!empty($_POST['medHis_list'])) {
           $category = 'medHis';
           foreach($_POST['medHis_list'] as $med_his) {
-            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$med_his','$category','$identity','$StudentID');");
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$med_his','$category','$identity','$FacultyID');");
           }
         }
 
-        $sql = "INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,weight,height,bmi,bp,cr,rr,t,xray,assess,plan,facultyNo,FacultyID) VALUES ('" . $sysRev . "','". $medHis. "','$drinker','$smoker','$drug_user','$weight','$height','$bmi','$bp','$cr','$rr','$t','$xray','$assess','$plan','$facultyNo','".$FacultyID."')";
-        $result = mysqli_query($DB_con,$sql);
+        mysqli_query($DB_con,"START TRANSACTION;");
+        mysqli_query($DB_con,"INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,gen_sur,skin,heent,lungs,heart,abdomen,extreme,xray,assess,plan,checked_by,facultyNo,FacultyID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$gen_sur','$skin','$heent','$lungs','$heart','$abdomen','$extreme','$xray','$assess','$plan','$checked_by','$facultyNo','$FacultyID');");
+        mysqli_query($DB_con,"UPDATE faculty_stats SET med='Ok' WHERE facultyNo='$facultyNo';");
+        mysqli_query($DB_con,"COMMIT;");
 
-        if (!$result) {
-          header("Location: index.php?error");
-        }
-        else{
-          header("Location: index.php");
-        }
-        // show an error message if the query has an error
+        header('Location: profile.php?FacultyID='.$FacultyID);      
 
       } else {
-          echo "ERROR: could not prepare SQL statement.";
+        header("Location: index.php?error");
       }
+    }
+    else if($_REQUEST['action_type'] == 'save_soap') {
+
+      //checkbox
+
+      $sysRev = implode(", ",$_POST['sysRev_list']);
+
+      $med = $_POST['med'];
+      $weight = $_POST['weight'];
+      $height = $_POST['height'];
+      $bmi = $_POST['bmi'];
+      $bmi_cat = $_POST['bmi_cat'];
+      $bp = $_POST['bp'];
+      $cr = $_POST['cr'];
+      $rr = $_POST['rr'];
+      $temp = $_POST['temp'];
+      $assess = $_POST['assess'];
+      $plan = $_POST['plan'];
+      $checked_by = $_POST['checked_by'];
+      $FacultyID = $_POST['FacultyID'];
+      $identity = 'faculty';
+
+      if (!$error) {        
+
+        if(!empty($_POST['sysRev_list'])) {
+          $category = 'sysRev';
+          foreach($_POST['sysRev_list'] as $sys_rev) {
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$sys_rev','$category','$identity','$FacultyID');");
+          }
+        }
+
+        mysqli_query($DB_con,"INSERT INTO faculty_soap (sysRev,med,weight,height,bmi,bp,cr,rr,temp,assess,plan,checked_by,FacultyID) VALUES ('$sysRev','$med','$weight','$height','$bmi','$bp','$cr','$rr','$temp','$assess','$plan','$checked_by','$FacultyID');");
+
+        header('Location: profile.php?FacultyID='.$FacultyID);      
+
+      } else {
+        header("Location: index.php?error");
+      }
+    }
+    else if($_REQUEST['action_type'] == 'save_dental') {
+
+      //checkbox
+
+      $medHis = implode(", ",$_POST['medHis_list']);
+
+      $dec_x = $_POST['dec_x'];
+      $dec_f = $_POST['dec_f'];
+      $missing = $_POST['missing'];
+      $filled = $_POST['filled'];
+      $per_con = $_POST['per_con'];
+      $con_rem = $_POST['con_rem'];
+      $con_spec = $_POST['con_spec'];
+      $denture = $_POST['denture'];
+      $pro_rem1 = $_POST['pro_rem1'];
+      $pro_spec1 = $_POST['pro_spec1'];
+      $need = $_POST['need'];
+      $pro_rem2 = $_POST['pro_rem2'];
+      $pro_spec2 = $_POST['pro_spec2'];
+      $pro_rem3 = $_POST['pro_rem3'];
+      $checked_by = $_POST['checked_by'];
+      $FacultyID = $_POST['FacultyID'];
+
+      $identity = 'faculty';
+
+      if (!$error) {        
+
+        if(!empty($_POST['medHis_list'])) {
+          $category = 'medHis';
+          foreach($_POST['medHis_list'] as $med_his) {
+            mysqli_query($DB_con,"INSERT INTO tbl_diseases (diseases,category,identity,PatientID) VALUES('$med_his','$category','$identity','$FacultyID');");
+          }
+        }
+
+        mysqli_query($DB_con,"START TRANSACTION;");
+        mysqli_query($DB_con,"INSERT INTO faculty_den (medHis,dec_x,dec_f,missing,filled,per_con,con_rem,con_spec,denture,pro_rem1,pro_spec1,need,pro_rem2,pro_spec2,pro_rem3,checked_by,FacultyID) VALUES ('$medHis','$dec_x','$dec_f','$missing','$filled','$per_con','$con_rem','$con_spec','$denture','$pro_rem1','$pro_spec1','$need','$pro_rem2','$pro_spec2','$pro_rem3','$checked_by','$FacultyID');");
+        mysqli_query($DB_con,"UPDATE faculty_stats SET dent='Ok' WHERE facultyNo='$facultyNo';");
+        mysqli_query($DB_con,"COMMIT;");
+
+        header('Location: profile.php?FacultyID='.$FacultyID);      
+
+      } else {
+        header("Location: index.php?error");
+      }
+    }
+    else if($_REQUEST['action_type'] == 'save_cert') {
+
+      $rest = $_POST['rest'];
+      $resolution = $_POST['resolution'];
+      $checked_by = $_POST['checked_by'];
+      $FacultyID = $_POST['FacultyID'];
+
+      if (!$error) {  
+
+        mysqli_query($DB_con,"INSERT INTO faculty_cert (rest,resolution,checked_by,FacultyID) VALUES ('$rest','$resolution','$checked_by','$FacultyID');");
+
+        header('Location: profile.php?FacultyID='.$FacultyID);      
+
+      } else {
+        header("Location: index.php?error");
+      }
+    }
   }
-	elseif($_REQUEST['action_type'] == 'edit'){
-
-		if(!empty($_POST['FacultyID'])){
-
-			  $facultyNo = $_POST['facultyNo'];
-  			$last_name = $_POST['last_name'];
-  			$first_name = $_POST['first_name'];
-  			$middle_name = $_POST['middle_name'];
-        $ext = $_POST['ext'];
-  			$age = $_POST['age'];
-  			$sex = $_POST['sexOption'];
-  			$program = $_POST['program'];
-  			$sem = $_POST['semOption'];
-  			$acadYear = $_POST['acadYear'];
-  			$address = $_POST['address'];
-  			$cperson = $_POST['cperson'];
-  			$cphone = $_POST['cphone'];
-  			$tphone = $_POST['tphone'];
-        $FacultyID = $_POST['FacultyID'];
-
-        $med = $_POST['med'];
-        $dent = $_POST['dent'];
-
-        // if everything is fine, update the record in the database
-        if (!$error) {
-
-          $stmt = 'UPDATE `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", program="'.$program.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'", tphone="'.$tphone.'", med="'.$med.'", dent="'.$dent.'" WHERE FacultyID="'.$FacultyID.'"';
-
-          if (!$stmt) {
-            header("Location: medical_form.php?error");
-          }
-          elseif (mysqli_query($DB_con,$stmt)) {
-            header("Location: index.php?success");
-          }
-            mysqli_close($DB_con);
-        }
-        // show an error message if the query has an error
-        else {
-          echo "ERROR: could not prepare SQL statement.";
-        }
-		}
-	}
-	elseif($_REQUEST['action_type'] == 'delete'){
-
-		if(!empty($_GET['FacultyID'])){
-
-      if( !$error ) {
-        $stmt = $DB_con->prepare("DELETE FROM faculties WHERE FacultyID =?");
-        $stmt->bind_param('i', $_GET['FacultyID']);
-
-        if (!$stmt){
-            $errMSG = "Something went wrong, try again later..."; 
-        } else {
-          $stmt->execute();
-          header("Location: index.php?deleteSuccess");
-        }
-      }
-    }
-    else {
-      // if the 'FacultyID' variable isn't set, redirect the user
-      header("Location: index.php?deleteError");
-    }
-	}
-}
 
 ?>
 <?php ob_end_flush(); ?>
