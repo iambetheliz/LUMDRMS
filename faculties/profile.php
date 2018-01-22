@@ -112,56 +112,50 @@
                         <div class="row">   
                           <div class="container-fluid">               
                             <table class="table table-bordered">
-                              <tbody>
-                                <tr>
-                                  <td colspan="4"><strong>FULL NAME:</strong></td>
-                                </tr>
-                                <tr>
-                                  <td><?php echo $row['first_name'] ;?><br>
-                                  <span class="text-muted"><small><i>First Name</i></small></span></td>
-                                  <td><?php echo $row['middle_name'] ;?><br>
-                                  <span class="text-muted"><small><i>Middle Name</i></small></span></td>
-                                  <td><?php echo $row['last_name'];?><br>
-                                    <span class="text-muted"><small><i>Last Name</i></small></span></td>
-                                  <td><?php echo $row['ext'];?><br>
-                                    <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
-                                </tr>
-                                <tr>
-                                  <td><label>Age:</label></td>
-                                  <td><?php echo $row['age'];?> years old</td>
-                                  <td><label>Gender:</label></td>
-                                  <td><?php echo $row['sex'];?></td>
-                                </tr>
-                                <tr>
-                                  <td><label>Date of Birth:</label></td>
-                                  <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
-                                  <td><label>Marital Status:</label></td>
-                                  <td><?php echo $row['stat'] ;?></td>
-                                </tr>
-                                <tr>
-                                  <td><label>Department:</label></td>
-                                  <td><?php echo $row['dept_name'];?></td>
-                                  <td><label>Year Level:</label></td>
-                                  <td><?php echo $row['yearLevel'];?> Year</td>
-                                </tr>
-                                <tr>
-                                  <td><label>Semester: </label></td>
-                                  <td><?php echo $row['sem'];?> Semester</td>
-                                  <td><label>Academic Year:</label></td>
-                                  <td><?php echo $row['acadYear'];?></td>
-                                </tr>
-                                <tr>
-                                  <td><label>Address:</label></td>
-                                  <td colspan="3"><?php echo $row['address'];?></td>
-                                </tr>
-                                <tr>
-                                  <td><label>Contact Person:</label></td>
-                                  <td><?php echo $row['cperson'];?></td>
-                                  <td><label>Cel/Tel No.:</label></td>
-                                  <td><?php echo $row['cphone'];?></td>
-                                </tr>
-                              </tbody>
-                            </table>
+                        <tbody>
+                          <tr>
+                            <td colspan="4"><strong>FULL NAME:</strong></td>
+                          </tr>
+                          <tr>
+                            <td><?php echo $row['first_name'] ;?><br>
+                            <span class="text-muted"><small><i>First Name</i></small></span></td>
+                            <td><?php echo $row['middle_name'] ;?><br>
+                            <span class="text-muted"><small><i>Middle Name</i></small></span></td>
+                            <td><?php echo $row['last_name'];?><br>
+                              <span class="text-muted"><small><i>Last Name</i></small></span></td>
+                            <td><?php echo $row['ext'];?><br>
+                              <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
+                          </tr>
+                          <tr>
+                            <td><label>Age:</label></td>
+                            <td><?php echo $row['age'];?> years old</td>
+                            <td><label>Gender:</label></td>
+                            <td><?php echo $row['sex'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Date of Birth:</label></td>
+                            <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
+                            <td><label>Marital Status:</label></td>
+                            <td><?php echo $row['stat'] ;?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Department:</label></td>
+                            <td><?php echo $row['dept_name'];?></td>
+                            <td><label>Semester: </label> <?php echo $row['sem'];?> Semester</td>
+                            <td><label>Academic Year:</label> <?php echo $row['acadYear'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Address:</label></td>
+                            <td colspan="3"><?php echo $row['address'];?></td>
+                          </tr>
+                          <tr>
+                            <td><label>Contact Person:</label></td>
+                            <td><?php echo $row['cperson'];?></td>
+                            <td><label>Cel/Tel No.:</label></td>
+                            <td><?php echo $row['cphone'];?></td>
+                          </tr>
+                        </tbody>
+                      </table>
                           </div>
                         </div>
                       </div>
