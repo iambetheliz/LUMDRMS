@@ -1,6 +1,7 @@
 <?php
 require_once '../includes/dbconnect.php';
 include '../includes/date_time_diff.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -15,6 +16,15 @@ include '../includes/date_time_diff.php';
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/panel-tabs.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  @media print {
+    thead {
+      background: #eee;
+      color: #666666;
+      font-weight: bold;
+    }
+  }
+</style>
 </head>
 <body>
 
@@ -53,7 +63,7 @@ if(!empty($row)) { ?>
 
 
 <table class="table table-bordered">
-<thead>
+<thead class="thead">
 <tr>
 <th colspan="3">I. BASIC INFORMATION</th>
 <th>Student No.: <?php echo $row['studentNo'];?></th>
@@ -398,6 +408,9 @@ echo "</tr>";
 <?php }
 
 }
+}
+else {
+  header("Location: /lu_clinic/medical/");
 }
 ?>
 

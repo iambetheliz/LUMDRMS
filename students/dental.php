@@ -299,6 +299,9 @@ echo "None";
 
 }
 }
+            else {
+              header("Location: /lu_clinic/students/");
+            }
 ?>
 
 

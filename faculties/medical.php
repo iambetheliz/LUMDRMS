@@ -1,6 +1,19 @@
 <?php
 require_once '../includes/dbconnect.php';
 include '../includes/date_time_diff.php';
+if(empty($_SESSION)) // if the session not yet started 
+  session_start();
+
+  // Check connection
+  if ($DB_con->connect_error) {
+    header('Location: /lu_clinic/no_connection_error.php');
+  }
+  
+  // if session is not set this will redirect to login page
+  if( !isset($_SESSION['user']) ) {
+    header("Location: /lu_clinic/index.php?attempt");
+    exit;
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -15,6 +28,15 @@ include '../includes/date_time_diff.php';
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/css/panel-tabs.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  @media print {
+    thead {
+      background-color: #eee;
+      color: #666666;
+      font-weight: bold;
+    }
+  }
+</style>
 </head>
 <body>
 

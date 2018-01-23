@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
   $(function(){
     $('#current_year').change(function(){ // when one changes
       $('#next_year').val( $(this).val() ) // they all change
@@ -12,12 +11,6 @@ $(document).ready(function () {
     $("#wrapper").toggleClass("toggled");
   });
 
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-  
-  //Sidebar Menu Links
   $('ul[role="menu"]') 
     .on('show.bs.collapse', function (e) {
       $(e.target).prev('a[role="menuitem"]').addClass('active');
@@ -26,22 +19,8 @@ $(document).ready(function () {
       $(e.target).prev('a[role="menuitem"]').removeClass('active');
   });
 
-  $('a[data-toggle="collapse"]').click(function (event) {
-    event.stopPropagation();
-    event.preventDefault();
-
-    var drop = $(this).closest(".dropdown");
-    $(drop).addClass("open");
-
-    $('.collapse.in').collapse('hide');
-    var col_id = $(this).attr("href");
-    $(col_id).collapse('toggle');
-  });
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
   
-  //Settings Menu
-  $("[data-toggle='toggle']").click(function() {
-    var selector = $(this).data("target");
-    $(selector).toggleClass('in');
-  });
-
 });

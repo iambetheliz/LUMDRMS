@@ -7,7 +7,7 @@ include('../includes/dbconnect.php');
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Records | Laguna University - Clinic | Medical Records System</title>
+<title>FACULTY AND STAFFS Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
@@ -34,7 +34,7 @@ include('../includes/dbconnect.php');
     </h3>
 
     <div class="btn-toolbar" role="toolbar">
-      <h4><strong>STUDENT RECORD</strong>
+      <h4><strong>FACULTY AND STAFFS RECORD</strong>
       <button type="button" class="btn btn-primary pull-right"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
       </h4>
     </div>
@@ -50,12 +50,12 @@ include('../includes/Pagination.php');
   $start = !empty($_POST['page'])?$_POST['page']:0;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id`");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY last_name ASC");
+  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY last_name ASC");
 
   if($query->num_rows > 0){ ?>
   <br>
@@ -68,11 +68,10 @@ include('../includes/Pagination.php');
                 <th>No.</th>
                 <th>Last Name</th>
                 <th>First Name</th>
-                <th>Middle Name</th>
+                <th>Middle Initial</th>
                 <th>Suffix</th>
-                <th>Student No.</th>
-                <th>Program</th>
-                <th>Year</th>    
+                <th>Faculty No.</th>
+                <th>Department</th>
                 <th>Date Added</th> 
               </tr>
             </thead>
@@ -82,13 +81,12 @@ include('../includes/Pagination.php');
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
                 <td><?php echo $start;?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
-                <td contenteditable="true" onBlur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['program_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
+                <td onBlur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['last_name']; ?></td>
+                <td onBlur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['first_name']; ?></td>
+                <td onBlur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['middle_name']; ?></td>
+                <td onBlur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['ext'];?></td>
+                <td onBlur="saveToDatabase(this,'facultyNo','<?php echo $row["StatsID"]; ?>')" onClick="editRow(this);"><?php echo $row['facultyNo']; ?></td>
+                <td><?php echo $row['dept_name'];?></td>
                 <td><?php echo date("F m, Y", strtotime($row['date_registered']));?></td>
               </tr>
             <?php } ?>

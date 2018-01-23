@@ -1,5 +1,18 @@
 <?php
 require_once '../includes/dbconnect.php';
+if(empty($_SESSION)) // if the session not yet started 
+  session_start();
+
+  // Check connection
+  if ($DB_con->connect_error) {
+    header('Location: /lu_clinic/no_connection_error.php');
+  }
+  
+  // if session is not set this will redirect to login page
+  if( !isset($_SESSION['user']) ) {
+    header("Location: /lu_clinic/index.php?attempt");
+    exit;
+  }
 
 if (isset($_GET['StudentID'])) {
 

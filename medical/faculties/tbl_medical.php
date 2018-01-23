@@ -1,9 +1,9 @@
 <?php
 //Include database configuration file
-include('../includes/dbconnect.php');
-include '../includes/date_time_diff.php';
+include('../../includes/dbconnect.php');
+include '../../includes/date_time_diff.php';
 //Include pagination class file
-include('../includes/Pagination.php');
+include('../../includes/Pagination.php');
 
 if(isset($_POST['page'])){
     
@@ -14,30 +14,30 @@ if(isset($_POST['page'])){
   $whereSQL = $orderSQL = '';
   $keywords = $_POST['keywords'];
   $sortBy = $_POST['sortBy'];
-  $prog = $_POST["program_id"];
+  $dept = $_POST["dept_id"];
 
-  if ( !empty($keywords) && !empty($prog) ) {
-    $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%' ";
+  if ( !empty($keywords) && !empty($dept) ) {
+    $whereSQL = " WHERE dept = '".$dept."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%' ";
   }
   elseif ( !empty($keywords) ) {
     $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
   }
-  elseif ( !empty($prog) ) {
-    $whereSQL = " WHERE program = '".$prog."' ";
+  elseif ( !empty($dept) ) {
+    $whereSQL = " WHERE dept = '".$dept."' ";
   }
 
   if ( !empty($sortBy) ){
     $orderSQL = " ORDER BY last_name ".$sortBy;
   } 
-  elseif ( !empty($sortBy) && !empty($prog) ) {
+  elseif ( !empty($sortBy) && !empty($dept) ) {
     $orderSQL = " ORDER BY last_name ".$sortBy;
   }
-  elseif (empty($prog) || empty($sortBy)) {
-    $orderSQL = " ORDER BY date_updated DESC ";
+  elseif (empty($dept) || empty($sortBy)) {
+    $orderSQL = " ORDER BY date_checked_up DESC ";
   }
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_med` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -51,7 +51,7 @@ if(isset($_POST['page'])){
   $pagination =  new Pagination($pagConfig);
   
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_med` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL LIMIT $start,$limit");
   
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -84,15 +84,15 @@ if(isset($_POST['page'])){
             $start++; ?>
             <tr id="table-row-<?php echo $row["StatsID"]; ?>">
               <td>
-                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
+                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
               </td>
               <td><?php echo $start;?></td>
-              <td><?php echo $row['studentNo']; ?></td>
+              <td><?php echo $row['facultyNo']; ?></td>
               <td><?php echo $row['sysRev'];?></td>
               <td><?php echo $row['assess'];?></td>
               <td><?php echo $row['checked_by'];?></td>
               <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-              <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+              <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </td>
             </tr>
           <?php } ?>
@@ -117,7 +117,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_med` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id`");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -130,7 +130,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `students_med` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_updated DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY date_checked_up DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -163,15 +163,15 @@ else {
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
                 <td>
-                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
+                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
-                <td><?php echo $row['studentNo']; ?></td>
+                <td><?php echo $row['facultyNo']; ?></td>
                 <td><?php echo $row['sysRev'];?></td>
                 <td><?php echo $row['assess'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>
@@ -258,32 +258,5 @@ else {
     return false;
   });
 
-  // Quick Edit 
-  $('document').ready(function() {
-    $('td:contains("Pending")').css('color', 'red');
-    $('td:contains("Ok")').css('color', 'green');
-  });
-  
-  function editRow(editableObj) {
-    $(editableObj).css("background","#FFF");
-  }
 
-  function saveToDatabase(editableObj,column,id) {
-    $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
-    $.ajax({
-      url: "../students/quick_edit.php",
-      type: "POST",
-      data:'med='+column+'&dent='+column+'&last_name='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
-      success: function(data){
-        $(editableObj).css("background","#FDFDFD");
-
-        $('#overlay').show();
-        $('#overlay').fadeOut('fast');
-
-        $('td:contains("Pending")').css('color', 'red');
-        $('td:contains("Ok")').css('color', 'green');
-
-      }
-    });
-  }
 </script>

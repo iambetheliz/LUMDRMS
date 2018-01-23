@@ -57,9 +57,13 @@ body {
   left: 0;
 }
 
-.sidebar-nav> li.active> a,
-.sidebar-nav li a:active,
 .sidebar-nav> li> a.active {
+  color: white;
+  text-decoration: none;
+  background-color: #203F15;
+}
+
+.sidebar-nav> li.active> a {
   color: #fff;
   background-color: #1d3813;
   text-decoration: none;
@@ -70,42 +74,97 @@ body {
 .sidebar-nav li a:hover,
 .sidebar-nav> li.active> a:hover {
   color: #fff;
-  background-color: #1d3813;
   text-decoration: none;
 }
 
-.sidebar-nav li a:toggled,
-.sidebar-nav li a:focus,
+.sidebar-nav> li a:toggled,
+.sidebar-nav> li a:focus,
 .sidebar-nav> li> a.active:focus {
   text-decoration: none;
   color: #fff;
   background-color: #1d3813;
 }
 
-#demo li {
+ul#den li {
   line-height: 30px;
   margin-left: -20px;
 }
 
-#demo li a {
+ul#den li a {
   background-color: transparent;
 }
 
-#demo> li.active> a,
-#demo li a:active {
+ul#den> li.active> a,
+ul#den li a:active {
   color: #fff;
   border-left: 0px;
 }
 
-#demo li a:hover,
-#demo> li.active> a:hover {
+ul#den li a:hover,
+ul#den> li.active> a:hover {
   color: #fff;
   text-decoration: none;
   text-indent: 10px;
 }
 
-#demo li a:toggled,
-#demo li a:focus  {
+ul#den li a:toggled,
+ul#den li a:focus  {
+  text-decoration: none;
+}
+
+ul#med li {
+  line-height: 30px;
+  margin-left: -20px;
+}
+
+ul#med li a {
+  background-color: transparent;
+}
+
+ul#med> li.active> a,
+ul#med li a:active {
+  color: #fff;
+  border-left: 0px;
+}
+
+ul#med li a:hover,
+ul#med> li.active> a:hover {
+  color: #fff;
+  text-decoration: none;
+  text-indent: 10px;
+}
+
+ul#med li a:toggled,
+ul#med li a:focus  {
+  text-decoration: none;
+}
+
+ul#demo li {
+  line-height: 30px;
+  margin-left: -20px;
+}
+ul#demo {
+    background-color: #244617;
+}
+ul#demo li a {
+  background-color: transparent;
+}
+
+ul#demo> li.active> a,
+ul#demo li a:active {
+  color: #fff;
+  border-left: 0px;
+}
+
+ul#demo li a:hover,
+ul#demo> li.active> a:hover {
+  color: #fff;
+  text-decoration: none;
+  text-indent: 10px;
+}
+
+ul#demo li a:toggled,
+ul#demo li a:focus  {
   text-decoration: none;
 }
 

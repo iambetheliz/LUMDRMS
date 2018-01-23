@@ -19,7 +19,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dental Records | Laguna University - Clinic | Medical Records System</title>
+<title>S.O.A.P. Records | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
@@ -41,11 +41,13 @@
 .col-2 {
   padding-right: 20px;
 }
+
 @media (min-width: 768px) {
-.modal-dialog {
-    width: 800px;
-    margin: 30px auto;
-}}
+  .modal-dialog {
+      width: 800px;
+      margin: 30px auto;
+  }
+}
 </style>
 </head>
 <body>
@@ -55,7 +57,7 @@
   <!-- End of Navbar -->
 
   <!-- Content -->
-	<div id="wrapper">
+  <div id="wrapper">
 
     <!-- Sidebar Menu Items -->
     <div id="sidebar-wrapper">
@@ -79,10 +81,10 @@
               <li>
                 <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
               </li>
-              <li class="active">
+              <li>
                 <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
               </li>
-              <li>
+              <li class="active">
                 <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
               </li>
             </ul>
@@ -99,20 +101,20 @@
     </div>  
     <!-- End of Sidebar --> 
 
-	    <!-- Begin Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+    <!-- Begin Main Screen -->
+      <div id="page-content-wrapper">
+        <div class="page-content">
+          <div class="container-fluid">   
 
-    	        <!-- Page Heading -->
-                <div class="row">
-                    <div class="container-fluid">
-                        <h1 class="page-header">Dental Records</h1>
-                    </div>
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="container-fluid">
+                    <h1 class="page-header">S.O.A.P. Records</h1>
                 </div>
-                <!-- End of Page Heading -->
-                
-                <!-- Buttons -->
+            </div>
+            <!-- End of Page Heading -->
+              
+            <!-- Buttons -->
             <div class="row">
               <!-- Start btn-toolbar -->
               <div class="col-lg-8">
@@ -133,6 +135,7 @@
                       <option value="desc">Descending</option>
                     </select>
                   </div>
+                  
                 </div>
               </div>
               <!-- End btn-toolbar -->
@@ -173,13 +176,13 @@
             </div>
 
             <br>
-				      
+              
                 <div id="overlay" align="center">
                   <div>
                     <img src="../includes/loading.gif" width="64px" height="64px"/>
                   </div>
                 </div>
-				        <div id="userTable">
+                <div id="userTable">
                   <!--
                     This is where data will be shown.
                   -->
@@ -339,7 +342,7 @@
               </div>
               <div class="modal-footer">   
                 <input type="text" name="physician" value="<?php echo $userRow['userName'];?>">    
-              	<input type="hidden" name="med" id="med" value="Pending">  
+                <input type="hidden" name="med" id="med" value="Pending">  
                 <input type="hidden" name="dent" id="dent" value="Pending">
                 <input type="submit" class="btn btn-primary" id="addnew" name="btn-add" value="Add Record" />
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -398,7 +401,7 @@ function searchFilter(page_num) {
   var program_id = $('#prog_list').val(); 
   $.ajax({
     type: 'POST',
-    url: 'tbl_dental.php',
+    url: 'tbl_soap.php',
     data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
     beforeSend: function () {
       $('#overlay').show();

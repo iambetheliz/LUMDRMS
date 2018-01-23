@@ -108,73 +108,73 @@
                     <div class="col-lg-3">
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> Recurrent Headache
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Recurrent Headache"> <span class="lbl"></span> Recurrent Headache
                         </label>                         
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> Blurring of Vision
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Blurring of Vision"> <span class="lbl"></span> Blurring of Vision
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> Abdominal Pain
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Abdominal Pain"> <span class="lbl"></span> Abdominal Pain
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> Cough and colds
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Cough and colds"> <span class="lbl"></span> Cough and colds
                         </label>
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> Chest pain
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Chest Pain"> <span class="lbl"></span> Chest pain
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline" title="Loss Of Consciousness" data-toggle="tooltip" data-placement="right" >
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> LOC/Seizure
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LOC/Seizure"> <span class="lbl"></span> LOC/Seizure
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> Easy fatigability
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy fatigability"> <span class="lbl"></span> Easy fatigability
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> Easy bruisability
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Easy bruisability"> <span class="lbl"></span> Easy bruisability
                         </label>
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> Fever
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Fever"> <span class="lbl"></span> Fever
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> Vomiting
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Vomiting"> <span class="lbl"></span> Vomiting
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline" title="Low Bowel Movement" data-toggle="tooltip" data-placement="right" >
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> LBM
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="LBM"> <span class="lbl"></span> LBM
                         </label>
                       </div>
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> Dysuria
+                          <input type="checkbox" class="form-check-input" name="sysRev_list[]" value="Dysuria"> <span class="lbl"></span> Dysuria
                         </label>
                       </div>
                     </div>
                     <div class="col-lg-3">
                       <div class="form-check">
                         <label class="checkbox-inline">
-                          <input type="checkbox" class="form-check-input" id="otherSysRevCheck" /> Other 
+                          <input type="checkbox" class="form-check-input" id="otherSysRevCheck" "> <span class="lbl"></span> Other 
                         </label>
                         <input type="text" class="form-control" name="sysRev_list[]" id="otherSysRev" style="display: none;">
                       </div>
@@ -285,7 +285,12 @@
             </div>
           </form>
           <!-- End of Form -->
-          <?php }}?>
+          <?php }
+        }
+            else {
+              header("Location: /lu_clinic/SOAP/");
+            }
+        ?>
 
         </div>
       </div>

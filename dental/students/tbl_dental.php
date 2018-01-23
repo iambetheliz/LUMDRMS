@@ -1,10 +1,10 @@
 <?php
 //Include database configuration file
-include('../includes/dbconnect.php');
-include '../includes/date_time_diff.php';
+include('../../includes/dbconnect.php');
+include '../../includes/date_time_diff.php';
 $DB_con = new mysqli("localhost", "root", "", "records");
 //Include pagination class file
-include('../includes/Pagination.php');
+include('../../includes/Pagination.php');
 
 if(isset($_POST['page'])){
     
@@ -267,9 +267,9 @@ function editRow(editableObj) {
 }
 
 function saveToDatabase(editableObj,column,id) {
-  $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
+  $(editableObj).css("background","#FFF url(../../images/loading.gif) no-repeat right");
   $.ajax({
-    url: "../students/quick_edit.php",
+    url: "../../students/quick_edit.php",
     type: "POST",
     data:'med='+column+'&dent='+column+'&last_name='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
     success: function(data){
