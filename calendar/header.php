@@ -48,7 +48,7 @@
         <?php
           if(!empty($userRow)){ ?>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="/lu_clinic/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
                 <li><a href="/lu_clinic/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>

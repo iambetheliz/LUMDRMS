@@ -1,23 +1,3 @@
-<?php include 'itext.php';
-
-if (isset($_POST['send'])) {
-  $phone = $_POST['phone'];
-  $msg = $_POST['message'];
-  $result = itexmo($phone,$msg,"TR-ELIZA306457_AUYQD");
-  if ($result == ""){
-    $error = "<div class='row'><div class='alert alert-danger'>iTexMo: No response from server!!!
-    Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.  
-    Please CONTACT US for help.</div></div>";  
-  } else if ($result == 0){
-    $success = "<div class='row'><div class='alert alert-success'>Message Sent!</div></div>";
-  }
-  else { 
-    $error = "<div class='row'><div class='alert alert-danger'>
-    Trial version. Maximum of 10 messages per day only! <br>Error #". $result . " was encountered!</div></div>";
-  }
-}
-
-?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -49,7 +29,7 @@ label {
     display: inline-block;
 }
 
-input[type=submit] {
+input[type=button] {
     background-color: #4CAF50;
     color: white;
     padding: 12px 20px;
@@ -59,7 +39,7 @@ input[type=submit] {
     float: right;
 }
 
-input[type=submit]:hover {
+input[type=button]:hover {
     background-color: #45a049;
 }
 
@@ -90,7 +70,7 @@ input[type=submit]:hover {
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media (max-width: 600px) {
-    .col-25, .col-75, input[type=submit] {
+    .col-25, .col-75, input[type=button] {
         width: 100%;
         margin-top: 0;
     }
@@ -116,24 +96,48 @@ input[type=submit]:hover {
         <li>
           <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
         </li>
-        <li class="active have-child" role="presentation">
-          <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-table" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
-          <ul id="demo" class="panel-collapse collapse in">
-            <li class="active">
-              <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
+        <li role="presentation" class="have-child">
+          <a role="menuitem" data-toggle="collapse" href="#demo"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+          <ul id="demo" class="panel-collapse collapse">
+            <li>
+              <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
             </li>
             <li>
               <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
             </li>
             <li>
-              <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+              <a class="med" role="submenuitem" data-toggle="collapse" href="#med"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <ul id="med" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
+            </li>  
+            <li>
+              <a class="den" role="submenuitem" data-toggle="collapse" href="#den" data-parent="#accordion"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <ul id="den" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
             </li>
             <li>
-              <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
-            </li>
-            <li>
-              <a href="/lu_clinic/soap/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; S.O.A.P.</a>
-            </li>
+              <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
+              <ul id="soap" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
+            </li> 
           </ul>
         </li>
         <?php 
@@ -162,8 +166,7 @@ input[type=submit]:hover {
           <!-- End of Page Heading -->
 
           <div class="container-fluid">
-            <?php echo $success; echo $error; ?>
-            <form method="POST" action="">
+            <form id="sms" method="POST">
               <div class="row">
                 <div class="col-25">
                   <label for="phone">Phone Number:</label>
@@ -177,7 +180,7 @@ input[type=submit]:hover {
                   <label for="subject">Subject</label>
                 </div>
                 <div class="col-75">
-                  <input type="text" name="subject" placeholder="Enter subject.." />
+                  <input type="text" name="message[]" placeholder="Enter subject.." />
                 </div>
               </div>
               <div class="row">
@@ -185,16 +188,43 @@ input[type=submit]:hover {
                   <label for="message">Message</label>
                 </div>
                 <div class="col-75">
-                  <textarea id="message" name="message" placeholder="Write something.." style="height:200px"></textarea>
+                  <textarea id="message" maxlength="100" name="message[]" placeholder="Write something.." style="height:200px"></textarea>
+                  <span id="chars">100</span> characters remaining
                 </div>
               </div>
               <div class="row">
-                <input type="submit" name="send" value="Submit">
+                <input type="button" name="send" id="send" value="Send Message">
               </div>
             </form>
           </div>
 
-          </div></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<footer class="footer">
+  <div class="container-fluid">
+    <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
+  </div>
+</footer>
+
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/custom.js"></script> 
+<script src="../assets/js/form_validate_custom.js"></script> 
+<script src="sms.js"></script>
+<script type="text/javascript">
+var maxLength = 100;
+$('textarea').keyup(function() {
+  var length = $(this).val().length;
+  var length = maxLength-length;
+  $('#chars').text(length);
+});
+</script>
+
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 </body>
 </html>

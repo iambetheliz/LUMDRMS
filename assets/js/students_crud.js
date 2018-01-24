@@ -34,7 +34,7 @@ $(document).ready(function(){
         }
       }); 
     } else {
-      $('#program').html('<option value="">Select departmentt first</option>');
+      $('#program').html('<option value="">Select department first</option>');
     }
   });
   //Check availability
@@ -129,7 +129,21 @@ $(document).ready(function(){
           $("#add_stud")[0].reset();
           $('#addnew').val("Add New"); 
 					$("#tbl_students").load("../students/tbl_students.php");
-          $.notify("Data added successfully", "success");
+          $.bootstrapGrowl("Student added successfully!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            }
+          );
 				}
 			});
 		}

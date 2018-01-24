@@ -23,7 +23,7 @@
     //Render facebook profile data
     $output = '';
     if(!empty($userRow)){
-        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<b class="caret"></b></a>';
+        $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>';
         $logout = '<a href="/lu_clinic/logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
@@ -55,30 +55,21 @@
 
     <!-- Top Menu Items -->
     <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right top-menu">
-        <li>
-          <form class="navbar-form navbar-right navbar-form-search" role="search">
-            <div class="form-inline">
-              <div class="btn-group search-box">
-                <span class="fa fa-search"></span>
-                <input type="text" id="search-box" class="search form-control" placeholder="Quick Search">
-                <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
-                <span class="sr-only">Loading...</span>
-                <div id="suggesstion-box"></div>
-              </div>
-            </div>
-          </form>
-        </li>
+      <ul class="nav navbar-nav navbar-right">
         <?php
-          if(!empty($userRow)){?>
-            <li class="dropdown"><?php echo $account; ?>
+          if(!empty($userRow)){ ?>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
               <ul class="dropdown-menu">
-                <li><a href="../changepswd.php"><i class="glyphicon glyphicon-lock"></i>&nbsp;&nbsp; Change Password</a></li>
+                <li><a href="/lu_clinic/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
+                <li><a href="/lu_clinic/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>
                 <li role="separator" class="divider"></li>
-                <li><?php echo $logout; ?></li>
+                <li><a href="/lu_clinic/logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
               </ul>
-            </li>            
-        <?php }?>
+            </li> 
+            <?php 
+          }
+        ?>
       </ul> 
     </div>
 

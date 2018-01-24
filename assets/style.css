@@ -1,4 +1,7 @@
 /*CUSTOM STYLES*/
+textarea {
+  resize: none;
+}
 .img-fluid {
     max-width: 100%;
     height: auto;

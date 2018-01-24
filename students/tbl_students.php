@@ -60,7 +60,10 @@ if(isset($_POST['page'])){
           <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
           <span style="word-spacing:normal;"> | With selected :</span>
           <label id="actions">
-            <span><a class="text-danger" style="cursor: pointer;" ondblclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete</a>
+            <span><a class="text-warning" style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete</a>
+          </label>          
+          <label id="sms">
+            <span><a class="text-danger" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a></span>
           </label>
           <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
           <br>
@@ -149,7 +152,10 @@ else {
         <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
         <span style="word-spacing:normal;"> | With selected :</span>
         <label id="actions">
-          <span><a class="text-danger" style="cursor: pointer;" ondblclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-placement="right"> Delete</a></span>
+          <span><a class="text-danger" style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-placement="right"> Delete</a></span>
+        </label>
+        <label id="sms">
+          <span><a class="text-warning" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a></span>
         </label>
         <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
         <br>
@@ -269,6 +275,59 @@ function delete_records() {
             allow_dismiss: true, // add a close button to the message
             stackup_spacing: 10
         });
+      }
+    });
+  }  
+}
+
+//Send SMS
+function send_sms() {
+  var id = [];       
+  $('input[name="chk[]"]:checked').each(function(i){
+    id[i] = $(this).val();
+  });
+         
+  if(id.length === 0) { //tell you if the array is empty
+    alert("Please Select atleast one checkbox");
+    return false;
+  }
+  else {
+    $.ajax({
+      url:'send_sms.php',
+      method:'POST',
+      data:{id:id},
+      success : function(response) {           
+        if(response=="ok"){
+          $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            }
+          );
+        }
+        else {
+          $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+            // options
+            type: "danger", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+          });
+        }
       }
     });
   }  
