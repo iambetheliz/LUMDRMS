@@ -1,3 +1,15 @@
+td.fc-day-number {
+    text-align: right;
+}
+td.fc-day-number.fc-sun {
+    color: red;
+}
+td.fc-day-number.fc-sat {
+    color: blue;
+}
+.fc-other-month {
+    opacity: .5;
+}
 #calendar {
   width: 100%;
 }
@@ -10,10 +22,6 @@
 .fc-unthemed td {
     border-color: #ddd;
 }
-.fc-day-top .fc-day-number {
-    float: right;
-    color: green;
-}
 th.fc-day-header.fc-widget-header {
     padding: 10px;
     background: #428b42;
@@ -23,15 +31,6 @@ th.fc-day-header.fc-widget-header {
 .fc-list-heading {
     border-top-width: 0;
     background: #428b42;
-}
-td.fc-day-number {
-    color: green;
-    font-weight: 600;
-    font-size: 16px;
-    text-align: right;
-}
-td.fc-day-number.fc-other-month {
-    color: lightslategray;
 }
 
 td.fc-day.fc-widget-content.fc-today.fc-state-highlight {
