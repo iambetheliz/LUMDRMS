@@ -19,9 +19,6 @@ td.fc-day-number.fc-sat {
 .modal-dialog {
 	width: 500px;
 }
-.fc-unthemed a {
-	color: white;
-}
 .fc-unthemed td {
     border-color: #ddd;
 }
