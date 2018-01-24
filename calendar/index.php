@@ -18,11 +18,10 @@ $events = $req->fetchAll();
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Calendar Activities | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
-<!-- bootstrap -->
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
-<link href="../assets/style.css" rel="stylesheet" type="text/css" />
+<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../assets/style.css" rel="stylesheet" type="text/css">
 <!-- fullcalendar -->
 <link href="assets/cal.css" rel="stylesheet" />
 <link href="assets/fullcalendar.min.css" rel="stylesheet" />
@@ -55,7 +54,7 @@ $events = $req->fetchAll();
   <!-- Sidebar Menu Items -->
   <div id="sidebar-wrapper">
     <nav id="spy">
-      <ul class="sidebar-nav">                    
+      <ul class="sidebar-nav" role="menu">                    
         <li>
             <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
         </li>
@@ -63,7 +62,7 @@ $events = $req->fetchAll();
             <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
         </li>
         <li role="presentation" class="have-child">
-          <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
+          <a role="menuitem" data-toggle="collapse" href="#demo"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
           <ul id="demo" class="panel-collapse collapse">
             <li>
               <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
@@ -72,14 +71,38 @@ $events = $req->fetchAll();
               <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
             </li>
             <li>
-              <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
+              <a class="med" role="submenuitem" data-toggle="collapse" href="#med"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <ul id="med" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
+            </li>  
+            <li>
+              <a class="den" role="submenuitem" data-toggle="collapse" href="#den" data-parent="#accordion"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <ul id="den" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
             </li>
             <li>
-              <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
-            </li>
-            <li>
-              <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
-            </li>
+              <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
+              <ul id="soap" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                </li>
+              </ul>
+            </li> 
           </ul>
         </li>
         <?php 
@@ -235,6 +258,8 @@ $events = $req->fetchAll();
   </div>
 </div>
 
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/custom.js"></script> 
 <!-- jQuery Version 1.11.1 -->
 <script src="js/jquery.js"></script>
 
