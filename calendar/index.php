@@ -25,7 +25,6 @@ $events = $req->fetchAll();
 <link href="../assets/style.css" rel="stylesheet" type="text/css" />
 <!-- fullcalendar -->
 <link href="assets/cal.css" rel="stylesheet" />
-<link href="assets/cal.css" rel="stylesheet" />
 <link href="assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <!-- Custom CSS -->
