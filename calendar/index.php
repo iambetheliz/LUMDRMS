@@ -1,46 +1,15 @@
 <?php
-require '../includes/dbconnect.php';
-  
-  if(isset($_POST['action']) or isset($_GET['view'])) { //show all events
+require_once('bdd.php');
 
-    if(isset($_GET['view'])) {
+$sql = "SELECT id, title, start, end, color FROM events ";
 
-        header('Content-Type: application/json');
-        $start = mysqli_real_escape_string($DB_con,$_GET["start"]);
-        $end = mysqli_real_escape_string($DB_con,$_GET["end"]);
+$req = $bdd->prepare($sql);
+$req->execute();
 
-        $result = mysqli_query($DB_con,"SELECT id, start ,end ,title FROM  events where (date(start) >= '$start' AND date(start) <= '$end')");
-        while($row = mysqli_fetch_assoc($result)) {
-            $events[] = $row; 
-        }
-
-        echo json_encode($events); 
-        exit;
-    }
-    elseif($_POST['action'] == "add") { // add new event  
-        mysqli_query($DB_con,"INSERT INTO events (title,start,end) VALUES('".mysqli_real_escape_string($DB_con,$_POST["title"])."','".mysqli_real_escape_string($DB_con,date('Y-m-d H:i:s',strtotime($_POST["start"])))."','".mysqli_real_escape_string($DB_con,date('Y-m-d H:i:s',strtotime($_POST["end"])))."')");
-
-        header('Content-Type: application/json');
-        echo '{"id":"'.mysqli_insert_id($DB_con).'"}';
-        exit;
-    }
-    elseif($_POST['action'] == "update")  { // update event
-        mysqli_query($DB_con,"UPDATE events set start = '".mysqli_real_escape_string($DB_con,date('Y-m-d H:i:s',strtotime($_POST["start"])))."', end = '".mysqli_real_escape_string($DB_con,date('Y-m-d H:i:s',strtotime($_POST["end"])))."' WHERE id = '".mysqli_real_escape_string($DB_con,$_POST["id"])."'");
-        exit;
-    }
-
-    elseif($_POST['action'] == "delete") { // remove event
-        mysqli_query($DB_con,"DELETE from events where id = '".mysqli_real_escape_string($DB_con,$_POST["id"])."'");
-
-        if (mysqli_affected_rows($DB_con) > 0) {
-            echo "1";
-        }
-        exit;
-    }
-
-}
+$events = $req->fetchAll();
 
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,18 +27,20 @@ require '../includes/dbconnect.php';
 <link href="assets/cal.css" rel="stylesheet" />
 <link href="assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
-<style type="text/css">  
-.fc-unthemed td.fc-today {
-  background: #c3eec3;
-}
-.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
-  background: #428b42;
-}
-.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
-    /*background: white;*/
-    border-color: #ddd;
+<!-- Custom CSS -->
+<style>
+#calendar {
+	max-width: 1200px;
 }
 </style>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
 </head>
 
 <body>
@@ -84,15 +55,15 @@ require '../includes/dbconnect.php';
   <!-- Sidebar Menu Items -->
   <div id="sidebar-wrapper">
     <nav id="spy">
-      <ul class="sidebar-nav" role="menu">                    
+      <ul class="sidebar-nav">                    
         <li>
-          <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
         </li>
         <li class="active">
-          <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
         </li>
         <li role="presentation" class="have-child">
-          <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+          <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
           <ul id="demo" class="panel-collapse collapse">
             <li>
               <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
@@ -101,38 +72,14 @@ require '../includes/dbconnect.php';
               <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
             </li>
             <li>
-              <a class="med" role="submenuitem" data-toggle="collapse" href="#med" data-parent="#med"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
-              <ul id="med" class="panel-collapse collapse">
-                <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                </li>
-                <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-                </li>
-              </ul>
-            </li>  
-            <li>
-              <a class="den" role="submenuitem" data-toggle="collapse" href="#den" data-parent="#den"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
-              <ul id="den" class="panel-collapse collapse">
-                <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                </li>
-                <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-                </li>
-              </ul>
+              <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
             </li>
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
-              <ul id="soap" class="panel-collapse collapse">
-                <li>
-                  <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                </li>
-                <li>
-                  <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-                </li>
-              </ul>
-            </li> 
+              <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
+            </li>
+            <li>
+              <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
+            </li>
           </ul>
         </li>
         <?php 
@@ -176,103 +123,257 @@ require '../includes/dbconnect.php';
 </div>
 <!-- End of Content -->
 
-<!-- Modal  to Add Event -->
-<div id="createEventModal" class="modal fade" role="dialog">
-  <div class="modal-dialog"> 
-
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-         <h4 class="modal-title">Add Event</h4>
-      </div>
-
-      <div class="modal-body">
-        <div class="form-group">
-          <label>Event:</label>
-          <div class="field desc">
-            <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
-          </div>
-        </div>
-        <input type="hidden" id="startTime"/>
-        <input type="hidden" id="endTime"/>
-        <div class="form-group">
-          <label class="control-label" for="when">When:</label>
-          <div class="controls controls-row" id="when" style="margin-top:5px;">
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button type="submit" class="btn btn-primary" id="submitButton">Save</button>
-      </div>
-    </div>
+	
+<!-- Modal -->
+<div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<form class="form-horizontal" method="POST" action="addEvent.php">
+	
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Add Event</h4>
+	  </div>
+	  <div class="modal-body">
+		
+		  <div class="form-group">
+			<label for="title" class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+			  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="color" class="col-sm-2 control-label">Color</label>
+			<div class="col-sm-10">
+			  <select name="color" class="form-control" id="color">
+				  <option value="">Choose</option>
+				  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+				  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
+				  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+				  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+				  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+				  <option style="color:#000;" value="#000">&#9724; Black</option>
+				  
+				</select>
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="start" class="col-sm-2 control-label">Start date</label>
+			<div class="col-sm-10">
+			  <input type="text" name="start" class="form-control" id="start" readonly>
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="end" class="col-sm-2 control-label">End date</label>
+			<div class="col-sm-10">
+			  <input type="text" name="end" class="form-control" id="end" readonly>
+			</div>
+		  </div>
+		
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save changes</button>
+	  </div>
+	</form>
+	</div>
+  </div>
+</div>	
+	
+<!-- Modal -->
+<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	<form class="form-horizontal" method="POST" action="editEventTitle.php">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+	  </div>
+	  <div class="modal-body">
+		
+		  <div class="form-group">
+			<label for="title" class="col-sm-2 control-label">Title</label>
+			<div class="col-sm-10">
+			  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+			</div>
+		  </div>
+		  <div class="form-group">
+			<label for="color" class="col-sm-2 control-label">Color</label>
+			<div class="col-sm-10">
+			  <select name="color" class="form-control" id="color">
+				  <option value="">Choose</option>
+				  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+				  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
+				  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+				  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+				  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+				  <option style="color:#000;" value="#000">&#9724; Black</option>
+				  
+				</select>
+			</div>
+		  </div>
+		    <div class="form-group"> 
+				<div class="col-sm-offset-2 col-sm-10">
+				  <div class="checkbox">
+					<label class="text-danger"><input type="checkbox"  name="delete"><span class="lbl"></span> Delete event</label>
+				  </div>
+				</div>
+			</div>
+		  
+		  <input type="hidden" name="id" class="form-control" id="id">
+		
+		
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary">Save changes</button>
+	  </div>
+	</form>
+	</div>
   </div>
 </div>
 
-<!-- Modal to Event Details -->
-<div id="calendarModal" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Event Details</h4>
-      </div>
-      <div id="modalBody" class="modal-body">
-        <h4 id="modalTitle" class="modal-title"></h4>
-        <div id="modalWhen" style="margin-top:5px;"></div>
-      </div>
-      <input type="hidden" id="eventID"/>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-        <button type="submit" class="btn btn-danger" id="deleteButton">Delete</button>
-      </div>
-    </div>
-  </div>
-</div>
-<!--Modal-->
+<!-- jQuery Version 1.11.1 -->
+<script src="js/jquery.js"></script>
 
-<footer class="footer">
-  <div class="container-fluid">
-    <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
-  </div>
-</footer>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
 
-</body>
-
-<!-- jQuery -->
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/custom.js"></script> 
-
-<!-- Growl -->
-<script src="../assets/js/jquery.bootstrap-growl.js"></script>
-
-<!-- calendar scripts --> 
-<script src="assets/jquery-ui.min.js"></script>
-<script src="assets/moment.min.js"></script>
-<script src="assets/fullcalendar.min.js"></script>
-<script src="assets/calendar_sample.js"></script>
+<!-- FullCalendar -->
+<script src='js/moment.min.js'></script>
+<script src='js/fullcalendar.min.js'></script>
 
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
-<script type="text/javascript">
-  $(function () {
-    var sd = new Date(), ed = new Date();
-  
-    $('#startTime').datetimepicker({ 
-      pickTime: false, 
-      format: "YYYY/MM/DD", 
-      defaultDate: sd, 
-      maxDate: ed 
-    });
-  
-    $('#endTime').datetimepicker({ 
-      pickTime: false, 
-      format: "YYYY/MM/DD", 
-      defaultDate: ed, 
-      minDate: sd 
-    });
-  });
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
+
+<script>
+
+$(document).ready(function() {
+	
+	$('#calendar').fullCalendar({
+		header: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'month,agendaWeek,agendaDay,listMonth'
+		},
+		editable: true,
+		eventLimit: true, // allow "more" link when too many events
+		selectable: true,
+		selectHelper: true,
+		select: function(start, end) {			
+			$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
+			$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+			$('#ModalAdd').modal('show');
+		},
+		eventRender: function(event, element) {
+			element.bind('dblclick', function() {
+				$('#ModalEdit #id').val(event.id);
+				$('#ModalEdit #title').val(event.title);
+				$('#ModalEdit #color').val(event.color);
+				$('#ModalEdit').modal('show');
+			});
+		},
+		eventDrop: function(event, delta, revertFunc) { // si changement de position
+
+			edit(event);
+
+		},
+		eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
+
+			edit(event);
+
+		},
+		events: [
+		<?php foreach($events as $event): 
+		
+			$start = explode(" ", $event['start']);
+			$end = explode(" ", $event['end']);
+			if($start[1] == '00:00:00'){
+				$start = $start[0];
+			}else{
+				$start = $event['start'];
+			}
+			if($end[1] == '00:00:00'){
+				$end = $end[0];
+			}else{
+				$end = $event['end'];
+			}
+		?>
+			{
+				id: '<?php echo $event['id']; ?>',
+				title: '<?php echo $event['title']; ?>',
+				start: '<?php echo $start; ?>',
+				end: '<?php echo $end; ?>',
+				color: '<?php echo $event['color']; ?>',
+			},
+		<?php endforeach; ?>
+		]
+	});
+	
+	function edit(event){
+		start = event.start.format('YYYY-MM-DD HH:mm:ss');
+		if(event.end){
+			end = event.end.format('YYYY-MM-DD HH:mm:ss');
+		}else{
+			end = start;
+		}
+		
+		id =  event.id;
+		
+		Event = [];
+		Event[0] = id;
+		Event[1] = start;
+		Event[2] = end;
+		
+		$.ajax({
+		 url: 'editEventDate.php',
+		 type: "POST",
+		 data: {Event:Event},
+		 success: function(rep) {
+				if(rep == 'OK'){
+					$.bootstrapGrowl("Event updated!", // Messages
+		            { // options
+		              type: "success", // info, success, warning and danger
+		              ele: "body", // parent container
+		              offset: {
+		                from: "top",
+		                amount: 20
+		              },
+		              align: "right", // right, left or center
+		              width: 300,
+		              delay: 4000,
+		              allow_dismiss: true, // add a close button to the message
+		              stackup_spacing: 10
+		          	});
+				}else{
+					$.bootstrapGrowl("Event cannot be saved!", // Messages
+		            { // options
+		              type: "danger", // info, success, warning and danger
+		              ele: "body", // parent container
+		              offset: {
+		                from: "top",
+		                amount: 20
+		              },
+		              align: "right", // right, left or center
+		              width: 300,
+		              delay: 4000,
+		              allow_dismiss: true, // add a close button to the message
+		              stackup_spacing: 10
+		          	}); 
+				}
+			}
+		});
+	}
+	
+});
+
 </script>
+
+</body>
+
 </html>

@@ -14,8 +14,6 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
 	
-	echo $sql;
-	
 	$query = $bdd->prepare( $sql );
 	if ($query == false) {
 	 print_r($bdd->errorInfo());
@@ -28,7 +26,6 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	}
 
 }
-header('Location: '.$_SERVER['HTTP_REFERER']);
 
-	
+header("Location: /lu_clinic/calendar/");
 ?>
