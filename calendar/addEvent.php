@@ -10,12 +10,9 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	$end = $_POST['end'];
 	$color = $_POST['color'];
 
-	mysqli_query($DB_con,"START TRANSACTION;");
 	$sql = "INSERT INTO events(title, start, end, color) values ('$title', '$start', '$end', '$color')";
 	//$req = $bdd->prepare($sql);
 	//$req->execute();
-	
-	echo $sql;
 	
 	$query = $bdd->prepare( $sql );
 	if ($query == false) {
@@ -29,7 +26,6 @@ if (isset($_POST['title']) && isset($_POST['start']) && isset($_POST['end']) && 
 	}
 
 }
-header('Location: sms.php');
 
-	
+header("Location: /lu_clinic/calendar/");
 ?>
