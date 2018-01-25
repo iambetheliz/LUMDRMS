@@ -9,6 +9,7 @@ $(document).ready(function(){
       cache: false
   	});
     $("#add_stud")[0].reset();
+    $("#studentNo").focus();
     $('#addnew').val();
     $('#userModal').modal('hide'); 
 	});
@@ -41,9 +42,7 @@ $(document).ready(function(){
   $("#studentNo").keyup(function() {  
     var studentNo = $(this).val(); 
     
-    if(studentNo.length > 3) {  
-      $("#result").html('Checking ... <i class="fa fa-circle-o-notch fa-spin"></i>');
-     
+    if(studentNo.length > 2) {       
       $.ajax({      
         type : 'POST',
         url  : 'availability_check.php',
@@ -61,10 +60,15 @@ $(document).ready(function(){
   });
 	//Add New
 	$(document).on('click', '#addnew', function(){
-		if($('.required').val() == "")  {  
-      $("#msg").html("<div class='alert alert-danger'>Required fields!</div>").show();
+    if($('.required').val() == "") { 
+      $("#msg").html("<div class='alert alert-danger'>Required fields!</div>").show();  
       $(".required").addClass('error');
+      return false; 
+    }
+		else if($('#studentNo').val() == "")  {  
+      $("#studentNo").addClass('error');
       $("#studentNo").focus();
+      $("#result").html('<span class"text-danger">Please enter a Student No.!</span>').show();
         return false; 
     }
     else if($('#first_name').val() == "")  {  

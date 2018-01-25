@@ -23,71 +23,52 @@ $('document').ready(function() {
   function submitForm() {   
     var data = $("#login-form").serialize();
 
-    var username = $("#username").val();  
-    var password = $("#password").val();
-    if(username == '' || password == '' ){ 
-      $.bootstrapGrowl("<i class='fa fa-info'></i> Please input username or password!", // Messages
-        { // options
-          type: "danger", // info, success, warning and danger
-          ele: "body", // parent container
-          offset: {
-            from: "top",
-            amount: 20
-          },
-          align: "right", // right, left or center
-          width: "auto",
-          delay: 4000,
-          allow_dismiss: true, // add a close button to the message
-          stackup_spacing: 10
-      });
-    }
-    else {
-      $.ajax({
-        type : 'POST',
-        url  : 'login_process.php',
-        data : data,
-        success :  function(response) {           
-          if(response=="ok"){
-            $.bootstrapGrowl("<span class='fa fa-check'></span> Access granted!", // Messages
-              { // options
-                type: "success", // info, success, warning and danger
-                ele: "body", // parent container
-                offset: {
-                  from: "top",
-                  amount: 20
-                },
-                align: "right", // right, left or center
-                width: 300,
-                allow_dismiss: true, // add a close button to the message
-                stackup_spacing: 10
-            });
-            $("#error").fadeOut();
-            $("#btn-login").prop("disabled",true);
-            $("#btn-login").html("<span class='fa fa-refresh fa-spin'></span> &nbsp; Signing in ...");
-            setTimeout(function() {
-              window.location.href = "dashboard.php";
-            }, 2000);
-          }
-          else {
-              $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
-                // options
-                type: "danger", // info, success, warning and danger
-                ele: "body", // parent container
-                offset: {
-                  from: "top",
-                  amount: 20
-                },
-                align: "right", // right, left or center
-                width: 300,
-                allow_dismiss: true, // add a close button to the message
-                stackup_spacing: 10
-              });
-              $("#btn-login").prop("disabled",false);
-              $("#btn-login").val('Sign In');
-          }
+    $.ajax({
+      type : 'POST',
+      url  : 'login_process.php',
+      data : data,
+      success :  function(response) {           
+        if(response=="ok"){
+          $.bootstrapGrowl("<span class='fa fa-check'></span> Access granted!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
+          $("#error").fadeOut();
+          $("#btn-login").prop("disabled",true);
+          $("#btn-login").html("<span class='fa fa-refresh fa-spin'></span> &nbsp; Signing in ...");
+          setTimeout(function() {
+            window.location.href = "dashboard.php";
+          }, 2000);
         }
-      });
-    }
+        else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
+            $("#btn-login").prop("disabled",false);
+            $("#btn-login").val('Sign In');
+        }
+      }
+    });
+    
     return false;
   }
   /* login submit */

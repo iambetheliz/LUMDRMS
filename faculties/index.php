@@ -208,29 +208,29 @@
               <div class="row">                  
                 <div class="col-lg-6">
                   <div class="form-group">
-                  <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
+                  <label for="facultyNo"><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
                   <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="on">
                   <br>
-                  <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
+                  <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
                   <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
                   <br>                        
                   <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
                   <input type="text" class="form-control required" placeholder="Magdayao" name="middle_name" id="middle_name">
                   <br>
-                  <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
+                  <label for="inlineFormInput"><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
                   <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
                   <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
                   <br>
-                  <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
+                  <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
                   <input class="form-control required" type="text" placeholder="00" name="age" id="age">
                 </div>
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-5">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
+                  <label for="example-date-input" class="col-2 col-form-label">Gender: </label> <span class="error pull-right" id="errSex"></span>
                   <select class="form-control required" name="sex" id="sex">
                     <option value="undefined">Select</option>
                     <option value="Male">Male</option>
@@ -252,7 +252,7 @@
                       <option value="Married">Married</option>
                     </select>
                     <br>
-                    <label class="col-2 col-form-label">Department</label> 
+                    <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Department:</label> 
                     <span class="error pull-right" id="errProg"></span>
                     <?php
                     //Get all dept data
@@ -273,20 +273,21 @@
                     ?>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
+                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
                   <select class="form-control" name="sem" id="sem">
                     <option value="unknown">Select</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
                     <?php
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 
                       $latest_year = date('Y');
                     ?>
                     <select class="form-control" name="acadYear" id="acadYear">
+                      <option value="">Select</option>
                       <?php 
                         foreach ( range( $latest_year, $earliest_year ) as $i ) {
                           print '<option value="'.$i.' - '.++$i.'"'.(--$i === $currently_selected ? 'selected="selected"' : '').'>'.$i.' - '.++$i.'';

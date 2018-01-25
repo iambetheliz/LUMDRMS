@@ -26,9 +26,6 @@
     if ($count > 0) {
       echo "<span class='text-danger'>Student No. already exists !!! <i class='fa fa-times'></i></span>";
     }
-    else {
-      echo "<span class='text-success'>Available <i class='fa fa-check'></i></span>";
-    }
   }
 
 ?>

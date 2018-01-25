@@ -155,7 +155,7 @@
             <!--Graphs -->
             <div class="row">
               <div class="container-fluid">
-                <div id="chartContainer" style="height: 370px; margin: 0px auto;"></div>
+                <div id="chartContainer" style="height: 370px; width: 100%; margin: 0px auto;"></div>
               </div>
             </div>
 

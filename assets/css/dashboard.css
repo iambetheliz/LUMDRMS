@@ -72,6 +72,7 @@ h1.stats {
 } 
 .offer-content{
   padding:0 20px 20px;
+  height: 90px;
 }
 @media (min-width: 487px) {
   .container {

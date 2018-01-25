@@ -28,6 +28,17 @@
   		if( $count == 1 && $row['userName'] == $name && $row['userPass'] == $password ) {
   			echo "ok";
     		$_SESSION['user'] = $row['userId'];
+    		if(!empty($_POST["remember"])) {
+				setcookie ("user",$_POST["name"],time()+ (10 * 365 * 24 * 60 * 60));
+				setcookie ("pass",$_POST["pass"],time()+ (10 * 365 * 24 * 60 * 60));
+			} else {
+				if(isset($_COOKIE["user"])) {
+					setcookie ("user","");
+				}
+				if(isset($_COOKIE["pass"])) {
+					setcookie ("pass","");
+				}
+			}
   		} 
   		else {
   			echo "Incorrect login details!";

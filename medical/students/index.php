@@ -178,8 +178,8 @@
             <div class="row">
               <div class="container-fluid">
                 <div id="optSelect" style="display: none;">
-                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing</button>
-                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-warning">New</button>
+                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Student</button>
+                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-warning">New Student</button>
                 </div>
               </div>
             </div>

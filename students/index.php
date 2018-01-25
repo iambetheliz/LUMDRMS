@@ -236,7 +236,7 @@
                     <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
                     <input class="form-control" type="text" placeholder="00" name="age" id="age">
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
+                    <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
                     <select class="form-control required" name="sex" id="sex">
                       <option value="">Select</option>
                       <option value="Male">Male</option>
@@ -262,7 +262,7 @@
                       <option value="Married">Married</option>
                     </select>
                     <br>
-                    <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
+                    <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
                     <?php
                       //Include database configuration file
                       include('../includes/dbconnect.php');
@@ -286,12 +286,12 @@
                         ?>
                     </select>
                     <br>
-                    <label>Program</label>                            
+                    <label><i class="fa fa-asterisk text-danger"></i> Program:</label>                            
                     <select class="form-control required" name="program" id="program">
                       <option value="">Select department first</option>
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Year</label> <span class="error pull-right" id="errLevel"></span>
+                    <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Year:</label> <span class="error pull-right" id="errLevel"></span>
                     <select class="form-control required" name="yearLevel" id="yearLevel">
                       <option value="">Select</option>
                       <option value="1st">1st Year</option>
@@ -300,14 +300,14 @@
                       <option value="4th">4th Year</option>
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
+                    <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
                     <select class="form-control required" name="sem" id="sem">
                       <option value="">Select</option>
                       <option value="1st">1st</option>
                       <option value="2nd">2nd</option>
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+                    <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
                     <?php
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 

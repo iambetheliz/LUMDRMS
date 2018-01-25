@@ -38,17 +38,47 @@ $(document).ready(function(){
   //Add New
   $(document).on('click', '#addnew', function(){
     if($('.required').val() == "")  {  
-      $("#msg").html("* Required Fields!").show();
+      $("#msg").html("<div class='alert alert-danger'>Required fields!</div>").show();
       $(".required").addClass('error');
       $("#facultyNo").focus();
-      return false; 
-    } 
+        return false; 
+    }
+    else if($('#first_name').val() == "")  {  
+      $("#msg").html("Please enter your first name!").show();
+      $("#first_name").addClass('error');
+      $("#first_name").focus();
+        return false; 
+    }
+    else if($('#last_name').val() == "")  {  
+      $("#msg").html("Please enter your last name!").show();
+      $("#last_name").addClass('error');
+      $("#last_name").focus();
+        return false; 
+    }  
+    else if($('#sex').val() == "")  {  
+      $("#msg").html("Please select your gender!").show();
+      $("#sex").addClass('error');
+      $("#sex").focus();
+        return false; 
+    }
     else if($('#dept').val() == "")  {  
-      $("#msg").html("* Required!").show();
+      $("#msg").html("Please select department!").show();
       $("#dept").addClass('error');
       $("#dept").focus();
-      return false; 
-    }  
+        return false; 
+    }
+    else if($('#sem').val() == "")  {  
+      $("#msg").html("Please select semester!").show();
+      $("#sem").addClass('error');
+      $("#sem").focus();
+        return false; 
+    }
+    else if($('#acadYear').val() == "")  {  
+      $("#msg").html("Please select academic year!").show();
+      $("#acadYear").addClass('error');
+      $("#acadYear").focus();
+        return false; 
+    } 
     else {
       $.ajax({
         type: "POST",

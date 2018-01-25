@@ -47,6 +47,21 @@ label.error {
 .form-control.error {
   border-color: indianred;
 }
+.password{
+    position: relative;
+}
+
+.password input[type="password"]{
+    padding-right: 30px;
+}
+
+.password .glyphicon,#password2 .glyphicon {
+    display:none;
+    right: 15px;
+    position: absolute;
+    top: 35px;
+    cursor:pointer;
+}
 </style>
 </head>
 <body>
@@ -74,19 +89,20 @@ label.error {
               <fieldset>          
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="name" id="username" class="form-control" maxlength="40" autofocus required />
+                <input type="text" name="name" id="username" class="form-control" maxlength="40" value="<?php if(isset($_COOKIE["user"])) { echo $_COOKIE["user"]; } ?>" autofocus required />
                 <small><span class="text-danger" id="name_error"></span></small>
               </div>
             
-              <div class="form-group">
+              <div class="form-group password">
                 <label>Password</label>
                 <input type="password" name="pass" id="password" class="form-control"  maxlength="15" required />
+                <span class="glyphicon glyphicon-eye-open"></span>
                 <small><span class="text-danger" id="pass_error"></span></small>
               </div>
 
               <div class="form-check">
                 <label class="checkbox-inline">
-                  <input type="checkbox" class="form-check-input" id="chkShow"/>Show Password
+                  <input type="checkbox" class="form-check-input" name="remember" id="chkShow"/><span class="lbl"></span> Remember Password
                 </label>
               </div><br>
             
@@ -116,14 +132,18 @@ label.error {
 <script src="assets/js/jquery.validate.min.js"></script>
 <script src="login.js"></script>
 <script type="text/javascript">
-  $('#chkShow').change(function() {
-    var isChecked = $(this).prop('checked');
-    if (isChecked) {
-        $('#password').prop('type', 'text');
-    }
-    else {
-        $('#password').prop('type', 'password');
-    }
+  $("#password").on("keyup",function(){
+    if($(this).val())
+        $(".glyphicon-eye-open").show();
+    else
+        $(".glyphicon-eye-open").hide();
+    });
+  $(".glyphicon-eye-open").mousedown(function(){
+    $("#password").attr('type','text');
+  }).mouseup(function(){
+    $("#password").attr('type','password');
+  }).mouseout(function(){
+    $("#password").attr('type','password');
   });
 </script>
 
