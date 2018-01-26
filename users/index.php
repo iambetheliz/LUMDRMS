@@ -212,8 +212,7 @@ label.error {
                 </div>
               </div>
               <div class="col-lg-8">
-              <div id="list-users">
-                         
+                <div id="list-users"></div>
               </div>
             </div>
 
@@ -226,10 +225,10 @@ label.error {
   <!-- End of Content -->
 
   <footer class="footer">
-  <div class="container-fluid">
-      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
-  </div>
-</footer>
+    <div class="container-fluid">
+        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
+    </div>
+  </footer>
   
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>

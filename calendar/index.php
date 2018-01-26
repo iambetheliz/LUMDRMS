@@ -29,7 +29,7 @@ $events = $req->fetchAll();
 <!-- Custom CSS -->
 <style>
 #calendar {
-	max-width: 1200px;
+	max-width: 800px;
 }
 </style>
 
@@ -134,7 +134,9 @@ $events = $req->fetchAll();
 
         <div class="container-fluid">
           <div class="row">
-            <div id='calendar'></div>
+          	<center>
+	            <div id='calendar'></div>
+	        </center>
           </div>
         </div> 
 
@@ -257,6 +259,12 @@ $events = $req->fetchAll();
 	</div>
   </div>
 </div>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
+    </div>
+</footer>
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
