@@ -1,7 +1,7 @@
 <?php
   ob_start();
-  require_once '../includes/dbconnect.php';
-  include '../includes/Class.NumbersToWords.php';
+  require_once '../../includes/dbconnect.php';
+  include '../../includes/Class.NumbersToWords.php';
   if(empty($_SESSION)) // if the session not yet started 
   session_start();
 
@@ -44,7 +44,7 @@
         <span class="icon-bar"></span>
       </button>
       <a href="/lu_clinic" class="navbar-brand">
-        <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
+        <img src="../../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
       </a>
     </div>
 
@@ -81,7 +81,7 @@
 
   </div>
 </nav>
-<script src="../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/jquery.min.js"></script>
 
 <script type="text/javascript">
   // AJAX call for autocomplete 

@@ -1,6 +1,6 @@
 <?php
-require_once '../includes/dbconnect.php';
-include '../includes/date_time_diff.php';
+require_once '../../includes/dbconnect.php';
+include '../../includes/date_time_diff.php';
 
 ?>
 <!DOCTYPE html>
@@ -10,12 +10,12 @@ include '../includes/date_time_diff.php';
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Student Information | Laguna University - Clinic | Medical Records System</title>
-<link rel="icon" href="../images/favicon.ico">
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/css/panel-tabs.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="../../images/favicon.ico">
+<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+<link rel="stylesheet" href="../../assets/fonts/css/font-awesome.min.css">
+<link href="../../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/panel-tabs.css" rel="stylesheet" type="text/css">
+<link href="../../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css">
   @media print {
     thead {
@@ -33,7 +33,7 @@ include '../includes/date_time_diff.php';
 
 <h3 class="page-header" align="center">
 <div class="letterhead">
-<img src="../images/logo.png" height="100px" align="left" />
+<img src="../../images/logo.png" height="100px" align="left" />
 <strong>LAGUNA UNIVERSITY</strong><br>
 <small style="color: black;">
 Laguna Sports Complex, Brgy. Bubukal, Santa Cruz, Laguna<br>
@@ -51,15 +51,15 @@ E-mail: info@lu.edu.ph
 <br>
 
 <?php 
-if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
-$StudentID = $_GET['StudentID'];
-$res = "SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE StudentID=".$_GET['StudentID'];
+if (isset($_GET['MedID']) && is_numeric($_GET['MedID']) && $_GET['MedID'] > 0) {
+
+$MedID = $_GET['MedID'];
+$res = "SELECT * FROM `students_med` JOIN `students` ON `students`.`studentNo`=`students_med`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE MedID=".$_GET['MedID'];
 $result = $DB_con->query($res);
 $row = $result->fetch_array(MYSQLI_BOTH);
 
 if(!empty($row)) { ?>
-
 
 <table class="table table-bordered">
 <thead class="thead">
@@ -129,8 +129,8 @@ if(!empty($row)) { ?>
 
 <?php 
 }
-$StudentID = $_GET['StudentID'];
-$med_res = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `students_med`)");
+$MedID = $_GET['MedID'];
+$med_res = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE MedID = '$MedID' AND `date_checked_up`");
 
 if ($med_res->num_rows != 0) { ?>
 
@@ -414,9 +414,9 @@ else {
 ?>
 
 
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/custom.js"></script> 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../assets/js/custom.js"></script> 
 
 </body>
 </html>

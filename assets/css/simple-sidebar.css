@@ -85,6 +85,37 @@ body {
   background-color: #1d3813;
 }
 
+a[role="submenuitem"], a[role="submenuitem"]:hover {
+  cursor: pointer;
+}
+
+ul#soap li {
+  line-height: 30px;
+  margin-left: -20px;
+}
+
+ul#soap li a {
+  background-color: transparent;
+}
+
+ul#soap> li.active> a,
+ul#soap li a:active {
+  color: #fff;
+  border-left: 0px;
+}
+
+ul#soap li a:hover,
+ul#soap> li.active> a:hover {
+  color: #fff;
+  text-decoration: none;
+  text-indent: 10px;
+}
+
+ul#soap li a:toggled,
+ul#soap li a:focus  {
+  text-decoration: none;
+}
+
 ul#den li {
   line-height: 30px;
   margin-left: -20px;

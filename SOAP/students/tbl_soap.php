@@ -1,9 +1,9 @@
 <?php
 //Include database configuration file
-include('../includes/dbconnect.php');
-include '../includes/date_time_diff.php';
+include('../../includes/dbconnect.php');
+include '../../includes/date_time_diff.php';
 //Include pagination class file
-include('../includes/Pagination.php');
+include('../../includes/Pagination.php');
 
 if(isset($_POST['page'])){
     
@@ -71,10 +71,10 @@ if(isset($_POST['page'])){
               <th></th>
               <th>No.</th>
               <th width="100px">Student No.</th>
-              <th>Current System</th>
+              <th width="125px">Current System</th>
               <th>Assessment</th>
-              <th>School Nurse</th>   
-              <th>Date of Checkup</th>         
+              <th>Nurse</th>   
+              <th width="150px">Date</th>         
               <th>Action</th>
             </tr>
           </thead>
@@ -91,7 +91,7 @@ if(isset($_POST['page'])){
               <td><?php echo $row['sysRev'];?></td>
               <td><?php echo $row['assess'];?></td>
               <td><?php echo $row['checked_by'];?></td>
-              <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
+              <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
               <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['SID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </td>
             </tr>
@@ -150,10 +150,10 @@ else {
                 <th></th>
                 <th>No.</th>
                 <th width="100px">Student No.</th>
-                <th>Current System</th>
+                <th width="125px">Current System</th>
                 <th>Assessment</th>
-                <th>School Nurse</th>   
-                <th>Date of Checkup</th>         
+                <th>Nurse</th>   
+                <th width="150px">Date</th>         
                 <th>Action</th>
               </tr>
             </thead>
@@ -170,7 +170,7 @@ else {
                 <td><?php echo $row['sysRev'];?></td>
                 <td><?php echo $row['assess'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
-                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
+                <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
                 <td style="width: 145px;"><a href="/lu_clinic/students/profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['SID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>

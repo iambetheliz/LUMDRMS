@@ -21,7 +21,7 @@ if(empty($_SESSION)) // if the session not yet started
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Student Information | Laguna University - Clinic | Medical Records System</title>
+<title>Faculty Information | Laguna University - Clinic | Medical Records System</title>
 <link rel="icon" href="../images/favicon.ico">
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">

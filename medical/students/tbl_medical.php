@@ -74,7 +74,7 @@ if(isset($_POST['page'])){
               <th>Current System</th>
               <th>Assessment</th>
               <th>School Nurse</th>   
-              <th>Date of Checkup</th>         
+              <th>Date</th>         
               <th>Action</th>
             </tr>
           </thead>
@@ -92,7 +92,7 @@ if(isset($_POST['page'])){
               <td><?php echo $row['assess'];?></td>
               <td><?php echo $row['checked_by'];?></td>
               <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-              <td style="width: 145px;"><a href="/lu_clinic/students/medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+              <td style="width: 145px;"><a href="/lu_clinic/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </td>
             </tr>
           <?php } ?>
@@ -153,7 +153,7 @@ else {
                 <th>Current System</th>
                 <th>Assessment</th>
                 <th>School Nurse</th>   
-                <th>Date of Checkup</th>         
+                <th>Date</th>         
                 <th>Action</th>
               </tr>
             </thead>
@@ -171,7 +171,7 @@ else {
                 <td><?php echo $row['assess'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-                <td style="width: 145px;"><a href="/lu_clinic/students/medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="/lu_clinic/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['MedID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>

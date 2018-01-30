@@ -39,7 +39,8 @@ if (isset($_GET['StudentID'])) {
     <div class="row">
       <div class="container-fluid">
         <br />
-        <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a><br><br>
+        <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+        <a href="/lu_clinic/students/dental.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a><br><br>
         <div class="col-lg-6">
           <div class="form-group row">
             <label id="date_time">Date Recorded:</label>

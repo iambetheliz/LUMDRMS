@@ -88,7 +88,7 @@
       if (keyword.length >= min_length) {
         $.ajax({
           type: "POST",
-          url: "../../students/backend-search.php",
+          url: "backend-search.php",
           data:'keyword='+$(this).val(),
           beforeSend: function(){
             $(".fa-spinner").show();

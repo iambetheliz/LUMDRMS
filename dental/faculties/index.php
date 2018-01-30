@@ -77,7 +77,7 @@
                 <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
               </li>
               <li>
-                <a class="med" role="submenuitem" data-toggle="collapse" href="#med" data-parent="#med"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
                 <ul id="med" class="panel-collapse collapse">
                   <li>
                     <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
@@ -88,7 +88,7 @@
                 </ul>
               </li>  
               <li class="active">
-                <a class="den" role="submenuitem" data-toggle="collapse" href="#den" data-parent="#den"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
                 <ul id="den" class="panel-collapse collapse in">
                   <li>
                     <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
@@ -98,17 +98,6 @@
                   </li>
                 </ul>
               </li>
-              <li>
-                <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
-                <ul id="soap" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-                  </li>
-                </ul>
-              </li> 
             </ul>
           </li>
           <?php 
@@ -174,8 +163,8 @@
             <div class="row">
               <div class="container-fluid">
                 <div id="optSelect" style="display: none;">
-                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing</button>
-                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-warning">New</button>
+                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Faculty</button>
+                  <a href="/lu_clinic/faculties/index.php#userModal" class="btn btn-warning">New Faculty</a>
                 </div>
               </div>
             </div>
@@ -186,7 +175,7 @@
                   <form>
                     <div class="form-inline">
                       <div class="btn-group search-info">
-                        <input type="text" id="search-info" class="search-info form-control" placeholder="Enter Student No.">
+                        <input type="text" id="search-info" class="search-info form-control" placeholder="Enter Faculty No.">
                         <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
                         <span class="sr-only">Loading...</span>
                         <div id="suggestion-info"></div>

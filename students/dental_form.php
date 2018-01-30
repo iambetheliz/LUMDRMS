@@ -61,17 +61,6 @@
                   </li>
                 </ul>
               </li>
-              <li>
-                <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
-                <ul id="soap" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-                  </li>
-                </ul>
-              </li> 
             </ul>
           </li>
           <?php 

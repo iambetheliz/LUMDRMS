@@ -27,6 +27,7 @@ if (isset($_GET['StudentID'])) {
       <div class="container-fluid">
         <br />
         <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+        <a href="/lu_clinic/students/medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
         <br>             
         <br />
         <div class="col-lg-6">

@@ -5,11 +5,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SOAP Form | Laguna University - Clinic | Medical Records System</title>
-<link rel="icon" href="../images/favicon.ico">
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="../../images/favicon.ico">
+<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+<link rel="stylesheet" href="../../assets/fonts/css/font-awesome.min.css">
+<link href="../../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../../assets/style.css" rel="stylesheet" type="text/css">
 </head>
 <style type="text/css">
   span.error {
@@ -45,11 +45,38 @@
                 <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculties</a>
               </li>
               <li>
-                <a href="/lu_clinic/medical/"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp; Medical</a>
+                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+                <ul id="med" class="panel-collapse collapse">
+                  <li>
+                    <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li>
+                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
+              </li>  
+              <li>
+                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+                <ul id="den" class="panel-collapse collapse">
+                  <li>
+                    <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li>
+                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a href="/lu_clinic/dental/"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp; Dental</a>
-              </li>
+                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
+                <ul id="soap" class="panel-collapse collapse">
+                  <li>
+                    <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li>
+                    <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
+              </li> 
             </ul>
           </li>
           <?php 
@@ -70,7 +97,7 @@
         <div class="container-fluid">
 
           <?php 
-            require_once '../includes/dbconnect.php';
+            require_once '../../includes/dbconnect.php';
 
             $DB_con = new mysqli("localhost", "root", "", "records");
 
@@ -305,11 +332,11 @@
     </div>
   </footer>
     
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/custom.js"></script> 
-<script src="../assets/js/form_validate_custom.js"></script> 
-<script src="../assets/js/jquery.decimalize.js"></script> 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../assets/js/custom.js"></script> 
+<script src="../../assets/js/form_validate_custom.js"></script> 
+<script src="../../assets/js/jquery.decimalize.js"></script> 
 <script type="text/javascript">
 $(document).ready(function() {
   $("#category").val('Calculating...');

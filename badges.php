@@ -57,27 +57,6 @@ $whereMed = '';
   </div>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <div class="offer offer-info">
-    <?php    
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_soap` $whereSOAP) AS total_students, (SELECT COUNT(*) FROM `faculty_soap` $whereSOAP) AS total_faculties");
-      $row = mysqli_fetch_array($query);
-      $count = $row['total_students'] + $row['total_faculties'];
-    ?>          
-    <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-    <div class="offer-content">
-      <h4><i class="fa fa-file-o" aria-hidden="true"></i> SOAP Records</h4>
-      <?php 
-        if ($count != 0) {?> 
-          <small>You have added <strong><?php echo NumbersToWords::convert($count); ?></strong> records.</small>
-        <?php    }
-        else {?>
-          <small>You haven't added any records.</small>
-        <?php    }
-      ?>
-    </div>
-  </div>
-</div>
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-warning">
     <?php    
       $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_den` $whereDent) AS total_students, (SELECT COUNT(*) FROM `faculty_den` $whereDent) AS total_faculties");

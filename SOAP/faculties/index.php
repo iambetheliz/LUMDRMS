@@ -2,11 +2,11 @@
 
   function fill_program($DB_con) {  
     $prog_out = '';  
-    $sql = "SELECT * FROM program";  
+    $sql = "SELECT * FROM department";  
     $result = mysqli_query($DB_con, $sql);  
     while($row = mysqli_fetch_array($result))  
     {  
-      $prog_out .= '<option value="'.$row["program_id"].'">'.$row["alias"].'</option>';  
+      $prog_out .= '<option value="'.$row["dept_id"].'">'.$row["dept_name"].'</option>';  
     }  
     return $prog_out;  
  }
@@ -20,11 +20,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>S.O.A.P. Records | Laguna University - Clinic | Medical Records System</title>
-<link rel="icon" href="../images/favicon.ico">
-<link rel="stylesheet" href="../assets/fonts/css/font-awesome.min.css">
-<link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
-<link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
-<link href="../assets/style.css" rel="stylesheet" type="text/css">
+<link rel="icon" href="../../images/favicon.ico">
+<link rel="stylesheet" href="../../assets/fonts/css/font-awesome.min.css">
+<link href="../../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
+<link href="../../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
+<link href="../../assets/style.css" rel="stylesheet" type="text/css">
 <style type="text/css"> 
 #user_form input.error {
   border:1px solid red;
@@ -79,14 +79,38 @@
                 <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
               </li>
               <li>
-                <a href="/lu_clinic/medical/"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical</a>
+                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+                <ul id="med" class="panel-collapse collapse">
+                  <li>
+                    <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li>
+                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a href="/lu_clinic/dental/"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental</a>
+                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+                <ul id="den" class="panel-collapse collapse">
+                  <li>
+                    <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li>
+                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
               </li>
               <li class="active">
-                <a href="/lu_clinic/soap/"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P.</a>
-              </li>
+                <a role="submenuitem" data-toggle="collapse"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
+                <ul id="soap" class="panel-collapse collapse in">
+                  <li>
+                    <a href="/lu_clinic/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  </li>
+                  <li class="active">
+                    <a href="/lu_clinic/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  </li>
+                </ul>
+              </li> 
             </ul>
           </li>
           <?php 
@@ -122,8 +146,8 @@
                   <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                   <div class="btn-group">
-                    <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show All Programs</option>  
+                    <select class="form-control" name="dept_list" id="dept_list" onchange="searchFilter()" style="cursor: pointer;">  
+                      <option value="">Show All Departments</option>  
                       <?php echo fill_program($DB_con); ?>  
                     </select>
                   </div>
@@ -179,7 +203,7 @@
               
                 <div id="overlay" align="center">
                   <div>
-                    <img src="../includes/loading.gif" width="64px" height="64px"/>
+                    <img src="../../includes/loading.gif" width="64px" height="64px"/>
                   </div>
                 </div>
                 <div id="userTable">
@@ -258,7 +282,7 @@
                       <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
                       <?php
                         //Include database configuration file
-                        include('../includes/dbconnect.php');
+                        include('../../includes/dbconnect.php');
                         $DB_con = new mysqli("localhost", "root", "", "records");
     
                         //Get all dept data
@@ -366,7 +390,7 @@
             <div class="modal-body">                     
               <div id="modal-loader" style="display: none; text-align: center;">
                 <!-- ajax loader -->
-                <img src="../includes/loading.gif">
+                <img src="../../includes/loading.gif">
               </div>                                
               <!-- mysql data will be load here -->                          
               <div id="dynamic-content"></div>
@@ -386,23 +410,23 @@
       </div>
     </footer>
 
-<script src="../assets/js/jquery.min.js"></script>
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/custom.js"></script> 
-<script src="../assets/js/form_validate_custom.js"></script> 
+<script src="../../assets/js/jquery.min.js"></script>
+<script src="../../assets/js/bootstrap.min.js"></script>
+<script src="../../assets/js/custom.js"></script> 
+<script src="../../assets/js/form_validate_custom.js"></script> 
 <!-- Growl -->
-<script src="../assets/js/jquery.bootstrap-growl.js"></script>
+<script src="../../assets/js/jquery.bootstrap-growl.js"></script>
 <script src="crud.js"></script>
 <script>
 function searchFilter(page_num) {
   page_num = page_num?page_num:0;
   var keywords = $('#keywords').val();
   var sortBy = $('#sortBy').val();
-  var program_id = $('#prog_list').val(); 
+  var dept_id = $('#dept_list').val(); 
   $.ajax({
     type: 'POST',
     url: 'tbl_soap.php',
-    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    data:{page:page_num,keywords:keywords,sortBy:sortBy,dept_id:dept_id},
     beforeSend: function () {
       $('#overlay').show();
     },
