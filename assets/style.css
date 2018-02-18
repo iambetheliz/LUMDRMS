@@ -1,12 +1,4 @@
 /*CUSTOM STYLES*/
-.country-list li a {
-  display: block;
-  text-decoration: none;
-  background-color: #25441a;
-  color: darkseagreen;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
 textarea {
   resize: none;
 }
@@ -249,6 +241,13 @@ div.pagination>.active> a {
 
 #country-list li a:link {
   color: darkgreen;
+}
+#country-list li a {
+  display: block;
+  text-decoration: none;
+  color: darkgreen;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #country-list li a:hover, #country-list li:hover {

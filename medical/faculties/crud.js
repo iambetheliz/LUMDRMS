@@ -1,17 +1,17 @@
 //students
 $(document).ready(function(){
   $('#overlay').show();
-	$("#userTable").load("tbl_medical.php");
-  $('#overlay').fadeOut('fast');	
-	$('#user_form').submit(function() {
-		return false;
-		$.ajaxSetup ({
+  $("#userTable").load("tbl_medical.php");
+  $('#overlay').fadeOut('fast');  
+  $('#user_form').submit(function() {
+    return false;
+    $.ajaxSetup ({
       cache: false
-  	});
+    });
       $("#user_form")[0].reset();
       $('#addnew').val();
       $('#userModal').modal('hide'); 
-	});
+  });
   $('#user_form2').submit(function() {
     return false;
     $.ajaxSetup ({
@@ -21,7 +21,7 @@ $(document).ready(function(){
       $('#addnew').val();
       $('#view-modal').modal('hide'); 
   });
-	//Select courses on Add Function            
+  //Select courses on Add Function            
   $('#dept').on('change',function(){
     var deptID = $(this).val();
     if(deptID){
@@ -37,9 +37,9 @@ $(document).ready(function(){
       $('#program').html('<option value="">Select department first</option>');
     }
   });
-	//Add New
-	$(document).on('click', '#addnew', function(){
-		if($('.required').val() == "")  {  
+  //Add New
+  $(document).on('click', '#addnew', function(){
+    if($('.required').val() == "")  {  
       $("#msg").html("* Required Fields!").show();
       $(".required").addClass('error');
       $("#studentNo").focus();
@@ -105,43 +105,43 @@ $(document).ready(function(){
       $("#cphone").focus();
         return false; 
     }
-		else {
-			$.ajax({
-				type: "POST",
-				url: "../students/addnew.php",
+    else {
+      $.ajax({
+        type: "POST",
+        url: "../students/addnew.php",
         cache: false,
-				data: $('#user_form').serialize(),  
+        data: $('#user_form').serialize(),  
         beforeSend:function() {  
           $('#addnew').val("Inserting");  
         },  
-				success: function(){
+        success: function(){
           $('#userModal').modal('hide'); 
           $("#user_form")[0].reset();
           $('#addnew').val("Add New"); 
-					$("#userTable").load("tbl_medical.php");
+          $("#userTable").load("tbl_medical.php");
           $.notify("Data added successfully", "success");
-				}
-			});
-		}
-	});
-	//Delete
-	$(document).on('click', '.delete', function(){
-		$MedID = $(this).val();
-		$.ajax({
-			type: "POST",
-			url: "delete_med.php",
+        }
+      });
+    }
+  });
+  //Delete
+  $(document).on('click', '.delete', function(){
+    $MedID = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "delete_med.php",
       cache: false,
-			data: {
-				MedID: $MedID,
-				del: 1,
-			},
-			success: function(){
-				$("#userTable").load("tbl_medical.php");
+      data: {
+        MedID: $MedID,
+        del: 1,
+      },
+      success: function(){
+        $("#userTable").load("tbl_medical.php");
         $.notify("Data successfully deleted.", "success");
-			}
-		});
-		return false;
-	});
+      }
+    });
+    return false;
+  });
   //View
   $(document).on('click', '#getUser', function(e){  
     e.preventDefault();

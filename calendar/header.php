@@ -45,6 +45,9 @@
     <!-- Top Menu Items -->
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a href="/lu_clinic/SMS/"><i class="fa fa-comment"></i>&nbsp;&nbsp;SMS App</a>
+        </li>
         <?php
           if(!empty($userRow)){ ?>
             <li class="dropdown">

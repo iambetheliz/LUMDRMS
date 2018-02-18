@@ -81,7 +81,8 @@ if(isset($_POST['page'])){
                 <th>Suffix</th>
                 <th width="110px">Student No.</th>
                 <th>Program</th>
-                <th>Year</th>          
+                <th>Year</th>    
+                <th>Added</th>      
                 <th>Action</th>
               </tr>
             </thead>

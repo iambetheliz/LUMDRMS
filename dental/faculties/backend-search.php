@@ -9,7 +9,7 @@ if(!empty($_POST["keyword"])) {
         <?php 
         if($result->num_rows > 0) {
             foreach($result as $row) { ?>
-                <li onClick="selectCountry('<?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?>');"><a href="profile.php?StudentID=<?php echo $row['StudentID'];?>"><?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?></a>
+                <li onClick="selectCountry('<?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?>');"><a href="/lu_clinic/faculties/dental_form.php?FacultyID=<?php echo $row['FacultyID'];?>"><?php echo $row["first_name"]." ".$row['middle_name']." ".$row['last_name']; ?></a>
                 </li>
                 <?php 
             }

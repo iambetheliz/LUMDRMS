@@ -7,7 +7,7 @@
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: index.php?attempt");
+    header("Location: /lu_clinic/index.php?attempt");
     exit;
   }
 
@@ -47,17 +47,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right top-menu">
         <li>
-          <form class="navbar-form navbar-right navbar-form-search" role="search">
-            <div class="form-inline">
-              <div class="btn-group search-box">
-                <span class="fa fa-search"></span>
-                <input type="text" id="search-box" class="search form-control" placeholder="Quick Search">
-                <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
-                <span class="sr-only">Loading...</span>
-                <div id="suggesstion-box"></div>
-              </div>
-            </div>
-          </form>
+          <a href="/lu_clinic/SMS/"><i class="fa fa-comment"></i>&nbsp;&nbsp;SMS App</a>
         </li>
         <?php
           if(!empty($userRow)){?>
