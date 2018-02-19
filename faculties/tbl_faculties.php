@@ -9,21 +9,41 @@ if(isset($_POST['page'])){
     
     $start = !empty($_POST['page'])?$_POST['page']:0;
     $limit = 5;
+    if(isset($_POST['num_rows'])){
+        $limit = $_POST['num_rows'];
+    }
     
     //set conditions for search
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
     $dept = $_POST["dept_id"];
+    $stats = $_POST["stats"];
 
-    if ( !empty($keywords) && !empty($dept) ) {
-      $whereSQL = " WHERE dept = '".$dept."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
-    }
-    elseif ( !empty($keywords) ) {
+    if ( !empty($keywords) ) {
       $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
     }
-    elseif ( !empty($dept) ) {
+    if ( !empty($keywords) && !empty($dept) ) {
+      $whereSQL = " WHERE dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($dept) ) {
       $whereSQL = " WHERE dept = '".$dept."' ";
+    }
+    if ( !empty($dept) && !empty($keywords) ) {
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
+    }
+
+    if ( !empty($stats) ) {
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+    }
+    if ( !empty($stats) && !empty($dept) ) {
+      $whereSQL .= " AND dept = '".$dept."' ";
+    }    
+    if ( !empty($stats) && !empty($keywords) ) {
+      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($stats) && !empty($dept) && !empty($keywords) ) {
+      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
     }
 
     if ( !empty($sortBy) ){

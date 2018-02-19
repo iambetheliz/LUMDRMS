@@ -76,7 +76,7 @@
                 <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
               </li>
               <li>
                 <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
@@ -85,7 +85,7 @@
                     <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
                   </li>
                 </ul>
               </li>  
@@ -96,7 +96,7 @@
                     <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -137,8 +137,24 @@
         			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                   <div class="btn-group">
+                    <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
+                    <?php
+                      $numrows_arr = array("5","10","25","50","100","250");
+                      foreach($numrows_arr as $nrow){
+                        if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
+                          echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
+                        }
+                        else {
+                          echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
+                        }
+                      }
+                    ?>
+                    </select>
+                  </div>
+
+                  <div class="btn-group">
                     <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show All Programs</option>  
+                      <option value="">Show By Program</option>  
                       <?php echo fill_program($DB_con); ?>  
                     </select>
                   </div>
@@ -148,6 +164,14 @@
                       <option value="">Sort A-Z</option>
                       <option value="asc">Ascending</option>
                       <option value="desc">Descending</option>
+                    </select>
+                  </div>
+
+                  <div class="btn-group">
+                    <select class="form-control" name="stats" id="stats" onchange="searchFilter()" style="cursor: pointer;">  
+                      <option value="">All Status</option>  
+                      <option value="Ok">Ok</option>  
+                      <option value="Pending">Pending</option>
                     </select>
                   </div>
                     

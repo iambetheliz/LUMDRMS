@@ -9,21 +9,41 @@ if(isset($_POST['page'])){
     
     $start = !empty($_POST['page'])?$_POST['page']:0;
     $limit = 5;
+    if(isset($_POST['num_rows'])){
+        $limit = $_POST['num_rows'];
+    }
     
     //set conditions for search
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
     $prog = $_POST["program_id"];
+    $stats = $_POST["stats"];
 
-    if ( !empty($keywords) && !empty($prog) ) {
-      $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
-    }
-    elseif ( !empty($keywords) ) {
+    if ( !empty($keywords) ) {
       $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
     }
-    elseif ( !empty($prog) ) {
+    if ( !empty($keywords) && !empty($prog) ) {
+      $whereSQL = " WHERE program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($prog) ) {
       $whereSQL = " WHERE program = '".$prog."' ";
+    }
+    if ( !empty($prog) && !empty($keywords) ) {
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  program = '".$prog."' ";
+    }
+
+    if ( !empty($stats) ) {
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+    }
+    if ( !empty($stats) && !empty($prog) ) {
+      $whereSQL .= " AND program = '".$prog."' ";
+    }
+    if ( !empty($stats) && !empty($keywords) ) {
+      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($stats) && !empty($prog) && !empty($keywords) ) {
+      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
     }
 
     if ( !empty($sortBy) ){
@@ -33,7 +53,7 @@ if(isset($_POST['page'])){
       $orderSQL = " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($prog) || empty($sortBy)) {
-      $orderSQL = " ORDER BY modified DESC ";
+      $orderSQL = " ORDER BY modified DESC, date_updated DESC ";
     } 
 
     //get number of rows

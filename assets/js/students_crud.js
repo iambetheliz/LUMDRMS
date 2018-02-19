@@ -221,7 +221,20 @@ $(document).ready(function(){
         $("#edit_stud")[0].reset();
         $('#update').val("Update Record"); 
         $("#tbl_students").load("tbl_students.php");
-        $.notify("Data updated successfully", "success")
+        $.bootstrapGrowl("Data updated successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
       }
     });
   });
@@ -231,11 +244,13 @@ function searchFilter(page_num) {
   page_num = page_num?page_num:0;
   var keywords = $('#keywords').val();
   var sortBy = $('#sortBy').val();
-  var program_id = $('#prog_list').val(); 
+  var program_id = $('#prog_list').val();
+  var stats = $('#stats').val(); 
+  var num_rows = $('#num_rows').val();
   $.ajax({
     type: 'POST',
     url: '../students/tbl_students.php',
-    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    data:{page:page_num,num_rows:num_rows,keywords:keywords,sortBy:sortBy,program_id:program_id,stats:stats},
     beforeSend: function () {
       $('#overlay').show();
     },

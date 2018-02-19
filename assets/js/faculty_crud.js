@@ -112,19 +112,19 @@ $(document).ready(function(){
         success: function(){
           $("#tbl_faculties").load("../faculties/tbl_faculties.php");
           $.bootstrapGrowl("Deleted successfully", // Messages
-        { // options
-          type: "success", // info, success, warning and danger
-          ele: "body", // parent container
-          offset: {
-            from: "top",
-            amount: 20
-          },
-          align: "right", // right, left or center
-          width: 300,
-          delay: 4000,
-          allow_dismiss: true, // add a close button to the message
-          stackup_spacing: 10
-      });
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
         }
       });
       return false;
@@ -167,8 +167,42 @@ $(document).ready(function(){
         $("#edit_fac")[0].reset();
         $('#update').val("Update Record"); 
         $("#tbl_faculties").load("../faculties/tbl_faculties.php");
-        $.notify("Data updated successfully", "success");
+        $.bootstrapGrowl("Data updated successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
       }
     });
   });
 });
+
+function searchFilter(page_num) {
+  page_num = page_num?page_num:0;
+  var keywords = $('#keywords').val();
+  var sortBy = $('#sortBy').val();
+  var dept_id = $('#dept_list').val(); 
+  var stats = $('#stats').val(); 
+  var num_rows = $('#num_rows').val();
+  $.ajax({
+    type: 'POST',
+    url: '../faculties/tbl_faculties.php',
+    data:{page:page_num,num_rows:num_rows,keywords:keywords,sortBy:sortBy,dept_id:dept_id,stats:stats},
+    beforeSend: function () {
+      $('#overlay').show();
+    },
+    success: function (data) {
+      $('#tbl_faculties').html(data);
+      $('#overlay').fadeOut("fast");
+    }
+  });
+}

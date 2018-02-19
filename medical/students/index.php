@@ -76,7 +76,7 @@
                 <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
               </li>
               <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
               </li>
               <li class="active">
                 <a role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
@@ -85,7 +85,7 @@
                     <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -96,7 +96,7 @@
                     <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -122,7 +122,7 @@
   	        <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h1 class="page-header">Student Medical Records
+                <h1 class="page-header">Students' Medical Records
                   <a class="btn btn-primary pull-right" name="input" type="button" href="print_medical.php" style="cursor:pointer;" id="print">Print</a>
                 </h1>
               </div>
@@ -137,8 +137,24 @@
                   <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                   <div class="btn-group">
+                    <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
+                    <?php
+                      $numrows_arr = array("5","10","25","50","100","250");
+                      foreach($numrows_arr as $nrow){
+                        if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
+                          echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
+                        }
+                        else {
+                          echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
+                        }
+                      }
+                    ?>
+                    </select>
+                  </div>
+
+                  <div class="btn-group">
                     <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show All Programs</option>  
+                      <option value="">Show By Program</option>  
                       <?php echo fill_program($DB_con); ?>  
                     </select>
                   </div>
