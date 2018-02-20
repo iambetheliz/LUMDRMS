@@ -3,12 +3,12 @@ require_once '../includes/dbconnect.php';
 
 if(isset($_POST["id"])) {
   foreach($_POST["id"] as $id) {
-    $res = "SELECT cphone FROM students WHERE StudentID = '".$id."'";
+    $res = "SELECT phone FROM students WHERE StudentID = '".$id."'";
     $result = $DB_con->query($res);
     $row = $result->fetch_array(MYSQLI_BOTH);
-    $phone = $row['cphone'];
+    $phone = $row['phone'];
     $msg = "Hello World!";
-    $result = itexmo($phone,$msg,"TR-ELIZA306457_AUYQD");
+    $result = itexmo($phone,$msg,"TR-SHAIR374833_PHL2Z");
     if ($result == ""){
       echo "iTexMo: No response from server!!!";  
     } else if ($result == 0){

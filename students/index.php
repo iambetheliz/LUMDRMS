@@ -251,6 +251,9 @@
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
                     </select>
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+                    <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                   </div>
                 </div>
                 <div class="col-lg-1"></div>
@@ -331,15 +334,14 @@
                             }
                       ?> 
                     </select>
+                    <br>
+                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                    <input type="text" name="phone" id="phone" class="form-control">
+                    <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
+                    <br><br><br>
                   </div>
                 </div>
 
-                <div class="container-fluid">
-                  <div class="form-group">
-                    <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
-                    <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
-                  </div>
-                </div>
                 <div class="col-lg-6">
                   <div class="form-group">
                     <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>

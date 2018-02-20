@@ -175,9 +175,6 @@ else {
         <label id="actions">
           <span><a class="text-danger" style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-placement="right"> Delete</a></span>
         </label>
-        <label id="sms">
-          <span><a class="text-warning" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a></span>
-        </label>
         <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
         <br>
         <div class="table-responsive">

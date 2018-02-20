@@ -33,7 +33,7 @@ $row = mysqli_fetch_array($query);
 	      <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
 	      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext_edit" value="<?php echo $row['ext'];?>">
 	      <br>
-	      <label class="col-2">Age</label> <span class="error pull-right" id="errAge"></span>
+	      <label class="col-2">Age:</label> <span class="error pull-right" id="errAge"></span>
 	      <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age_edit" name="age">
 	    </div>
 	  </div>

@@ -42,6 +42,10 @@ $row = mysqli_fetch_array($query);
 	        <option value="Male">Male</option>
 	        <option value="Female">Female</option>
 	      </select>
+	      <br>
+	      <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+	      <textarea class="form-control" id="address_edit" name="address" style="height: 80px;"><?php echo $row['address'];?>
+	      </textarea>
 	    </div>
 	  </div>
       <div class="col-lg-1"></div>
@@ -142,14 +146,11 @@ $row = mysqli_fetch_array($query);
 	              }
 	        ?> 
 	      </select>
-	    </div>
-	  </div>
-
-	  <div class="container-fluid">
-	    <div class="form-group">
-            <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
-	      <textarea class="form-control" id="address_edit" name="address" style="height: 80px;"><?php echo $row['address'];?>
-	      </textarea>
+	      <br>
+	      <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+	      <input type="text" name="phone" id="phone" class="form-control" value="<?php echo $row['phone'];?>">
+	      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
+	      <br><br><br>
 	    </div>
 	  </div>
 

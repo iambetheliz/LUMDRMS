@@ -162,7 +162,9 @@
                           </tr>
                           <tr>
                             <td><label>Address:</label></td>
-                            <td colspan="3"><?php echo $row['address'];?></td>
+                            <td><?php echo $row['address'];?></td>
+                            <td><label>Cellphone No.:</label></td>
+                            <td><?php echo $row['phone'];?></td>
                           </tr>
                           <tr>
                             <td><label>Contact Person:</label></td>

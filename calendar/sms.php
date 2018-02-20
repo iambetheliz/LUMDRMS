@@ -7,7 +7,7 @@
   $result = itexmo($phone,$msg,"TR-ELIZA306457_AUYQD");
 
   mysqli_query($DB_con,"START TRANSACTION;");
-  mysqli_query($DB_con, "SELECT cphone FROM students WHERE cphone = '$phone'");
+  mysqli_query($DB_con, "SELECT phone FROM students WHERE phone = '$phone'");
   mysqli_query($DB_con,"SELECT * FROM events WHERE title ='$msg';");
   mysqli_query($DB_con,"COMMIT;");
 
@@ -22,5 +22,7 @@
     echo "<div class='row'><div class='alert alert-danger'>
     Trial version. Maximum of 10 messages per day only! <br>Error #". $result . " was encountered!</div></div>";
   }
+
+  header("Location: /lu_clinic/calendar/");
 
 ?>
