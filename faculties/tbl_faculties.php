@@ -21,20 +21,20 @@ if(isset($_POST['page'])){
     $stats = $_POST["stats"];
 
     if ( !empty($keywords) ) {
-      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
     if ( !empty($keywords) && !empty($dept) ) {
-      $whereSQL = " WHERE dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE `faculties`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
     if ( !empty($dept) ) {
-      $whereSQL = " WHERE dept = '".$dept."' ";
+      $whereSQL = " WHERE `faculties`.`status` = 'active' AND dept = '".$dept."' ";
     }
     if ( !empty($dept) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
+      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
     }
 
     if ( !empty($stats) ) {
-      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
     if ( !empty($stats) && !empty($dept) ) {
       $whereSQL .= " AND dept = '".$dept."' ";
@@ -144,7 +144,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM faculties");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculties`.`status` = 'active'");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -157,7 +157,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY date_updated DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculties`.`status` = 'active' ORDER BY date_updated DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">

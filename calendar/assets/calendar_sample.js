@@ -102,8 +102,8 @@ $(document).ready(function() {
     var end = $('#endTime').val();
 
     $.ajax({
-      url: 'add_events.php',
-      data: 'title='+ title+'&start='+ start +'&end='+ end,
+      url: 'addEvent.php',
+      data: {title:title,start:start,end:end},
       type: "POST",
       success: function(json) {
         $("#calendar").fullCalendar('renderEvent',

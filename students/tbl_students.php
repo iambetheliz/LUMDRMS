@@ -21,20 +21,23 @@ if(isset($_POST['page'])){
     $stats = $_POST["stats"];
 
     if ( !empty($keywords) ) {
-      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') ";
+    }
+    else {
+      $whereSQL = " WHERE `students`.`status` = 'active' ";
     }
     if ( !empty($keywords) && !empty($prog) ) {
-      $whereSQL = " WHERE program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
     if ( !empty($prog) ) {
-      $whereSQL = " WHERE program = '".$prog."' ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
     }
     if ( !empty($prog) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  program = '".$prog."' ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  program = '".$prog."' ";
     }
 
     if ( !empty($stats) ) {
-      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
     if ( !empty($stats) && !empty($prog) ) {
       $whereSQL .= " AND program = '".$prog."' ";
@@ -53,7 +56,7 @@ if(isset($_POST['page'])){
       $orderSQL = " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($prog) || empty($sortBy)) {
-      $orderSQL = " ORDER BY modified DESC, date_updated DESC ";
+      $orderSQL = " ORDER BY modified DESC ";
     } 
 
     //get number of rows
@@ -151,7 +154,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active'");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -164,7 +167,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY modified DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' ORDER BY modified DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">

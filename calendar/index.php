@@ -26,10 +26,13 @@ $events = $req->fetchAll();
 <link href="assets/cal.css" rel="stylesheet" />
 <link href="assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="assets/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="../datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 <!-- Custom CSS -->
 <style>
-#calendar {
-	max-width: 800px;
+.input-group[class*=col-] {
+    float: none;
+    padding-right: 15px;
+    padding-left: 15px;
 }
 </style>
 
@@ -123,9 +126,7 @@ $events = $req->fetchAll();
 
         <div class="container-fluid">
           <div class="row">
-          	<center>
-	            <div id='calendar'></div>
-	        </center>
+	        <div id='calendar'></div>
           </div>
         </div> 
 
@@ -173,16 +174,22 @@ $events = $req->fetchAll();
 			</div>
 		  </div>
 		  <div class="form-group">
-			<label for="start" class="col-sm-2 control-label">Start date</label>
-			<div class="col-sm-10">
-			  <input type="text" name="start" class="form-control" id="start" readonly>
-			</div>
+			<label for="start" class="col-sm-2 control-label">Start:</label>
+			<div class="col-sm-10 input-group date">
+	            <input type="text" class="form-control" id="start" name="start" />
+	            <span class="input-group-addon">
+	              <span class="fa fa-calendar"></span>
+	            </span>
+	        </div>
 		  </div>
 		  <div class="form-group">
-			<label for="end" class="col-sm-2 control-label">End date</label>
-			<div class="col-sm-10">
-			  <input type="text" name="end" class="form-control" id="end" readonly>
-			</div>
+			<label for="end" class="col-sm-2 control-label">End:</label>
+			<div class="col-sm-10 input-group date">
+	            <input type="text" class="form-control" id="end" name="end" />
+	            <span class="input-group-addon">
+	              <span class="fa fa-calendar"></span>
+	            </span>
+	        </div>
 		  </div>
 		
 	  </div>
@@ -195,7 +202,7 @@ $events = $req->fetchAll();
   </div>
 </div>	
 	
-<!-- Modal -->
+<!-- Edit Event Modal -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
 	<div class="modal-content">
@@ -228,13 +235,31 @@ $events = $req->fetchAll();
 				</select>
 			</div>
 		  </div>
-		    <div class="form-group"> 
-				<div class="col-sm-offset-2 col-sm-10">
-				  <div class="checkbox">
-					<label class="text-danger"><input type="checkbox"  name="delete"><span class="lbl"></span> Delete event</label>
-				  </div>
-				</div>
+		  <div class="form-group">
+			<label for="start" class="col-sm-2 control-label">Start:</label>
+			<div class="col-sm-10 input-group date">
+	            <input type="text" class="form-control" id="startEdit" name="start" />
+	            <span class="input-group-addon">
+	              <span class="fa fa-calendar"></span>
+	            </span>
+	        </div>
+		  </div>
+		  <div class="form-group">
+			<label for="end" class="col-sm-2 control-label">End:</label>
+			<div class="col-sm-10 input-group date">
+	            <input type="text" class="form-control" id="endEdit" name="end" />
+	            <span class="input-group-addon">
+	              <span class="fa fa-calendar"></span>
+	            </span>
+	        </div>
+		  </div>
+		  <div class="form-group"> 
+			<div class="col-sm-offset-2 col-sm-10">
+			  <div class="checkbox">
+				<label class="text-danger"><input type="checkbox"  name="delete"><span class="lbl"></span> Delete event</label>
+			  </div>
 			</div>
+		  </div>
 		  
 		  <input type="hidden" name="id" class="form-control" id="id">
 		
@@ -265,7 +290,7 @@ $events = $req->fetchAll();
 
 <!-- FullCalendar -->
 <script src='js/moment.min.js'></script>
-<script src='js/fullcalendar.min.js'></script>
+<script src="assets/fullcalendar.min.js"></script>
 
 <!-- DAtepicker -->
 <script src="../datepicker/js/moment-with-locales.js"></script>
@@ -274,8 +299,11 @@ $events = $req->fetchAll();
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
 
 <script>
-
 $(document).ready(function() {
+  var date = new Date();
+  var d = date.getDate();
+  var m = date.getMonth();
+  var y = date.getFullYear();
 	
 	$('#calendar').fullCalendar({
 		header: {
@@ -284,12 +312,13 @@ $(document).ready(function() {
 			right: 'month,agendaWeek,agendaDay,listMonth'
 		},
 		editable: true,
+		navLinks: true,
 		eventLimit: true, // allow "more" link when too many events
 		selectable: true,
 		selectHelper: true,
 		select: function(start, end) {			
-			$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-			$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
+			$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm a'));
+			$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm a'));
 			$('#ModalAdd').modal('show');
 		},
 		eventRender: function(event, element) {
@@ -297,18 +326,16 @@ $(document).ready(function() {
 				$('#ModalEdit #id').val(event.id);
 				$('#ModalEdit #title').val(event.title);
 				$('#ModalEdit #color').val(event.color);
+				$('#ModalEdit #startEdit').val(moment(event.start).format('YYYY-MM-DD HH:mm a'));
+				$('#ModalEdit #endEdit').val(moment(event.end).format('YYYY-MM-DD HH:mm a'));
 				$('#ModalEdit').modal('show');
 			});
 		},
-		eventDrop: function(event, delta, revertFunc) { // si changement de position
-
+		eventDrop: function(event, delta, revertFunc) { // by changing position
 			edit(event);
-
 		},
-		eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
-
+		eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // by changing length
 			edit(event);
-
 		},
 		events: [
 		<?php foreach($events as $event): 
@@ -338,9 +365,9 @@ $(document).ready(function() {
 	});
 	
 	function edit(event){
-		start = event.start.format('YYYY-MM-DD HH:mm:ss');
+		start = event.start.format('YYYY-MM-DD HH:mm a');
 		if(event.end){
-			end = event.end.format('YYYY-MM-DD HH:mm:ss');
+			end = event.end.format('YYYY-MM-DD HH:mm a');
 		}else{
 			end = start;
 		}
@@ -391,11 +418,40 @@ $(document).ready(function() {
 			}
 		});
 	}
-	
 });
-
+$('#start, #startEdit').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm a',
+  keepOpen: true,
+  icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+});
+$('#end, #endEdit').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm a',
+  keepOpen: true,
+  icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+});
+$("#start").on("dp.change", function (e) {
+    $('#end').data("DateTimePicker").minDate(e.date);
+});
+$("#end").on("dp.change", function (e) {
+    $('#start').data("DateTimePicker").maxDate(e.date);
+});
+$("#startEdit").on("dp.change", function (e) {
+    $('#endEdit').data("DateTimePicker").minDate(e.date);
+});
+$("#endEdit").on("dp.change", function (e) {
+    $('#startEdit').data("DateTimePicker").maxDate(e.date);
+});
 </script>
 
 </body>
-
 </html>

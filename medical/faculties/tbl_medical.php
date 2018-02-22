@@ -16,14 +16,17 @@ if(isset($_POST['page'])){
   $sortBy = $_POST['sortBy'];
   $dept = $_POST["dept_id"];
 
+  if ( !empty($keywords) ) {
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    }
   if ( !empty($keywords) && !empty($dept) ) {
-    $whereSQL = " WHERE dept = '".$dept."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%' ";
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%') ";
   }
-  elseif ( !empty($keywords) ) {
-    $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+  if ( !empty($dept) ) {
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND dept = '".$dept."' ";
   }
-  elseif ( !empty($dept) ) {
-    $whereSQL = " WHERE dept = '".$dept."' ";
+  if ( !empty($dept) && !empty($keywords) ) {
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
   }
 
   if ( !empty($sortBy) ){
@@ -130,7 +133,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY date_checked_up DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculty_med`.`status` = 'active' ORDER BY date_checked_up DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">

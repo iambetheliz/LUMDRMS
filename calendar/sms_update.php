@@ -13,7 +13,7 @@
   if ($query2->num_rows > 0){
     while($row = $query2->fetch_assoc()){
       $datetime = date('F j, Y; g:i a', strtotime($row['start']));
-      $msg = "This is to inform you that there will be " .$row['title']. " on " .$datetime. "\n\n- LU Clinic\n";
+      $msg = "This is to inform you that " .$row['title']. " was moved on " .$datetime. "\n\n- LU Clinic\n";
     }   
   }
   $result = itexmo($phone,$msg,"TR-SHAIR374833_PHL2Z");

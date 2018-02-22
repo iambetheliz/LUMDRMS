@@ -17,7 +17,7 @@ if(isset($_POST['page'])){
   $prog = $_POST["program_id"];
 
   if ( !empty($keywords) && !empty($prog) ) {
-    $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%' ";
+    $whereSQL = " WHERE program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%') ";
   }
   elseif ( !empty($keywords) ) {
     $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";

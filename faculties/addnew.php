@@ -19,9 +19,9 @@
         $phone = $_POST['phone'];
         $cperson = $_POST['cperson'];
         $cphone = $_POST['cphone'];
-        $med = $_POST['med'];
-        $dent = $_POST['dent'];
+        $status = $_POST['status'];
+        $checked_by = $_POST['checked_by'];
 		
-		mysqli_multi_query($DB_con,"INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,sem,acadYear,address,phone,cperson,cphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$sem','$acadYear','$address','$phone','$cperson','$cphone'); INSERT INTO faculty_stats(med,dent,facultyNo) VALUES('$med','$dent','$facultyNo');");
+		mysqli_multi_query($DB_con,"INSERT INTO faculties(facultyNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,sem,acadYear,address,phone,cperson,cphone) VALUES('$facultyNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$sem','$acadYear','$address','$phone','$cperson','$cphone'); INSERT INTO faculty_stats(checked_by,facultyNo) VALUES('$checked_by','$facultyNo');");
 	}
 ?>
