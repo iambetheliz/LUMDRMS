@@ -1,8 +1,6 @@
 //students
 $(document).ready(function(){
-  $('#overlay').show();
-	$("#tbl_students").load("../students/tbl_students.php");
-  $('#overlay').fadeOut('fast');	
+  $("#tbl_students").load("../students/tbl_students.php"); 
 	$('#add_stud').submit(function() {
 		return false;
 		$.ajaxSetup ({
@@ -238,6 +236,37 @@ $(document).ready(function(){
       }
     });
   });
+  //Restore Single
+  $(document).on('click', '#restore', function(){
+    $StudentID = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "../students/restore_record.php",
+      cache: false,
+      data: {
+        StudentID: $StudentID,
+        restore: 1,
+      },
+      success: function(){
+        $("#tbl_students").load("../students/tbl_students.php");
+        $.bootstrapGrowl("Restored successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
+      }
+    });
+    return false;
+  });
 });
 
 function searchFilter(page_num) {
@@ -246,17 +275,28 @@ function searchFilter(page_num) {
   var sortBy = $('#sortBy').val();
   var program_id = $('#prog_list').val();
   var stats = $('#stats').val(); 
+  var archive = $('#archive').val();
   var num_rows = $('#num_rows').val();
   $.ajax({
     type: 'POST',
     url: '../students/tbl_students.php',
-    data:{page:page_num,num_rows:num_rows,keywords:keywords,sortBy:sortBy,program_id:program_id,stats:stats},
+    data: {
+      page:page_num,
+      num_rows:num_rows,
+      keywords:keywords,
+      sortBy:sortBy,
+      program_id:program_id,
+      stats:stats,
+      archive:archive
+    },
     beforeSend: function () {
       $('#overlay').show();
+      $('.students').hide();
     },
     success: function (data) {
+      $('#overlay').show();
+      $('#overlay').hide().fadeOut("slow");
       $('#tbl_students').html(data);
-      $('#overlay').fadeOut("fast");
     }
   });
 }

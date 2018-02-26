@@ -19,16 +19,15 @@ if(isset($_POST['page'])){
     $sortBy = $_POST['sortBy'];
     $prog = $_POST["program_id"];
     $stats = $_POST["stats"];
+    $archive = $_POST["archive"];
 
     if ( !empty($keywords) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') ";
     }
-    else {
-      $whereSQL = " WHERE `students`.`status` = 'active' ";
-    }
     if ( !empty($keywords) && !empty($prog) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
+
     if ( !empty($prog) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
     }
@@ -38,27 +37,31 @@ if(isset($_POST['page'])){
 
     if ( !empty($stats) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
-      if ($stats == 'Pending') {
-        $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students_med_pending.php' style='cursor:pointer;' id='print'>Print</a>";
-      }
-      elseif ($stats == 'Ok') {
-        $print = "";
-      }
-      else {
-        $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>";
-      }
-    }
-    else {
-      $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>";
     }
     if ( !empty($stats) && !empty($prog) ) {
-      $whereSQL .= " AND program = '".$prog."' ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND program = '".$prog."' ";
     }
     if ( !empty($stats) && !empty($keywords) ) {
-      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+      $whereSQL .= " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
     }
     if ( !empty($stats) && !empty($prog) && !empty($keywords) ) {
-      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    }
+
+    if ( !empty($archive) ) {
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') ";
+    }
+    if ( !empty($archive) && !empty($stats) ) {
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+    }
+    if ( !empty($archive) && !empty($prog) ) {
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND program = '".$prog."' ";
+    }
+    if ( !empty($archive) && !empty($keywords) ) {
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($archive) && !empty($prog) && !empty($keywords) ) {
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
     }
 
     if ( !empty($sortBy) ){
@@ -92,15 +95,6 @@ if(isset($_POST['page'])){
     <div class="row">
       <div class="container-fluid">
         <form method="post" name="frm">
-          <label id="actions">
-            <div class="btn-toolbar pull-right" role="toolbar">
-              <div class="btn-group mr-2" role="group" aria-label="First group">
-                <a class="text-warning btn btn-danger " style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete Multiple</a>
-                <?php echo $print ;?>
-                <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a>
-              </div>
-            </div>
-          </label>
           <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
           <br>
           <div class="table-responsive">
@@ -123,16 +117,21 @@ if(isset($_POST['page'])){
               </tr>
             </thead>
             <tbody>
+              <tr id="overlay" style="display: none;">
+                <td colspan="13" align="center">
+                  <p>Loading records <i class="fa fa-refresh fa-spin"></i></p>
+                </td>
+              </tr>
             <?php
               while($row = $query->fetch_assoc()){
               $start++; ?>
-              <tr id="table-row-<?php echo $row["StatsID"]; ?>">
+              <tr id="table-row-<?php echo $row["StatsID"]; ?>" class="students">
                 <td>
                   <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['dent']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'med','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['med']; ?></td>
+                <td><?php echo $row['dent']; ?></td>
+                <td><?php echo $row['med']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
                 <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
@@ -143,7 +142,19 @@ if(isset($_POST['page'])){
                 <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
                 <td style="width: 145px;">
                   <div class="btn-toolbar" role="toolbar">
-                  <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button></div>
+                    <?php 
+                      if ($row['status'] == 'deleted') { 
+                        ?>
+                        <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['StudentID']; ?>"> Restore</button>
+                        <?php 
+                      }
+                      else { 
+                        ?>
+                        <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                        <?php 
+                      }
+                    ?>
+                  </div>
                 </td>
               </tr>
             <?php } ?>
@@ -158,8 +169,43 @@ if(isset($_POST['page'])){
     <!-- End of Table -->
     <?php echo $pagination->createLinks(); 
   } 
-  else { 
-    echo "<div class='alert alert-warning'>No result</div>"; 
+  else { ?>
+    <div  align="center">
+      <span class="pull-right">
+        <strong class="text-success">Total no. of rows: 0</strong>
+      </span>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered" id="myTable">
+          <thead>
+            <tr>
+              <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
+              <th>No.</th>
+              <th>Dental</th>
+              <th>Medical</th>
+              <th width="100px">Last Name</th>
+              <th width="100px">First Name</th>
+              <th>Middle</th>
+              <th>Suffix</th>
+              <th width="110px">Student No.</th>
+              <th>Program</th>
+              <th>Year</th>    
+              <th>Added</th>        
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="13" align="center">
+                <p>No records found</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End of Table Responsive -->
+    </div>
+    <?php 
   }
 } 
 else {
@@ -183,75 +229,60 @@ else {
   $query = $DB_con->query("SELECT * FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' ORDER BY modified DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
-  <div class="row">
-    <div class="container-fluid">
-      <form method="post" name="frm">
-        <label id="actions">
-          <div class="btn-toolbar pull-right" role="toolbar">
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-              <a class="text-warning btn btn-danger " style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete Multiple</a>
-              <a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>
-              <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a>
-          </label>
-            </div>
-          </div>
-        </label>
-        <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
-        <br>
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered" id="myTable">
-            <thead>
-              <tr>
-                <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
-                <th>No.</th>
-                <th>Dental</th>
-                <th>Medical</th>
-                <th width="100px">Last Name</th>
-                <th width="100px">First Name</th>
-                <th>Middle</th>
-                <th>Suffix</th>
-                <th width="110px">Student No.</th>
-                <th>Program</th>
-                <th>Year</th>    
-                <th>Added</th>        
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-            <?php
-              while($row = $query->fetch_assoc()){
-              $start++; ?>
-              <tr id="table-row-<?php echo $row["StatsID"]; ?>">
-                <td>
-                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
-                </td>
-                <td><?php echo $start;?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'dent','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['dent']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'med','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['med']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['program_name'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
-                <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;">
-                  <div class="btn-toolbar" role="toolbar">
-                  <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button></div>
-                </td>
-              </tr>
-            <?php } ?>
-            </tbody>
-          </table>
-        </div>
-        <!-- End of Table Responsive -->
-      </form>
+    <span class="pull-right">
+      <strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong>
+    </span>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered" id="myTable">
+        <thead>
+          <tr>
+            <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
+            <th>No.</th>
+            <th>Dental</th>
+            <th>Medical</th>
+            <th width="100px">Last Name</th>
+            <th width="100px">First Name</th>
+            <th>Middle</th>
+            <th>Suffix</th>
+            <th width="110px">Student No.</th>
+            <th>Program</th>
+            <th>Year</th>    
+            <th>Added</th>        
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php
+          while($row = $query->fetch_assoc()){
+          $start++; ?>
+          <tr id="table-row-<?php echo $row["StatsID"]; ?>">
+            <td>
+              <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
+            </td>
+            <td><?php echo $start;?></td>
+            <td><?php echo $row['dent']; ?></td>
+            <td><?php echo $row['med']; ?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['studentNo']; ?></td>
+            <td><?php echo $row['program_name'];?></td>
+            <td><?php echo $row['yearLevel'];?></td>
+            <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
+            <td style="width: 145px;">
+              <div class="btn-toolbar" role="toolbar">
+                <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+              </div>
+            </td>
+          </tr>
+        <?php } ?>
+        </tbody>
+      </table>
     </div>
-    <!-- End of Container Fluid -->
-  </div>
-  <!-- End of Table -->
-  <?php echo $pagination->createLinks(); 
+    <!-- End of Table Responsive -->
+    <?php echo $pagination->createLinks();  
   } else { 
     echo "<div class='alert alert-warning'>No result</div>"; 
   }
@@ -383,17 +414,15 @@ function editRow(editableObj) {
 }
 
 function saveToDatabase(editableObj,column,id) {
-  $(editableObj).css("background","#FFF url(../images/loading.gif) no-repeat right");
+  $(editableObj).css("background","#ddd");
   $.ajax({
     url: "quick_edit.php",
     type: "POST",
     data: 'med='+column+'&dent='+column+'&editval='+$(editableObj).text()+'&StatsID='+id,
     success: function(data){
       $(editableObj).css("background","#FDFDFD");
-
       $('#overlay').show();
-      $('#overlay').fadeOut('fast');
-
+      $('#overlay').fadeOut(4000);
       $('td:contains("Pending")').css('color', 'red');
       $('td:contains("Ok")').css('color', 'green');
 

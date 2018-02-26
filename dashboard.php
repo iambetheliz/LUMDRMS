@@ -114,8 +114,9 @@
                       <button type="button" class="btn btn-default" name="month" id="month">Month</button>
                       <button type="button" class="btn btn-default" name="year" id="year">Year</button>
                     </div>
-                  </div>
-                  <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
+
+                    <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
+                    </div>
                 </h2>
               </div>
             </div>  
