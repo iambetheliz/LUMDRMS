@@ -122,19 +122,16 @@
   	        <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h1 class="page-header">Student Records
-                  <a class="btn btn-primary pull-right" name="input" type="button" href="print_students.php" style="cursor:pointer;" id="print">Print</a>
-                </h1>
+                <h1 class="page-header">Student Records</h1>
               </div>
             </div>
             <!-- End of Page Heading -->
-              
-            <!-- Buttons -->
+<!-- Buttons -->
             <div class="row">
               <!-- Start btn-toolbar -->
               <div class="col-lg-8">
                 <div class="btn-toolbar">
-        			    <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
 
                   <div class="btn-group">
                     <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
@@ -187,8 +184,6 @@
               </div>
             </div>
             <!-- End of Buttons -->
-
-              <br>
 
             <div class="alert alert-info alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -335,7 +330,7 @@
                       ?> 
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                     <input type="text" name="phone" id="phone" class="form-control">
                     <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                     <br><br><br>

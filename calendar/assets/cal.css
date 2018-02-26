@@ -4,10 +4,16 @@
 td.fc-day-number {
     text-align: right;
 }
-td.fc-day-number.fc-sun {
+td.fc-day-top a.fc-day-number {
+    color: black;
+}
+td.fc-day-top.fc-today a.fc-day-number {
+    color: green;
+}
+td.fc-day-number.fc-sun, td.fc-day-top.fc-sun a.fc-day-number {
     color: red;
 }
-td.fc-day-number.fc-sat {
+td.fc-day-number.fc-sat, td.fc-day-top.fc-sat a.fc-day-number {
     color: blue;
 }
 .fc-other-month {
@@ -22,8 +28,13 @@ td.fc-day-number.fc-sat {
 .fc-unthemed td {
     border-color: #ddd;
 }
-th.fc-day-header.fc-widget-header {
+th.fc-day-header.fc-widget-header, th.fc-day-header.fc-widget-header a {
     padding: 10px;
+    background: #428b42;
+    border-color: green;
+    color: white;
+}
+th.fc-axis.fc-widget-header {
     background: #428b42;
     border-color: green;
     color: white;
@@ -32,13 +43,9 @@ th.fc-day-header.fc-widget-header {
     border-top-width: 0;
     background: #428b42;
 }
-
-td.fc-day.fc-widget-content.fc-today.fc-state-highlight {
-    background: lightcyan;
+td.fc-day.fc-widget-content.fc-today.fc-state-highlight, td.fc-day.fc-widget-content.fc-today {
+    background: #b2d8b2;
 }
-.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
-  background: #428b42;
-}
-.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
-    border-color: #ddd;
+.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+    border-color: #4ca64c;
 }

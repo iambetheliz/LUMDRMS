@@ -223,7 +223,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                   <label for="facultyNo"><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
-                  <input type="text" class="form-control required" placeholder="000-0000" name="facultyNo" id="facultyNo" autofocus="on">
+                  <input type="text" class="form-control required" name="facultyNo" id="facultyNo" autofocus="on">
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
                   <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
@@ -313,7 +313,7 @@
                       ?> 
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                     <input type="text" name="phone" id="phone" class="form-control">
                     <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                     <br><br><br>
@@ -330,7 +330,8 @@
               <div class="col-lg-5">
                 <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
-                  <input type="text" name="cphone" id="cphone" class="form-control" placeholder="09358306457">
+                  <input type="text" name="cphone" id="cphone" class="form-control">
+                  <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                 </div>
               </div>
             </div>

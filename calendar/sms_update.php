@@ -2,32 +2,30 @@
   include '../SMS/itext.php';
   include '../includes/dbconnect.php';
 
-  $query1 = $DB_con->query("SELECT phone FROM students WHERE status = 'active'");
+  $query1 = $DB_con->query("SELECT phone FROM students WHERE phone = '0935 830 6457'");
   $query2 = $DB_con->query("SELECT * FROM events");
-
-  if ($query1->num_rows > 0){
-    while($row = $query1->fetch_assoc()){
-      $phone = $row['phone'];
-    }   
-  }
   if ($query2->num_rows > 0){
-    while($row = $query2->fetch_assoc()){
-      $datetime = date('F j, Y; g:i a', strtotime($row['start']));
-      $msg = "This is to inform you that " .$row['title']. " was moved on " .$datetime. "\n\n- LU Clinic\n";
+    while($row2 = $query2->fetch_assoc()){
+      $datetime = date('F j, Y', strtotime($row2['start'])). " at " .date('g:i a', strtotime($row2['start']));
+      $msg = "From: LU Clinic \n\nThis is to inform you that the " .$row2['title']. " was moved on " .$datetime. "\n\nThank you.";
     }   
   }
-  $result = itexmo($phone,$msg,"TR-SHAIR374833_PHL2Z");
 
-  if ($result == ""){
-    echo "<div class='row'><div class='alert alert-danger'>iTexMo: No response from server!!!
-    Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.  
-    Please CONTACT US for help.</div></div>";  
-  } else if ($result == 0){
-    echo "<div class='row'><div class='alert alert-success'>Message Sent!</div></div>";
-  }
-  else { 
-    echo "<div class='row'><div class='alert alert-danger'>Error #". $result . " was encountered! Please try again later</div></div>";
+  while($row = mysqli_fetch_array($query1)){
+    if (!empty($row['phone'])){
+
+      $result = itexmo($row['phone'],$msg,"ST-SHAIR374833_X9NKY");
+      if ($result == ""){
+        echo "<div class='row'><div class='alert alert-danger'>iTexMo: No response from server!!!
+        Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.  
+        Please CONTACT US for help.</div></div>";  
+      } else if ($result == 0){
+        echo "<div class='row'><div class='alert alert-success'>Message Sent!</div></div>";
+      }
+      else { 
+        echo "<div class='row'><div class='alert alert-danger'>Error #". $result . " was encountered! Please try again later</div></div>";
+      }
+    }   
   }
 
-header("Location: /lu_clinic/calendar/");
 ?>

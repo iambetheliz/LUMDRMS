@@ -4,7 +4,7 @@ $(document).ready(function() {
   var m = date.getMonth();
   var y = date.getFullYear();
 
-  $('#createEventModal').on('hidden.bs.modal', function () {
+  $('#ModalAdd').on('hidden.bs.modal', function () {
     $(this).find('input').val('');
   });
 
@@ -19,21 +19,45 @@ $(document).ready(function() {
     eventLimit: true,
     selectable: true,
     allDaySlot: true,
-    events: "events.php",
+    events: [
+    <?php foreach($events as $event): 
+    
+      $start = explode(" ", $event['start']);
+      $end = explode(" ", $event['end']);
+      if($start[1] == '00:00:00'){
+        $start = $start[0];
+      }else{
+        $start = $event['start'];
+      }
+      if($end[1] == '00:00:00'){
+        $end = $end[0];
+      }else{
+        $end = $event['end'];
+      }
+    ?>
+      {
+        id: '<?php echo $event['id']; ?>',
+        title: '<?php echo $event['title']; ?>',
+        start: '<?php echo $start; ?>',
+        end: '<?php echo $end; ?>',
+        color: '<?php echo $event['color']; ?>',
+      },
+    <?php endforeach; ?>
+    ],
     select: function(start, end, allDay, element) {
         endtime = $.fullCalendar.formatDate(end,'ddd, MMM DD, YYYY h(:mm) a');
         starttime = $.fullCalendar.formatDate(start,'ddd, MMM DD, YYYY h(:mm) a');
         var mywhen = starttime + ' - ' + endtime;
         start = moment(start).format();
         end = moment(end).format();
-        $('#createEventModal #startTime').val(start);
-        $('#createEventModal #endTime').val(end);
-        $('#createEventModal #when').text(mywhen);
-        $('#createEventModal').modal('show');
+        $('#ModalAdd #startTime').val(start);
+        $('#ModalAdd #endTime').val(end);
+        $('#ModalAdd #when').text(mywhen);
+        $('#ModalAdd').modal('show');
     },
     eventDrop: function(event, delta) {
       $.ajax({
-        url: 'update_events.php',
+        url: 'editEventTitle.php',
         data: 'title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id ,
         type: "POST",
         success: function(json) {
@@ -55,17 +79,16 @@ $(document).ready(function() {
       });
     },
     eventClick: function(event) {
-      endtime = $.fullCalendar.moment(event.end).format('ddd, MMM DD, YYYY h(:mm) a');
-      starttime = $.fullCalendar.moment(event.start).format('ddd, MMM DD, YYYY h(:mm) a');
-      var mywhen = starttime + ' - ' + endtime;
-      $('#modalTitle').html(event.title);
-      $('#modalWhen').text(mywhen);
-      $('#eventID').val(event.id);
-      $('#calendarModal').modal();
+      $('#ModalEdit #id').val(event.id);
+        $('#ModalEdit #title').val(event.title);
+        $('#ModalEdit #color').val(event.color);
+        $('#ModalEdit #startEdit').val(moment(event.start).format('YYYY-MM-DD HH:mm a'));
+        $('#ModalEdit #endEdit').val(moment(event.end).format('YYYY-MM-DD HH:mm a'));
+        $('#ModalEdit').modal('show');
     },
     eventResize: function(event) {
       $.ajax({
-        url: 'update_events.php',
+        url: 'editEventTitle.php',
         data: 'title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id,
         type: "POST",
         success: function(json) {
@@ -95,15 +118,15 @@ $(document).ready(function() {
     doSubmit();
   });
 
-  function doSubmit(){
-    $("#createEventModal").modal('hide').fadeOut('slow');
+  function doSubmit(event){
+    $("#ModalAdd").modal('hide');
     var title = $('#title').val();
     var start = $('#startTime').val();
     var end = $('#endTime').val();
 
     $.ajax({
       url: 'addEvent.php',
-      data: {title:title,start:start,end:end},
+      data: 'title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id,
       type: "POST",
       success: function(json) {
         $("#calendar").fullCalendar('renderEvent',
@@ -140,10 +163,10 @@ $(document).ready(function() {
   });
 
   function doDelete(){
-    $("#calendarModal").modal('hide').fadeOut('slow');
-    var eventID = $('#eventID').val();
+    $("#ModalEdit").modal('hide');
+    var eventID = $('#ModalEdit #id').val();
     $.ajax({
-      url: "delete_event.php",
+      url: "editEventTitle.php",
       data: "&id=" + eventID,
       type: "POST",
       success: function(json) {

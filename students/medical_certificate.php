@@ -20,9 +20,14 @@ include '../includes/date_time_diff.php';
     font-size: 16px;
   }
   @media print {
-    .print-content, .signature {
-      margin: 100px;
+    .print-content {
+      margin-left: 50px;
+      margin-right: 50px;
+    }
+    .signature {      
       max-width: 100%;
+      margin-left: 30px;
+      margin-right: 30px;
     }
   }
 </style>
@@ -88,11 +93,11 @@ if(!empty($row)) { ?>
 <div class="row">
 <div class="signature">
 <div class="col-lg-6 pull-left">
-  <p align="center">____________________________________________</p>
+  <p align="center">__________________________________</p>
   <p align="center"><label>School Nurse</label></p>
 </div>
 <div class="col-lg-6 pull-right">
-  <p align="center">____________________________________________</p>
+  <p align="center">__________________________________</p>
   <p align="center"><label>School Physician</label></p>
 </div></div>
 <?php }

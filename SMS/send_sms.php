@@ -2,8 +2,8 @@
 
 if (!empty($_POST['message'])) {
   $phone = $_POST['phone'];
-  $msg = implode("\n\n", $_POST['message'])."\n\n-----";
-  $result = itexmo($phone,$msg,"TR-SHAIR374833_PHL2Z");
+  $msg = implode("\n\n", $_POST['message'])."\n\n-----\nFrom: LU Clinic";
+  $result = itexmo($phone,$msg,"ST-SHAIR374833_X9NKY");
   if ($result == ""){
     echo "iTexMo: No response from server!!!";  
   } else if ($result == 0){

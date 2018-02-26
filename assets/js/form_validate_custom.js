@@ -71,33 +71,6 @@ $(document).ready(function () {
   });
   
   // Inputt Fields
-  $('#facultyNo').keypress(function (e) {
-    $("#errFN").hide();
-
-    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-      $("#errFN").html("Numbers Only!").show().fadeOut("slow");
-      return false;
-    } 
-
-    var curchr = this.value.length;
-    var curval = $(this).val();
-
-    if (curchr == 4 && curval.indexOf("(") <= -1) {
-      $(this).val(curval + "-");
-    } else if (curchr == 4 && curval.indexOf("(") > -1) {
-      $(this).val(curval + ")-");
-    } else if (curchr == 8) {
-      $(this).val(curval);
-      $(this).attr('maxlength', '9'); 
-      return true;
-    } else if (curchr == 9) {
-      $("#errFN").html("8 digits only!").show().fadeOut("slow");
-        return false;
-    } else if($("#facultyNo").val().length >= 0){
-        $("#facultyNo").removeClass("error");
-    } 
-  });
-
   $('#studentNo').keypress(function (e) {
       $("#errSN").hide();
 
@@ -184,6 +157,46 @@ $(document).ready(function () {
         return false;
     } else if($("#cphone").val().length >= 0){
         $("#cphone").removeClass("error");
+    } 
+  });
+  $("#phone").keypress(function (e) {
+    $("#errPhone").hide();
+
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errPhone").html("Numbers Only").show().fadeOut("slow");
+        return false;
+    } else {
+      $("#phone").removeClass('error');
+    } 
+
+    var phonechr = this.value.length;
+    var phoneval = $(this).val(); 
+
+    if (phonechr == 0) {
+      if (e.which != 48) {
+        $("#errPhone").html("Start at 0").show().fadeOut("slow");
+        return false;
+      }      
+    }
+    else if (phonechr == 1) {
+      if (e.which != 57) {
+        $("#errPhone").html("09-- format!").show().fadeOut("slow");
+        return false;
+      }      
+    }
+    else if (phonechr == 4 && phoneval.indexOf("(") <= -1) {
+      $(this).val(phoneval + " ");
+    } else if (phonechr == 8 && phoneval.indexOf("(") <= -1) {
+      $(this).val(phoneval + " ");
+    } else if (phonechr == 11) {
+      $(this).val(phoneval);
+      $(this).attr('maxlength', '13'); 
+      return true;
+    } else if (phonechr == 13) {
+      $("#errPhone").html("Max. of 11").show().fadeOut("slow");
+        return false;
+    } else if($("#phone").val().length >= 0){
+        $("#phone").removeClass("error");
     } 
   });
 

@@ -34,6 +34,9 @@ $events = $req->fetchAll();
     padding-right: 15px;
     padding-left: 15px;
 }
+.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+    border-color: #7fbf7f;
+}
 </style>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -117,7 +120,9 @@ $events = $req->fetchAll();
         <!-- Page Heading -->
         <div class="row">
           <div class="container-fluid">
-            <h1 class="page-header">Calendar Activities <small class="text-muted text-success pull-right" id="message"></small></h1>
+            <h1 class="page-header">Calendar Activities 
+          		<button type="button" id="refresh" class="btn btn-default pull-right"><i class="fa fa-refresh"></i></button>
+          	</h1>
           </div>
         </div>
         <!-- End of Page Heading -->
@@ -142,135 +147,131 @@ $events = $req->fetchAll();
 <!-- Modal -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<form class="form-horizontal" method="POST" action="addEvent.php">
-	
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="myModalLabel">Add Event</h4>
-	  </div>
-	  <div class="modal-body">
-		
-		  <div class="form-group">
-			<label for="title" class="col-sm-2 control-label">Title</label>
-			<div class="col-sm-10">
-			  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+	<form id="addEvent" method="POST">	
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
+		</div>
+		<div class="modal-body row">
+		  <div class="container-fluid">
+		  	<div class="form-group">
+		  	  <label for="title" class="control-label">Event Title:</label>
+		  	  <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+		  	  <br>
+		  	  <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+		  	  <select name="color" class="form-control" id="color">
+		  	  	<option value="">Choose</option>
+		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+				<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
+				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+				<option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+				<option style="color:#000;" value="#000">&#9724; Black</option>
+			  </select>
 			</div>
 		  </div>
-		  <div class="form-group">
-			<label for="color" class="col-sm-2 control-label">Color</label>
-			<div class="col-sm-10">
-			  <select name="color" class="form-control" id="color">
-				  <option value="">Choose</option>
-				  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-				  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
-				  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-				  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-				  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-				  <option style="color:#000;" value="#000">&#9724; Black</option>
-				  
-				</select>
-			</div>
-		  </div>
-		  <div class="form-group">
-			<label for="start" class="col-sm-2 control-label">Start:</label>
-			<div class="col-sm-10 input-group date">
+		  <div class="col-lg-6">
+		  	<div class="form-group">
+		  	  <label for="start" class="control-label">Start:</label>
+			  <div class="input-group date">
 	            <input type="text" class="form-control" id="start" name="start" />
 	            <span class="input-group-addon">
 	              <span class="fa fa-calendar"></span>
 	            </span>
-	        </div>
+		      </div>
+		      <br>
+			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
+		    </div>
 		  </div>
-		  <div class="form-group">
-			<label for="end" class="col-sm-2 control-label">End:</label>
-			<div class="col-sm-10 input-group date">
-	            <input type="text" class="form-control" id="end" name="end" />
-	            <span class="input-group-addon">
-	              <span class="fa fa-calendar"></span>
-	            </span>
-	        </div>
+		  <div class="col-lg-1"></div>
+	      <div class="col-lg-6">
+	      	<div class="form-group">
+				<label for="end" class="control-label">End:</label>
+				<div class="input-group date">
+		            <input type="text" class="form-control" id="end" name="end" />
+		            <span class="input-group-addon">
+		              <span class="fa fa-calendar"></span>
+		            </span>
+		        </div>
+		        <br>
+			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
+		    </div>	
 		  </div>
-		
-	  </div>
-	  <div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="submit" class="btn btn-primary">Save changes</button>
+	  	</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		  <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
+		</div>
 	  </div>
 	</form>
-	</div>
   </div>
 </div>	
 	
 <!-- Edit Event Modal -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-	<div class="modal-content">
-	<form class="form-horizontal" method="POST" action="editEventTitle.php">
-	  <div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="myModalLabel">Edit Event</h4>
-	  </div>
-	  <div class="modal-body">
-		
-		  <div class="form-group">
-			<label for="title" class="col-sm-2 control-label">Title</label>
-			<div class="col-sm-10">
-			  <input type="text" name="title" class="form-control" id="title" placeholder="Title">
+	<form id="updateEvent" method="POST">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+	  	</div>
+	  	<div class="modal-body row">		
+		  <div class="container-fluid">
+		  	<div class="form-group">
+		  	  <label for="title" class="control-label">Event Title:</label>
+		  	  <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+		  	  <br>
+		  	  <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+		  	  <select name="color" class="form-control" id="color">
+		  	  	<option value="">Choose</option>
+		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+				<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
+				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+				<option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+				<option style="color:#000;" value="#000">&#9724; Black</option>
+			  </select>
 			</div>
 		  </div>
-		  <div class="form-group">
-			<label for="color" class="col-sm-2 control-label">Color</label>
-			<div class="col-sm-10">
-			  <select name="color" class="form-control" id="color">
-				  <option value="">Choose</option>
-				  <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				  <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-				  <option style="color:#008000;" value="#008000">&#9724; Green</option>						  
-				  <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-				  <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-				  <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-				  <option style="color:#000;" value="#000">&#9724; Black</option>
-				  
-				</select>
-			</div>
-		  </div>
-		  <div class="form-group">
-			<label for="start" class="col-sm-2 control-label">Start:</label>
-			<div class="col-sm-10 input-group date">
+		  <div class="col-lg-6">
+		  	<div class="form-group">
+		  	  <label for="start" class="control-label">Start:</label>
+			  <div class="input-group date">
 	            <input type="text" class="form-control" id="startEdit" name="start" />
 	            <span class="input-group-addon">
 	              <span class="fa fa-calendar"></span>
 	            </span>
-	        </div>
+		      </div>
+		      <br>
+			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="public" id="publicEdit"><span class="lbl"></span> Public Event</label>
+		    </div>
 		  </div>
-		  <div class="form-group">
-			<label for="end" class="col-sm-2 control-label">End:</label>
-			<div class="col-sm-10 input-group date">
-	            <input type="text" class="form-control" id="endEdit" name="end" />
-	            <span class="input-group-addon">
-	              <span class="fa fa-calendar"></span>
-	            </span>
-	        </div>
-		  </div>
-		  <div class="form-group"> 
-			<div class="col-sm-offset-2 col-sm-10">
-			  <div class="checkbox">
-				<label class="text-danger"><input type="checkbox"  name="delete"><span class="lbl"></span> Delete event</label>
-			  </div>
-			</div>
-		  </div>
-		  
-		  <input type="hidden" name="id" class="form-control" id="id">
-		
-		
-	  </div>
-	  <div class="modal-footer">
-		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		<button type="submit" class="btn btn-primary">Save changes</button>
+		  <div class="col-lg-1"></div>
+	      <div class="col-lg-6">
+	      	<div class="form-group">
+			  <label for="end" class="control-label">End:</label>
+			  <div class="input-group date">
+		        <input type="text" class="form-control" id="endEdit" name="start" />
+		          <span class="input-group-addon">
+		            <span class="fa fa-calendar"></span>
+		          </span>
+		      </div>
+		      <br>
+		      <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="private" id="privateEdit"><span class="lbl"></span> Private Event</label>
+		  	</div>	
+		  </div>		  
+		  <input type="hidden" name="id" class="form-control" id="id">			
+	  	</div>
+	  	<div class="modal-footer">
+		  <button type="submit" class="btn btn-primary" id="updateButton">Update Event</button>
+		  <button type="button" class="btn btn-danger" id="deleteButton" name="delete">Delete Event</button>
+	  	</div>
 	  </div>
 	</form>
-	</div>
   </div>
 </div>
 
@@ -297,161 +298,26 @@ $events = $req->fetchAll();
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
-
-<script>
-$(document).ready(function() {
-  var date = new Date();
-  var d = date.getDate();
-  var m = date.getMonth();
-  var y = date.getFullYear();
-	
-	$('#calendar').fullCalendar({
-		header: {
-			left: 'prev,next today',
-			center: 'title',
-			right: 'month,agendaWeek,agendaDay,listMonth'
-		},
-		editable: true,
-		navLinks: true,
-		eventLimit: true, // allow "more" link when too many events
-		selectable: true,
-		selectHelper: true,
-		select: function(start, end) {			
-			$('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm a'));
-			$('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm a'));
-			$('#ModalAdd').modal('show');
-		},
-		eventRender: function(event, element) {
-			element.bind('dblclick', function() {
-				$('#ModalEdit #id').val(event.id);
-				$('#ModalEdit #title').val(event.title);
-				$('#ModalEdit #color').val(event.color);
-				$('#ModalEdit #startEdit').val(moment(event.start).format('YYYY-MM-DD HH:mm a'));
-				$('#ModalEdit #endEdit').val(moment(event.end).format('YYYY-MM-DD HH:mm a'));
-				$('#ModalEdit').modal('show');
-			});
-		},
-		eventDrop: function(event, delta, revertFunc) { // by changing position
-			edit(event);
-		},
-		eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // by changing length
-			edit(event);
-		},
-		events: [
-		<?php foreach($events as $event): 
-		
-			$start = explode(" ", $event['start']);
-			$end = explode(" ", $event['end']);
-			if($start[1] == '00:00:00'){
-				$start = $start[0];
-			}else{
-				$start = $event['start'];
-			}
-			if($end[1] == '00:00:00'){
-				$end = $end[0];
-			}else{
-				$end = $event['end'];
-			}
-		?>
-			{
-				id: '<?php echo $event['id']; ?>',
-				title: '<?php echo $event['title']; ?>',
-				start: '<?php echo $start; ?>',
-				end: '<?php echo $end; ?>',
-				color: '<?php echo $event['color']; ?>',
-			},
-		<?php endforeach; ?>
-		]
-	});
-	
-	function edit(event){
-		start = event.start.format('YYYY-MM-DD HH:mm a');
-		if(event.end){
-			end = event.end.format('YYYY-MM-DD HH:mm a');
-		}else{
-			end = start;
-		}
-		
-		id =  event.id;
-		
-		Event = [];
-		Event[0] = id;
-		Event[1] = start;
-		Event[2] = end;
-		
-		$.ajax({
-		 url: 'editEventDate.php',
-		 type: "POST",
-		 data: {Event:Event},
-		 success: function(rep) {
-				if(rep == 'OK'){
-					$.bootstrapGrowl("Event updated!", // Messages
-		            { // options
-		              type: "success", // info, success, warning and danger
-		              ele: "body", // parent container
-		              offset: {
-		                from: "top",
-		                amount: 20
-		              },
-		              align: "right", // right, left or center
-		              width: 300,
-		              delay: 4000,
-		              allow_dismiss: true, // add a close button to the message
-		              stackup_spacing: 10
-		          	});
-				}else{
-					$.bootstrapGrowl("Event cannot be saved!", // Messages
-		            { // options
-		              type: "danger", // info, success, warning and danger
-		              ele: "body", // parent container
-		              offset: {
-		                from: "top",
-		                amount: 20
-		              },
-		              align: "right", // right, left or center
-		              width: 300,
-		              delay: 4000,
-		              allow_dismiss: true, // add a close button to the message
-		              stackup_spacing: 10
-		          	}); 
-				}
-			}
-		});
+<?php include 'calendar.php';?>
+<script type="text/javascript">
+$(window).load(function() {
+  $( "#public, #publicEdit" ).on( "click", function() {
+  	if ($( "#public, #publicEdit" ).is(':checked')) {
+	    $('#private, #privateEdit').attr('disabled', true);
 	}
-});
-$('#start, #startEdit').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm a',
-  keepOpen: true,
-  icons: {
-    time: "fa fa-clock-o",
-    date: "fa fa-calendar",
-    up: "fa fa-arrow-up",
-    down: "fa fa-arrow-down"
-  }
-});
-$('#end, #endEdit').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm a',
-  keepOpen: true,
-  icons: {
-    time: "fa fa-clock-o",
-    date: "fa fa-calendar",
-    up: "fa fa-arrow-up",
-    down: "fa fa-arrow-down"
-  }
-});
-$("#start").on("dp.change", function (e) {
-    $('#end').data("DateTimePicker").minDate(e.date);
-});
-$("#end").on("dp.change", function (e) {
-    $('#start').data("DateTimePicker").maxDate(e.date);
-});
-$("#startEdit").on("dp.change", function (e) {
-    $('#endEdit').data("DateTimePicker").minDate(e.date);
-});
-$("#endEdit").on("dp.change", function (e) {
-    $('#startEdit').data("DateTimePicker").maxDate(e.date);
+	else {
+		$('#private, #privateEdit').attr('disabled', false);
+	}
+  });
+  $( "#private, #privateEdit" ).on( "click", function() {
+  	if ($( "#private, #privateEdit" ).is(':checked')) {
+	    $('#public, #publicEdit').attr('disabled', true);
+	}
+	else {
+		$('#public, #publicEdit').attr('disabled', false);
+	}
+  });
 });
 </script>
-
 </body>
 </html>

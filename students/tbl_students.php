@@ -38,6 +38,18 @@ if(isset($_POST['page'])){
 
     if ( !empty($stats) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+      if ($stats == 'Pending') {
+        $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students_med_pending.php' style='cursor:pointer;' id='print'>Print</a>";
+      }
+      elseif ($stats == 'Ok') {
+        $print = "";
+      }
+      else {
+        $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>";
+      }
+    }
+    else {
+      $print = "<a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>";
     }
     if ( !empty($stats) && !empty($prog) ) {
       $whereSQL .= " AND program = '".$prog."' ";
@@ -80,21 +92,22 @@ if(isset($_POST['page'])){
     <div class="row">
       <div class="container-fluid">
         <form method="post" name="frm">
-          <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
-          <span style="word-spacing:normal;"> | With selected :</span>
           <label id="actions">
-            <span><a class="text-warning" style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete</a>
-          </label>          
-          <label id="sms">
-            <span><a class="text-danger" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a></span>
+            <div class="btn-toolbar pull-right" role="toolbar">
+              <div class="btn-group mr-2" role="group" aria-label="First group">
+                <a class="text-warning btn btn-danger " style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete Multiple</a>
+                <?php echo $print ;?>
+                <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a>
+              </div>
+            </div>
           </label>
           <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
           <br>
           <div class="table-responsive">
             <table class="table  table-striped table-bordered" id="myTable">
             <thead>
-              <tr>
-                <th></th>
+              <tr>                
+                <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
                 <th>No.</th>
                 <th>Dental</th>
                 <th>Medical</th>
@@ -173,10 +186,15 @@ else {
   <div class="row">
     <div class="container-fluid">
       <form method="post" name="frm">
-        <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
-        <span style="word-spacing:normal;"> | With selected :</span>
         <label id="actions">
-          <span><a class="text-danger" style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-placement="right"> Delete</a></span>
+          <div class="btn-toolbar pull-right" role="toolbar">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <a class="text-warning btn btn-danger " style="cursor: pointer;" onclick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip" data-palcement="right"> Delete Multiple</a>
+              <a class='btn btn-primary ' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'>Print</a>
+              <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"> Send SMS</a>
+          </label>
+            </div>
+          </div>
         </label>
         <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
         <br>
@@ -184,7 +202,7 @@ else {
           <table class="table table-striped table-bordered" id="myTable">
             <thead>
               <tr>
-                <th></th>
+                <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
                 <th>No.</th>
                 <th>Dental</th>
                 <th>Medical</th>

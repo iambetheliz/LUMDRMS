@@ -19,19 +19,13 @@
 <link href="calendar/assets/cal.css" rel="stylesheet" />
 <link href="calendar/assets/fullcalendar.min.css" rel="stylesheet" />
 <link href="calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
+<link href="datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 <style type="text/css">
-  .modal-dialog {
-    width: 500px;
-  }
-.fc-unthemed td.fc-today {
-  background: #c3eec3;
+.modal-dialog {
+  width: 500px;
 }
-.fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-popover .fc-header {
-  background: #428b42;
-}
-.fc .fc-row .fc-content-skeleton table, .fc .fc-row .fc-content-skeleton td, .fc .fc-row .fc-helper-skeleton td {
-    /*background: white;*/
-    border-color: #ddd;
+.fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
+    border-color: #7fbf7f;
 }
 @media print {
   #calendar, .alert {
@@ -228,117 +222,134 @@
   </div>
   <!-- End of Content -->
 
-  <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  <div class="modal-content">
-  <form class="form-horizontal" method="POST" action="calendar/addEvent.php">
-  
+  <form id="addEvent" method="POST">  
+    <div class="modal-content">
     <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">Add Event</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
     </div>
-    <div class="modal-body">
-    
-      <div class="form-group">
-      <label for="title" class="col-sm-2 control-label">Title</label>
-      <div class="col-sm-10">
-        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-      </div>
-      </div>
-      <div class="form-group">
-      <label for="color" class="col-sm-2 control-label">Color</label>
-      <div class="col-sm-10">
-        <select name="color" class="form-control" id="color">
-          <option value="">Choose</option>
-          <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-          <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-          <option style="color:#008000;" value="#008000">&#9724; Green</option>             
-          <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-          <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-          <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-          <option style="color:#000;" value="#000">&#9724; Black</option>
-          
+    <div class="modal-body row">
+      <div class="container-fluid">
+        <div class="form-group">
+          <label for="title" class="control-label">Event Title:</label>
+          <input type="text" name="title" class="form-control" id="title" placeholder="Title" />
+          <br>
+          <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+          <select name="color" class="form-control" id="color">
+            <option value="">Choose</option>
+            <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+        <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+        <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+        <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+        <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+        <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+        <option style="color:#000;" value="#000">&#9724; Black</option>
         </select>
       </div>
       </div>
-      <div class="form-group">
-      <label for="start" class="col-sm-2 control-label">Start date</label>
-      <div class="col-sm-10">
-        <input type="text" name="start" class="form-control" id="start" readonly>
-      </div>
-      </div>
-      <div class="form-group">
-      <label for="end" class="col-sm-2 control-label">End date</label>
-      <div class="col-sm-10">
-        <input type="text" name="end" class="form-control" id="end" readonly>
-      </div>
-      </div>
-    
-    </div>
-    <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Save changes</button>
-    </div>
-  </form>
-  </div>
-  </div>
-</div>  
-  
-<!-- Modal -->
-<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-  <div class="modal-content">
-  <form class="form-horizontal" method="POST" action="calendar/editEventTitle.php">
-    <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
-    </div>
-    <div class="modal-body">
-    
-      <div class="form-group">
-      <label for="title" class="col-sm-2 control-label">Title</label>
-      <div class="col-sm-10">
-        <input type="text" name="title" class="form-control" id="title" placeholder="Title">
-      </div>
-      </div>
-      <div class="form-group">
-      <label for="color" class="col-sm-2 control-label">Color</label>
-      <div class="col-sm-10">
-        <select name="color" class="form-control" id="color">
-          <option value="">Choose</option>
-          <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-          <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-          <option style="color:#008000;" value="#008000">&#9724; Green</option>             
-          <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-          <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-          <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-          <option style="color:#000;" value="#000">&#9724; Black</option>
-          
-        </select>
-      </div>
-      </div>
-        <div class="form-group"> 
-        <div class="col-sm-offset-2 col-sm-10">
-          <div class="checkbox">
-          <label class="text-danger"><input type="checkbox"  name="delete"><span class="lbl"></span> Delete event</label>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="start" class="control-label">Start:</label>
+        <div class="input-group date">
+              <input type="text" class="form-control" id="start" name="start" />
+              <span class="input-group-addon">
+                <span class="fa fa-calendar"></span>
+              </span>
           </div>
         </div>
       </div>
-      
-      <input type="hidden" name="id" class="form-control" id="id">
-    
-    
-    </div>
+      <div class="col-lg-1"></div>
+        <div class="col-lg-6">
+          <div class="form-group">
+        <label for="end" class="control-label">End:</label>
+        <div class="input-group date">
+                <input type="text" class="form-control" id="end" name="end" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+            </div>
+        </div>  
+      </div>
+      </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="submit" class="btn btn-primary">Save changes</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
+    </div>
     </div>
   </form>
   </div>
+</div>  
+  
+<!-- Edit Event Modal -->
+<div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+  <form id="updateEvent" method="POST">
+    <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+      </div>
+      <div class="modal-body row">    
+      <div class="container-fluid">
+        <div class="form-group">
+          <label for="title" class="control-label">Event Title:</label>
+          <input type="text" name="title" class="form-control" id="title" placeholder="Title" />
+          <br>
+          <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+          <select name="color" class="form-control" id="color">
+            <option value="">Choose</option>
+            <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+        <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+        <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+        <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+        <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+        <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+        <option style="color:#000;" value="#000">&#9724; Black</option>
+        </select>
+      </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="start" class="control-label">Start:</label>
+        <div class="input-group date">
+              <input type="text" class="form-control" id="startEdit" name="start" />
+              <span class="input-group-addon">
+                <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+          <br>
+        <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="public"><span class="lbl"></span> Public Event</label>
+        </div>
+      </div>
+      <div class="col-lg-1"></div>
+        <div class="col-lg-6">
+          <div class="form-group">
+        <label for="end" class="control-label">End:</label>
+        <div class="input-group date">
+            <input type="text" class="form-control" id="endEdit" name="start" />
+              <span class="input-group-addon">
+                <span class="fa fa-calendar"></span>
+              </span>
+          </div>
+          <br>
+          <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="private"><span class="lbl"></span> Private Event</label>
+        </div>  
+      </div>      
+      <input type="hidden" name="id" class="form-control" id="id">      
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="submit" class="btn btn-primary" id="updateButton">Update Event</button>
+      <button type="button" class="btn btn-danger" id="deleteButton" name="delete">Delete Event</button>
+      </div>
+    </div>
+  </form>
   </div>
 </div>
-    <!--Modal-->
+<!--Modal-->
 
 <footer class="footer">
   <div class="container-fluid">
@@ -361,6 +372,11 @@
 <script src="charts/canvasjs.min.js"></script>
 <script src="charts/jquery.canvasjs.min.js"></script>
 <script src="charts/charts.js"></script>
+
+<!-- DAtepicker -->
+<script src="datepicker/js/moment-with-locales.js"></script>
+<script src="datepicker/js/bootstrap-datetimepicker.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
   $("#badges").load("badges.php");
@@ -423,38 +439,37 @@ $(document).ready(function(){
 });
 $(document).ready(function() {
   
-  $('#calendar').fullCalendar({
+  var calendar = $('#calendar').fullCalendar({
     header: {
       left: 'prev,next today',
       center: 'title',
       right: 'month,agendaWeek,agendaDay,listMonth'
     },
     editable: true,
+    navLinks: true,
     eventLimit: true, // allow "more" link when too many events
     selectable: true,
     selectHelper: true,
-    select: function(start, end) {      
-      $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm:ss'));
-      $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm:ss'));
-      $('#ModalAdd').modal('show');
+    select: function(start, end) {  
+      $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm a'));
+      $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm a'));
+        $('#ModalAdd').modal('show');       
     },
     eventRender: function(event, element) {
       element.bind('dblclick', function() {
         $('#ModalEdit #id').val(event.id);
         $('#ModalEdit #title').val(event.title);
         $('#ModalEdit #color').val(event.color);
+        $('#ModalEdit #startEdit').val(moment(event.start).format('YYYY-MM-DD HH:mm a'));
+        $('#ModalEdit #endEdit').val(moment(event.end).format('YYYY-MM-DD HH:mm a'));
         $('#ModalEdit').modal('show');
       });
     },
-    eventDrop: function(event, delta, revertFunc) { // si changement de position
-
+    eventDrop: function(event, delta, revertFunc) { // by changing position
       edit(event);
-
     },
-    eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // si changement de longueur
-
+    eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // by changing length
       edit(event);
-
     },
     events: [
     <?php foreach($events as $event): 
@@ -482,11 +497,87 @@ $(document).ready(function() {
     <?php endforeach; ?>
     ]
   });
+
+  $('#submitButton').on('click', function(e){
+      // We don't want this to act as a link so cancel the link action
+      e.preventDefault();
+      doSubmit();
+    });
+
+    function doSubmit(event){ 
+      var id = $('#ModalAdd #id').val();
+      var title = $('#ModalAdd #title').val();
+    var color = $('#ModalAdd #color').val();
+    var start = $('#ModalAdd #start').val();
+    var end = $('#ModalAdd #end').val();
+    $.ajax({
+        url: "calendar/add_events.php",
+        data: 'title='+title+'&start='+start+'&end='+end+'&color='+color,
+        type: "POST",
+        success: function(json) {
+          $("#calendar").fullCalendar('addEvent', id);
+
+          $.bootstrapGrowl("New Event added!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });    
+        $("#ModalAdd").modal('hide');
+        }
+      });  
+  }
+
+  $('#updateButton').on('click', function(e){
+      // We don't want this to act as a link so cancel the link action
+      e.preventDefault();
+      doUpdate();
+    });
+
+    function doUpdate(event){ 
+      console.log(id);
+      var id = $('#ModalEdit #id').val();
+      var title = $('#ModalEdit #title').val();
+    var color = $('#ModalEdit #color').val();
+    var start = $('#ModalEdit #startEdit').val();
+    var end = $('#ModalEdit #endEdit').val();
+    $.ajax({
+        url: "calendar/update_events.php",
+        data: 'title='+title+'&start='+start+'&end='+end+'&color='+color+'&id='+id,
+        type: "POST",
+        success: function(json) {
+          $('#calendar').fullCalendar('updateEvent',id);
+          $.bootstrapGrowl("Event updated!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });    
+        $("#ModalEdit").modal('hide');
+        }
+      });  
+  }
   
   function edit(event){
-    start = event.start.format('YYYY-MM-DD HH:mm:ss');
+    start = event.start.format('YYYY-MM-DD HH:mm a');
     if(event.end){
-      end = event.end.format('YYYY-MM-DD HH:mm:ss');
+      end = event.end.format('YYYY-MM-DD HH:mm a');
     }else{
       end = start;
     }
@@ -499,10 +590,10 @@ $(document).ready(function() {
     Event[2] = end;
     
     $.ajax({
-     url: 'calendar/editEventDate.php',
-     type: "POST",
-     data: {Event:Event},
-     success: function(rep) {
+      url: 'calendar/update_events.php',
+      type: "POST",
+      data: {Event:Event},
+      success: function(rep) {
         if(rep == 'OK'){
           $.bootstrapGrowl("Event updated!", // Messages
                 { // options
@@ -518,7 +609,8 @@ $(document).ready(function() {
                   allow_dismiss: true, // add a close button to the message
                   stackup_spacing: 10
                 });
-        }else{
+        }
+        else {
           $.bootstrapGrowl("Event cannot be saved!", // Messages
                 { // options
                   type: "danger", // info, success, warning and danger
@@ -537,7 +629,71 @@ $(document).ready(function() {
       }
     });
   }
-  
+
+  $('#deleteButton').on('click', function(e){
+    // We don't want this to act as a link so cancel the link action
+    e.preventDefault();
+    doDelete(event);
+  });
+
+  function doDelete(event){
+    var id = $('#ModalEdit #id').val();
+    $.ajax({
+      url: "calendar/delete_event.php",
+      data: "id="+id,
+      type: "POST",
+      success: function(json) {
+        $('#calendar').fullCalendar( 'removeEvent', event.id );  
+        $.bootstrapGrowl("Event deleted!", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });    
+      $("#ModalEdit").modal('hide');
+      }
+    });  
+  }
+});
+$('#start, #startEdit').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm a',
+  keepOpen: true,
+  icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+});
+$('#end, #endEdit').datetimepicker({
+  format: 'YYYY-MM-DD HH:mm a',
+  keepOpen: true,
+  icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+});
+$("#start").on("dp.change", function (e) {
+    $('#end').data("DateTimePicker").minDate(e.date);
+});
+$("#end").on("dp.change", function (e) {
+    $('#start').data("DateTimePicker").maxDate(e.date);
+});
+$("#startEdit").on("dp.change", function (e) {
+    $('#endEdit').data("DateTimePicker").minDate(e.date);
+});
+$("#endEdit").on("dp.change", function (e) {
+    $('#startEdit').data("DateTimePicker").maxDate(e.date);
 });
 </script>
     

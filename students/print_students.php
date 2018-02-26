@@ -33,11 +33,14 @@ include('../includes/dbconnect.php');
       </div>
     </h3>
 
-    <div class="btn-toolbar" role="toolbar">
-      <h4><strong>STUDENT RECORD</strong>
-      <button type="button" class="btn btn-primary pull-right"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
-      </h4>
+    <h4><strong>STUDENT RECORDS</strong>
+    <div class="btn-toolbar pull-right" role="toolbar">
+      <div class="btn-group mr-2" role="group" aria-label="First group">
+        <button type="button" class="btn btn-primary" onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
+        <a href="/lu_clinic/students/" role="button" class="btn btn-success">Back</a>
+      </div>
     </div>
+    </h4>
 
 <?php
 //Include database configuration file
