@@ -1,6 +1,23 @@
 /*CUSTOM STYLES*/
+tr.deleted {
+  background-color: beige;
+}
+.btn-toolbar.action {
+  width: 120px;
+}
 .btn-toolbar {
   margin-bottom: 10px;
+}
+.buttons, .filters {
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .buttons, .filters {
+    padding: 0;
+  }
+  .filters {
+    float: right;
+  }
 }
 .panel-table .panel-body{
   padding:0;
@@ -52,24 +69,6 @@ a.demo {
 }
 
 /*-----------------------*/
-
-/* For Print */
-.letterhead {
-    width: 600px;
-    margin: 0 auto;
-    margin-top: 20px;
-}
-@media print {
-  /* style sheet for print goes here */
-  .btn, .form-control {  display:none; }
-  thead {
-    background-color: #eee;
-    color: #666666;
-    font-weight: bold;
-  }
-}
-
-/*-------------------------*/
 
 /*For Login Page*/
 .auth-form {

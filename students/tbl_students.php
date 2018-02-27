@@ -9,17 +9,28 @@ if(isset($_POST['page'])){
     
     $start = !empty($_POST['page'])?$_POST['page']:0;
     $limit = 5;
-    if(isset($_POST['num_rows'])){
-        $limit = $_POST['num_rows'];
-    }
     
     //set conditions for search
+    $sortBy = $_POST['sortBy'];
+
     $whereSQL = $orderSQL = '';
     $keywords = $_POST['keywords'];
-    $sortBy = $_POST['sortBy'];
     $prog = $_POST["program_id"];
     $stats = $_POST["stats"];
     $archive = $_POST["archive"];
+    $count = $_POST['num_rows'];
+
+    if ( $count ){
+      $limit = $_POST['num_rows']; 
+    }
+    if ( !empty($count) && !empty($archive) ){
+      $limit = $_POST['num_rows']; 
+      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') ";
+    }
+    if ( !empty($count) && !empty($prog) ){
+      $limit = $_POST['num_rows']; 
+      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
+    }
 
     if ( !empty($keywords) ) {
       $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') ";
@@ -132,16 +143,16 @@ if(isset($_POST['page'])){
                 <td><?php echo $start;?></td>
                 <td><?php echo $row['dent']; ?></td>
                 <td><?php echo $row['med']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['studentNo']; ?></td>
+                <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['last_name']; ?></span></td>
+                <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['first_name']; ?></span></td>
+                <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['middle_name']; ?></span></td>
+                <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['ext'];?></span></td>
+                <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['studentNo']; ?></span></td>
                 <td><?php echo $row['program_name'];?></td>
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
-                <td style="width: 145px;">
-                  <div class="btn-toolbar" role="toolbar">
+                <td>
+                  <div class="btn-toolbar action" role="toolbar">
                     <?php 
                       if ($row['status'] == 'deleted') { 
                         ?>
@@ -150,7 +161,7 @@ if(isset($_POST['page'])){
                       }
                       else { 
                         ?>
-                        <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                        <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                         <?php 
                       }
                     ?>
@@ -263,17 +274,19 @@ else {
             <td><?php echo $start;?></td>
             <td><?php echo $row['dent']; ?></td>
             <td><?php echo $row['med']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['last_name']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['middle_name']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['ext'];?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><?php echo $row['studentNo']; ?></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['last_name']; ?></span></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['first_name']; ?></span></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['middle_name']; ?></span></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['ext'];?></span></td>
+            <td contenteditable="true" onblur="saveToDatabase(this,'studentNo','<?php echo $row["StatsID"]; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['studentNo']; ?></span></td>
             <td><?php echo $row['program_name'];?></td>
             <td><?php echo $row['yearLevel'];?></td>
             <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
-            <td style="width: 145px;">
-              <div class="btn-toolbar" role="toolbar">
-                <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="View Profile" data-toggle="tooltip" data-placement="bottom"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+            <td>
+              <div class="btn-toolbar action" role="toolbar">
+                <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a>
+                <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-placement="top" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
+                <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </div>
             </td>
           </tr>
@@ -283,16 +296,52 @@ else {
     </div>
     <!-- End of Table Responsive -->
     <?php echo $pagination->createLinks();  
-  } else { 
-    echo "<div class='alert alert-warning'>No result</div>"; 
+  } else { ?>
+    <div  align="center">
+      <span class="pull-right">
+        <strong class="text-success">Total no. of rows: 0</strong>
+      </span>
+      <br>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered" id="myTable">
+          <thead>
+            <tr>
+              <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
+              <th>No.</th>
+              <th>Dental</th>
+              <th>Medical</th>
+              <th width="100px">Last Name</th>
+              <th width="100px">First Name</th>
+              <th>Middle</th>
+              <th>Suffix</th>
+              <th width="110px">Student No.</th>
+              <th>Program</th>
+              <th>Year</th>    
+              <th>Added</th>        
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="13" align="center">
+                <p>No records found</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- End of Table Responsive -->
+    </div> 
+    <?php
   }
 }
 ?>
 
 <script type="text/javascript">
-$('document').ready(function() {
+$(document).ready(function() {
 
   $("[data-toggle=tooltip]").tooltip();
+  $("[data-toggle=modal]").tooltip();
 
   //  for select / deselect all
   $(".select-all").change(function () {
@@ -414,7 +463,7 @@ function editRow(editableObj) {
 }
 
 function saveToDatabase(editableObj,column,id) {
-  $(editableObj).css("background","#ddd");
+  $(editableObj).css("background","#ddd url(/lu_clinic/images/loading.gif) no-repeat right");
   $.ajax({
     url: "quick_edit.php",
     type: "POST",
@@ -422,7 +471,7 @@ function saveToDatabase(editableObj,column,id) {
     success: function(data){
       $(editableObj).css("background","#FDFDFD");
       $('#overlay').show();
-      $('#overlay').fadeOut(4000);
+      $('#overlay').fadeOut();
       $('td:contains("Pending")').css('color', 'red');
       $('td:contains("Ok")').css('color', 'green');
 

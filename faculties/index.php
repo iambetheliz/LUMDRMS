@@ -112,93 +112,141 @@
     <!-- End of Sidebar --> 
 
     <!-- Begin Main Screen -->
-    <div id="page-content-wrapper">
-      <div class="page-content">
-        <div class="container-fluid">   
+    <div class="container-fluid"> 
+      <div id="page-content-wrapper">
 
-          <!-- Page Heading -->
-          <div class="row">
-            <div class="container-fluid">
-              <h1 class="page-header">Faculty and Staff Records
-              <a class="btn btn-primary pull-right" name="input" type="button" href="print_faculty.php" style="cursor:pointer;" id="print">Print</a>
-              </h1>
+        <!-- Page Heading -->
+        <div class="row">
+          <h1 class="page-header">Faculty and Staff Records
+            <div class="col-lg-4 pull-right">
+              <div class="form-group filter">
+                <span class="fa fa-filter"></span>
+                <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+              </div>
+            </div>
+          </h1>
+        </div>
+        <!-- End of Page Heading -->
+
+        <div class="row">
+          <div class="alert alert-info alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+             <i class="glyphicon glyphicon-info-sign"></i>  <strong>Note!</strong> Select checkboxes if you want to delete multiple record.
+          </div>
+        </div>
+
+        <!-- Start of Toolbar -->
+        <div class="row"> 
+          <!-- Start of Control Buttons -->
+          <div class="col-lg-4 buttons">
+            <div class="btn-toolbar">
+              <div class="btn-group" role="group">
+                <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> New</button>
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-remove"></i> Multiple</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_faculty.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_faculty_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_faculty_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print</a>
+                <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"><i class="fa fa-envelope"></i> Send SMS</a>  
+              </div>          
             </div>
           </div>
-          <!-- End of Page Heading -->
-            
-          <!-- Buttons -->
-            <div class="row">
-              <!-- Start btn-toolbar -->
-              <div class="col-lg-8">
-                <div class="btn-toolbar">
-                  <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+          <!-- End of Control Buttons -->
 
-                  <div class="btn-group">
-                    <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
-                    <?php
-                      $numrows_arr = array("5","10","25","50","100","250");
-                      foreach($numrows_arr as $nrow){
-                        if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
-                          echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
-                        }
-                        else {
-                          echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
-                        }
+          <!-- Filter Options -->
+          <div class="col-lg-8 filters">
+            <div class="btn-toolbar pull-right">
+              <div class="btn-group">
+                <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
+                  <?php
+                    $numrows_arr = array("5","10","25","50","100","250");
+                    foreach($numrows_arr as $nrow){
+                      if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
+                        echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
                       }
-                    ?>
-                    </select>
-                  </div>
-
-                  <div class="btn-group">
-                    <select class="form-control" name="dept_list" id="dept_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show By Department</option>  
-                      <?php echo fill_program($DB_con); ?>  
-                    </select>
-                  </div>
-
-                  <div class="btn-group sort">
-                    <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                      <option value="">Sort A-Z</option>
-                      <option value="asc">Ascending</option>
-                      <option value="desc">Descending</option>
-                    </select>
-                  </div>
-
-                  <div class="btn-group">
-                    <select class="form-control" name="stats" id="stats" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">All Status</option>  
-                      <option value="Ok">Ok</option>  
-                      <option value="Pending">Pending</option>
-                    </select>
-                  </div>
-
-                </div>
+                      else {
+                        echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
+                      }
+                    }
+                  ?>
+                </select>
               </div>
-              <!-- End btn-toolbar -->
-
-              <div class="col-lg-4">
-                <div class="form-group filter">
-                  <span class="fa fa-filter"></span>
-                  <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
-                </div>
+              <div class="btn-group">
+                <select class="form-control" name="dept_list" id="dept_list" onchange="searchFilter()" style="cursor: pointer;">  
+                  <option value="">All Department</option>  
+                  <?php echo fill_program($DB_con); ?>  
+                </select>
               </div>
+              <div class="btn-group sort">
+                <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                  <option value="">Sort A-Z</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
+              <div class="btn-group">
+                <select class="form-control" name="stats" id="stats" onchange="searchFilter()" style="cursor: pointer;">  
+                  <option value="">All Status</option>  
+                  <option value="Ok">Ok</option>  
+                  <option value="Pending">Pending</option>
+                </select>
+              </div>
+              <div class="btn-group">
+                <select class="form-control" name="archive" id="archive" onchange="searchFilter()" style="cursor: pointer;">  
+                  <option value="active">Show Current</option>
+                  <option value="">Deleted/Active</option>  
+                  <option value="deleted">Deleted Only</option>
+                </select>
+              </div>                      
             </div>
-            <!-- End of Buttons -->
-
-          <br>
-		
-	        <div id="overlay" align="center">
-            <div>
-              <img src="../includes/loading.gif" width="64px" height="64px"/>
-            </div>
+            <!-- End of Filter Option -->
           </div>
+        </div>
+        <!-- End of Buttons -->
+        <br>
+
+        <div class="row">
           <div id="tbl_faculties">
             <!--
               This is where data will be shown.
             -->
+            <div  align="center">
+              <span class="pull-right">
+                <strong class="text-success">Total no. of rows: 0</strong>
+              </span>
+              <br>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered" id="myTable">
+                  <thead>
+                    <tr>
+                      <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label>
+                      </th>
+                      <th>No.</th>
+                      <th>Dental</th>
+                      <th>Medical</th>
+                      <th width="100px">Last Name</th>
+                      <th width="100px">First Name</th>
+                      <th>Middle</th>
+                      <th>Suffix</th>
+                      <th width="110px">Faculty No.</th>
+                      <th>Department</th>
+                      <th>Added</th>        
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr id="overlay">
+                      <td colspan="12" align="center">
+                        <p>Loading records <i class="fa fa-refresh fa-spin"></i></p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- End of Table Responsive -->
+            </div>
           </div>
-
-        </div>  
+        </div>
+ 
       </div>
     </div>
     <!-- End of Main Screen -->
@@ -273,7 +321,7 @@
                     <span class="error pull-right" id="errProg"></span>
                     <?php
                     //Get all dept data
-                    $query = $DB_con->query("SELECT * FROM department WHERE status = 1 ORDER BY dept_id ASC");
+                    $query = $DB_con->query("SELECT * FROM department WHERE stat = 1 ORDER BY dept_id ASC");
                     //Count total number of rows
                     $rowCount = $query->num_rows;
                   ?>
@@ -409,6 +457,25 @@ $(document).ready(function() {
   if(window.location.href.indexOf('#userModal') != -1) {
     $('#userModal').modal('show');
   }
+
+  $('#stats').on('change',function(){ 
+    var stat = $(this).val();
+    if (stat == 'Pending') {
+      $('#pen').show();
+      $('#print').hide();
+      $('#ok').hide();
+    }
+    else if (stat == 'Ok') {
+      $('#ok').show();
+      $('#pen').hide();
+      $('#print').hide();
+    }
+    else {
+      $('#print').show();
+      $('#pen').hide();
+      $('#ok').hide();
+    }
+  });
 
 });
 </script>

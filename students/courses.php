@@ -6,7 +6,7 @@ $DB_con = new mysqli("localhost", "root", "", "records");
 
 if(isset($_POST["dept_id"]) && !empty($_POST["dept_id"])){
     //Get all state data
-    $query = $DB_con->query("SELECT * FROM program WHERE dept_id = ".$_POST['dept_id']." AND status = 1 ORDER BY program_name ASC");
+    $query = $DB_con->query("SELECT * FROM program WHERE dept_id = ".$_POST['dept_id']." AND stat = 1 ORDER BY program_name ASC");
     
     //Count total number of rows
     $rowCount = $query->num_rows;

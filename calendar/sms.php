@@ -2,7 +2,7 @@
   include '../SMS/itext.php';
   include '../includes/dbconnect.php';
 
-  $query1 = $DB_con->query("SELECT phone FROM students WHERE phone = '0935 830 6457'");
+  $query1 = $DB_con->query("SELECT phone FROM students");
   $query2 = $DB_con->query("SELECT * FROM events");
   if ($query2->num_rows > 0){
     while($row2 = $query2->fetch_assoc()){

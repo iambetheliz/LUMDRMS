@@ -30,7 +30,7 @@ CREATE TABLE `department` (
   `dept_id` int(11) NOT NULL AUTO_INCREMENT,
   `dept_name` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `cat` int(2) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active',
+  `stat` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active',
   PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -38,7 +38,7 @@ CREATE TABLE `department` (
 -- Dumping data for table `department`
 --
 
-INSERT INTO `department` (`dept_id`, `dept_name`, `cat`, `status`) VALUES
+INSERT INTO `department` (`dept_id`, `dept_name`, `cat`, `stat`) VALUES
 (1, 'CAST', 2, 1),
 (2, 'COED', 2, 1),
 (3, 'CEMA', 2, 1),
@@ -297,7 +297,7 @@ CREATE TABLE `program` (
   `program_name` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `alias` varchar(8) NOT NULL,
   `dept_id` int(11) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active',
+  `stat` tinyint(1) NOT NULL DEFAULT '1' COMMENT '0:Blocked, 1:Active',
   PRIMARY KEY (`program_id`),
   KEY `dept_id` (`dept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -306,7 +306,7 @@ CREATE TABLE `program` (
 -- Dumping data for table `program`
 --
 
-INSERT INTO `program` (`program_id`, `program_name`, `alias`, `dept_id`, `status`) VALUES
+INSERT INTO `program` (`program_id`, `program_name`, `alias`, `dept_id`, `stat`) VALUES
 (1, 'BS Information Technology', 'BSIT', 1, 1),
 (2, 'BS Computer Science', 'BSCS', 1, 1),
 (3, 'Bachelor in Arts and Communication', 'BAC', 1, 1),

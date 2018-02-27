@@ -1,0 +1,22 @@
+
+.letterhead {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+@media print {
+  /* style sheet for print goes here */
+  .btn, .form-control {  display:none; }
+  thead {
+    background-color: #eee;
+    color: #666666;
+    font-weight: bold;
+  }
+  .col-lg-5 {
+  	padding: 0;
+  	margin-bottom: 20px;
+  }
+  #first, #second, #third, #fourth {
+  	padding: 0;
+  }
+}

@@ -19,7 +19,7 @@ include('../includes/dbconnect.php');
 <body>
 
 <div class="container">
-  <div class="row">
+  <div class="page-content-wrapper">
 
     <h3 class="page-header" align="center">
       <div class="letterhead">
