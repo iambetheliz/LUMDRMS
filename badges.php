@@ -131,7 +131,7 @@
     </div>
   </div>
 </div>  
-<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="display: none;">
   <div class="offer offer-info">
     <?php    
       $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE status = 'deleted' $whereDel) AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE status = 'deleted' $whereDel) AS total_faculties");

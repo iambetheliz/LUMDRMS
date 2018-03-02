@@ -140,9 +140,7 @@ tr.fc-list-item.fc-allow-mouse-resize {
         <!-- Page Heading -->
         <div class="row">
           <div class="container-fluid">
-            <h1 class="page-header">Calendar Activities 
-          		<button type="button" id="refresh" class="btn btn-default pull-right"><i class="fa fa-refresh"></i></button>
-          	</h1>
+            <h1 class="page-header">Calendar Activities</h1>
           </div>
         </div>
         <!-- End of Page Heading -->

@@ -1,4 +1,10 @@
 /*CUSTOM STYLES*/
+/* Filter Options */
+#dropdown-filter-options {
+  position: absolute;
+  top: 80px;
+  right: -53%;
+}
 .col-1 {
   margin-right: 10px;
 }

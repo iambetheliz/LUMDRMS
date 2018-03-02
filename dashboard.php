@@ -21,9 +21,6 @@
 <link href="calendar/assets/fullcalendar.print.css" rel="stylesheet" media="print" />
 <link href="datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
 <style type="text/css">
-.modal-dialog {
-  width: 500px;
-}
 .fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
     border-color: #7fbf7f;
 }
@@ -99,159 +96,161 @@
     <!-- End of Sidebar --> 
 
     <!-- Begin Main Screen -->
-    <div id="page-content-wrapper">
-      <div class="page-content">
-        <div class="container-fluid">    
+    <div class="container-fluid">   
+      <div id="page-content-wrapper">
 
-            <!-- Page Heading -->
-            <div class="row">
-              <div class="container-fluid">
-                <h2 class="page-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard
-                  <div class="btn-toolbar pull-right" role="toolbar">
-                    <div class="btn-group mr-2" role="group" aria-label="First group">
-                      <button type="button" class="btn btn-default" name="day" id="day">Day</button>
-                      <button type="button" class="btn btn-default" name="week" id="week">Week</button>
-                      <button type="button" class="btn btn-default" name="month" id="month">Month</button>
-                      <button type="button" class="btn btn-default" name="year" id="year">Year</button>
-                    </div>
+        <!-- Page Heading -->
+        <div class="row">
+          <h2 class="page-header">Dashboard
+            <div class="btn-toolbar pull-right" role="toolbar">
+              <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
 
-                    <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
-                    </div>
-                </h2>
-              </div>
-            </div>  
-
-            <?php 
-            if (isset($_GET['loginSuccess'])) {?>  
-              <div class="alert alert-success success-login" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <?php echo $successMSG; ?>
-              </div>              
-            <?php }?>
-
-            <center>
-              <div class="container-fluid" style="display: none;">
-              <label>Filter by Date Range: </label>
-                <div class="row">
-                  <form class="form-inline" id="daterange" method="POST">
-                    <div class="form-group mb-2">
-                      <div class="input-group date">
-                        <input type="text" class="form-control" id="filter_start" name="filter_start" />
-                        <span class="input-group-addon">
-                          <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
-                        </span>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label for="end" class="control-label">-</label>
-                      <div class="input-group date">
-                        <input type="text" class="form-control" id="filter_end" name="filter_end" />
-                        <span class="input-group-addon">
-                          <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
-                        </span>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary mb-2" name="go" id="go" value="go">GO</button>
-                  </form>   
-                </div>
-            <br><br>
-              </div>
-            </center>
-
-            <div class="alert alert-info" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i><strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
-            </div>
-            <!-- End of Page Heading -->
-
-            
-            <!-- Notification Badges -->
-            <div class="row">
-              <div id="badges"></div>              
-            </div>
-            <!-- End of Badges -->
-
-            <hr><br>
-
-            <!--Graphs -->
-            <div class="row">
-              <div class="container-fluid">
-                <div id="chartContainer" style="height: 370px; width: 100%; margin: 0px auto;"></div>
+              <div class="btn-group filter-options">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#dropdown-filter-options">
+                  Filter Date <i class="fa fa-caret-down"></i>
+                </button>
               </div>
             </div>
+          </h2>
+        </div>  
+        <!-- End of Page Heading -->
 
-            <hr><br>
-            
-            <div class="row">
-              <!-- Calendar -->
-              <div class="col-md-8">
-                <div id='calendar'></div>
-              </div>
-              <!-- Table -->
-              <div class="col-md-4">
-                <div class="panel panel-success panel-table">
-                  <div class="panel-heading">
-                    <div class="row">
-                      <div class="container-fluid">
-                        <div class="panel-title">
-                          <strong>Gender Population</strong>
-                        </div>
+        <div class="row">
+          <div class="alert alert-info" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i><strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
+          </div>
+        </div>
+          
+          <!-- Notification Badges -->
+          <div class="row">
+            <div id="badges"></div>              
+          </div>
+          <!-- End of Badges -->
+
+          <hr><br>
+
+          <!--Graphs -->
+          <div class="row">
+            <div class="container-fluid">
+              <div id="chartContainer" style="height: 370px; width: 100%; margin: 0px auto;"></div>
+            </div>
+          </div>
+
+          <hr><br>
+          
+          <div class="row">
+            <!-- Calendar -->
+            <div class="col-md-8">
+              <div id='calendar'></div>
+            </div>
+            <!-- Table -->
+            <div class="col-md-4">
+              <div class="panel panel-success panel-table">
+                <div class="panel-heading">
+                  <div class="row">
+                    <div class="container-fluid">
+                      <div class="panel-title">
+                        <strong>Gender Population</strong>
                       </div>
                     </div>
                   </div>
-                  <div class="panel-body">
-                  <table class="table table-striped table-bordered table-list">
-                    <thead>
-                      <tr>
-                        <th>Gender</th>
-                        <th>Population</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    <?php    
-                      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Female') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Female') AS total_faculties");
-                      $female = mysqli_fetch_array($query);
-                      $f_count = $female['total_students'] + $female['total_faculties'];
-
-                      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Male') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Male') AS total_faculties");
-                      $male = mysqli_fetch_array($query);
-                      $m_count = $male['total_students'] + $male['total_faculties'];
-
-                      $total = $f_count + $m_count;
-
-                      if (!empty($female && $male)) {
-                        echo "<tr>";
-                        echo "<td>Female</td>";
-                        echo "<td>" . $f_count . "</td>";
-                        echo "</tr>"; 
-                        echo "<tr>";
-                        echo "<td>Male</td>";
-                        echo "<td>" . $m_count . "</td>";
-                        echo "</tr>"; 
-                        echo "<tr>";
-                        echo "<td><strong>Total</strong></td>";
-                        echo "<td><strong>" . $total . "</strong></td>";
-                        echo "</tr>"; 
-                      }                        
-                      else {
-                        echo "<tr><td colspan='2'>No records found</td></tr>";
-                      }
-                    ?>
-                    </tbody>
-                  </table>
                 </div>
+                <div class="panel-body">
+                <table class="table table-striped table-bordered table-list">
+                  <thead>
+                    <tr>
+                      <th>Gender</th>
+                      <th>Population</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  <?php    
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Female') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Female') AS total_faculties");
+                    $female = mysqli_fetch_array($query);
+                    $f_count = $female['total_students'] + $female['total_faculties'];
+
+                    $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE sex = 'Male') AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE sex = 'Male') AS total_faculties");
+                    $male = mysqli_fetch_array($query);
+                    $m_count = $male['total_students'] + $male['total_faculties'];
+
+                    $total = $f_count + $m_count;
+
+                    if (!empty($female && $male)) {
+                      echo "<tr>";
+                      echo "<td>Female</td>";
+                      echo "<td>" . $f_count . "</td>";
+                      echo "</tr>"; 
+                      echo "<tr>";
+                      echo "<td>Male</td>";
+                      echo "<td>" . $m_count . "</td>";
+                      echo "</tr>"; 
+                      echo "<tr>";
+                      echo "<td><strong>Total</strong></td>";
+                      echo "<td><strong>" . $total . "</strong></td>";
+                      echo "</tr>"; 
+                    }                        
+                    else {
+                      echo "<tr><td colspan='2'>No records found</td></tr>";
+                    }
+                  ?>
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
-          <!-- End of tables -->
+        </div>
+        <!-- End of tables -->
 
-        </div>  
       </div>
     </div>
     <!-- End of Main Screen -->
   
   </div>
   <!-- End of Content -->
+
+  <div id="dropdown-filter-options" class="modal" tabindex="-1" role="dialog" data-backdrop="false">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="col">
+            <form class="form-inline" id="daterange" method="POST">
+              <div class="form-group mb-1">
+                <div class="input-group date">
+                  <input type="text" class="form-control" id="filter_start" name="filter_start" />
+                  <span class="input-group-addon">
+                    <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="end" class="control-label">-</label>
+                <div class="input-group date">
+                  <input type="text" class="form-control" id="filter_end" name="filter_end" />
+                  <span class="input-group-addon">
+                    <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <button type="submit" style="margin-left: 5px" class="btn btn-primary mb-2" name="go" id="go" value="go">Filter</button>
+            </form>
+          </div>
+          <br>
+          <div class="btn-toolbar">
+            <div class="btn-group-vertical pull-right">
+              <button type="button" class="btn btn-default" name="day" id="day">Day</button>
+              <button type="button" class="btn btn-default" name="week" id="week">Week</button>
+              <button type="button" class="btn btn-default" name="month" id="month">Month</button>
+              <button type="button" class="btn btn-default" name="year" id="year">Year</button>
+            </div>   
+          </div>
+          <div class="modal-footer">            
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <!-- Modal -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

@@ -41,10 +41,11 @@
 }
 
 @media (min-width: 768px) {
-.modal-dialog {
-    width: 800px;
-    margin: 30px auto;
-}}
+  .modal-dialog {
+      width: 800px;
+      margin: 30px auto;
+  }
+}
 </style>
 </head>
 <body>
