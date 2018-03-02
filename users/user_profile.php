@@ -56,55 +56,55 @@ label.error {
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-              <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-              <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
           </li>
           <li role="presentation" class="have-child">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
-                  <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                  <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-              </li>
-              <li>
-              <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
             </ul>
           </li>
           <?php 
-            if ($userRow['role'] === 'superadmin') {?>
+            if ($userRow['role'] == 'superadmin') {?>
             <li class="active">
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
         </ul>
       </nav>
     </div>  
-    <!-- End of Sidebar --> 
+    <!-- End of Sidebar -->
 
     <!-- Begin Main Screen -->
     <div id="page-content-wrapper">

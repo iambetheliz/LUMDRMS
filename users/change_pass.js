@@ -1,19 +1,15 @@
-$('document').ready(function() { 
+$(document).ready(function() { 
   /* validation */
   $("#change_pass_form").validate({
     rules: {
       password: {
         required: true,
-      },
-      username: {
-        required: true,
-      },
+      }
     },
     messages: {
       password: {
         required: "Please enter your password"
-      },
-      username: "Please enter your userName",
+      }
     },
     submitHandler: submitForm 
   });  

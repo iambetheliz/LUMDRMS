@@ -10,10 +10,6 @@
   exit;
   }
 
-  if (isset($_GET['attempt'])) {
-    $errMSG = "You need to login first!";
-  }
-
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -95,7 +91,7 @@ label.error {
             
               <div class="form-group password">
                 <label>Password</label>
-                <input type="password" name="pass" id="password" class="form-control"  maxlength="15" required />
+                <input type="password" name="pass" id="password" class="form-control" required />
                 <span class="glyphicon glyphicon-eye-open"></span>
                 <small><span class="text-danger" id="pass_error"></span></small>
               </div>

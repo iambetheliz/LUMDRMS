@@ -48,48 +48,48 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li class="active">
-            <a href="/lu_clinic/"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
           </li>
           <li role="presentation" class="have-child">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
-                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
-              <li>
-              <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
             </ul>
           </li>
           <?php 
-            if ($userRow['role'] === 'superadmin') {?>
+            if ($userRow['role'] == 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -106,7 +106,7 @@
             <!-- Page Heading -->
             <div class="row">
               <div class="container-fluid">
-                <h2 class="page-header">Dashboard
+                <h2 class="page-header"><i class="fa fa-bar-chart" aria-hidden="true"></i> Dashboard
                   <div class="btn-toolbar pull-right" role="toolbar">
                     <div class="btn-group mr-2" role="group" aria-label="First group">
                       <button type="button" class="btn btn-default" name="day" id="day">Day</button>
@@ -115,7 +115,7 @@
                       <button type="button" class="btn btn-default" name="year" id="year">Year</button>
                     </div>
 
-                    <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
+                    <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
                     </div>
                 </h2>
               </div>
@@ -128,15 +128,46 @@
                 <?php echo $successMSG; ?>
               </div>              
             <?php }?>
+
+            <center>
+              <div class="container-fluid" style="display: none;">
+              <label>Filter by Date Range: </label>
+                <div class="row">
+                  <form class="form-inline" id="daterange" method="POST">
+                    <div class="form-group mb-2">
+                      <div class="input-group date">
+                        <input type="text" class="form-control" id="filter_start" name="filter_start" />
+                        <span class="input-group-addon">
+                          <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="end" class="control-label">-</label>
+                      <div class="input-group date">
+                        <input type="text" class="form-control" id="filter_end" name="filter_end" />
+                        <span class="input-group-addon">
+                          <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                        </span>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mb-2" name="go" id="go" value="go">GO</button>
+                  </form>   
+                </div>
+            <br><br>
+              </div>
+            </center>
+
             <div class="alert alert-info" role="alert">
               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <p><span class="glyphicon glyphicon-info-sign"></span> <strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
+              <p><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i><strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
             </div>
             <!-- End of Page Heading -->
 
+            
             <!-- Notification Badges -->
-            <div class="row" id="badges">
-              
+            <div class="row">
+              <div id="badges"></div>              
             </div>
             <!-- End of Badges -->
 
@@ -158,7 +189,7 @@
               </div>
               <!-- Table -->
               <div class="col-md-4">
-                <div class="panel panel-default panel-table">
+                <div class="panel panel-success panel-table">
                   <div class="panel-heading">
                     <div class="row">
                       <div class="container-fluid">
@@ -209,7 +240,6 @@
                     </tbody>
                   </table>
                 </div>
-                <div class="panel-footer"></div>
               </div>
             </div>
           </div>
@@ -257,7 +287,7 @@
         <div class="input-group date">
               <input type="text" class="form-control" id="start" name="start" />
               <span class="input-group-addon">
-                <span class="fa fa-calendar"></span>
+                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
               </span>
           </div>
         </div>
@@ -269,7 +299,7 @@
         <div class="input-group date">
                 <input type="text" class="form-control" id="end" name="end" />
                 <span class="input-group-addon">
-                  <span class="fa fa-calendar"></span>
+                  <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
                 </span>
             </div>
         </div>  
@@ -318,7 +348,7 @@
         <div class="input-group date">
               <input type="text" class="form-control" id="startEdit" name="start" />
               <span class="input-group-addon">
-                <span class="fa fa-calendar"></span>
+                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
               </span>
           </div>
           <br>
@@ -330,9 +360,9 @@
           <div class="form-group">
         <label for="end" class="control-label">End:</label>
         <div class="input-group date">
-            <input type="text" class="form-control" id="endEdit" name="start" />
+            <input type="text" class="form-control" id="endEdit" name="end" />
               <span class="input-group-addon">
-                <span class="fa fa-calendar"></span>
+                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
               </span>
           </div>
           <br>
@@ -380,7 +410,44 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+  $('#daterange').submit(function() {
+    return false;
+    $.ajaxSetup ({
+      cache: false
+    });
+  });
   $("#badges").load("badges.php");
+  $("#go").click(function () {
+    filter_end = $("#filter_end").val();
+    filter_start = $("#filter_start").val();
+    go = $("#go").val();
+    $.ajax({    
+      type:'POST',
+      url:'badges.php',
+      cache: false,
+      data:{filter_end:filter_end,filter_start:filter_start,go:go},
+      success:function(data){
+        $("#badges").html(data); 
+      }
+    });
+  });
+  $('#filter_start, #filter_end').datetimepicker({
+    format: 'YYYY-MM-DD',
+    keepOpen: true,
+    icons: {
+      time: "col-1 fa fa-clock-o",
+      date: "col-1 fa fa-calendar",
+      up: "col-1 fa fa-arrow-up",
+      down: "col-1 fa fa-arrow-down"
+    }
+  });
+  $("#filter_start").on("dp.change", function (e) {
+    $('#filter_end').data("DateTimePicker").minDate(e.date);
+  });
+  $("#filter_end").on("dp.change", function (e) {
+    $('#filter_start').data("DateTimePicker").maxDate(e.date);
+  });
+
   $('#year').click(function(){
     var day = $('#day').val();
     var week = $('#week').val();
@@ -668,20 +735,20 @@ $('#start, #startEdit').datetimepicker({
   format: 'YYYY-MM-DD HH:mm a',
   keepOpen: true,
   icons: {
-    time: "fa fa-clock-o",
-    date: "fa fa-calendar",
-    up: "fa fa-arrow-up",
-    down: "fa fa-arrow-down"
+    time: "col-1 fa fa-clock-o",
+    date: "col-1 fa fa-calendar",
+    up: "col-1 fa fa-arrow-up",
+    down: "col-1 fa fa-arrow-down"
   }
 });
 $('#end, #endEdit').datetimepicker({
   format: 'YYYY-MM-DD HH:mm a',
   keepOpen: true,
   icons: {
-    time: "fa fa-clock-o",
-    date: "fa fa-calendar",
-    up: "fa fa-arrow-up",
-    down: "fa fa-arrow-down"
+    time: "col-1 fa fa-clock-o",
+    date: "col-1 fa fa-calendar",
+    up: "col-1 fa fa-arrow-up",
+    down: "col-1 fa fa-arrow-down"
   }
 });
 $("#start").on("dp.change", function (e) {
@@ -696,6 +763,7 @@ $("#startEdit").on("dp.change", function (e) {
 $("#endEdit").on("dp.change", function (e) {
     $('#startEdit').data("DateTimePicker").maxDate(e.date);
 });
+
 </script>
     
 </body>

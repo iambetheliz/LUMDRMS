@@ -1,16 +1,23 @@
 <?php  
-//filter.php 
-//Include database configuration file
-include('includes/dbconnect.php');
-include('includes/Class.NumbersToWords.php');
+  //filter.php 
+  //Include database configuration file
+  include('includes/dbconnect.php');
+  include('includes/Class.NumbersToWords.php');
 
-$DB_con = new mysqli("localhost", "root", "", "records");
+  $whereTotal = '';
+  $whereSOAP = '';
+  $whereDent = '';
+  $whereMed = '';
+  $whereDel = '';
 
-$whereTotal = '';
-$whereSOAP = '';
-$whereDent = '';
-$whereMed = '';
-$whereDel = '';
+  if (isset($_POST['go'])) {
+    $whereTotal = ' WHERE date_registered >= "'.$_POST['filter_start'].'" AND date_registered <= "'.$_POST['filter_end'].'" ';
+    $whereSOAP = ' WHERE date_checked >= "'.$_POST['filter_start'].'" AND date_checked <= "'.$_POST['filter_end'].'" ';
+    $whereDent = ' WHERE date_checked >= "'.$_POST['filter_start'].'" AND date_checked <= "'.$_POST['filter_end'].'" ';
+    $whereMed = ' WHERE date_checked_up >= "'.$_POST['filter_start'].'" AND date_checked_up <= "'.$_POST['filter_end'].'" ';
+    $whereDel = ' AND CONCAT(date_deleted >= "'.$_POST['filter_start'].'" AND date_deleted <= "'.$_POST['filter_end'].'") ';
+  }
+
   if(isset($_POST['year'])) { 
     $whereTotal = ' WHERE YEAR(date_registered) = YEAR(NOW()) ';
     $whereSOAP = ' WHERE YEAR(date_checked) = YEAR(NOW()) ';
@@ -43,13 +50,34 @@ $whereDel = '';
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
   <div class="offer offer-success">
     <?php   
-      $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_stats` $whereTotal) AS total_students, (SELECT COUNT(*) FROM `faculty_stats` $whereTotal) AS total_faculties");
+      $query = mysqli_query($DB_con,"SELECT COUNT(*) FROM `students_stats` $whereTotal");
       $row = mysqli_fetch_array($query);
-      $count = $row['total_students'] + $row['total_faculties'];
+      $count = $row['COUNT(*)'];
     ?>            
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
     <div class="offer-content">
-      <h4><i class="fa fa-users"></i> Patients Registered</h4>  
+      <h4><i class="fa fa-graduation-cap"></i> Students</h4>  
+      <?php 
+        if ($count != 0) { ?> 
+          <small>You have added <strong><i><?php echo NumbersToWords::convert($count); ?></i></strong> records.</small>
+          <?php }
+        else { ?>
+          <small>You haven't added any record.</small>
+        <?php }
+      ?>
+    </div>
+  </div>
+</div>
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+  <div class="offer offer-primary">
+    <?php   
+      $query = mysqli_query($DB_con,"SELECT COUNT(*) FROM `faculty_stats` $whereTotal");
+      $row = mysqli_fetch_array($query);
+      $count = $row['COUNT(*)'];
+    ?>            
+    <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
+    <div class="offer-content">
+      <h4><i class="fa fa-briefcase"></i> Faculty and Staff</h4>  
       <?php 
         if ($count != 0) { ?> 
           <small>You have added <strong><i><?php echo NumbersToWords::convert($count); ?></i></strong> records.</small>

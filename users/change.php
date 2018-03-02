@@ -21,7 +21,7 @@
       $userRow = $result->fetch_array(MYSQLI_BOTH);
       $old_pwd = $userRow['userPass'];
     
-      $curr_pwd = hash('sha256', $curr_pass);
+      $curr_pwd = hash('sha256',$curr_pass);
     
       if ($old_pwd == $curr_pwd) {
         //echo $pssw;

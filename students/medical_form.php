@@ -456,7 +456,7 @@ table#physical td {
                             </label>
                           </td>
                           <td>
-                            <input type="text" id="input_abnormal_gen" class="form-control" name="gen_sur" disabled>
+                            <input type="text" id="input_abnormal_gen" class="form-control" name="gen_sur">
                           </td>
                         </tr>
                         <tr>
@@ -472,7 +472,7 @@ table#physical td {
                             </label>
                           </td>
                           <td>
-                            <input type="text" id="input_abnormal_skin" class="form-control" name="skin" disabled>
+                            <input type="text" id="input_abnormal_skin" class="form-control" name="skin">
                           </td>
                         </tr>
                         <tr>
@@ -548,7 +548,7 @@ table#physical td {
                           </td>
                           <td>
                             <label class="radio-inline">
-                              <input type="radio" class="form-check-input" name="extreme" value="Abnormal" id="abdomen_extreme"> <span class="lbl"></span>
+                              <input type="radio" class="form-check-input" name="extreme" value="Abnormal" id="abnormal_extreme"> <span class="lbl"></span>
                             </label>
                           </td>
                           <td>
@@ -633,9 +633,14 @@ $(document).ready(function() {
   $("input[type=radio]").click(function () {
     if ($("#normal_gen").is(":checked")) {
       $("#input_abnormal_gen").prop("disabled", true);
-    } else if ($("#abnormal_gen").is(":checked")) {
+    } 
+    else if ($("#abnormal_gen").is(":checked")) {
       $("#input_abnormal_gen").prop("disabled", false);
+    } 
+    else if ($("#input_abnormal_gen").is(":focus")) {
+      $("#abnormal_gen").attr("checked", "checked");
     }
+
     if ($("#normal_skin").is(":checked")) {
       $("#input_abnormal_skin").prop("disabled", true);
     } else if ($("#abnormal_skin").is(":checked")) {

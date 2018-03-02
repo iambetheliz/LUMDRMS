@@ -24,6 +24,10 @@
   if (isset($_GET['loginSuccess'])) {
     $successMSG = "Hello, <strong>".ucwords($userRow['userName'])."!</strong> You have been signed in successfully!";
   }
+  if ($userRow['role'] != 'superadmin') {
+    header("Location: /lu_clinic/index.php?attempt");
+    exit;
+  }
 
 ?>
 
@@ -48,6 +52,9 @@ label.error {
 .form-control.error {
   border-color: indianred;
 }
+.modal-dialog {
+  width: 800px;
+}
 </style>
 </head>
 <body>
@@ -64,48 +71,48 @@ label.error {
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-              <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-              <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
           </li>
           <li role="presentation" class="have-child">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
-                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
-              <li>
-              <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
             </ul>
           </li>
           <?php 
-            if ($userRow['role'] === 'superadmin') {?>
+            if ($userRow['role'] == 'superadmin') {?>
             <li class="active">
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -115,103 +122,87 @@ label.error {
     <!-- End of Sidebar --> 
 
     <!-- Begin Main Screen -->
-    <div id="page-content-wrapper">
-      <div class="page-content">
-        <div class="container-fluid">    
-          <!-- Page Heading -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <h2 class="page-header">User Accounts</h2>
-                </div>
-            </div> 
+    <div class="container-fluid"> 
+      <div id="page-content-wrapper">
 
-            <div class="row container-fluid">
-              <div class="col-lg-4">
-                <div id="add-product">
-                  <div class="panel panel-success">
-                    <div class="panel-heading">
-                      <div class="panel-title"><Strong>ADD USER</Strong></div>
-                    </div>
-                    <div class="panel-body">
-                      <form method="POST" id="add_user" autocomplete />
-                        <fieldset>                                
-                            <?php
-                              if ( isset($errMSG) ) { ?>
-                                <div class="form-group">
-                                  <div class="alert alert-<?php echo ($errTyp=="success") ? "success" : $errTyp; ?>">
-                                    <span class="glyphicon glyphicon-info-sign"></span> <?php echo $errMSG; ?>
-                                  </div>
-                                </div><?php
-                              }
-                            ?>
-                
-                            <div class="form-group">
-                              <label>Username:</label>
-                              <input type="text" name="name" class="form-control"  id="username" minlength="5" autofocus required />
-                            </div>
+        <!-- Page Heading -->
+        <div class="row">
+          <h2 class="page-header">User Accounts</h2>
+        </div> 
 
-                            <div class="form-group">
-                              <label>Firstname:</label>
-                              <input type="text" name="first_name" class="form-control" maxlength="50" id="first_name" required />
-                            </div>
+        <div class="row">
+          <div class="btn-toolbar" role="toolbar">
+            <button type="button" id="add_button" data-toggle="modal" data-target="#modal-add" class="btn btn-success"><i class="fa fa-plus"></i> New</button>
+          </div>
+        </div>
 
-                            <div class="form-group">
-                              <label>Lastname:</label>
-                              <input type="text" name="last_name" class="form-control" maxlength="50" id="last_name" required />
-                            </div>
-                            
-                            <div class="form-group">
-                              <label>Position:</label>
-                              <select class="form-control" name="position" id="position" required>
-                                <option>Select</option>>
-                                <option value="School Nurse">School Nurse</option>
-                                <option value="School Physician">School Physician</option>
-                                <option value="School Dentist">School Dentist</option>
-                              </select>       
-                            </div>
-                            
-                            <div class="form-group">
-                              <label>Password:</label>
-                              <input type="password" name="pass" class="form-control"  maxlength="15" id="password" required /> 
-                            </div>
+        <div class="row">
+          <div id="list-users"></div>
+        </div>
 
-                            <div class="form-check">
-                              <label class="checkbox-inline">
-                                <input type="checkbox" class="form-check-input" id="chkShow"/>Show Password
-                              </label>
-                            </div>
-                            
-                            <div class="form-group">
-                              <hr />
-                            </div>
-                            
-                            <div class="form-group">
-                              <button type="submit" class="btn btn-success" name="btn-signup" id="register">Add User</button>
-                              <span class="pull-right" onclick="$('#password').val(password.generate());"><button class="btn btn-primary" type="button">
-                                Generate Password <span class="fa fa-key"></span>
-                                </button>
-                              </span>
-                            </div>
-
-                            <i><small class="text-muted">(Note: You can add your desired password or click 'Generate password' to create a random strong password.)</small></i>
-                        </fieldset>   
-                      </form> 
-                    </div>  
-                  </div>
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div id="list-users"></div>
-              </div>
-            </div>
-
-        </div>  
       </div>
     </div>
     <!-- End of Main Screen -->
   
   </div>
   <!-- End of Content -->
+
+  <form method="POST" id="add_user">
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-add">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Add New User</h4>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">   
+                  <label>Firstname:</label>
+                  <input type="text" name="first_name" class="form-control" minlength="3" id="first_name" autofocus required />
+                  <br>
+                  <label>Lastname:</label>
+                  <input type="text" name="last_name" class="form-control" minlength="3" id="last_name" required />
+                  <br>
+                  <label>Position:</label>
+                  <select class="form-control" name="position" id="position" required>
+                    <option value="">Select</option>>
+                    <option value="School Nurse">School Nurse</option>
+                    <option value="School Physician">School Physician</option>
+                    <option value="School Dentist">School Dentist</option>
+                  </select>       
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>Username:</label>
+                  <input type="text" name="name" class="form-control" id="username" minlength="5" required /><span id="result"></span>
+                  <br>
+                  <label>Password:</label>
+                  <input type="password" name="pass" class="form-control" minlength="6" id="password" required /> 
+                  <br>
+                  <label class="checkbox-inline">
+                    <input type="checkbox" class="form-check-input" id="chkShow"/><span class="lbl"></span> Show Password 
+                  </label>
+                  <br> <br> 
+                  <span onclick="$('#password').val(password.generate());"><button class="btn btn-primary" type="button">
+                    Generate Password <span class="fa fa-key"></span>
+                    </button>
+                  </span> <br>
+                  <i><small class="text-muted">(Note: You can add your desired password or click 'Generate password' to create a random strong password.)</small></i>
+                </div>     
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" name="btn-signup" id="register">Add User</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 
   <footer class="footer">
     <div class="container-fluid">
@@ -222,6 +213,7 @@ label.error {
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js" type="text/javascript"></script>
+<script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/password.js"></script>
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>

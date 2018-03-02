@@ -178,7 +178,7 @@
                         </div>
                       </div>
                       <div class="panel-body">
-                          <table class="table table-bordered" align="center">
+                          <table class="table table-bordered" id="table_tooth" align="center">
                             <tr>
                               <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D18" value="1"><span class="lbl"></span></label></td>
                               <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D17" value="1"><span class="lbl"></span></label></td>
@@ -368,7 +368,7 @@
                   }?>
                   <input type="hidden" name="checked_by" value="<?php echo $checked_by; ?>">
                   <input type="hidden" name="facultyNo" value="<?php echo $row['facultyNo']; ?>"/>
-                  <input type="hidden" name="FacultyNo" value="<?php echo $row['FacultyNo']; ?>"/>
+                  <input type="hidden" name="FacultyID" value="<?php echo $row['FacultyID']; ?>"/>
                   <input type="hidden" name="action_type" value="save_dental"/>
                   <input type="submit" class="btn btn-primary" id="save" name="btn-save" value="Save Record" />
                 </div>
@@ -400,8 +400,14 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script>
+  $(document).ready(function () {
+    $(function(){
+        $('#table_tooth input:checkbox').attr('checked', 'checked');
+    });
+  });
   $("input[name=per_con]").click(function () {
     if ($("#normal").is(":checked")) {
+      $("#normal_rem").prop("disabled", false);
       $("#gin_rem").prop("disabled", true);
       $("#perio_rem").prop("disabled", true);
       $("#other_rem").prop("disabled", true);

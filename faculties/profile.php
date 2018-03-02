@@ -152,7 +152,7 @@
                             <td><label>Date of Birth:</label></td>
                             <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
                             <td><label>Marital Status:</label></td>
-                            <td><?php echo $row['stat'] ;?></td>
+                            <td><?php echo $row['civil'] ;?></td>
                           </tr>
                           <tr>
                             <td><label>Department:</label></td>

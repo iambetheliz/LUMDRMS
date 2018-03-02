@@ -26,28 +26,16 @@
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css">
 <link href="../assets/style.css" rel="stylesheet" type="text/css">
 <link href="../datepicker/css/bootstrap-datetimepicker.css" rel="stylesheet"/>
-<style type="text/css"> 
-#add_stud input.error {
-  border:1px solid red;
-}
-#add_stud select.error {
-  border:1px solid red;
-}
-#add_stud textarea.error {
-  border:1px solid red;
-}
-#add_stud span.error {
-  color: red;
-}
+<style type="text/css">
 .col-2 {
   padding-right: 20px;
 }
-
-@media (min-width: 768px) {
-  .modal-dialog {
-      width: 800px;
-      margin: 30px auto;
-  }
+.form-control.error {
+  border-color: indianred;
+}
+label.error {
+  color: indianred;
+  font-weight: 500;
 }
 </style>
 </head>
@@ -66,48 +54,48 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
           </li>
-          <li class="active have-child" role="presentation">
-            <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
-            <ul id="demo" class="panel-collapse collapse in">
-              <li class="active">
-                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
+          <li class="active">
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+          </li>
+          <li role="presentation" class="have-child">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+            <ul id="demo" class="panel-collapse collapse">
               <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
-              <li>
-                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
-                <ul id="med" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-                  </li>
-                </ul>
-              </li>  
-              <li>
-                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
-                <ul id="den" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-                  </li>
-                </ul>
-              </li>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+              <ul id="med" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+                </li>
+              </ul>
+            </li>  
+            <li>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+              <ul id="den" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+                </li>
+              </ul>
+            </li>
             </ul>
           </li>
           <?php 
-            if ($userRow['role'] === 'superadmin') {?>
+            if ($userRow['role'] == 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -198,7 +186,7 @@
               <div class="btn-group">
                 <select class="form-control" name="archive" id="archive" onchange="searchFilter()" style="cursor: pointer;">  
                   <option value="active">Show Current</option>
-                  <option value="">Deleted/Active</option>  
+                  <option value="">All Records</option>  
                   <option value="deleted">Deleted Only</option>
                 </select>
               </div>                    
@@ -261,12 +249,14 @@
 
   <!-- Modal HTML -->    
   <div id="userModal" class="modal fade">
-    <div class="modal-dialog">
-      <form method="post" id="add_stud" autocomplete>
+    <div class="modal-dialog modal-lg" role="document">
+      <form method="post" id="add_stud">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Add New Student <small>(<i class="fa fa-asterisk text-danger"></i> Required fields)</small></h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title"><i class="fa fa-plus"></i> Add New Student <small>(<i class="fa fa-asterisk text-danger"></i> Required fields)</small></h4>
           </div>
           <div class="modal-body">
             <div id="msg"></div>
@@ -274,25 +264,25 @@
               <div class="col-lg-6">
                 <div class="form-group"> 
                   <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"></span>
-                  <input type="text" class="form-control required" placeholder="000-0000" name="studentNo" id="studentNo" autofocus="autofocus"><span id="result"></span>
+                  <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus minlength="7" /><span id="result"></span>
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                  <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
+                  <input type="text" class="form-control" minlength="3" placeholder="Juan" name="first_name" id="first_name">
                   <br>                        
                   <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
-                  <input type="text" class="form-control" placeholder="Magdayao" name="middle_name" id="middle_name">
+                  <input type="text" class="form-control" minlength="3" placeholder="Magdayao" name="middle_name" id="middle_name">
                   <br>
                   <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                  <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
+                  <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name" minlength="3">
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                  <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
+                  <input type="text" class="form-control" placeholder="Jr" name="ext" minlength="2" maxlength="3" id="ext">
                   <br>
                   <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
-                  <input class="form-control" type="text" placeholder="00" name="age" id="age">
+                  <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
                   <br>
                   <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
-                  <select class="form-control required" name="sex" id="sex">
+                  <select class="form-control" name="sex" id="sex">
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -314,7 +304,7 @@
                   </div>
                   <br>
                   <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
-                  <select class="form-control" name="stat" id="stat">
+                  <select class="form-control" name="civil" id="civil">
                     <option value="">Select</option>
                     <option value="Single">Single</option>
                     <option value="Married">Married</option>
@@ -322,8 +312,6 @@
                   <br>
                   <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
                   <?php
-                    //Include database configuration file
-                    include('../includes/dbconnect.php');
 
                     //Get all dept data
                     $query = $DB_con->query("SELECT * FROM department WHERE stat = 1 AND cat = 2 ORDER BY dept_name ASC");
@@ -331,7 +319,7 @@
                     //Count total number of rows
                     $rowCount = $query->num_rows;
                   ?>
-                  <select class="form-control required" name="dept" id="dept">
+                  <select class="form-control" name="dept" id="dept">
                     <option value="">Select Department</option>
                       <?php
                         if($rowCount > 0){
@@ -345,12 +333,12 @@
                   </select>
                   <br>
                   <label><i class="fa fa-asterisk text-danger"></i> Program:</label>                            
-                  <select class="form-control required" name="program" id="program">
+                  <select class="form-control" name="program" id="program">
                     <option value="">Select department first</option>
                   </select>
                   <br>
                   <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Year:</label> <span class="error pull-right" id="errLevel"></span>
-                  <select class="form-control required" name="yearLevel" id="yearLevel">
+                  <select class="form-control" name="yearLevel" id="yearLevel">
                     <option value="">Select</option>
                     <option value="1st">1st Year</option>
                     <option value="2nd">2nd Year</option>
@@ -359,7 +347,7 @@
                   </select>
                   <br>
                   <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
-                  <select class="form-control required" name="sem" id="sem">
+                  <select class="form-control" name="sem" id="sem">
                     <option value="">Select</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
@@ -371,7 +359,7 @@
                     $earliest_year = 2006; 
                     $latest_year = date('Y');
                   ?>
-                  <select class="form-control required" name="acadYear" id="acadYear">
+                  <select class="form-control" name="acadYear" id="acadYear">
                     <option value="">Select</option>
                     <?php 
                       foreach ( range( $latest_year, $earliest_year ) as $i ) {
@@ -417,18 +405,18 @@
   <!-- View Modal -->
   <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog"> 
-      <form method="post" id="edit_stud" autocomplete>
+      <form method="post" id="edit_stud">
         <div class="modal-content">         
           <div class="modal-header"> 
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
             <h4 class="modal-title">
-            <i class="glyphicon glyphicon-cog"></i> Edit Student Information
+            <i class="fa fa-pencil"></i> Edit Student's Personal Information
             </h4> 
           </div>                 
           <div class="modal-body">                     
             <div id="modal-loader" style="display: none; text-align: center;">
               <!-- ajax loader -->
-              <img src="../includes/loading.gif">
+              <img src="../includes/loading.gif" width="50px">
             </div>                                
             <!-- mysql data will be load here -->                          
             <div id="dynamic-content"></div>
@@ -441,6 +429,87 @@
       </form>
     </div>
   </div>
+
+<!-- Confirm Bulk Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-confirm">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: indianred">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirm deletion</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to delete these records?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" id="modal-btn-yes">Yes</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirm Single Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-delete">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Confirm deletion</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default btn-ok">Yes</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-no">No</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Alert Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-alert">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: indianred">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Error!</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger">Please select atleast one (1) checkbox!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SMS Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Send Message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Sender:</label>
+            <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Message:</label>
+            <textarea class="form-control" name="message" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="modal-btn-send">Send</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 
   <footer class="footer">
     <div class="container-fluid">
@@ -455,6 +524,7 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/students_crud.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
 
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
@@ -463,15 +533,10 @@
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-$('#dob, #dob_edit').datetimepicker({
+$('#dob').datetimepicker({
   format:'MM/DD/YYYY',
-  keepOpen: true,
-  icons: {
-    time: "fa fa-clock-o",
-    date: "fa fa-calendar",
-    up: "fa fa-arrow-up",
-    down: "fa fa-arrow-down"
-  }
+  useCurrent: false,
+  keepOpen: true
 });
 var popupWindow = null;
 

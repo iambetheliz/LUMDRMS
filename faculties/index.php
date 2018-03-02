@@ -59,50 +59,50 @@
     <!-- Sidebar Menu Items -->
     <div id="sidebar-wrapper">
       <nav id="spy">
-        <ul class="sidebar-nav">                    
+        <ul class="sidebar-nav" role="menu">                    
           <li>
-            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
           </li>
-          <li class="active have-child" role="presentation">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
-            <ul id="demo" class="panel-collapse collapse in">
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li class="active">
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+          </li>
+          <li role="presentation" class="have-child">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+            <ul id="demo" class="panel-collapse collapse">
               <li>
-                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li class="active">
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
-              <li>
-                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
-                <ul id="med" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
-                <ul id="den" class="panel-collapse collapse">
-                  <li>
-                    <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                  </li>
-                  <li>
-                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-                  </li>
-                </ul>
-              </li>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+              <ul id="med" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+                </li>
+              </ul>
+            </li>  
+            <li>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+              <ul id="den" class="panel-collapse collapse">
+                <li>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+                </li>
+                <li>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+                </li>
+              </ul>
+            </li>
             </ul>
           </li>
           <?php 
-            if ($userRow['role'] === 'superadmin') {?>
+            if ($userRow['role'] == 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -193,7 +193,7 @@
               <div class="btn-group">
                 <select class="form-control" name="archive" id="archive" onchange="searchFilter()" style="cursor: pointer;">  
                   <option value="active">Show Current</option>
-                  <option value="">Deleted/Active</option>  
+                  <option value="">All Records</option>  
                   <option value="deleted">Deleted Only</option>
                 </select>
               </div>                      
@@ -271,22 +271,22 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                   <label for="facultyNo"><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
-                  <input type="text" class="form-control required" name="facultyNo" id="facultyNo" autofocus="on">
+                  <input type="text" class="form-control" name="facultyNo" id="facultyNo" autofocus minlength="7" required />
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                  <input type="text" class="form-control required" placeholder="Juan" name="first_name" id="first_name">
+                  <input type="text" class="form-control" minlength="3" placeholder="Juan" name="first_name" id="first_name">
                   <br>                        
-                  <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
-                  <input type="text" class="form-control required" placeholder="Magdayao" name="middle_name" id="middle_name">
+                  <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
+                  <input type="text" class="form-control" minlength="3" placeholder="Magdayao" name="middle_name" id="middle_name">
                   <br>
-                  <label for="inlineFormInput"><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                  <input type="text" class="form-control required" placeholder="Dela Cruz" name="last_name" id="last_name">
+                  <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
+                  <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name" minlength="3">
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                  <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext">
+                  <input type="text" class="form-control" placeholder="Jr" name="ext" minlength="2" maxlength="3" id="ext">
                   <br>
                   <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
-                  <input class="form-control required" type="text" placeholder="00" name="age" id="age">
+                  <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
                   <br>                  
                   <label for="example-date-input" class="col-2 col-form-label">Address:</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
@@ -296,7 +296,7 @@
               <div class="col-lg-5">
                 <div class="form-group">
                   <label for="example-date-input" class="col-2 col-form-label">Gender: </label> <span class="error pull-right" id="errSex"></span>
-                  <select class="form-control required" name="sex" id="sex">
+                  <select class="form-control" name="sex" id="sex">
                     <option value="undefined">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -311,7 +311,7 @@
                     </div>
                     <br>
                     <label>Marital Status:</label> <span class="error pull-right" id="errStat"></span>
-                    <select class="form-control" name="stat" id="stat">
+                    <select class="form-control" name="civil" id="civil">
                       <option value="">Select</option>
                       <option value="Single">Single</option>
                       <option value="Married">Married</option>
@@ -398,18 +398,18 @@
   <!-- View Modal -->
   <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog"> 
-      <form method="post" id="edit_fac" autocomplete>
+      <form method="post" id="edit_fac">
         <div class="modal-content">         
           <div class="modal-header"> 
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> 
             <h4 class="modal-title">
-            <i class="glyphicon glyphicon-cog"></i> Edit Student Information
+            <i class="glyphicon glyphicon-cog"></i> Edit Faculty Information
             </h4> 
           </div>                 
           <div class="modal-body">                     
             <div id="modal-loader" style="display: none; text-align: center;">
               <!-- ajax loader -->
-              <img src="../includes/loading.gif">
+              <img src="../includes/loading.gif" width="50px">
             </div>                                
             <!-- mysql data will be load here -->                          
             <div id="dynamic-content"></div>
@@ -434,6 +434,7 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/faculty_crud.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
 
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
@@ -444,6 +445,7 @@
 <script type="text/javascript">
 $('#dob, #dob_edit').datetimepicker({
   format:'MM/DD/YYYY',
+  useCurrent: false,
   keepOpen: true,
   icons: {
     time: "fa fa-clock-o",

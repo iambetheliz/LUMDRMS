@@ -13,7 +13,7 @@
         $age = $_POST['age'];
         $sex = $_POST['sex'];
         $dob = $_POST['dob'];
-        $stat = $_POST['stat'];
+        $civil = $_POST['civil'];
         $dept = $_POST['dept'];
         $sem = $_POST['sem'];
         $acadYear = $_POST['acadYear'];
@@ -22,7 +22,7 @@
         $cphone = $_POST['cphone'];
         $FacultyID = $_POST['FacultyID'];
     		
-        mysqli_query($DB_con,'UPDATE `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dob="'.$dob.'", stat="'.$stat.'", dept="'.$dept.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'" WHERE FacultyID="'.$FacultyID.'"');	
+        mysqli_query($DB_con,'UPDATE `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` SET last_name="'.$last_name.'", first_name="'.$first_name.'", middle_name="'.$middle_name.'", ext="'.$ext.'", age="'.$age.'", sex="'.$sex.'", dob="'.$dob.'", civil="'.$civil.'", dept="'.$dept.'", sem="'.$sem.'", acadYear="'.$acadYear.'", address="'.$address.'", cperson="'.$cperson.'", cphone="'.$cphone.'" WHERE FacultyID="'.$FacultyID.'"');	
     }
 }
 ?>

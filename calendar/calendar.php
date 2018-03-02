@@ -300,6 +300,7 @@ $(document).ready(function() {
 $('#start, #startEdit').datetimepicker({
   format: 'YYYY-MM-DD HH:mm a',
   keepOpen: true,
+  sideBySide: true,
   icons: {
     time: "fa fa-clock-o",
     date: "fa fa-calendar",
@@ -310,6 +311,7 @@ $('#start, #startEdit').datetimepicker({
 $('#end, #endEdit').datetimepicker({
   format: 'YYYY-MM-DD HH:mm a',
   keepOpen: true,
+  sideBySide: true,
   icons: {
     time: "fa fa-clock-o",
     date: "fa fa-calendar",

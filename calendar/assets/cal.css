@@ -1,6 +1,17 @@
 .fc-unthemed thead {
     background: transparent;
 }
+tr.fc-list-heading td.fc-widget-header {    
+    background: #428b42;
+    border-color: green;
+}
+tr.fc-list-heading td.fc-widget-header a {    
+    color: white;
+}
+tr.fc-list-item {
+    background: #b2d8b2;
+}
+
 td.fc-day-number {
     text-align: right;
 }

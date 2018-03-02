@@ -4,6 +4,19 @@ include('../includes/dbconnect.php');
 include '../includes/date_time_diff.php';
 //Include pagination class file
 include('../includes/Pagination.php');
+if(empty($_SESSION)) // if the session not yet started 
+  session_start();
+
+  // Check connection
+  if ($DB_con->connect_error) {
+    header('Location: /lu_clinic/no_connection_error.php');
+  }
+  
+  // if session is not set this will redirect to login page
+  if( !isset($_SESSION['user']) ) {
+    header("Location: /lu_clinic/index.php?attempt");
+    exit;
+  }
 
 if(isset($_POST['page'])){
     
@@ -20,69 +33,63 @@ if(isset($_POST['page'])){
     $archive = $_POST["archive"];
     $count = $_POST['num_rows'];
 
+    //For number of rows per page
     if ( $count ){
       $limit = $_POST['num_rows']; 
     }
-    if ( !empty($count) && !empty($archive) ){
-      $limit = $_POST['num_rows']; 
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') ";
-    }
-    if ( !empty($count) && !empty($prog) ){
-      $limit = $_POST['num_rows']; 
-      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
-    }
 
+    //For keywords
     if ( !empty($keywords) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') ";
     }
     if ( !empty($keywords) && !empty($prog) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') AND program = '".$prog."' ";
+    }
+    if ( !empty($keywords) && !empty($stats) ) {
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `students`.`studentNo` LIKE '%".$keywords."%') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
 
+    //For programs
     if ( !empty($prog) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
+      $whereSQL = " WHERE program = '".$prog."' ";
     }
     if ( !empty($prog) && !empty($keywords) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  program = '".$prog."' ";
+      $whereSQL = " WHERE program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($prog) && !empty($stats) ) {
+      $whereSQL = " WHERE program = '".$prog."' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
 
+    //For Med/Dental Status
     if ( !empty($stats) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
-    }
-    if ( !empty($stats) && !empty($prog) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND program = '".$prog."' ";
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
     if ( !empty($stats) && !empty($keywords) ) {
-      $whereSQL .= " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
-    if ( !empty($stats) && !empty($prog) && !empty($keywords) ) {
-      $whereSQL = " WHERE `students`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') AND program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    if ( !empty($stats) && !empty($prog) ) {
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') AND program = '".$prog."' ";
     }
 
+    //For showing/hiding deleted rows   
     if ( !empty($archive) ) {
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') ";
+      $whereSQL .= " AND CONCAT(`students`.`status` = '".$archive."' OR `students`.`status` = '".$archive."') ";
     }
-    if ( !empty($archive) && !empty($stats) ) {
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
-    }
-    if ( !empty($archive) && !empty($prog) ) {
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND program = '".$prog."' ";
-    }
-    if ( !empty($archive) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
-    }
-    if ( !empty($archive) && !empty($prog) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    elseif ( empty($archive) ) {
+      $whereSQL .= " AND CONCAT(`students`.`status` = 'active' OR `students`.`status` = 'deleted') ";
     }
 
     if ( !empty($sortBy) ){
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
+    }
+    elseif ( !empty($sortBy) && !empty($archive) ){
+      $whereSQL .= " ORDER BY date_deleted ".$sortBy;
     } 
     elseif ( !empty($sortBy) && !empty($prog) ) {
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($prog) || empty($sortBy)) {
-      $orderSQL = " ORDER BY modified DESC ";
+      $whereSQL .= " ORDER BY modified DESC ";
     } 
 
     //get number of rows
@@ -156,7 +163,7 @@ if(isset($_POST['page'])){
                     <?php 
                       if ($row['status'] == 'deleted') { 
                         ?>
-                        <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['StudentID']; ?>"> Restore</button>
+                        <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['StudentID']; ?>"><i class="fa fa-undo"></i> Restore</button>
                         <?php 
                       }
                       else { 
@@ -166,6 +173,7 @@ if(isset($_POST['page'])){
                       }
                     ?>
                   </div>
+                  <?php include 'modal-confirm-single.php';?>
                 </td>
               </tr>
             <?php } ?>
@@ -288,6 +296,7 @@ else {
                 <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-placement="top" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
                 <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </div>
+              <?php include 'modal-confirm-single.php';?>
             </td>
           </tr>
         <?php } ?>
@@ -365,36 +374,43 @@ function delete_records() {
   });
          
   if(id.length === 0) { //tell you if the array is empty
-    alert("Please Select atleast one checkbox");
+    $("#modal-alert").modal('show');
     return false;
   }
   else {
-    confirm("Are you sure you want to delete this?");
-    $.ajax({
-      url:'delete_mul.php',
-      method:'POST',
-      data:{id:id},
-      success:function() {
-        for(var i=0; i<id.length; i++) {
-          $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
-          $('tr#table-row-'+id[i]+'').fadeOut('slow');
+    $("#modal-confirm").modal('show');
+    $("#modal-confirm #modal-btn-yes").click(function () {
+      $.ajax({
+        url:'delete_mul.php',
+        method:'POST',
+        data:{id:id},
+        success:function() {
+          for(var i=0; i<id.length; i++) {
+            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+            $('tr#table-row-'+id[i]+'').fadeOut('slow');
+          }
+          $("#modal-confirm").modal('hide');
+          $("#tbl_students").load("../students/tbl_students.php");
+          $.bootstrapGrowl("Deleted successfully", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
         }
-        $("#tbl_students").load("../students/tbl_students.php");
-        $.bootstrapGrowl("Deleted successfully", // Messages
-          { // options
-            type: "success", // info, success, warning and danger
-            ele: "body", // parent container
-            offset: {
-              from: "top",
-              amount: 20
-            },
-            align: "right", // right, left or center
-            width: 300,
-            delay: 4000,
-            allow_dismiss: true, // add a close button to the message
-            stackup_spacing: 10
-        });
-      }
+      });
+    });
+    $("#modal-confirm #modal-btn-no").click(function () {
+      $(".select-all").removeAttr("checked");
+      $(".chk-box").prop('checked', false);
     });
   }  
 }
@@ -407,19 +423,39 @@ function send_sms() {
   });
          
   if(id.length === 0) { //tell you if the array is empty
-    alert("Please Select atleast one checkbox");
+    $("#modal-alert").modal('show');
     return false;
   }
   else {
-    $.ajax({
-      url:'send_sms.php',
-      method:'POST',
-      data:{id:id},
-      success : function(response) {           
-        if(response=="ok"){
-          $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
-            { // options
-              type: "success", // info, success, warning and danger
+    $("#modal-sms").modal('show');
+    $("#modal-sms #modal-btn-send").click(function () {
+      message = $("#message-text").val();
+      sender = $("#sender-name").val();
+      $.ajax({
+        url:'send_sms.php',
+        method:'POST',
+        data:{id:id,message:message,sender:sender},
+        success : function(response) {           
+          if(response=="ok"){
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+              }
+            );
+          }
+          else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
               ele: "body", // parent container
               offset: {
                 from: "top",
@@ -429,33 +465,27 @@ function send_sms() {
               width: 300,
               allow_dismiss: true, // add a close button to the message
               stackup_spacing: 10
-            }
-          );
+            });
+          }
+          $("#modal-sms").modal('hide');
         }
-        else {
-          $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
-            // options
-            type: "danger", // info, success, warning and danger
-            ele: "body", // parent container
-            offset: {
-              from: "top",
-              amount: 20
-            },
-            align: "right", // right, left or center
-            width: 300,
-            allow_dismiss: true, // add a close button to the message
-            stackup_spacing: 10
-          });
-        }
-      }
+      });
+    });
+    $("#modal-sms #modal-btn-cancel").click(function () {
+      $(".select-all").removeAttr("checked");
+      $(".chk-box").prop('checked', false);
     });
   }  
 }
 
 // Quick Edit 
-$('document').ready(function() {
+$(document).ready(function() {
   $('td:contains("Pending")').css('color', 'red');
   $('td:contains("Ok")').css('color', 'green');
+  if ($('tr:contains("Restore")')) {
+    $('tr:contains("Restore") td').css('background-color', 'lightgoldenrodyellow');
+    $('tr:contains("Restore") td').css('border-color', 'palegoldenrod');
+  }
 });
 
 function editRow(editableObj) {

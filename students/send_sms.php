@@ -1,5 +1,8 @@
-<?php include '../SMS/itext.php';
+<?php 
+include '../SMS/itext.php';
 require_once '../includes/dbconnect.php';
+
+$message = $_POST['message'];
 
 if(isset($_POST["id"])) {
   foreach($_POST["id"] as $id) {
@@ -7,7 +10,7 @@ if(isset($_POST["id"])) {
     $result = $DB_con->query($res);
     $row = $result->fetch_array(MYSQLI_BOTH);
     $phone = $row['phone'];
-    $msg = "From: LU Clinic \n\nYour Medical and Dental Records are still marked 'Pending'. Please see Nurse Carol to update your records. Thank you.";
+    $msg = $_POST['sender']."\n\n".$message;
     $result = itexmo($phone,$msg,"ST-SHAIR374833_X9NKY");
     if ($result == ""){
       echo "iTexMo: No response from server!!!";  
@@ -15,7 +18,7 @@ if(isset($_POST["id"])) {
       echo "ok";
     }
     else { 
-      echo "Trial version. Maximum of 10 messages per day only! <br>Error #". $result . " was encountered!";
+      echo "Something went wrong! <br>Error #". $result . " was encountered!";
     }
   }
 }

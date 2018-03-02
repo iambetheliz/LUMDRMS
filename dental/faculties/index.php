@@ -62,39 +62,39 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
           </li>
           <li class="active have-child" role="presentation">
-            <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+            <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="fa fa-caret-down"></i></a>
             <ul id="demo" class="panel-collapse collapse in">
               <li>
-                <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
-              <li>
-                <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+                <a class="med" role="submenuitem" data-toggle="collapse"><span class="col-1 fa fa-medkit"></span>Medical <i class="fa fa-caret-down"></i></a>
                 <ul id="med" class="panel-collapse collapse">
                   <li>
-                    <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                    <a href="/lu_clinic/medical/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                    <a href="/lu_clinic/medical/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
                   </li>
                 </ul>
               </li>  
               <li class="active">
-                <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+                <a class="den" role="submenuitem" data-toggle="collapse"><span class="col-1 fa fa-smile-o"></span>Dental <i class="fa fa-caret-down"></i></a>
                 <ul id="den" class="panel-collapse collapse in">
                   <li>
-                    <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                    <a href="/lu_clinic/dental/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
                   </li>
                   <li class="active">
-                    <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                    <a href="/lu_clinic/dental/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -103,7 +103,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><span class="col-1 fa fa-lock"></span>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -120,7 +120,7 @@
     	        <!-- Page Heading -->
                 <div class="row">
                     <div class="container-fluid">
-                        <h1 class="page-header">Faculty Dental Records
+                        <h1 class="page-header">Faculty and Staff Dental Records
                           <a class="btn btn-primary pull-right" name="input" type="button" href="print_dental.php" style="cursor:pointer;" id="print">Print</a></h1>
                     </div>
                 </div>

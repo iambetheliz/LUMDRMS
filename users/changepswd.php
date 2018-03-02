@@ -10,8 +10,6 @@
     exit;
   }
 
-  $DB_con = new mysqli("localhost", "root", "", "records");
-
   if ($DB_con->connect_errno) {
     echo "Connect failed: ", $DB_con->connect_error;
   exit();
@@ -65,39 +63,39 @@ label.error {
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-              <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
+            <a href="/lu_clinic/"><i class="fa fa-bar-chart col-1"></i>Dashboard</a>
           </li>
           <li>
-              <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
+            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar col-1"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
           </li>
           <li role="presentation" class="have-child">
-            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book col-1"></i>Records <i class="fa fa-caret-down col-1"></i></a>
             <ul id="demo" class="panel-collapse collapse">
               <li>
-                <a href="/lu_clinic/students/"><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
-              </li>
-              <li>
-              <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="fa fa-medkit col-1"></i>Medical <i class="fa fa-caret-down col-1"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/medical/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  <a href="/lu_clinic/medical/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="fa fa-smile-o col-1"></i>Dental <i class="fa fa-caret-down col-1"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/dental/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staffs</a>
+                  <a href="/lu_clinic/dental/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
@@ -106,7 +104,7 @@ label.error {
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li class="active">
-              <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+              <a href="/lu_clinic/users"><i class="fa fa-lock col-1"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -120,12 +118,12 @@ label.error {
       <div class="page-content">
         <div class="container-fluid"> 
 
-			<!-- Page Heading -->
-            <div class="row">
-                <div class="container-fluid">
-                    <h2 class="page-header">Change Password</h2>
-                </div>
-            </div> 
+          <!-- Page Heading -->
+          <div class="row">
+            <div class="container-fluid">
+              <h2 class="page-header"><i class="fa fa-unlock-alt"></i> Change Password</h2>
+            </div>
+          </div> 
 
     			<div class="row">
     				<div class="container-fluid">	
@@ -134,7 +132,7 @@ label.error {
     					  
     						<div class="form-group">
     							<label>Username:</label>
-    							<input id="userName" type="text" value="<?php echo $userRow['userName'] ; ?>" name="userName" class="form-control" readonly />
+    							<input id="username" type="text" value="<?php echo $userRow['userName'] ; ?>" name="username" class="form-control" readonly />
     							<br>
     							<label>Enter Current Password:</label>
     							<input id="current_password" type="text" name="current_password" class="form-control" data-minlength="5" autofocus required/>
@@ -151,7 +149,7 @@ label.error {
     						</div>
     						<br>
     						<div class="form-group" align="center">
-    							<a type="cancel" href="javascript:history.go(-1)" class="btn btn-default">CANCEL
+    							<a type="cancel" href="/lu_clinic/users/changepswd.php" class="btn btn-default">CANCEL
     							</a>
     							<button id="change" name="change" align="middle" type="submit" class="btn btn-primary"> SAVE 
     							</button>
@@ -184,7 +182,7 @@ label.error {
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
-<script src="../assets/js/validation.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
 <script src="change_pass.js"></script>
 
 </body>

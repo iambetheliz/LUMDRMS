@@ -32,6 +32,9 @@ include '../includes/date_time_diff.php';
       margin-left: 30px;
       margin-right: 30px;
     }
+    button {
+      display: none;
+    }
   }
 </style>
 </head>

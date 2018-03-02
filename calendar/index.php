@@ -37,6 +37,26 @@ $events = $req->fetchAll();
 .fc-unthemed .fc-content, .fc-unthemed .fc-divider, .fc-unthemed .fc-list-heading td, .fc-unthemed .fc-list-view, .fc-unthemed .fc-popover, .fc-unthemed .fc-row, .fc-unthemed tbody, .fc-unthemed td, .fc-unthemed th, .fc-unthemed thead {
     border-color: #7fbf7f;
 }
+tr.fc-list-heading td.fc-widget-header {    
+    background: #428b42;
+    border-color: green;
+}
+tr.fc-list-heading td.fc-widget-header a {    
+    color: white;
+    text-decoration: none;
+}
+.fc-unthemed.fc-list-item:hover {    
+    color: green;
+    background: green;
+}
+tr.fc-list-item {
+    background: #b2d8b2;
+}
+tr.fc-list-item.fc-allow-mouse-resize {
+    background: beige;
+    color: green;
+    cursor: pointer;
+}
 </style>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -58,59 +78,59 @@ $events = $req->fetchAll();
 <div id="wrapper">
 
   <!-- Sidebar Menu Items -->
-  <div id="sidebar-wrapper">
-    <nav id="spy">
-      <ul class="sidebar-nav" role="menu">                    
-        <li>
-            <a href="/lu_clinic"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-        </li>
-        <li class="active">
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
-        </li>
-        <li role="presentation" class="have-child">
-          <a role="menuitem" data-toggle="collapse" href="#demo"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
-          <ul id="demo" class="panel-collapse collapse">
-            <li>
-              <a href="/lu_clinic/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-            </li>
-            <li>
-              <a href="/lu_clinic/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-            </li>
-            <li>
-              <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+    <div id="sidebar-wrapper">
+      <nav id="spy">
+        <ul class="sidebar-nav" role="menu">                    
+          <li>
+            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
+          </li>
+          <li class="active">
+            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+          </li>
+          <li role="presentation" class="have-child">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+            <ul id="demo" class="panel-collapse collapse">
+              <li>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/lu_clinic/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/lu_clinic/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
-          </ul>
-        </li>
-        <?php 
-          if ($userRow['role'] === 'superadmin') {?>
-          <li>
-            <a href="/lu_clinic/users"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+            </ul>
           </li>
-        <?php    }
-        ?>
-      </ul>
-    </nav>
-  </div>  
-  <!-- End of Sidebar --> 
+          <?php 
+            if ($userRow['role'] == 'superadmin') {?>
+            <li>
+              <a href="/lu_clinic/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
+            </li>
+          <?php    }
+          ?>
+        </ul>
+      </nav>
+    </div>  
+    <!-- End of Sidebar --> 
 
   <!-- Begin Main Screen -->
   <div id="page-content-wrapper">
@@ -163,7 +183,7 @@ $events = $req->fetchAll();
 		  	  <select name="color" class="form-control" id="color">
 		  	  	<option value="">Choose</option>
 		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				<option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
 				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
 				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
 				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
@@ -228,7 +248,7 @@ $events = $req->fetchAll();
 		  	  <select name="color" class="form-control" id="color">
 		  	  	<option value="">Choose</option>
 		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				<option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
+				<option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
 				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
 				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
 				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>

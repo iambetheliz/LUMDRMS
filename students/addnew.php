@@ -1,6 +1,5 @@
 <?php
   include '../includes/dbconnect.php';
-	$DB_con = mysqli_connect("localhost", "root", "", "records");
 
     if(!empty($_POST['dept'])){
 		$studentNo = $_POST['studentNo'];
@@ -11,7 +10,7 @@
         $age = $_POST['age'];
         $sex = $_POST['sex'];
         $dob = $_POST['dob'];
-        $stat = $_POST['stat'];
+        $civil = $_POST['civil'];
         $dept = $_POST['dept'];
         $program = $_POST['program'];
         $yearLevel = $_POST['yearLevel'];
@@ -23,6 +22,6 @@
         $cphone = $_POST['cphone'];
         $checked_by = $_POST['checked_by'];
 		
-		mysqli_multi_query($DB_con,"INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,dob,stat,dept,program,yearLevel,sem,acadYear,address,phone,cperson,cphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$stat','$dept','$program','$yearLevel','$sem','$acadYear','$address','$phone','$cperson','$cphone'); INSERT INTO students_stats(checked_by,studentNo) VALUES('$checked_by','$studentNo');");
+		mysqli_multi_query($DB_con,"INSERT INTO students(studentNo,first_name,middle_name,last_name,ext,age,sex,dob,civil,dept,program,yearLevel,sem,acadYear,address,phone,cperson,cphone) VALUES('$studentNo','$first_name','$middle_name','$last_name','$ext','$age','$sex','$dob','$civil','$dept','$program','$yearLevel','$sem','$acadYear','$address','$phone','$cperson','$cphone'); INSERT INTO students_stats(checked_by,studentNo) VALUES('$checked_by','$studentNo');");
     }
 ?>

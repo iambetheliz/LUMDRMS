@@ -10,8 +10,6 @@
     exit;
   }
 
-  error_reporting( ~E_NOTICE );
-
   // select loggedin users detail
   $res = "SELECT * FROM users WHERE userId=".$_SESSION['user'];
   $result = $DB_con->query($res);
@@ -23,34 +21,36 @@
 
 	$error = false;
 
-	if ( !empty($_POST['name']) ) {
+	if ( isset($_POST) && !empty($_POST) ) {
 		
-		// clean user inputs to prevent sql injections
-		$name = trim($_POST['name']);
-		$name = strip_tags($name);
-		$name = htmlspecialchars($name);
+		// prevent sql injections/ clear user invalid inputs
+		$name = $_POST['name'];	
+		$name = $DB_con->escape_string($name);
+
+		$pass = $_POST['pass'];
+		$pass = $DB_con->escape_string($pass);
+		$password = hash('sha256',$pass); // password hashing using sha256		
 		
 		$first_name = $_POST['first_name'];
         $last_name = $_POST['last_name'];
 		$position = $_POST['position'];
-		
-		$pass = trim($_POST['pass']);
-		$pass = strip_tags($pass);
-		$pass = htmlspecialchars($pass);
-		
-		// password encrypt using SHA256();
-		$password = hash('sha256', $pass);
-		
-		// if there's no error, continue to signup
-		$stmt = mysqli_query($DB_con,"INSERT INTO users(userName,first_name,last_name,userPass,position) VALUES('$name','$first_name','$last_name','$password','$position')");
-				
-		if ($stmt) {
-			unset($name);
-			unset($pass);
-			unset($position);
+      
+	    $stmt = $DB_con->query("SELECT userName FROM users WHERE userName='$name'");
+	    $count = $stmt->num_rows;
+	      
+	    if ($count > 0) {
+	      echo "<span class='text-danger'>User already exists !!! <i class='fa fa-times'></i></span>";
+	    }
+	    else {
+	    	// if there's no error, continue to signup
+			$stmt = $DB_con->query("INSERT INTO users (userName, first_name, last_name, userPass, position) VALUES ('$name','$first_name','$last_name','$password','$position')");
+			
 			echo "ok";
-		}
+	    }
 		
+	}
+	else {
+		echo "Error creating user account";
 	}
 ?>
 	

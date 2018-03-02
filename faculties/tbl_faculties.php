@@ -19,69 +19,63 @@ if(isset($_POST['page'])){
     $archive = $_POST["archive"];
     $count = $_POST['num_rows'];
 
+    //For number of rows per page
     if ( $count ){
       $limit = $_POST['num_rows']; 
     }
-    if ( !empty($count) && !empty($archive) ){
-      $limit = $_POST['num_rows']; 
-      $whereSQL = " WHERE CONCAT(`students`.`status` = '".$archive."' AND `students`.`status` = '".$archive."') ";
-    }
-    if ( !empty($count) && !empty($prog) ){
-      $limit = $_POST['num_rows']; 
-      $whereSQL = " WHERE `students`.`status` = 'active' AND program = '".$prog."' ";
-    }
 
+    //For keywords
     if ( !empty($keywords) ) {
-      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `faculties`.`facultyNo` LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `faculties`.`facultyNo` LIKE '%".$keywords."%') ";
     }
     if ( !empty($keywords) && !empty($dept) ) {
-      $whereSQL = " WHERE `faculties`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `faculties`.`facultyNo` LIKE '%".$keywords."%') AND dept = '".$dept."' ";
+    }
+    if ( !empty($keywords) && !empty($stats) ) {
+      $whereSQL = " WHERE CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or `faculties`.`facultyNo` LIKE '%".$keywords."%') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
 
+    //For depts
     if ( !empty($dept) ) {
-      $whereSQL = " WHERE `faculties`.`status` = 'active' AND dept = '".$dept."' ";
+      $whereSQL = " WHERE dept = '".$dept."' ";
     }
     if ( !empty($dept) && !empty($keywords) ) {
-      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND dept = '".$dept."' ";
+      $whereSQL = " WHERE dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    }
+    if ( !empty($dept) && !empty($stats) ) {
+      $whereSQL = " WHERE dept = '".$dept."' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
 
+    //For Med/Dental Status
     if ( !empty($stats) ) {
-      $whereSQL = " WHERE `faculties`.`status` = 'active' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
+    }
+    if ( !empty($stats) && !empty($keywords) ) {
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
     }
     if ( !empty($stats) && !empty($dept) ) {
-      $whereSQL .= " AND dept = '".$dept."' ";
-    }    
-    if ( !empty($stats) && !empty($keywords) ) {
-      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
-    }
-    if ( !empty($stats) && !empty($dept) && !empty($keywords) ) {
-      $whereSQL .= " AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+      $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') AND dept = '".$dept."' ";
     }
 
+    //For showing/hiding deleted rows   
     if ( !empty($archive) ) {
-      $whereSQL = " WHERE CONCAT(`faculties`.`status` = '".$archive."' AND `faculties`.`status` = '".$archive."') ";
+      $whereSQL .= " AND CONCAT(`faculties`.`status` = '".$archive."' OR `faculties`.`status` = '".$archive."') ";
     }
-    if ( !empty($archive) && !empty($stats) ) {
-      $whereSQL = " WHERE CONCAT(`faculties`.`status` = '".$archive."' AND `faculties`.`status` = '".$archive."') AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
-    }
-    if ( !empty($archive) && !empty($dept) ) {
-      $whereSQL = " WHERE CONCAT(`faculties`.`status` = '".$archive."' AND `faculties`.`status` = '".$archive."') AND dept = '".$dept."' ";
-    }
-    if ( !empty($archive) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(`faculties`.`status` = '".$archive."' AND `faculties`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
-    }
-    if ( !empty($archive) && !empty($dept) && !empty($keywords) ) {
-      $whereSQL = " WHERE CONCAT(`faculties`.`status` = '".$archive."' AND `faculties`.`status` = '".$archive."') AND CONCAT(last_name LIKE '%".$keywords."%' OR first_name LIKE '%".$keywords."%' OR middle_name LIKE '%".$keywords."%' OR ext LIKE '%".$keywords."%') ";
+    elseif ( empty($archive) ) {
+      $whereSQL .= " AND CONCAT(`faculties`.`status` = 'active' OR `faculties`.`status` = 'deleted') ";
     }
 
     if ( !empty($sortBy) ){
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
+    }
+    elseif ( !empty($sortBy) && !empty($archive) ){
+      $whereSQL .= " ORDER BY date_deleted ".$sortBy;
     } 
     elseif ( !empty($sortBy) && !empty($dept) ) {
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($dept) || empty($sortBy)) {
-      $orderSQL = " ORDER BY date_updated DESC ";
+      $whereSQL .= " ORDER BY modified DESC ";
     }
 
     //get number of rows
@@ -153,7 +147,7 @@ if(isset($_POST['page'])){
                     <?php 
                       if ($row['status'] == 'deleted') { 
                         ?>
-                        <button type="button" name="restore" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"><?php echo $row['status']; ?> Restore</button>
+                        <button type="button" name="restore" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"><i class="fa fa-undo"></i> Restore</button>
                         <?php 
                       }
                       else { 
@@ -275,7 +269,7 @@ else {
                 <?php 
                   if ($row['status'] == 'deleted') { 
                     ?>
-                    <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"> Restore</button>
+                    <button type="button" name="restore" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"><i class="fa fa-undo"></i> Restore</button>
                     <?php 
                   }
                   else { 
@@ -404,11 +398,12 @@ $('#close').click(function() {
 
 <!-- Quick Edit -->
 <script>
-$('document').ready(function() {
+$(document).ready(function() {
   $('td:contains("Pending")').css('color', 'red');
   $('td:contains("Ok")').css('color', 'green');
   if ($('tr:contains("Restore")')) {
-    $('tr:contains("Restore")').css('background-color', 'beige');
+    $('tr:contains("Restore")').css('background-color', 'lightgoldenrodyellow');
+    $('tr:contains("Restore") td').css('border-color', 'palegoldenrod');
   }
 });
 

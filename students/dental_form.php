@@ -83,8 +83,6 @@
           <?php 
             require_once '../includes/dbconnect.php';
 
-            $DB_con = new mysqli("localhost", "root", "", "records");
-
             if (isset($_GET['StudentID']) && is_numeric($_GET['StudentID']) && $_GET['StudentID'] > 0) {
 
               $StudentID = $_GET['StudentID'];
@@ -179,24 +177,24 @@
                         </div>
                       </div>
                       <div class="panel-body">
-                          <table class="table table-bordered" align="center">
+                          <table class="table table-bordered" id="table_tooth" align="center">
                             <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D18" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D17" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D16" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D15" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D14" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D13" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D12" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D11" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D21" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D22" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D23" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D24" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D25" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D26" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D27" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D28" value="1"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D18" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D17" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D16" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D15" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D14" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D13" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D12" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D11" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D21" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D22" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D23" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D24" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D25" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D26" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D27" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D28" value="1" id="chk"><span class="lbl"></span></label></td>
                             </tr>
                             <tr>
                               <td>18</td>
@@ -240,22 +238,22 @@
                               <td>38</td>
                             </tr>
                             <tr>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D48" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D47" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D46" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D45" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D44" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D43" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D42" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D41" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D31" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D32" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D33" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D34" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D35" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D36" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D37" value="1"><span class="lbl"></span></label></td>
-                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D38" value="1"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D48" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D47" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D46" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D45" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D44" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D43" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D42" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D41" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D31" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D32" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D33" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D34" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D35" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D36" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D37" value="1" id="chk"><span class="lbl"></span></label></td>
+                              <td><label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="D38" value="1" id="chk"><span class="lbl"></span></label></td>
                             </tr>
                           </table>
                           <br>
@@ -401,8 +399,14 @@
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script>
+  $(document).ready(function () {
+    $(function(){
+        $('#table_tooth input:checkbox').attr('checked', 'checked');
+    });
+  });
   $("input[name=per_con]").click(function () {
     if ($("#normal").is(":checked")) {
+      $("#normal_rem").prop("disabled", false);
       $("#gin_rem").prop("disabled", true);
       $("#perio_rem").prop("disabled", true);
       $("#other_rem").prop("disabled", true);

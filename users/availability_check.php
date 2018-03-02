@@ -11,14 +11,14 @@
     exit;
   }
   
-  if($_POST['studentNo']) {
-    $studentNo = strip_tags($_POST['studentNo']);
+  if($_POST['name']) {
+    $userName = strip_tags($_POST['name']);
       
-    $stmt = $DB_con->query("SELECT studentNo FROM students WHERE studentNo='$studentNo'");
+    $stmt = $DB_con->query("SELECT userName FROM users WHERE userName='$userName'");
     $count = $stmt->num_rows;
       
     if ($count > 0) {
-      echo "<span class='text-danger'>Student No. already exists !!! <i class='fa fa-times'></i></span>";
+      echo "<span class='text-danger'>Username already exists !!! <i class='fa fa-times'></i></span>";
     }
   }
 

@@ -152,7 +152,7 @@
                                   <td><label>Date of Birth:</label></td>
                                   <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
                                   <td><label>Marital Status:</label></td>
-                                  <td><?php echo $row['stat'] ;?></td>
+                                  <td><?php echo $row['civil'] ;?></td>
                                 </tr>
                                 <tr>
                                   <td><label>Program:</label></td>
@@ -239,6 +239,34 @@
   </div>
   <!-- End of Content -->
 
+  <!-- SMS Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Send Message</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Sender:</label>
+            <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="form-control-label">Message:</label>
+            <textarea class="form-control" name="message" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="modal-btn-send">Send</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <footer class="footer">
     <div class="container-fluid">
         <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
@@ -258,6 +286,61 @@ $(document).ready(function(){
     $('#myTab a[href="' + activeTab + '"]').tab('show');
   }
 });
+
+//Send SMS
+function send_sms() {
+  
+  id = $("#phone").val();
+         
+  
+    $("#modal-sms").modal('show');
+    $("#modal-sms #modal-btn-send").click(function () {
+      message = $("#message-text").val();
+      sender = $("#sender-name").val();
+      $.ajax({
+        url:'send_sms.php',
+        method:'POST',
+        data:{id:id,message:message,sender:sender},
+        beforeSend: function () {
+          $("#modal-sms #modal-btn-send").val("Sending Message");
+        },
+        success : function(response) {           
+          if(response=="ok"){
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+              }
+            );
+          }
+          else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
+          }
+          $("#modal-sms").modal('hide');
+        }
+      });
+    });
+}
 </script>
     
 </body>
