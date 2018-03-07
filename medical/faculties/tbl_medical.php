@@ -40,7 +40,7 @@ if(isset($_POST['page'])){
   }
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL AND `faculty_med`.`status` = 'active' $orderSQL");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -54,7 +54,7 @@ if(isset($_POST['page'])){
   $pagination =  new Pagination($pagConfig);
   
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL LIMIT $start,$limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL AND `faculty_med`.`status` = 'active' $orderSQL LIMIT $start,$limit");
   
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -87,7 +87,7 @@ if(isset($_POST['page'])){
             $start++; ?>
             <tr id="table-row-<?php echo $row["StatsID"]; ?>">
               <td>
-                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
+                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['MedID']; ?>"  /> <span class="lbl"></span></label>
               </td>
               <td><?php echo $start;?></td>
               <td><?php echo $row['facultyNo']; ?></td>
@@ -95,7 +95,7 @@ if(isset($_POST['page'])){
               <td><?php echo $row['assess'];?></td>
               <td><?php echo $row['checked_by'];?></td>
               <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-              <td style="width: 145px;"><a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+              <td style="width: 145px;"><a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
               </td>
             </tr>
           <?php } ?>
@@ -120,7 +120,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_med` JOIN `faculties` ON `faculties`.`FacultyID`=`faculty_med`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculty_med`.`status` = 'active'");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -166,7 +166,7 @@ else {
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
                 <td>
-                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
+                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['MedID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
                 <td><?php echo $row['facultyNo']; ?></td>
@@ -174,7 +174,7 @@ else {
                 <td><?php echo $row['assess'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked_up']));?></td>
-                <td style="width: 145px;"><a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;"><a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                 </td>
               </tr>
             <?php } ?>

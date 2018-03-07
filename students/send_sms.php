@@ -6,7 +6,7 @@ $message = $_POST['message'];
 
 if(isset($_POST["id"])) {
   foreach($_POST["id"] as $id) {
-    $res = "SELECT phone FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' AND CONCAT(med = 'Pending' OR dent = 'Pending') AND StudentID = '".$id."'";
+    $res = "SELECT phone FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
     $result = $DB_con->query($res);
     $row = $result->fetch_array(MYSQLI_BOTH);
     $phone = $row['phone'];

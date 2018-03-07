@@ -32,47 +32,52 @@
 
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/LUMDRMS" class="navbar-brand">
-        <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
-      </a>
-    </div>
 
-    <!-- Top Menu Items -->
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <?php
-          if(!empty($userRow)){ ?>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
-              <ul class="dropdown-menu">
-                <li><a href="/LUMDRMS/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
-                <li><a href="/LUMDRMS/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="/LUMDRMS/logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
-              </ul>
-            </li> 
-            <?php 
-          }
-        ?>
-      </ul> 
-    </div>
+    <div class="row">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="col-1 false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" id="menu-toggle" aria-expanded="col-1 false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="/LUMDRMS" class="navbar-brand">
+          <img src="../images/logo.png" class="d-inline-block align-top" align="left" alt="LU Logo"> Laguna University - Clinic | Medical and Dental Records System
+        </a>
+      </div>
 
+      <!-- Top Menu Items -->
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right top-menu">
+          <li class="active">
+            <a href="/LUMDRMS/SMS/"><i class="col-1 fa fa-comment" aria-hidden="true"></i>SMS App</a>
+          </li>
+          <?php
+            if(!empty($userRow)){ ?>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="col-1 fa fa-user-md" aria-hidden="true"></i><?php echo $userRow['userName']; ?><i class="col-1"></i><i class="fa fa-caret-down" aria-hidden="true"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/LUMDRMS/users/user_profile.php"><i class="col-1 fa fa-edit" aria-hidden="true"></i>Edit Profile</a></li>
+                  <li><a href="/LUMDRMS/users/changepswd.php"><i class="col-1 fa fa-lock" aria-hidden="true"></i>Change Password</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="logout.php?logout"><i class="col-1 fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
+                </ul>
+              </li>            
+              <?php 
+            }
+          ?>
+        </ul> 
+      </div>
+
+    </div>
   </div>
 </nav>
 <script src="../assets/js/jquery.min.js"></script>

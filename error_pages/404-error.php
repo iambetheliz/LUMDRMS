@@ -11,6 +11,7 @@
 <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="../assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="../assets/style.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="errors.css" />
 <style>
 /* Error Page Inline Styles */
 #wrapper {

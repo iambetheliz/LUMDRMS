@@ -12,7 +12,7 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="assets/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="assets/errors.css" />
+<link rel="stylesheet" type="text/css" href="error_pages/errors.css" />
 </head>
 <body onload="javascript:loadDomain();">
 

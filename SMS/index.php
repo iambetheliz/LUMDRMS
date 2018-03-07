@@ -87,70 +87,59 @@ input[type=button]:hover {
 <div id="wrapper">
 
   <!-- Sidebar Menu Items -->
-  <div id="sidebar-wrapper">
-    <nav id="spy">
-      <ul class="sidebar-nav" role="menu">                    
-        <li>
-          <a href="/LUMDRMS"><span class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp; Dashboard</a>
-        </li>
-        <li>
-          <a href="/LUMDRMS/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
-        </li>
-        <li role="presentation" class="have-child">
-          <a role="menuitem" data-toggle="collapse" href="#demo"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records <i class="fa fa-caret-down"></i></a>
-          <ul id="demo" class="panel-collapse collapse">
-            <li>
-              <a href="/LUMDRMS/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-            </li>
-            <li>
-              <a href="/LUMDRMS/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-            </li>
-            <li>
-              <a class="med" role="submenuitem" data-toggle="collapse" href="#med"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
+    <div id="sidebar-wrapper">
+      <nav id="spy">
+        <ul class="sidebar-nav" role="menu">                    
+          <li>
+            <a href="/LUMDRMS/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
+          </li>
+          <li>
+            <a href="/LUMDRMS/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+          </li>
+          <li>
+            <a href="/LUMDRMS/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+          </li>
+          <li>
+            <a href="/LUMDRMS/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+          </li>
+          <li role="presentation" class="have-child">
+            <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
+            <ul id="demo" class="panel-collapse collapse">
+              <li>
+              <a class="med" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-medkit" aria-hidden="true"></i>Medical <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/LUMDRMS/medical/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/LUMDRMS/medical/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/LUMDRMS/medical/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/LUMDRMS/medical/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
             <li>
-              <a class="den" role="submenuitem" data-toggle="collapse" href="#den" data-parent="#accordion"><span class="fa fa-smile-o"></span>&nbsp;&nbsp; Dental <i class="fa fa-caret-down"></i></a>
+              <a class="den" role="submenuitem" data-toggle="collapse"><i class="col-1 fa fa-smile-o" aria-hidden="true"></i>Dental <i class="col-1 fa fa-caret-down" aria-hidden="true"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/LUMDRMS/dental/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+                  <a href="/LUMDRMS/dental/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/LUMDRMS/dental/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+                  <a href="/LUMDRMS/dental/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
-            <li>
-              <a class="den" role="submenuitem" data-toggle="collapse" href="#soap" data-parent="#soap"><span class="fa fa-file-text-o"></span>&nbsp;&nbsp; S.O.A.P. <i class="fa fa-caret-down"></i></a>
-              <ul id="soap" class="panel-collapse collapse">
-                <li>
-                  <a href="/LUMDRMS/soap/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-                </li>
-                <li>
-                  <a href="/LUMDRMS/soap/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-                </li>
-              </ul>
-            </li> 
-          </ul>
-        </li>
-        <?php 
-          if ($userRow['role'] === 'superadmin') {?>
-          <li>
-            <a href="/LUMDRMS/tbl_users.php"><span class="fa fa-lock"></span>&nbsp;&nbsp; User Accounts</a>
+            </ul>
           </li>
-        <?php    }
-        ?>
-      </ul>
-    </nav>
-  </div>  
-  <!-- End of Sidebar --> 
+          <?php 
+            if ($userRow['role'] == 'superadmin') {?>
+            <li>
+              <a href="/LUMDRMS/users"><i class="col-1 fa fa-user-md" aria-hidden="true"></i>User Accounts</a>
+            </li>
+          <?php    }
+          ?>
+        </ul>
+      </nav>
+    </div>  
+    <!-- End of Sidebar -->  
 
   <!-- Begin Main Screen -->
     <div id="page-content-wrapper">

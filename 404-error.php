@@ -11,7 +11,43 @@
 <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"  />
 <link href="assets/css/simple-sidebar.css" rel="stylesheet" type="text/css" />
 <link href="assets/style.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="assets/errors.css" />
+
+<style>
+/* Error Page Inline Styles */
+#wrapper {
+  padding:0;
+}
+/* Layout */
+.jumbotron {
+  font-size: 21px;
+  font-weight: 200;
+  line-height: 2.1428571435;
+  color: inherit;
+  padding: 10px 0px;
+  margin-top: 5%;
+}
+/* Everything but the jumbotron gets side spacing for mobile-first views */
+.masthead, .body-content, {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  background-color: transparent;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+}
+.profile-img {
+  width: 200px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%; 
+}
+</style>
 </head>
 <body onload="javascript:loadDomain();">
 

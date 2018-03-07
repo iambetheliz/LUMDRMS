@@ -391,37 +391,37 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
-          </div>
-          <div class="modal-body row">    
+        </div>
+        <div class="modal-body row">    
           <div class="container-fluid">
-        <div class="form-group">
+            <div class="form-group">
               <label for="title" class="control-label">Event Name:</label>
               <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
             </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="start" class="control-label">Start:</label>
-        <div class="input-group date">
-              <input type="text" class="form-control" id="startEdit" name="start" />
-              <span class="input-group-addon">
-                <span class="fa fa-calendar"></span>
-              </span>
           </div>
-        </div>
-      </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-        <label for="end" class="control-label">End:</label>
-        <div class="input-group date">
-            <input type="text" class="form-control" id="endEdit" name="start" />
-              <span class="input-group-addon">
-                <span class="fa fa-calendar"></span>
-              </span>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="start" class="control-label">Start:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="startEdit" name="start" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div>
           </div>
-        </div>  
-      </div>  
-      <div class="col-lg-12">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="end" class="control-label">End:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="endEdit" name="start" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div>  
+          </div>  
+          <div class="col-lg-12">
             <label>Privacy:</label>
           </div>
           <div class="col-lg-6">

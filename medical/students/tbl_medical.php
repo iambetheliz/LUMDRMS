@@ -37,7 +37,7 @@ if(isset($_POST['page'])){
   }
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL AND `students_med`.`status` = 'active' $orderSQL");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -51,7 +51,7 @@ if(isset($_POST['page'])){
   $pagination =  new Pagination($pagConfig);
   
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
+  $query = $DB_con->query("SELECT * FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL AND `students_med`.`status` = 'active' $orderSQL LIMIT $start,$limit");
   
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -84,7 +84,7 @@ if(isset($_POST['page'])){
             $start++; ?>
             <tr id="table-row-<?php echo $row["StatsID"]; ?>">
               <td>
-                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
+                <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['MedID']; ?>"  /> <span class="lbl"></span></label><?php echo $row['MedID']; ?>
               </td>
               <td><?php echo $start;?></td>
               <td><?php echo $row['studentNo']; ?></td>
@@ -117,7 +117,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students_med`.`status` = 'active'");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -130,7 +130,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` ORDER BY date_checked_up DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students_med`.`status` = 'active' ORDER BY date_checked_up DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -163,7 +163,7 @@ else {
               $start++; ?>
               <tr id="table-row-<?php echo $row["StatsID"]; ?>">
                 <td>
-                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['StudentID']; ?>"  /> <span class="lbl"></span></label>
+                  <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['MedID']; ?>"  /> <span class="lbl"></span></label>
                 </td>
                 <td><?php echo $start;?></td>
                 <td><?php echo $row['studentNo']; ?></td>

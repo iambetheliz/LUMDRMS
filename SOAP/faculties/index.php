@@ -69,15 +69,15 @@
           <li>
             <a href="/LUMDRMS/calendar/"><i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp; Activities</a>
           </li>
+          <li>
+            <a href="/LUMDRMS/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
+          </li>
+          <li>
+            <a href="/LUMDRMS/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
+          </li>
           <li class="active have-child" role="presentation">
             <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;&nbsp; Records &nbsp;&nbsp;<span class="caret"></span></a>
             <ul id="demo" class="panel-collapse collapse in">
-              <li>
-                <a href="/LUMDRMS/students/"><span class="fa fa-graduation-cap"></span>&nbsp;&nbsp; Students</a>
-              </li>
-              <li>
-                <a href="/LUMDRMS/faculties/"><span class="fa fa-briefcase"></span>&nbsp;&nbsp; Faculty and Staff</a>
-              </li>
               <li>
                 <a class="med" role="submenuitem" data-toggle="collapse"><span class="fa fa-medkit"></span>&nbsp;&nbsp; Medical <i class="fa fa-caret-down"></i></a>
                 <ul id="med" class="panel-collapse collapse">
