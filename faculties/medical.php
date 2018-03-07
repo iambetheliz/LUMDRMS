@@ -6,12 +6,12 @@ if(empty($_SESSION)) // if the session not yet started
 
   // Check connection
   if ($DB_con->connect_error) {
-    header('Location: /lu_clinic/no_connection_error.php');
+    header('Location: /LUMDRMS/no_connection_error.php');
   }
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/index.php?attempt");
+    header("Location: /LUMDRMS/index.php?attempt");
     exit;
   }
 ?>

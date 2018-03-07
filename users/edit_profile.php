@@ -11,7 +11,7 @@
 	}
 
 	if ($DB_con->connect_errno) {
-		header('Location: /lu_clinic/no_connection_error.php');
+		header('Location: /LUMDRMS/no_connection_error.php');
 		exit();
 	}
 

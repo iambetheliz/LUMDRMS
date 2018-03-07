@@ -6,7 +6,7 @@
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/index.php?attempt");
+    header("Location: /LUMDRMS/index.php?attempt");
     exit;
   }
 

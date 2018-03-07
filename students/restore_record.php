@@ -1,6 +1,5 @@
 <?php
 require_once '../includes/dbconnect.php';
-$DB_con = mysqli_connect("localhost", "root", "", "records");
 
 if(isset($_POST['restore'])){
 	$StudentID = $_POST['StudentID'];

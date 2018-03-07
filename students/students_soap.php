@@ -9,7 +9,7 @@ if (isset($_GET['StudentID'])) {
   if ($med_res->num_rows == 0) {
     $errMSG = "No records found."; ?>
     <br />
-    <a href="/lu_clinic/soap/students/new_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+    <a href="/LUMDRMS/soap/students/new_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
     <?php 
   }
   else { 
@@ -26,7 +26,7 @@ if (isset($_GET['StudentID'])) {
     <div class="row">
       <div class="container-fluid">
         <br />
-        <a href="/lu_clinic/soap/students/new_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+        <a href="/LUMDRMS/soap/students/new_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
         <br>             
         <br />
         <div class="col-lg-6">

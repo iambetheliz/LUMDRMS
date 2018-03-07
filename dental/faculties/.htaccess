@@ -14,8 +14,8 @@ RewriteRule ^(.*)$ $1.html
 
 Options -Indexes
 
-ErrorDocument 403 /lu_clinic/error_pages/403-error.php
-ErrorDocument 404 /lu_clinic/error_pages/404-error.php
-ErrorDocument 500 /lu_clinic/error_pages/500-error.php
+ErrorDocument 403 /LUMDRMS/error_pages/403-error.php
+ErrorDocument 404 /LUMDRMS/error_pages/404-error.php
+ErrorDocument 500 /LUMDRMS/error_pages/500-error.php
 
 </IfModule>

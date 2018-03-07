@@ -37,7 +37,7 @@ include('../includes/dbconnect.php');
     <div class="btn-toolbar pull-right" role="toolbar">
       <div class="btn-group mr-2" role="group" aria-label="First group">
         <button type="button" class="btn btn-primary" onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
-        <a href="/lu_clinic/students/" role="button" class="btn btn-success">Back</a>
+        <a href="/LUMDRMS/students/" role="button" class="btn btn-success">Back</a>
       </div>
     </div>
     </h4>

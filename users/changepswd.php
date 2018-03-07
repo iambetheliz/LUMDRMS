@@ -63,16 +63,16 @@ label.error {
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-            <a href="/lu_clinic/"><i class="fa fa-bar-chart col-1"></i>Dashboard</a>
+            <a href="/LUMDRMS/"><i class="fa fa-bar-chart col-1"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="fa fa-calendar col-1"></i>Activities</a>
+            <a href="/LUMDRMS/calendar/"><i class="fa fa-calendar col-1"></i>Activities</a>
           </li>
           <li>
-            <a href="/lu_clinic/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
+            <a href="/LUMDRMS/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
           </li>
           <li>
-            <a href="/lu_clinic/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
+            <a href="/LUMDRMS/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
           </li>
           <li role="presentation" class="have-child">
             <a role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="fa fa-book col-1"></i>Records <i class="fa fa-caret-down col-1"></i></a>
@@ -81,10 +81,10 @@ label.error {
               <a class="med" role="submenuitem" data-toggle="collapse"><i class="fa fa-medkit col-1"></i>Medical <i class="fa fa-caret-down col-1"></i></a>
               <ul id="med" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/medical/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
+                  <a href="/LUMDRMS/medical/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/medical/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
+                  <a href="/LUMDRMS/medical/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>  
@@ -92,10 +92,10 @@ label.error {
               <a class="den" role="submenuitem" data-toggle="collapse"><i class="fa fa-smile-o col-1"></i>Dental <i class="fa fa-caret-down col-1"></i></a>
               <ul id="den" class="panel-collapse collapse">
                 <li>
-                  <a href="/lu_clinic/dental/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
+                  <a href="/LUMDRMS/dental/students/"><i class="fa fa-graduation-cap col-1"></i>Students</a>
                 </li>
                 <li>
-                  <a href="/lu_clinic/dental/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
+                  <a href="/LUMDRMS/dental/faculties/"><i class="fa fa-briefcase col-1"></i>Faculty and Staff</a>
                 </li>
               </ul>
             </li>
@@ -104,7 +104,7 @@ label.error {
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li class="active">
-              <a href="/lu_clinic/users"><i class="fa fa-lock col-1"></i>User Accounts</a>
+              <a href="/LUMDRMS/users"><i class="fa fa-lock col-1"></i>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -149,7 +149,7 @@ label.error {
     						</div>
     						<br>
     						<div class="form-group" align="center">
-    							<a type="cancel" href="/lu_clinic/users/changepswd.php" class="btn btn-default">CANCEL
+    							<a type="cancel" href="/LUMDRMS/users/changepswd.php" class="btn btn-default">CANCEL
     							</a>
     							<button id="change" name="change" align="middle" type="submit" class="btn btn-primary"> SAVE 
     							</button>

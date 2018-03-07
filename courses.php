@@ -2,8 +2,6 @@
 //Include database configuration file
 include('../includes/dbconnect.php');
 
-$DB_con = new mysqli("localhost", "root", "", "records");
-
 if(isset($_POST["dept_id"]) && !empty($_POST["dept_id"])){
     //Get all state data
     $query = $DB_con->query("SELECT * FROM program WHERE dept_id = ".$_POST['dept_id']." AND status = 1 ORDER BY program_name ASC");

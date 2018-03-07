@@ -18,8 +18,8 @@ RewriteRule ^profile/(.*)$ profile.php?q=$1 [QSA]
 
 Options -Indexes
 
-ErrorDocument 403 /lu_clinic/403-error.php
-ErrorDocument 404 /lu_clinic/404-error.php
-ErrorDocument 500 /lu_clinic/500-error.php
+ErrorDocument 403 /LUMDRMS/403-error.php
+ErrorDocument 404 /LUMDRMS/404-error.php
+ErrorDocument 500 /LUMDRMS/500-error.php
 
 </IfModule>

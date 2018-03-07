@@ -410,7 +410,7 @@ echo "</tr>";
 }
 }
 else {
-  header("Location: /lu_clinic/medical/");
+  header("Location: /LUMDRMS/medical/");
 }
 ?>
 

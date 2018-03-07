@@ -300,7 +300,7 @@ echo "None";
 }
 }
   else {
-    header("Location: /lu_clinic/students/");
+    header("Location: /LUMDRMS/students/");
   }
 ?>
 

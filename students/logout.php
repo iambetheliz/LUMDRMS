@@ -2,7 +2,7 @@
 	session_start();
 	
 	if (!isset($_SESSION['user'])) {
-		header("Location: /lu_clinic");
+		header("Location: /LUMDRMS");
 	} else if(isset($_SESSION['user'])!="") {
 		header("Location: dashboard.php");
 	}
@@ -11,7 +11,7 @@
 		unset($_SESSION['user']);
 		session_unset();
 		session_destroy();
-		header("Location: /lu_clinic");
+		header("Location: /LUMDRMS");
 		exit;
 	}
 ?>

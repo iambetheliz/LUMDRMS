@@ -53,7 +53,7 @@
       <h4 style="color: red;"><strong>NO MEDICAL RECORD</strong>
         <div class="btn-toolbar pull-right" role="toolbar">
           <button type="button" class="btn btn-primary pull-right"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
-          <a href="/lu_clinic/students/" role="button" class="btn btn-success">Back</a>
+          <a href="/LUMDRMS/students/" role="button" class="btn btn-success">Back</a>
         </div>
       </h4>
     </div>

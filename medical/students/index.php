@@ -64,16 +64,16 @@
       <nav id="spy">
         <ul class="sidebar-nav" role="menu">                    
           <li>
-            <a href="/lu_clinic/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
+            <a href="/LUMDRMS/"><i class="col-1 fa fa-bar-chart" aria-hidden="true"></i>Dashboard</a>
           </li>
           <li>
-            <a href="/lu_clinic/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
+            <a href="/LUMDRMS/calendar/"><i class="col-1 fa fa-calendar" aria-hidden="true"></i>Activities</a>
           </li>
           <li>
-            <a href="/lu_clinic/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
+            <a href="/LUMDRMS/students/"><i class="col-1 fa fa-graduation-cap" aria-hidden="true"></i>Students</a>
           </li>
           <li>
-            <a href="/lu_clinic/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
+            <a href="/LUMDRMS/faculties/"><i class="col-1 fa fa-briefcase" aria-hidden="true"></i>Faculty and Staff</a>
           </li>
           <li class="active have-child" role="presentation">
             <a class="demo" role="menuitem" data-toggle="collapse" href="#demo" data-parent="#accordion"><i class="col-1 fa fa-book" aria-hidden="true"></i>Records <i class="fa fa-caret-down"></i></a>
@@ -82,10 +82,10 @@
                 <a role="submenuitem" data-toggle="collapse"><span class="col-1 fa fa-medkit"></span>Medical <i class="fa fa-caret-down"></i></a>
                 <ul id="med" class="panel-collapse collapse in">
                   <li class="active">
-                    <a href="/lu_clinic/medical/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
+                    <a href="/LUMDRMS/medical/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/medical/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
+                    <a href="/LUMDRMS/medical/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -93,10 +93,10 @@
                 <a class="den" role="submenuitem" data-toggle="collapse"><span class="col-1 fa fa-smile-o"></span>Dental <i class="fa fa-caret-down"></i></a>
                 <ul id="den" class="panel-collapse collapse">
                   <li>
-                    <a href="/lu_clinic/dental/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
+                    <a href="/LUMDRMS/dental/students/"><span class="col-1 fa fa-graduation-cap"></span>Students</a>
                   </li>
                   <li>
-                    <a href="/lu_clinic/dental/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
+                    <a href="/LUMDRMS/dental/faculties/"><span class="col-1 fa fa-briefcase"></span>Faculty and Staff</a>
                   </li>
                 </ul>
               </li>
@@ -105,7 +105,7 @@
           <?php 
             if ($userRow['role'] === 'superadmin') {?>
             <li>
-              <a href="/lu_clinic/users"><span class="col-1 fa fa-lock"></span>User Accounts</a>
+              <a href="/LUMDRMS/users"><span class="col-1 fa fa-lock"></span>User Accounts</a>
             </li>
           <?php    }
           ?>
@@ -184,7 +184,7 @@
               <div class="container-fluid">
                 <div id="optSelect" style="display: none;">
                   <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Student</button>
-                  <a href="/lu_clinic/students/index.php#userModal" class="btn btn-warning">New Student</a>
+                  <a href="/LUMDRMS/students/index.php#userModal" class="btn btn-warning">New Student</a>
                 </div>
               </div>
             </div>

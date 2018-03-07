@@ -13,7 +13,7 @@
 		session_unset();
 		session_destroy();
 		$sql = mysqli_query($DB_con,'UPDATE `users` SET `login_date` = now()');
-		header("Location: /lu_clinic");
+		header("Location: /LUMDRMS");
 		exit;
 	}
 ?>

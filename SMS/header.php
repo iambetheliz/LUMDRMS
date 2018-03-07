@@ -7,7 +7,7 @@
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/index.php?attempt");
+    header("Location: /LUMDRMS/index.php?attempt");
     exit;
   }
 
@@ -24,10 +24,10 @@
     $output = '';
     if(!empty($userRow)){
         $account = '<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;'. ucwords($userRow['userName']).'&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>';
-        $logout = '<a href="/lu_clinic/logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
+        $logout = '<a href="/LUMDRMS/logout.php?logout"><i class="glyphicon glyphicon-off">'.'</i>&nbsp;&nbsp;Logout</a>';
     }else{
         $output .= '<h3 class="alert alert-danger">Your google account does not exists in our database!<br>Redirecting to login page ...</h3>';
-        header("Refresh:3; /lu_clinic/logout.php?logout");
+        header("Refresh:3; /LUMDRMS/logout.php?logout");
     }
 
 ?>
@@ -48,7 +48,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="/lu_clinic" class="navbar-brand">
+      <a href="/LUMDRMS" class="navbar-brand">
         <img src="../images/logo.png" width="35" style="margin-top: -7px;" class="d-inline-block align-top" align="left" alt="">&nbsp;&nbsp;Laguna University - Clinic | Medical Records System
       </a>
     </div>
@@ -61,10 +61,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user-circle"></i>&nbsp;&nbsp;<?php echo $userRow['userName']; ?>&nbsp;&nbsp;<i class="fa fa-caret-down"></i></a>
               <ul class="dropdown-menu">
-                <li><a href="/lu_clinic/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
-                <li><a href="/lu_clinic/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>
+                <li><a href="/LUMDRMS/users/user_profile.php"><i class="fa fa-edit"></i>&nbsp;&nbsp; Edit Profile</a></li>
+                <li><a href="/LUMDRMS/users/changepswd.php"><i class="fa fa-lock"></i>&nbsp;&nbsp; Change Password</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="/lu_clinic/logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+                <li><a href="/LUMDRMS/logout.php?logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
               </ul>
             </li> 
             <?php 

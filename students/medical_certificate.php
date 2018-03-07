@@ -103,7 +103,7 @@ if(!empty($row)) { ?>
 <?php }
 }
 else {
-  header("Location: /lu_clinic/medical/");
+  header("Location: /LUMDRMS/medical/");
 }
 ?>
 </div></div>

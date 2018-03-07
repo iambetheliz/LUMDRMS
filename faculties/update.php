@@ -1,6 +1,5 @@
 <?php
   include('../includes/dbconnect.php');
-  $DB_con = mysqli_connect("localhost", "root", "", "records");
 
   if(!empty($_POST)) {
     if($_POST["FacultyID"] != '')  

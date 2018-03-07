@@ -66,7 +66,7 @@ $(document).ready(function() {
               $("#msg").show();
             }, 3000);
             setTimeout(function() {
-              window.location.href = "/lu_clinic";
+              window.location.href = "/LUMDRMS";
             }, 6000);
           }
           else {

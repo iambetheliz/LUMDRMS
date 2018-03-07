@@ -27,7 +27,7 @@ if (isset($_GET['FacultyID'])) {
       <div class="container-fluid">
         <br />
         <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
-        <a href="/lu_clinic/faculties/medical.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
+        <a href="/LUMDRMS/faculties/medical.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
         <br>             
         <br />
         <div class="col-lg-6">

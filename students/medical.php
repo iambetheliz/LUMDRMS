@@ -59,7 +59,7 @@ E-mail: info@lu.edu.ph
 <div class="btn-toolbar pull-right" role="toolbar">
   <div class="btn-group mr-2" role="group" aria-label="First group">
     <button type="button" class="btn btn-primary" onclick="javascript:window.print()" value="Print"><i class="fa fa-print"></i> Print</button>
-    <a href="/lu_clinic/students/" role="button" class="btn btn-success">Back</a>
+    <a href="/LUMDRMS/students/" role="button" class="btn btn-success">Back</a>
   </div>
 </div>
 </h3>
@@ -416,7 +416,7 @@ echo "</tr>";
 }
 }
 else {
-  header("Location: /lu_clinic/medical/");
+  header("Location: /LUMDRMS/medical/");
 }
 ?>
 <div class="btn-toolbar certificate" role="toolbar">
@@ -472,7 +472,7 @@ if(!empty($row)) { ?>
 <?php }
 }
 else {
-  header("Location: /lu_clinic/medical/");
+  header("Location: /LUMDRMS/medical/");
 }
 ?>
 

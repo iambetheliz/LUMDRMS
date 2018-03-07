@@ -6,7 +6,7 @@
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/index.php?attempt");
+    header("Location: /LUMDRMS/index.php?attempt");
     exit;
   }
 
@@ -38,7 +38,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a href="/lu_clinic" class="navbar-brand">
+        <a href="/LUMDRMS" class="navbar-brand">
           <img src="../images/logo.png" class="d-inline-block align-top brand-logo" align="left" alt="">Laguna University - Clinic | Medical and Dental Records System
         </a>
       </div>
@@ -47,17 +47,17 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right top-menu">
           <li>
-            <a href="/lu_clinic/SMS/"><i class="col-1 fa fa-comment" aria-hidden="true"></i>SMS App</a>
+            <a href="/LUMDRMS/SMS/"><i class="col-1 fa fa-comment" aria-hidden="true"></i>SMS App</a>
           </li>
           <?php
             if(!empty($userRow)){ ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="col-1 fa fa-user-circle" aria-hidden="true"></i><?php echo $userRow['userName']; ?><i class="col-1"></i><i class="fa fa-caret-down" aria-hidden="true"></i></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/lu_clinic/users/user_profile.php"><i class="col-1 fa fa-edit" aria-hidden="true"></i>Edit Profile</a></li>
-                  <li><a href="/lu_clinic/users/changepswd.php"><i class="col-1 fa fa-lock" aria-hidden="true"></i>Change Password</a></li>
+                  <li><a href="/LUMDRMS/users/user_profile.php"><i class="col-1 fa fa-edit" aria-hidden="true"></i>Edit Profile</a></li>
+                  <li><a href="/LUMDRMS/users/changepswd.php"><i class="col-1 fa fa-lock" aria-hidden="true"></i>Change Password</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="/lu_clinic/logout.php?logout"><i class="col-1 fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
+                  <li><a href="/LUMDRMS/logout.php?logout"><i class="col-1 fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
                 </ul>
               </li>            
               <?php 

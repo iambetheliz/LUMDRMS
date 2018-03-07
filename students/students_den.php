@@ -5,12 +5,12 @@ if(empty($_SESSION)) // if the session not yet started
 
   // Check connection
   if ($DB_con->connect_error) {
-    header('Location: /lu_clinic/no_connection_error.php');
+    header('Location: /LUMDRMS/no_connection_error.php');
   }
   
   // if session is not set this will redirect to login page
   if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/index.php?attempt");
+    header("Location: /LUMDRMS/index.php?attempt");
     exit;
   }
 
@@ -40,7 +40,7 @@ if (isset($_GET['StudentID'])) {
       <div class="container-fluid">
         <br />
         <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
-        <a href="/lu_clinic/students/dental.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a><br><br>
+        <a href="/LUMDRMS/students/dental.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a><br><br>
         <div class="col-lg-6">
           <div class="form-group row">
             <label id="date_time">Date Recorded:</label>

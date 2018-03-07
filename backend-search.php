@@ -5,7 +5,7 @@ if(empty($_SESSION)) // if the session not yet started
 
 // if session is not set this will redirect to login page
 if( !isset($_SESSION['user']) ) {
-    header("Location: /lu_clinic/403-error.php");
+    header("Location: /LUMDRMS/403-error.php");
 exit;
 }
 

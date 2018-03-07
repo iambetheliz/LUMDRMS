@@ -72,7 +72,7 @@ label.error {
       <div class="well well-lg">
         <table class="table no-border">
           <tr>
-            <td><a href="/lu_clinic"><img class="profile-img" src="images/logo.png" alt=""></a></td>
+            <td><a href="/LUMDRMS"><img class="profile-img" src="images/logo.png" alt=""></a></td>
             <td align="center"><h3 style="padding-bottom: 10px;">Laguna University Clinic</h3></td>
           </tr>
         </table>

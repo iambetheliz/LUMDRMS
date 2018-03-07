@@ -1,6 +1,5 @@
 <?php
 require_once("../includes/dbconnect.php");
-$DB_con = new mysqli("localhost", "root", "", "records");
 
 if(!empty($_POST["keyword"])) {
     $query ="SELECT * FROM students WHERE studentNo LIKE '%" . $_POST["keyword"] . "%' OR first_name LIKE '%" . $_POST["keyword"] . "%' OR middle_name LIKE '%" . $_POST["keyword"] . "%' OR last_name LIKE '%" . $_POST["keyword"] . "%' ORDER BY first_name LIMIT 0,6";
