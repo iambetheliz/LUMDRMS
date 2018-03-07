@@ -2,6 +2,31 @@
   include 'calendar.php';
   include 'includes/Class.NumbersToWords.php';
 ?>
+<?php
+
+  function fill_program($DB_con) {  
+    $prog_out = '';  
+    $sql = "SELECT * FROM program";  
+    $result = mysqli_query($DB_con, $sql);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+      $prog_out .= '<option value="'.$row["program_id"].'">'.$row["alias"].'</option>';  
+    }  
+    return $prog_out;  
+  }
+
+  function fill_dept($DB_con) {  
+    $dept_out = '';  
+    $sql = "SELECT * FROM department";  
+    $result = mysqli_query($DB_con, $sql);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+      $dept_out .= '<option value="'.$row["dept_id"].'">'.$row["dept_name"].'</option>';  
+    }  
+    return $dept_out;  
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -28,6 +53,10 @@
   #calendar, .alert {
     display: none;
   }
+}
+.daterange>.bootstrap-datetimepicker-widget {
+  background: white;
+  border: solid 1px #DDD;
 }
 </style>
 </head>
@@ -104,16 +133,47 @@
           <h2 class="page-header">Dashboard
             <div class="btn-toolbar pull-right" role="toolbar">
               <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
+              <span class="col-1"></span>
 
-              <div class="btn-group filter-options">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#dropdown-filter-options">
-                  Filter Date <i class="fa fa-caret-down"></i>
+              <div class="dropdown pull-right">
+                <button type="button" class="btn btn-default" class="dropdown-toggle" data-toggle="dropdown" id="filter_date"> Filter Date<i class="col-1"></i><i class="fa fa-caret-down"></i>
                 </button>
+                <div id="login-dp" class="dropdown-menu">
+                  <form id="daterange" method="POST">
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <div class="form-group mb-1 daterange">
+                          <label>Starting Date:</label>
+                          <input type="text" class="form-control" id="filter_start" name="filter_start" />
+                        </div>
+                      </div>
+                      <div class="col-lg-5">
+                        <div class="form-group daterange">
+                          <label>Ending Date:</label>
+                          <input type="text" class="form-control" id="filter_end" name="filter_end" />
+                        </div>
+                      </div>
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary mb-2" name="go" id="go" value="go"> Filter </button>
+                        </div>
+                        <br><br>
+                        <div class="btn-group-vertical">
+                          <button type="button" class="btn btn-default" name="day" id="day">Day</button>
+                          <button type="button" class="btn btn-default" name="week" id="week">Week</button>
+                          <button type="button" class="btn btn-default" name="month" id="month">Month</button>
+                          <button type="button" class="btn btn-default" name="year" id="year">Year</button>
+                        </div>
+                      </div>      
+                    </div>
+                  </form>
+                </div>
+
               </div>
             </div>
           </h2>
         </div>  
-        <!-- End of Page Heading -->
+        <!-- End of Page Heading -->                  
 
         <div class="row">
           <div class="alert alert-info" role="alert">
@@ -209,137 +269,135 @@
   </div>
   <!-- End of Content -->
 
-  <div id="dropdown-filter-options" class="modal" tabindex="-1" role="dialog" data-backdrop="false">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="col">
-            <form class="form-inline" id="daterange" method="POST">
-              <div class="form-group mb-1">
-                <div class="input-group date">
-                  <input type="text" class="form-control" id="filter_start" name="filter_start" />
-                  <span class="input-group-addon">
-                    <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="end" class="control-label">-</label>
-                <div class="input-group date">
-                  <input type="text" class="form-control" id="filter_end" name="filter_end" />
-                  <span class="input-group-addon">
-                    <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
-                  </span>
-                </div>
-              </div>
-              <button type="submit" style="margin-left: 5px" class="btn btn-primary mb-2" name="go" id="go" value="go">Filter</button>
-            </form>
-          </div>
-          <br>
-          <div class="btn-toolbar">
-            <div class="btn-group-vertical pull-right">
-              <button type="button" class="btn btn-default" name="day" id="day">Day</button>
-              <button type="button" class="btn btn-default" name="week" id="week">Week</button>
-              <button type="button" class="btn btn-default" name="month" id="month">Month</button>
-              <button type="button" class="btn btn-default" name="year" id="year">Year</button>
-            </div>   
-          </div>
-          <div class="modal-footer">            
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  <form id="addEvent" method="POST">  
-    <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
-    </div>
-    <div class="modal-body row">
-      <div class="container-fluid">
-        <div class="form-group">
-          <label for="title" class="control-label">Event Title:</label>
-          <input type="text" name="title" class="form-control" id="title" placeholder="Title" />
-          <br>
-          <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
-          <select name="color" class="form-control" id="color">
-            <option value="">Choose</option>
-            <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-        <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-        <option style="color:#008000;" value="#008000">&#9724; Green</option> 
-        <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-        <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-        <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-        <option style="color:#000;" value="#000">&#9724; Black</option>
-        </select>
-      </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group">
-          <label for="start" class="control-label">Start:</label>
-        <div class="input-group date">
-              <input type="text" class="form-control" id="start" name="start" />
-              <span class="input-group-addon">
-                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
-              </span>
-          </div>
+    <form id="addEvent" method="POST">  
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
         </div>
-      </div>
-      <div class="col-lg-1"></div>
-        <div class="col-lg-6">
-          <div class="form-group">
-        <label for="end" class="control-label">End:</label>
-        <div class="input-group date">
+        <div class="modal-body row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="title" class="control-label">Event Name:</label>
+              <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="start" class="control-label">Start:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="start" name="start" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div>              
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="end" class="control-label">End:</label>
+              <div class="input-group date">
                 <input type="text" class="form-control" id="end" name="end" />
                 <span class="input-group-addon">
-                  <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                  <span class="fa fa-calendar"></span>
                 </span>
+              </div>
+            </div> 
+          </div>
+          <div class="col-lg-12">
+            <label>Privacy:</label>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="right" title="Save calendar and send an SMS to designated recipients"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
             </div>
-        </div>  
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">  
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="left" title="Save calendar without sending an SMS"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group">          
+              <label>Guests:</label>
+              <select class="form-control" name="guests" id="guests">
+                <option value="">Select</option>
+                <option value="students">Students</option>
+                <option value="faculties">Faculty and Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">     
+              <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+              <select name="color" class="form-control" id="color">
+                <option value="">Choose</option>
+                <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+                <option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
+                <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+                <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+                <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+                <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+                <option style="color:#000;" value="#000">&#9724; Black</option>
+              </select>  
+            </div> 
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group students_select" style="display: none;"> 
+              <label>Program:</label>
+              <select class="form-control" name="prog_list" id="prog_list" style="cursor: pointer;">  
+                <option value="">All Programs</option>  
+                <?php echo fill_program($DB_con); ?>  
+              </select>    
+            </div>
+            <div class="form-group faculties_select" style="display: none;"> 
+              <label>Department:</label>
+              <select class="form-control" name="dept_list" id="dept_list" style="cursor: pointer;">  
+                <option value="">All Departments</option>  
+                <?php echo fill_dept($DB_con); ?>  
+              </select>    
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group" id="yearLevel" style="display: none;">
+              <label>Year Level:</label>
+              <select class="form-control" name="yearLevel" id="yearLabel">
+                <option value="">Select</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
+        </div>
       </div>
-      </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
-    </div>
-    </div>
-  </form>
+    </form>
   </div>
 </div>  
   
 <!-- Edit Event Modal -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-  <form id="updateEvent" method="POST">
-    <div class="modal-content">
-    <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
-      </div>
-      <div class="modal-body row">    
-      <div class="container-fluid">
+    <form id="updateEvent" method="POST">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Edit Event</h4>
+          </div>
+          <div class="modal-body row">    
+          <div class="container-fluid">
         <div class="form-group">
-          <label for="title" class="control-label">Event Title:</label>
-          <input type="text" name="title" class="form-control" id="title" placeholder="Title" />
-          <br>
-          <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
-          <select name="color" class="form-control" id="color">
-            <option value="">Choose</option>
-            <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-        <option style="color:#40E0D0;" value="#40E0D0">&#9724; Turquoise</option>
-        <option style="color:#008000;" value="#008000">&#9724; Green</option> 
-        <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-        <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-        <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-        <option style="color:#000;" value="#000">&#9724; Black</option>
-        </select>
-      </div>
+              <label for="title" class="control-label">Event Name:</label>
+              <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+            </div>
       </div>
       <div class="col-lg-6">
         <div class="form-group">
@@ -347,36 +405,97 @@
         <div class="input-group date">
               <input type="text" class="form-control" id="startEdit" name="start" />
               <span class="input-group-addon">
-                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                <span class="fa fa-calendar"></span>
               </span>
           </div>
-          <br>
-        <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="public"><span class="lbl"></span> Public Event</label>
         </div>
       </div>
-      <div class="col-lg-1"></div>
         <div class="col-lg-6">
           <div class="form-group">
         <label for="end" class="control-label">End:</label>
         <div class="input-group date">
-            <input type="text" class="form-control" id="endEdit" name="end" />
+            <input type="text" class="form-control" id="endEdit" name="start" />
               <span class="input-group-addon">
-                <i class="col-1 fa fa-calendar" aria-hidden="true"></i>
+                <span class="fa fa-calendar"></span>
               </span>
           </div>
-          <br>
-          <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="private"><span class="lbl"></span> Private Event</label>
         </div>  
-      </div>      
-      <input type="hidden" name="id" class="form-control" id="id">      
+      </div>  
+      <div class="col-lg-12">
+            <label>Privacy:</label>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="right" title="Save calendar and send an SMS to designated recipients"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">  
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="left" title="Save calendar without sending an SMS"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group">          
+              <label>Guests:</label>
+              <select class="form-control" name="guests" id="guests">
+                <option value="">Select</option>
+                <option value="students">Students</option>
+                <option value="faculties">Faculty and Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">     
+              <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+              <select name="color" class="form-control" id="color">
+                <option value="">Choose</option>
+                <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+                <option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
+                <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+                <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+                <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+                <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+                <option style="color:#000;" value="#000">&#9724; Black</option>
+              </select>  
+            </div> 
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group students_select" style="display: none;"> 
+              <label>Program:</label>
+              <select class="form-control" name="prog_list" id="prog_list" style="cursor: pointer;">  
+                <option value="">All Programs</option>  
+                <?php echo fill_program($DB_con); ?>  
+              </select>    
+            </div>
+            <div class="form-group faculties_select" style="display: none;"> 
+              <label>Department:</label>
+              <select class="form-control" name="dept_list" id="dept_list" style="cursor: pointer;">  
+                <option value="">All Departments</option>  
+                <?php echo fill_dept($DB_con); ?>  
+              </select>    
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group" id="yearLevel" style="display: none;">
+              <label>Year Level:</label>
+              <select class="form-control" name="yearLevel" id="yearLabel">
+                <option value="">Select</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+          </div>       
+          <input type="hidden" name="id" class="form-control" id="id">      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="updateButton">Update Event</button>
+          <button type="button" class="btn btn-danger" id="deleteButton" name="delete">Delete Event</button>
+        </div>
       </div>
-      <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary" id="updateButton">Update Event</button>
-      <button type="button" class="btn btn-danger" id="deleteButton" name="delete">Delete Event</button>
-      </div>
-    </div>
-  </form>
+    </form>
   </div>
 </div>
 <!--Modal-->
@@ -396,7 +515,7 @@
 
 <!-- FullCalendar -->
 <script src='calendar/js/moment.min.js'></script>
-<script src='calendar/js/fullcalendar.min.js'></script>
+<script src='calendar/assets/fullcalendar.min.js'></script>
 
 <!--graphs-->
 <script src="charts/canvasjs.min.js"></script>
@@ -409,6 +528,49 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+  $("#guests, #guests_edit").change(function () {
+    if ($(this).val() == 'students') {
+      $(".students_select").show();
+      $("#yearLevel, #yearLevel_edit").show();
+      $(".faculties_select").hide();
+    }
+    else if ($(this).val() == 'faculties') {
+      $(".faculties_select").show();
+      $(".students_select").hide();
+      $("#yearLevel, #yearLevel_edit").hide();
+    }
+    else {      
+      $(".students_select").hide();
+      $("#yearLevel, #yearLevel_edit").hide();
+      $(".faculties_select").hide();
+    }
+  });
+  $("#prog_list, #prog_list_edit").change(function () {
+    if ($(this).val() == '13' || $(this).val() == '14') {
+      $("#yearLevel, #yearLevel_edit").hide();
+    }
+    else {
+      $("#yearLevel, #yearLevel_edit").show();
+    }
+  });
+  $( "#public, #publicEdit" ).on( "click", function() {
+    if ($( "#public, #publicEdit" ).is(':checked')) {
+      $('#private, #privateEdit').attr('disabled', true);
+    }
+    else {
+      $('#private, #privateEdit').attr('disabled', false);
+    }
+  });
+  $( "#private, #privateEdit" ).on( "click", function() {
+    if ($( "#private, #privateEdit" ).is(':checked')) {
+      $('#public, #publicEdit').attr('disabled', true);
+      $('#guests, #prog_list, #yearLevel, #dept_list').attr('disabled', true);
+    }
+    else {
+      $('#public, #publicEdit').attr('disabled', false);
+      $('#guests, #prog_list, #yearLevel, #dept_list, #yearLevel_edit').attr('disabled', false);
+    }
+  });
   $('#daterange').submit(function() {
     return false;
     $.ajaxSetup ({
@@ -416,6 +578,10 @@ $(document).ready(function(){
     });
   });
   $("#badges").load("badges.php");
+  $("#filter_date").click(function () {  
+    $("#filter_end").val();
+    $("#filter_start").val();
+  });
   $("#go").click(function () {
     filter_end = $("#filter_end").val();
     filter_start = $("#filter_start").val();
@@ -426,18 +592,19 @@ $(document).ready(function(){
       cache: false,
       data:{filter_end:filter_end,filter_start:filter_start,go:go},
       success:function(data){
-        $("#badges").html(data); 
+        $("#badges").html(data);   
       }
     });
   });
   $('#filter_start, #filter_end').datetimepicker({
     format: 'YYYY-MM-DD',
     keepOpen: true,
+    inline: true,
     icons: {
-      time: "col-1 fa fa-clock-o",
-      date: "col-1 fa fa-calendar",
-      up: "col-1 fa fa-arrow-up",
-      down: "col-1 fa fa-arrow-down"
+      time: "fa fa-clock-o",
+      date: "fa fa-calendar",
+      up: "fa fa-arrow-up",
+      down: "fa fa-arrow-down"
     }
   });
   $("#filter_start").on("dp.change", function (e) {
@@ -520,7 +687,7 @@ $(document).ready(function() {
     select: function(start, end) {  
       $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm a'));
       $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm a'));
-        $('#ModalAdd').modal('show');       
+      $('#ModalAdd').modal('show');       
     },
     eventRender: function(event, element) {
       element.bind('dblclick', function() {
@@ -574,36 +741,76 @@ $(document).ready(function() {
     function doSubmit(event){ 
       var id = $('#ModalAdd #id').val();
       var title = $('#ModalAdd #title').val();
-    var color = $('#ModalAdd #color').val();
-    var start = $('#ModalAdd #start').val();
-    var end = $('#ModalAdd #end').val();
-    $.ajax({
-        url: "calendar/add_events.php",
-        data: 'title='+title+'&start='+start+'&end='+end+'&color='+color,
-        type: "POST",
-        success: function(json) {
-          $("#calendar").fullCalendar('addEvent', id);
+      var color = $('#ModalAdd #color').val();
+      var start = $('#ModalAdd #start').val();
+      var end = $('#ModalAdd #end').val();
+      var category = $("#ModalAdd #public").is(':checked');
+      var guests = $('#ModalAdd #guests').val();
+      var program_id = $('#ModalAdd #prog_list').val();
+      var dept_id = $('#ModalAdd #dept_list').val();
+      var yearLabel = $('#ModalAdd #yearLabel').val();
+      if (category) {
+        $.ajax({
+          url: "add_events.php",
+          data: 'category=public&title='+title+'&start='+start+'&end='+end+'&color='+color+'&guests='+guests+'&program_id='+program_id+'&yearLabel='+yearLabel+'&dept_id='+dept_id,
+          type: "POST",
+          beforeSend:function() {  
+              $("#submitButton").html("<span class='fa fa-floppy-o'></span> &nbsp; Saving Event");  
+          },
+          success: function(json) {
+            $("#calendar").fullCalendar('addEvent', id);
+            $.bootstrapGrowl("New Event added!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                delay: 4000,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+            });    
+            $("#addEvent")[0].reset();
+            $("#ModalAdd").modal('hide');
+          }
+        });
+      }
+      else {
+        $.ajax({
+          url: "add_events.php",
+          data: 'title='+title+'&start='+start+'&end='+end+'&color='+color,
+          type: "POST",
+          beforeSend:function() { 
+              $("#submitButton").html("<span class='fa fa-floppy-o'></span> &nbsp; Saving Event");  
+            },
+          success: function(json) {
+            $("#calendar").fullCalendar('addEvent', id);
+            $.bootstrapGrowl("New Event added!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                delay: 4000,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+            });    
+            $("#addEvent")[0].reset();
+            $("#ModalAdd").fadeOut(3000);
+            $("#ModalAdd").modal('hide');
+          }
+        });
+      }  
+    }
 
-          $.bootstrapGrowl("New Event added!", // Messages
-            { // options
-              type: "success", // info, success, warning and danger
-              ele: "body", // parent container
-              offset: {
-                from: "top",
-                amount: 20
-              },
-              align: "right", // right, left or center
-              width: 300,
-              delay: 4000,
-              allow_dismiss: true, // add a close button to the message
-              stackup_spacing: 10
-          });    
-        $("#ModalAdd").modal('hide');
-        }
-      });  
-  }
-
-  $('#updateButton').on('click', function(e){
+    $('#updateButton').on('click', function(e){
       // We don't want this to act as a link so cancel the link action
       e.preventDefault();
       doUpdate();
@@ -663,19 +870,19 @@ $(document).ready(function() {
       success: function(rep) {
         if(rep == 'OK'){
           $.bootstrapGrowl("Event updated!", // Messages
-                { // options
-                  type: "success", // info, success, warning and danger
-                  ele: "body", // parent container
-                  offset: {
-                    from: "top",
-                    amount: 20
-                  },
-                  align: "right", // right, left or center
-                  width: 300,
-                  delay: 4000,
-                  allow_dismiss: true, // add a close button to the message
-                  stackup_spacing: 10
-                });
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
         }
         else {
           $.bootstrapGrowl("Event cannot be saved!", // Messages

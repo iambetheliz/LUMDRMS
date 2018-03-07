@@ -8,6 +8,28 @@ $req->execute();
 
 $events = $req->fetchAll();
 
+  function fill_program($DB_con) {  
+    $prog_out = '';  
+    $sql = "SELECT * FROM program";  
+    $result = mysqli_query($DB_con, $sql);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+      $prog_out .= '<option value="'.$row["program_id"].'">'.$row["alias"].'</option>';  
+    }  
+    return $prog_out;  
+  }
+
+  function fill_dept($DB_con) {  
+    $dept_out = '';  
+    $sql = "SELECT * FROM department";  
+    $result = mysqli_query($DB_con, $sql);  
+    while($row = mysqli_fetch_array($result))  
+    {  
+      $dept_out .= '<option value="'.$row["dept_id"].'">'.$row["dept_name"].'</option>';  
+    }  
+    return $dept_out;  
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -161,72 +183,121 @@ tr.fc-list-item.fc-allow-mouse-resize {
 </div>
 <!-- End of Content -->
 
-	
-<!-- Modal -->
+
+<!-- Add Modal -->
 <div class="modal fade" id="ModalAdd" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
-	<form id="addEvent" method="POST">	
-	  <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
-		</div>
-		<div class="modal-body row">
-		  <div class="container-fluid">
-		  	<div class="form-group">
-		  	  <label for="title" class="control-label">Event Title:</label>
-		  	  <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
-		  	  <br>
-		  	  <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
-		  	  <select name="color" class="form-control" id="color">
-		  	  	<option value="">Choose</option>
-		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				<option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
-				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
-				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-				<option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-				<option style="color:#000;" value="#000">&#9724; Black</option>
-			  </select>
-			</div>
-		  </div>
-		  <div class="col-lg-6">
-		  	<div class="form-group">
-		  	  <label for="start" class="control-label">Start:</label>
-			  <div class="input-group date">
-	            <input type="text" class="form-control" id="start" name="start" />
-	            <span class="input-group-addon">
-	              <span class="fa fa-calendar"></span>
-	            </span>
-		      </div>
-		      <br>
-			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
-		    </div>
-		  </div>
-		  <div class="col-lg-1"></div>
-	      <div class="col-lg-6">
-	      	<div class="form-group">
-				<label for="end" class="control-label">End:</label>
-				<div class="input-group date">
-		            <input type="text" class="form-control" id="end" name="end" />
-		            <span class="input-group-addon">
-		              <span class="fa fa-calendar"></span>
-		            </span>
-		        </div>
-		        <br>
-			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
-		    </div>	
-		  </div>
-	  	</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		  <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
-		</div>
-	  </div>
-	</form>
+    <form id="addEvent" method="POST">  
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add New Event</h4>
+        </div>
+        <div class="modal-body row">
+          <div class="col-lg-12">
+            <div class="form-group">
+              <label for="title" class="control-label">Event Name:</label>
+              <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="start" class="control-label">Start:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="start" name="start" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div>              
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="end" class="control-label">End:</label>
+              <div class="input-group date">
+                <input type="text" class="form-control" id="end" name="end" />
+                <span class="input-group-addon">
+                  <span class="fa fa-calendar"></span>
+                </span>
+              </div>
+            </div> 
+          </div>
+          <div class="col-lg-12">
+            <label>Privacy:</label>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="right" title="Save calendar and send an SMS to designated recipients"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">  
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="left" title="Save calendar without sending an SMS"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group">          
+              <label>Guests:</label>
+              <select class="form-control" name="guests" id="guests">
+                <option value="">Select</option>
+                <option value="students">Students</option>
+                <option value="faculties">Faculty and Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">     
+              <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+              <select name="color" class="form-control" id="color">
+                <option value="">Choose</option>
+                <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+                <option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
+                <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+                <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+                <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+                <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+                <option style="color:#000;" value="#000">&#9724; Black</option>
+              </select>  
+            </div> 
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group students_select" style="display: none;"> 
+              <label>Program:</label>
+              <select class="form-control" name="prog_list" id="prog_list" style="cursor: pointer;">  
+                <option value="">All Programs</option>  
+                <?php echo fill_program($DB_con); ?>  
+              </select>    
+            </div>
+            <div class="form-group faculties_select" style="display: none;"> 
+              <label>Department:</label>
+              <select class="form-control" name="dept_list" id="dept_list" style="cursor: pointer;">  
+                <option value="">All Departments</option>  
+                <?php echo fill_dept($DB_con); ?>  
+              </select>    
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group" id="yearLevel" style="display: none;">
+              <label>Year Level:</label>
+              <select class="form-control" name="yearLevel" id="yearLabel">
+                <option value="">Select</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-success" id="submitButton">Add Event</button>
+        </div>
+      </div>
+    </form>
   </div>
-</div>	
-	
+</div>  
+
 <!-- Edit Event Modal -->
 <div class="modal fade" id="ModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -239,21 +310,9 @@ tr.fc-list-item.fc-allow-mouse-resize {
 	  	<div class="modal-body row">		
 		  <div class="container-fluid">
 		  	<div class="form-group">
-		  	  <label for="title" class="control-label">Event Title:</label>
-		  	  <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
-		  	  <br>
-		  	  <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
-		  	  <select name="color" class="form-control" id="color">
-		  	  	<option value="">Choose</option>
-		  	  	<option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
-				<option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
-				<option style="color:#008000;" value="#008000">&#9724; Green</option>	
-				<option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
-				<option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
-				<option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
-				<option style="color:#000;" value="#000">&#9724; Black</option>
-			  </select>
-			</div>
+              <label for="title" class="control-label">Event Name:</label>
+              <input type="text" name="title" class="form-control" id="title" placeholder="Title" autofocus />
+            </div>
 		  </div>
 		  <div class="col-lg-6">
 		  	<div class="form-group">
@@ -264,11 +323,8 @@ tr.fc-list-item.fc-allow-mouse-resize {
 	              <span class="fa fa-calendar"></span>
 	            </span>
 		      </div>
-		      <br>
-			  <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="public" id="publicEdit"><span class="lbl"></span> Public Event</label>
 		    </div>
 		  </div>
-		  <div class="col-lg-1"></div>
 	      <div class="col-lg-6">
 	      	<div class="form-group">
 			  <label for="end" class="control-label">End:</label>
@@ -278,10 +334,74 @@ tr.fc-list-item.fc-allow-mouse-resize {
 		            <span class="fa fa-calendar"></span>
 		          </span>
 		      </div>
-		      <br>
-		      <label class="checkbox-inline"><input type="checkbox" class="form-check-input" name="category" value="private" id="privateEdit"><span class="lbl"></span> Private Event</label>
 		  	</div>	
-		  </div>		  
+		  </div>	
+		  <div class="col-lg-12">
+            <label>Privacy:</label>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="right" title="Save calendar and send an SMS to designated recipients"><input type="checkbox" class="form-check-input" name="category" value="public" id="public"><span class="lbl"></span> Public Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">  
+              <label class="checkbox-inline" data-toggle="tooltip" data-placement="left" title="Save calendar without sending an SMS"><input type="checkbox" class="form-check-input" name="category" value="private" id="private"><span class="lbl"></span> Private Event</label>
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group">          
+              <label>Guests:</label>
+              <select class="form-control" name="guests" id="guests_edit">
+                <option value="">Select</option>
+                <option value="students">Students</option>
+                <option value="faculties">Faculty and Staff</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">     
+              <label for="color" class="control-label">Color:</label> <small class="text-muted">(Optional)</small>
+              <select name="color" class="form-control" id="color">
+                <option value="">Choose</option>
+                <option style="color:#0071c5;" value="#0071c5">&#9724; Dark blue</option>
+                <option style="color:#66b2b2;" value="#66b2b2">&#9724; Teal</option>
+                <option style="color:#008000;" value="#008000">&#9724; Green</option> 
+                <option style="color:#FFD700;" value="#FFD700">&#9724; Yellow</option>
+                <option style="color:#FF8C00;" value="#FF8C00">&#9724; Orange</option>
+                <option style="color:#FF0000;" value="#FF0000">&#9724; Red</option>
+                <option style="color:#000;" value="#000">&#9724; Black</option>
+              </select>  
+            </div> 
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group students_select" style="display: none;"> 
+              <label>Program:</label>
+              <select class="form-control" name="prog_list" id="prog_list_edit" style="cursor: pointer;">  
+                <option value="">All Programs</option>  
+                <?php echo fill_program($DB_con); ?>  
+              </select>    
+            </div>
+            <div class="form-group faculties_select" style="display: none;"> 
+              <label>Department:</label>
+              <select class="form-control" name="dept_list" id="dept_list" style="cursor: pointer;">  
+                <option value="">All Departments</option>  
+                <?php echo fill_dept($DB_con); ?>  
+              </select>    
+            </div>
+          </div>
+          <div class="col-lg-6">  
+            <div class="form-group" id="yearLevel_edit" style="display: none;">
+              <label>Year Level:</label>
+              <select class="form-control" name="yearLevel" id="yearLabel">
+                <option value="">Select</option>
+                <option value="1st">1st Year</option>
+                <option value="2nd">2nd Year</option>
+                <option value="3rd">3rd Year</option>
+                <option value="4th">4th Year</option>
+              </select>
+            </div>
+          </div>	  
 		  <input type="hidden" name="id" class="form-control" id="id">			
 	  	</div>
 	  	<div class="modal-footer">
@@ -319,21 +439,48 @@ tr.fc-list-item.fc-allow-mouse-resize {
 <?php include 'calendar.php';?>
 <script type="text/javascript">
 $(window).load(function() {
+  $("#guests, #guests_edit").change(function () {
+    if ($(this).val() == 'students') {
+      $(".students_select").show();
+      $("#yearLevel, #yearLevel_edit").show();
+      $(".faculties_select").hide();
+    }
+    else if ($(this).val() == 'faculties') {
+      $(".faculties_select").show();
+      $(".students_select").hide();
+      $("#yearLevel, #yearLevel_edit").hide();
+    }
+    else {      
+      $(".students_select").hide();
+      $("#yearLevel, #yearLevel_edit").hide();
+      $(".faculties_select").hide();
+    }
+  });
+  $("#prog_list, #prog_list_edit").change(function () {
+    if ($(this).val() == '13' || $(this).val() == '14') {
+      $("#yearLevel, #yearLevel_edit").hide();
+    }
+    else {
+      $("#yearLevel, #yearLevel_edit").show();
+    }
+  });
   $( "#public, #publicEdit" ).on( "click", function() {
-  	if ($( "#public, #publicEdit" ).is(':checked')) {
-	    $('#private, #privateEdit').attr('disabled', true);
-	}
-	else {
-		$('#private, #privateEdit').attr('disabled', false);
-	}
+    if ($( "#public, #publicEdit" ).is(':checked')) {
+      $('#private, #privateEdit').attr('disabled', true);
+    }
+    else {
+      $('#private, #privateEdit').attr('disabled', false);
+    }
   });
   $( "#private, #privateEdit" ).on( "click", function() {
-  	if ($( "#private, #privateEdit" ).is(':checked')) {
-	    $('#public, #publicEdit').attr('disabled', true);
-	}
-	else {
-		$('#public, #publicEdit').attr('disabled', false);
-	}
+    if ($( "#private, #privateEdit" ).is(':checked')) {
+      $('#public, #publicEdit').attr('disabled', true);
+      $('#guests, #prog_list, #yearLevel, #dept_list').attr('disabled', true);
+    }
+    else {
+      $('#public, #publicEdit').attr('disabled', false);
+      $('#guests, #prog_list, #yearLevel, #dept_list, #yearLevel_edit').attr('disabled', false);
+    }
   });
 });
 </script>

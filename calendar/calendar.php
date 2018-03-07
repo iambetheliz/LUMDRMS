@@ -88,10 +88,14 @@ $(document).ready(function() {
 		var start = $('#ModalAdd #start').val();
 		var end = $('#ModalAdd #end').val();
 		var category = $("#ModalAdd #public").is(':checked');
+		var guests = $('#ModalAdd #guests').val();
+		var program_id = $('#ModalAdd #prog_list').val();
+		var dept_id = $('#ModalAdd #dept_list').val();
+		var yearLabel = $('#ModalAdd #yearLabel').val();
 		if (category) {
 		  $.ajax({
 	      url: "add_events.php",
-	      data: 'category=public&title='+title+'&start='+start+'&end='+end+'&color='+color,
+	      data: 'category=public&title='+title+'&start='+start+'&end='+end+'&color='+color+'&guests='+guests+'&program_id='+program_id+'&yearLabel='+yearLabel+'&dept_id='+dept_id,
 	      type: "POST",
 	      beforeSend:function() {  
             $("#submitButton").html("<span class='fa fa-floppy-o'></span> &nbsp; Saving Event");  
