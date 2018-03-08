@@ -119,7 +119,20 @@ $(document).ready(function(){
           $("#user_form")[0].reset();
           $('#addnew').val("Add New"); 
 					$("#userTable").load("tbl_dental.php");
-          $.notify("Data added successfully", "success");
+          $.bootstrapGrowl("Data added successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
 				}
 			});
 		}
@@ -135,9 +148,25 @@ $(document).ready(function(){
 				DID: $DID,
 				del: 1,
 			},
-			success: function(){
+			success: function(){        
+        $('tr#table-row-'+$DID+'').css('background-color', '#DDD');
+        $('tr#table-row-'+$DID+'').css('border-color', 'green');
+        $('tr#table-row-'+$DID+'').fadeOut(3000);
 				$("#userTable").load("tbl_dental.php");
-        $.notify("Data successfully deleted.", "success");
+        $.bootstrapGrowl("Deleted successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
 			}
 		});
 		return false;
@@ -180,9 +209,53 @@ $(document).ready(function(){
         $("#user_form2")[0].reset();
         $('#update').val("Update Record"); 
         $("#userTable").load("tbl_dental.php");
-        $.notify("Data updated successfully", "success");
+        $.bootstrapGrowl("Date updated successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
       }
     });
+  });
+  //Restore Single
+  $(document).on('click', '#restore', function(){
+    $DID = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "restore_record.php",
+      cache: false,
+      data: {
+        DID: $DID,
+        restore: 1,
+      },
+      success: function(){
+        $("#userTable").load("tbl_dental.php");
+        $.bootstrapGrowl("Restored successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
+      }
+    });
+    return false;
   });
 });
 // AJAX call for autocomplete 

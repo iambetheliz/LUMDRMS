@@ -148,7 +148,10 @@ $(document).ready(function(){
 				MedID: $MedID,
 				del: 1,
 			},
-			success: function(){
+			success: function(){        
+        $('tr#table-row-'+$MedID+'').css('background-color', '#DDD');
+        $('tr#table-row-'+$MedID+'').css('border-color', 'green');
+        $('tr#table-row-'+$MedID+'').fadeOut(3000);
 				$("#userTable").load("tbl_medical.php");
         $.bootstrapGrowl("Deleted successfully", // Messages
           { // options
@@ -222,6 +225,40 @@ $(document).ready(function(){
         });
       }
     });
+  });
+  //Restore Single
+  $(document).on('click', '#restore', function(){
+    $MedID = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "restore_record.php",
+      cache: false,
+      data: {
+        MedID: $MedID,
+        restore: 1,
+      },
+      success: function(){
+        $('tr#table-row-'+$MedID+'').css('background-color', 'darkseagreen');
+        $('tr#table-row-'+$MedID+'').css('border-color', 'green');
+        $('tr#table-row-'+$MedID+'').fadeOut(3000);
+        $("#userTable").load("tbl_medical.php");
+        $.bootstrapGrowl("Restored successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+        });
+      }
+    });
+    return false;
   });
 });
 // AJAX call for autocomplete 

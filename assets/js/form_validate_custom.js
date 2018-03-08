@@ -76,15 +76,6 @@ $(document).ready(function () {
   });
 
 
-  $('#facultyNo').keypress(function (e) {
-      $("#errFN").hide();
-
-    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-      $("#errFN").html("Numbers Only!").show().fadeOut("slow");
-      return false;
-    } 
-  });
-
   $("#age, #age_edit").keypress(function (e) {
     $("#errAge").hide();
 

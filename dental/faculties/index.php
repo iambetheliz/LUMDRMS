@@ -112,116 +112,127 @@
     </div>  
     <!-- End of Sidebar --> 
 
-	    <!-- Begin Main Screen -->
-        <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+    <!-- Begin Main Screen -->
+    <div class="container-fluid">
+      <div id="page-content-wrapper">
 
-    	        <!-- Page Heading -->
-                <div class="row">
-                    <div class="container-fluid">
-                        <h1 class="page-header">Faculty and Staff Dental Records
-                          <a class="btn btn-primary pull-right" name="input" type="button" href="print_dental.php" style="cursor:pointer;" id="print">Print</a></h1>
-                    </div>
-                </div>
-                <!-- End of Page Heading -->
-                
-                <!-- Buttons -->
-            <div class="row">
-              <!-- Start btn-toolbar -->
-              <div class="col-lg-8">
-                <div class="btn-toolbar">
-                  <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
-
-                  <div class="btn-group">
-                    <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
-                    <?php
-                      $numrows_arr = array("5","10","25","50","100","250");
-                      foreach($numrows_arr as $nrow){
-                        if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
-                          echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
-                        }
-                        else {
-                          echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
-                        }
-                      }
-                    ?>
-                    </select>
-                  </div>
-
-                  <div class="btn-group">
-                    <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show By Department</option>  
-                      <?php echo fill_program($DB_con); ?>  
-                    </select>
-                  </div>
-
-                  <div class="btn-group sort">
-                    <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                      <option value="">Sort A-Z</option>
-                      <option value="asc">Ascending</option>
-                      <option value="desc">Descending</option>
-                    </select>
-                  </div>
-                </div>
-              </div>
-              <!-- End btn-toolbar -->
-
-              <div class="col-lg-4">
-                <div class="form-group filter">
-                  <span class="fa fa-filter"></span>
-                  <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
-                </div>
+        <!-- Page Heading -->
+        <div class="row">
+          <h1 class="page-header">Faculty and Staff Dental Records
+            <div class="col-lg-4 pull-right">
+              <div class="form-group filter">
+                <span class="fa fa-filter"></span>
+                <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
               </div>
             </div>
-            <!-- End of Buttons -->
-
-            <div class="row">
-              <div class="container-fluid">
-                <div id="optSelect" style="display: none;">
-                  <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Faculty</button>
-                  <a href="/LUMDRMS/faculties/index.php#userModal" class="btn btn-warning">New Faculty</a>
-                </div>
+          </h1>
+        </div>
+        <!-- End of Page Heading -->
+              
+        <!-- Buttons -->
+        <div class="row">
+          <!-- Start btn-toolbar -->
+          <div class="col-lg-4 buttons">
+            <div class="btn-toolbar" role="group">
+              <div class="btn-group">
+                <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-remove"></i> Multiple</a>
+                <a class="btn btn-primary" name="input" type="button" href="print_dental.php" style="cursor:pointer;" id="print">Print</a>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="container-fluid">
-                <div id="optSearch" style="display: none;">
-                  <form>
-                    <div class="form-inline">
-                      <div class="btn-group search-info">
-                        <input type="text" id="search-info" class="search-info form-control" placeholder="Enter Faculty No.">
-                        <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
-                        <span class="sr-only">Loading...</span>
-                        <div id="suggestion-info"></div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-
-            <br>
-				      
-                <div id="overlay" align="center">
-                  <div>
-                    <img src="../../includes/loading.gif" width="64px" height="64px"/>
-                  </div>
-                </div>
-				        <div id="userTable">
-                  <!--
-                    This is where data will be shown.
-                  -->
-                </div>
-
-              </div>  
             </div>
           </div>
-          <!-- End of Main Screen -->
-  
+            
+          <!-- Filter Options -->
+          <div class="col-lg-8 filters">
+            <div class="btn-toolbar pull-right">
+              <div class="btn-group">
+                <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
+                <?php
+                  $numrows_arr = array("5","10","25","50","100","250");
+                  foreach($numrows_arr as $nrow){
+                    if (isset($_POST['num_rows']) && $_POST['num_rows'] == $nrow){
+                      echo '<option value="'.$nrow.'" selected="selected">'.$nrow.'  records</option>';
+                    }
+                    else {
+                      echo '<option value="'.$nrow.'">'.$nrow.' records</option>';
+                    }
+                  }
+                ?>
+                </select>
+              </div>
+              <div class="btn-group">
+                <select class="form-control" name="dept_list" id="dept_list" onchange="searchFilter()" style="cursor: pointer;">  
+                  <option value="">All Department</option>  
+                  <?php echo fill_program($DB_con); ?>  
+                </select>
+              </div>
+
+              <div class="btn-group sort">
+                <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
+                  <option value="">Sort A-Z</option>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </div>
+
+              <div class="btn-group">
+                <select class="form-control" name="archive" id="archive" onchange="searchFilter()" style="cursor: pointer;">  
+                  <option value="active">Show Current</option>
+                  <option value="">All Records</option>  
+                  <option value="deleted">Deleted Only</option>
+                </select>
+              </div>
+
+            </div>
+          </div>
+          <!-- End btn-toolbar -->
+
         </div>
-        <!-- End of Content -->
+        <!-- End of Buttons -->
+
+        <div class="row">
+          <div id="optSelect" style="display: none;">
+            <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Faculty</button>
+            <a href="/LUMDRMS/faculties/index.php#userModal" class="btn btn-warning">New Faculty</a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div id="optSearch" style="display: none;">
+            <form>
+              <div class="form-inline">
+                <div class="btn-group search-info">
+                  <input type="text" id="search-info" class="search-info form-control" placeholder="Enter Faculty No.">
+                  <span class="fa fa-spinner fa-pulse fa-fw" style="display: none;"></span>
+                  <span class="sr-only">Loading...</span>
+                  <div id="suggestion-info"></div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <br>
+          
+        <div class="row">
+          <div id="overlay" align="center">
+            <div>
+              <img src="../../includes/loading.gif" width="64px" height="64px"/>
+            </div>
+          </div>
+          <div id="userTable">
+            <!--
+              This is where data will be shown.
+            -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- End of Main Screen -->
+
+  </div>
+  <!-- End of Content -->
 
         <!-- Modal HTML -->    
         <div id="userModal" class="modal fade">
@@ -425,11 +436,17 @@ function searchFilter(page_num) {
   page_num = page_num?page_num:0;
   var keywords = $('#keywords').val();
   var sortBy = $('#sortBy').val();
-  var program_id = $('#prog_list').val(); 
+  var dept_id = $('#dept_list').val(); 
+  var archive = $('#archive').val();
+  var num_rows = $('#num_rows').val();
   $.ajax({
     type: 'POST',
     url: 'tbl_dental.php',
-    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    data:{page:page_num,num_rows:num_rows,
+      keywords:keywords,
+      sortBy:sortBy,
+      dept_id:dept_id,
+      archive:archive},
     beforeSend: function () {
       $('#overlay').show();
     },

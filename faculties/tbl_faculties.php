@@ -250,7 +250,7 @@ else {
           while($row = $query->fetch_assoc()){ 
           $deleted = "deleted";
           $start++; ?>
-          <tr id="table-row-<?php echo $row["StatsID"]; ?>" class="<?php echo $deleted; ?>">
+          <tr id="table-row-<?php echo $row["StatsID"]; ?>">
             <td>
               <label class="checkbox-inline"><input type="checkbox" name="chk[]" id="check" class="chk-box form-check-input" value="<?php echo $row['FacultyID']; ?>"  /> <span class="lbl"></span></label>
             </td>

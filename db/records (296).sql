@@ -588,7 +588,7 @@ INSERT INTO `students` (`StudentID`, `studentNo`, `last_name`, `first_name`, `mi
 (39, '151-1469', 'Cabreza', 'Chrisman Claudine', 'Saguinsin', '', '19', 'Female', '', '', 3, 9, '3rd', '1st', '2017 - 2018', '', '', 'none', '2018-01-16 11:30:30'),
 (40, '162-0005', 'Calaguan', 'Joshua', '', '', '19', 'Male', '', '', 3, 9, '3rd', '1st', '2017 - 2018', '', '', 'none', '2018-01-16 11:30:30'),
 (41, '131-0558', 'Marikit', 'Hans Roben', 'Zarate', '', '20', 'Male', '', '', 1, 1, '4th', '1st', '2017 - 2018', 'Calauan, Laguna', 'Nory Marikit', '0909 400 9342', '2018-01-16 11:30:30'),
-(42, '131-0161', 'Compendio', 'Lea', 'Galimba', '', '25', 'Female', '12/22/1992', 'Single', 1, 1, '4th', '1st', '2017 - 2018', 'Liliw, Laguna       	      ', 'Julie G. Compendio', '09051808696', '2018-01-24 16:26:04'),
+(42, '131-0161', 'Compendio', 'Lea', 'Galimba', '', '25', 'Female', '12/22/1992', 'Single', 1, 1, '4th', '1st', '2017 - 2018', 'Liliw, Laguna       	      ', 'Julie G. Compendio', '0905 180 8696', '2018-01-24 16:26:04'),
 (43, '171-0142', 'Abejon', 'R-Jay', 'Tatac', '', '20', 'Male', '', '', 2, 4, '1st', '1st', '2017 - 2018', '', '', 'none', '2018-01-16 11:30:30'),
 (44, '171-0040', 'Arnoco', 'Geraldine', 'Morcilla', '', '20', 'Female', '', '', 2, 4, '1st', '1st', '2017 - 2018', '', '', 'none', '2018-01-16 11:30:30'),
 (45, '171-0055', 'Dalmaob', 'Norhaina', 'Sailila', '', '20', 'Female', '', '', 2, 4, '1st', '1st', '2017 - 2018', '', '', 'none', '2018-01-16 11:30:30'),

@@ -2,7 +2,6 @@
 //Include database configuration file
 include('../../includes/dbconnect.php');
 include '../../includes/date_time_diff.php';
-$DB_con = new mysqli("localhost", "root", "", "records");
 //Include pagination class file
 include('../../includes/Pagination.php');
 
@@ -16,25 +15,46 @@ if(isset($_POST['page'])){
     $keywords = $_POST['keywords'];
     $sortBy = $_POST['sortBy'];
     $dept = $_POST["dept_id"];
+    $archive = $_POST["archive"];
+    $count = $_POST['num_rows'];
 
+    //For number of rows per page
+    if ( $count ){
+      $limit = $_POST['num_rows']; 
+    }
+
+    if ( !empty($keywords) ) {
+      $whereSQL = " WHERE `faculty_den`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+      }
     if ( !empty($keywords) && !empty($dept) ) {
-      $whereSQL = " WHERE dept = '".$dept."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE `faculty_den`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%') ";
     }
-    elseif ( !empty($keywords) ) {
-      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+    if ( !empty($dept) ) {
+      $whereSQL = " WHERE `faculty_den`.`status` = 'active' AND dept = '".$dept."' ";
     }
-    elseif ( !empty($dept) ) {
-      $whereSQL = " WHERE dept = '".$dept."' ";
+    if ( !empty($dept) && !empty($keywords) ) {
+      $whereSQL = " WHERE `faculty_den`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
+    }
+
+    //For showing/hiding deleted rows   
+    if ( !empty($archive) ) {
+      $whereSQL .= " AND CONCAT(`faculty_den`.`status` = '".$archive."' OR `faculty_den`.`status` = '".$archive."') ";
+    }
+    elseif ( empty($archive) ) {
+      $whereSQL .= " AND CONCAT(`faculty_den`.`status` = 'active' OR `faculty_den`.`status` = 'deleted') ";
     }
 
     if ( !empty($sortBy) ){
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
+    }
+    elseif ( !empty($sortBy) && !empty($archive) ){
+      $whereSQL .= " ORDER BY date_deleted ".$sortBy;
     } 
     elseif ( !empty($sortBy) && !empty($dept) ) {
-      $orderSQL = " ORDER BY last_name ".$sortBy;
+      $whereSQL .= " ORDER BY last_name ".$sortBy;
     }
     elseif (empty($dept) || empty($sortBy)) {
-      $orderSQL = " ORDER BY date_checked DESC ";
+      $orderSQL .= " ORDER BY date_checked DESC ";
     }
 
     //get number of rows
@@ -58,18 +78,14 @@ if(isset($_POST['page'])){
     <div class="row">
       <div class="container-fluid">
         <form method="post" name="frm">
-          <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
-          <span style="word-spacing:normal;"> | With selected :</span>
-          <label id="actions">
-            <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a>
-          </label>
           <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
           <br>
           <div class="table-responsive">
             <table class="table  table-striped table-bordered" id="myTable">
             <thead>
               <tr>
-                <th></th>
+                <th>
+                <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
                 <th>No.</th>      
                 <th width="100px">Student No.</th>
                 <th colspan="2">Diagnosis</th>
@@ -92,7 +108,21 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['con_rem1']."".$row['con_rem2']."".$row['con_rem3']."".$row['con_rem4'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
-                <td style="width: 145px;"><a href="/LUMDRMS/students/dental.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;">
+                  <div class="btn-toolbar action" role="toolbar">
+                  <?php 
+                    if ($row['status'] == 'deleted') { 
+                      ?>
+                      <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['DID']; ?>"><i class="fa fa-undo"></i> Restore</button>
+                      <?php 
+                    }
+                    else { 
+                      ?>
+                      <a href="/LUMDRMS/students/dental.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                      <?php 
+                      }
+                    ?>
+                  </div>
                 </td>
               </tr>
             <?php } ?>
@@ -116,7 +146,7 @@ else {
   $limit = 5;
 
   //get number of rows
-  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `faculty_den` ON `faculties`.`FacultyID`=`faculty_den`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id`");
+  $queryNum = $DB_con->query("SELECT COUNT(*) as postNum FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `faculty_den` ON `faculties`.`FacultyID`=`faculty_den`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculty_den`.`status` = 'active'");
   $resultNum = $queryNum->fetch_assoc();
   $rowCount = $resultNum['postNum'];
 
@@ -129,24 +159,20 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `faculty_den` ON `faculties`.`FacultyID`=`faculty_den`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` ORDER BY date_checked DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `faculty_den` ON `faculties`.`FacultyID`=`faculty_den`.`FacultyID` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculty_den`.`status` = 'active' ORDER BY date_checked DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
   <div class="row">
     <div class="container-fluid">
       <form method="post" name="frm">
-        <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> <strong><span id="check-all">Check</span> <span id="uncheck-all" style="display: none;">Uncheck</span> All</strong></label>
-        <span style="word-spacing:normal;"> | With selected :</span>
-        <label id="actions">
-          <span><a class="text-danger" style="cursor: pointer;" onClick="delete_records();" title="Click to delete selected rows" data-toggle="tooltip"> Delete</a></span>
-        </label>
         <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
         <br>
         <div class="table-responsive">
           <table class="table  table-striped table-bordered" id="myTable">
             <thead>
               <tr>
-                <th></th>
+                <th>
+                <label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
                 <th>No.</th>      
                 <th width="100px">Student No.</th>
                 <th colspan="2">Diagnosis</th>
@@ -169,7 +195,21 @@ else {
                 <td><?php echo $row['con_rem1']."".$row['con_rem2']."".$row['con_rem3']."".$row['con_rem4'];?></td>
                 <td><?php echo $row['checked_by'];?></td>
                 <td><?php echo date('F j, Y; h:i a', strtotime($row['date_checked']));?></td>
-                <td style="width: 145px;"><a href="/LUMDRMS/students/dental.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <td style="width: 145px;">
+                  <div class="btn-toolbar action" role="toolbar">
+                  <?php 
+                    if ($row['status'] == 'deleted') { 
+                      ?>
+                      <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['DID']; ?>"><i class="fa fa-undo"></i> Restore</button>
+                      <?php 
+                    }
+                    else { 
+                      ?>
+                      <a href="/LUMDRMS/students/dental.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                      <?php 
+                      }
+                    ?>
+                  </div>
                 </td>
               </tr>
             <?php } ?>

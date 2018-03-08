@@ -110,7 +110,7 @@ table#physical td {
           <!-- End of Page Heading -->  
 
           <!-- Start of Form -->
-          <form action="action.php" id="med_form" method="post" autocomplete="">
+          <form action="action.php" id="med_form" method="post">
 
             <div class="row">
               <div class="container-fluid">
@@ -394,46 +394,53 @@ table#physical td {
                     </div>
                   </div>
                   <div class="panel-body">
-
-                    <div class="form-group row">
-                      <div class="col-lg-3">
-                        <label>Height: <small><i>(cm)</i></small></label> <span class="error pull-right" id="errHeight"></span>
-                        <input type="text" class="form-control value" name="height" id="height" decimaldigits='1' /> 
+                    <div class="row">
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label>Height: <small><i>(cm)</i></small></label> <span class="error pull-right" id="errHeight"></span>
+                          <input type="text" class="form-control value" name="height" id="height" decimaldigits='1' /> 
+                          <br>
+                          <label>Weight: <small><i>(kg)</i></small></label>  
+                          <input type="text" class="form-control value" name="weight" id="weight" decimaldigits='2' /> 
+                        </div>
                       </div>
-                      <div class="col-lg-3">
-                        <label>Weight: <small><i>(kg)</i></small></label>  
-                        <input type="text" class="form-control value" name="weight" id="weight" decimaldigits='2' /> 
-                      </div>
-                      <div class="col-lg-3">
-                        <label>Body Mass Index:</label> 
-                        <input type="text" class="form-control" name="bmi[]" id="bmi" readonly style="cursor: not-allowed;" />
-                      </div>
-                      <div class="col-lg-3">
-                        <label>BMI Category:</label> 
-                        <input type="text" class="form-control" name="bmi[]" id="category" readonly style="cursor: not-allowed;" />
-                      </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-lg-3">
-                        <label>Blood Pressure: <small><i>(mmHg)</i></small></label>
-                        <div class="form-inline">
-                          <input type="text" style="width: 80px;" class="form-control" name="bp[]" /> = 
-                          <input type="text" class="form-control" style="width: 135px;" name="bp[]" id="bp_reading" placeholder="Category" /> 
+                      <div class="col-lg-2">
+                        <div class="form-group">
+                          <label>Body Mass Index:</label> 
+                          <input type="text" class="form-control" name="bmi[]" id="bmi" readonly style="cursor: not-allowed;" />
+                          <br>
+                          <label>BMI Category:</label> 
+                          <input type="text" class="form-control" name="bmi[]" id="category" readonly style="cursor: not-allowed;" />
                         </div>
                       </div>
                       <div class="col-lg-3">
-                        <label>Cardiac Rate: <small><i>(beats per minute)</i></small></label>
-                        <input type="text" class="form-control" name="cr"> 
+                        <div class="form-inline">
+                          <label>Blood Pressure: <small><i>(mmHg)</i></small></label>
+                          <br>
+                          <input type="text" style="width: 80px;" class="form-control" id="upper" name="upper" placeholder="Upper #" /> / 
+                          <input type="text" style="width: 80px;" class="form-control" id="lower" name="lower" placeholder="Lower #" />
+                        </div> 
+                        <br>
+                        <label>BP Reading:</label>
+                        <input type="text" class="form-control bp_reading" name="bp" id="bp_reading" readonly /> 
                       </div>
-                      <div class="col-lg-4">
-                        <label>Respiratory Rate: <small><i>(breaths per minute)</i></small></label>
-                        <input type="text" class="form-control" name="rr"> 
+                      <div class="col-lg-2">   
+                        <div class="form-group">
+                          <label>Cardiac Rate: </label>
+                          <input type="text" class="form-control" name="cr"> 
+                          <br>
+                          <label>Respiratory Rate: </label>
+                          <input type="text" class="form-control" name="rr"> 
+                        </div>
                       </div>
                       <div class="col-lg-2">
-                        <label>Temperature: <small><i>(&#x2103; )</i></small></label>
-                        <input type="text" class="form-control" name="temp"> 
+                        <div class="form-group">
+                          <label>Temperature: <small><i>(&#x2103; )</i></small></label>
+                          <input type="text" class="form-control" name="temp"> 
+                        </div>
                       </div>
-                    </div>    
+                    </div>
+                        
                     <table class="table table-bordered table-responsive" id="physical">
                       <thead>
                         <tr>
@@ -628,79 +635,7 @@ table#physical td {
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/jquery.decimalize.js"></script> 
-<script type="text/javascript">
-$(document).ready(function() {
-  $("input[type=radio]").click(function () {
-    if ($("#normal_gen").is(":checked")) {
-      $("#input_abnormal_gen").prop("disabled", true);
-    } 
-    else if ($("#abnormal_gen").is(":checked")) {
-      $("#input_abnormal_gen").prop("disabled", false);
-    } 
-    else if ($("#input_abnormal_gen").is(":focus")) {
-      $("#abnormal_gen").attr("checked", "checked");
-    }
-
-    if ($("#normal_skin").is(":checked")) {
-      $("#input_abnormal_skin").prop("disabled", true);
-    } else if ($("#abnormal_skin").is(":checked")) {
-      $("#input_abnormal_skin").prop("disabled", false);
-    }
-    if ($("#normal_heent").is(":checked")) {
-      $("#input_abnormal_heent").prop("disabled", true);
-    } else if ($("#abnormal_heent").is(":checked")) {
-      $("#input_abnormal_heent").prop("disabled", false);
-    }
-    if ($("#normal_heart").is(":checked")) {
-      $("#input_abnormal_heart").prop("disabled", true);
-    } else if ($("#abnormal_heart").is(":checked")) {
-      $("#input_abnormal_heart").prop("disabled", false);
-    } 
-    if ($("#normal_lungs").is(":checked")) {
-      $("#input_abnormal_lungs").prop("disabled", true);
-    } else if ($("#abnormal_lungs").is(":checked")) {
-      $("#input_abnormal_lungs").prop("disabled", false);
-    }
-    if ($("#normal_abdomen").is(":checked")) {
-      $("#input_abnormal_abdomen").prop("disabled", true);
-    } else if ($("#abnormal_abdomen").is(":checked")) {
-      $("#input_abnormal_abdomen").prop("disabled", false);
-    }
-    if ($("#normal_extreme").is(":checked")) {
-      $("#input_abnormal_extreme").prop("disabled", true);
-    } else if ($("#abnormal_extreme").is(":checked")) {
-      $("#input_abnormal_extreme").prop("disabled", false);
-    }
-  });
-  //this calculates values automatically 
-  bmi(); 
-  $("#height, #weight").on("keydown keyup", function() {
-    bmi();
-    if ($("#bmi").val() <= 18.5) {
-      $("#category").val('Underweight');
-    }
-    else if (($("#bmi").val() >= 18.5) && ($("#bmi").val() <= 24.9)) {
-      $("#category").val('Normal weight');
-    }
-    else if (($("#bmi").val() >= 25) && ($("#bmi").val() <= 29.9)) {
-      $("#category").val('Overweight');
-    }
-    else if ($("#bmi").val() >= 30) {
-      $("#category").val('Obese');
-    }
-  });
-});
-
-function bmi() {
-  var height = document.getElementById('height').value;
-  var weight = document.getElementById('weight').value;
-  var result = (parseFloat(weight) / parseFloat(height) / parseFloat(height)) * 10000;
-
-  if (!isNaN(result)) {
-    document.getElementById('bmi').value = result.toFixed(2);
-  }
-}
-</script>
+<script src="../assets/js/medical.js"></script> 
     
 </body>
 </html>

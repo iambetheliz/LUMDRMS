@@ -5,8 +5,8 @@ require_once '../includes/dbconnect.php';
 $message = $_POST['message'];
 $id = $_POST['StudentID'];
 
-if($_POST['recipient'] == 'parent') {
-  $res = "SELECT cphone FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
+if(isset($_POST['send'])) {
+  $res = "SELECT cphone FROM `students` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
   $result = $DB_con->query($res);
   $row = $result->fetch_array(MYSQLI_BOTH);
   $phone = $row['phone'];
@@ -22,7 +22,7 @@ if($_POST['recipient'] == 'parent') {
   }
 }
 else {
-  $res = "SELECT phone FROM `students_stats` JOIN `students` ON `students`.`studentNo`=`students_stats`.`studentNo` JOIN `program` ON `students`.`program`=`program`.`program_id` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
+  $res = "SELECT phone FROM `students` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
   $result = $DB_con->query($res);
   $row = $result->fetch_array(MYSQLI_BOTH);
   $phone = $row['phone'];

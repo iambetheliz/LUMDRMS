@@ -113,28 +113,39 @@
     <!-- End of Sidebar --> 
 
 	    <!-- Begin Main Screen -->
+      <div class="container-fluid">  
         <div id="page-content-wrapper">
-          <div class="page-content">
-            <div class="container-fluid">   
+          <div class=""> 
 
-    	        <!-- Page Heading -->
-                <div class="row">
-                  <div class="container-fluid">
-                    <h1 class="page-header">Students Dental Records
-                      <a class="btn btn-primary pull-right" name="input" type="button" href="print_dental.php" style="cursor:pointer;" id="print">Print</a>
-                    </h1>
+  	        <!-- Page Heading -->
+            <div class="row">
+              <h1 class="page-header">Students Dental Records
+                <div class="col-lg-4 pull-right">
+                  <div class="form-group filter">
+                    <span class="fa fa-filter"></span>
+                    <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
                   </div>
                 </div>
-                <!-- End of Page Heading -->
+              </h1>
+            </div>
+            <!-- End of Page Heading -->
                 
                 <!-- Buttons -->
             <div class="row">
               <!-- Start btn-toolbar -->
-              <div class="col-lg-8">
-                <div class="btn-toolbar">
-                  <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
-
+              <div class="col-lg-4 buttons">
+                <div class="btn-toolbar">                  
                   <div class="btn-group">
+                    <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                    <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-remove"></i> Multiple</a>
+                    <a class="btn btn-primary pull-right" name="input" type="button" href="print_dental.php" style="cursor:pointer;" id="print">Print</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-8 filters">
+                <div class="btn-toolbar pull-right">
+                  <div class="btn-group">                   
                     <select class="form-control" id="num_rows" name="num_rows" onchange="searchFilter()" style="cursor: pointer;">
                     <?php
                       $numrows_arr = array("5","10","25","50","100","250");
@@ -149,7 +160,6 @@
                     ?>
                     </select>
                   </div>
-
                   <div class="btn-group">
                     <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
                       <option value="">Show By Program</option>  
@@ -164,21 +174,22 @@
                       <option value="desc">Descending</option>
                     </select>
                   </div>
-                </div>
-              </div>
-              <!-- End btn-toolbar -->
+                  <div class="btn-group">
+                    <select class="form-control" name="archive" id="archive" onchange="searchFilter()" style="cursor: pointer;">  
+                      <option value="active">Show Current</option>
+                      <option value="">All Records</option>  
+                      <option value="deleted">Deleted Only</option>
+                    </select>
+                  </div>
 
-              <div class="col-lg-4">
-                <div class="form-group filter">
-                  <span class="fa fa-filter"></span>
-                  <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
                 </div>
               </div>
+              <!-- End btn-toolbar -->            
             </div>
             <!-- End of Buttons -->
 
             <div class="row">
-              <div class="container-fluid">
+              <div class="">
                 <div id="optSelect" style="display: none;">
                   <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Student</button>
                   <a href="/LUMDRMS/students/index.php#userModal" class="btn btn-warning">New Student</a>
@@ -187,7 +198,7 @@
             </div>
 
             <div class="row">
-              <div class="container-fluid">
+              <div class="">
                 <div id="optSearch" style="display: none;">
                   <form>
                     <div class="form-inline">
@@ -204,25 +215,27 @@
             </div>
 
             <br>
-				      
-                <div id="overlay" align="center">
-                  <div>
-                    <img src="../../includes/loading.gif" width="64px" height="64px"/>
-                  </div>
+				    
+            <div class="row">
+              <div id="overlay" align="center">
+                <div>
+                  <img src="../../includes/loading.gif" width="64px" height="64px"/>
                 </div>
-				        <div id="userTable">
-                  <!--
-                    This is where data will be shown.
-                  -->
-                </div>
-
-              </div>  
+              </div>
+			        <div id="userTable">
+                <!--
+                  This is where data will be shown.
+                -->
+              </div>
             </div>
+
+            </div>  
           </div>
-          <!-- End of Main Screen -->
-  
         </div>
-        <!-- End of Content -->
+        <!-- End of Main Screen -->
+
+      </div>
+      <!-- End of Content -->
 
         <!-- Modal HTML -->    
         <div id="userModal" class="modal fade">
@@ -426,11 +439,20 @@ function searchFilter(page_num) {
   page_num = page_num?page_num:0;
   var keywords = $('#keywords').val();
   var sortBy = $('#sortBy').val();
-  var program_id = $('#prog_list').val(); 
+  var program_id = $('#prog_list').val();
+  var archive = $('#archive').val();
+  var num_rows = $('#num_rows').val();
   $.ajax({
     type: 'POST',
     url: 'tbl_dental.php',
-    data:{page:page_num,keywords:keywords,sortBy:sortBy,program_id:program_id},
+    data:{
+      page:page_num,
+      num_rows:num_rows,
+      keywords:keywords,
+      sortBy:sortBy,
+      program_id:program_id,
+      archive:archive
+    },
     beforeSend: function () {
       $('#overlay').show();
     },

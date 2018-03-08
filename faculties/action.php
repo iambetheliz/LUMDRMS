@@ -34,7 +34,9 @@
       $weight = $_POST['weight'];
       $height = $_POST['height'];
       $bmi_cat = implode(" ",$_POST['bmi']);
-      $bp_val = implode(" ",$_POST['bp']);
+      $upper = $_POST['upper'];
+      $lower = $_POST['lower'];
+      $bp = $_POST['bp'];
       $cr = $_POST['cr'];
       $rr = $_POST['rr'];
       $temp = $_POST['temp'];
@@ -70,7 +72,7 @@
         }
 
         mysqli_query($DB_con,"START TRANSACTION;");
-        mysqli_query($DB_con,"INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,gen_sur,skin,heent,lungs,heart,abdomen,extreme,xray,assess,plan,checked_by,facultyNo,FacultyID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat','$bp_val','$cr','$rr','$temp','$gen_sur','$skin','$heent','$lungs','$heart','$abdomen','$extreme','$xray','$assess','$plan','$checked_by','$facultyNo','$FacultyID');");
+        mysqli_query($DB_con,"INSERT INTO faculty_med (sysRev,medHis,drinker,smoker,drug_user,mens,duration,dys,weight,height,bmi,bp,cr,rr,temp,gen_sur,skin,heent,lungs,heart,abdomen,extreme,xray,assess,plan,checked_by,facultyNo,FacultyID) VALUES ('$sysRev','$medHis','$drinker','$smoker','$drug_user','$mens','$duration','$dysMe','$weight','$height','$bmi_cat',CONCAT('$upper','/','$lower',' ','=',' ','$bp'),'$cr','$rr','$temp','$gen_sur','$skin','$heent','$lungs','$heart','$abdomen','$extreme','$xray','$assess','$plan','$checked_by','$facultyNo','$FacultyID');");
         mysqli_query($DB_con,"UPDATE faculty_stats SET med='Ok' WHERE facultyNo='$facultyNo';");
         mysqli_query($DB_con,"COMMIT;");
 

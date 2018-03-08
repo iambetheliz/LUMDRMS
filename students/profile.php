@@ -174,13 +174,13 @@
                                   <td><label>Address:</label></td>
                                   <td><?php echo $row['address'];?></td>
                                   <td><label>Cellphone No.:</label></td>
-                                  <td><?php echo $row['phone'];?> <a onclick="send_sms();" class="btn">Message <i class="fa fa-comment"></i></a></td>
+                                  <td><?php echo $row['phone'];?> <a style="display: none;" onclick="send_sms();" class="btn" value="<?php echo $row['StudentID'];?>">Message <i class="fa fa-comment"></i></a></td>
                                 </tr>
                                 <tr>
                                   <td><label>Contact Person:</label></td>
                                   <td><?php echo $row['cperson'];?></td>
                                   <td><label>Cel/Tel No.:</label></td>
-                                  <td><?php echo $row['cphone'];?> <a onclick="send_sms_parent();" class="btn">Message <i class="fa fa-comment"></i></a></td>
+                                  <td><?php echo $row['cphone'];?> <a style="display: none;" onclick="send_sms_parent();" class="btn">Message <i class="fa fa-comment"></i></a></td>
                                 </tr>
                               </tbody>
                             </table>
@@ -239,16 +239,16 @@
   </div>
   <!-- End of Content -->
 
-  <!-- SMS Modal -->
+<!-- SMS Modal -->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms">
   <div class="modal-dialog">
-        <form>
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Send Message for Student</h4>
-      </div>
-      <div class="modal-body">
+    <form>
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Send Message for Student</h4>
+        </div>
+        <div class="modal-body">
           <div class="form-group">
             <label for="recipient-name" class="form-control-label">Sender:</label>
             <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
@@ -257,13 +257,13 @@
             <label for="message-text" class="form-control-label">Message:</label>
             <textarea class="form-control" name="message" id="message-text"></textarea>
           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" name="send" id="modal-btn-send">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="modal-btn-send">Send</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
-      </div>
-    </div>
-        </form>
+    </form>
   </div>
 </div>
 

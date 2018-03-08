@@ -223,40 +223,104 @@ $(document).ready(function(){
       }
     });
   });
-});
-// AJAX call for autocomplete 
-  $(document).ready(function(){
-    $('#search-info').keyup(function(){
-      var min_length = 2; // min caracters to display the autocomplete
-      var keyword = $('#search-info').val();
-      if (keyword.length >= min_length) {
-        $.ajax({
-          type: "POST",
-          url: "backend-search.php",
-          data:'keyword='+$(this).val(),
-          beforeSend: function(){
-            $(".fa-spinner").show();
-          },
-          success: function(data){
-            $("#suggestion-info").show();
-            $("#suggestion-info").html(data);
-            $('.fa-spinner').fadeOut("slow");
-          }
+  //Restore Single
+  $(document).on('click', '#restore', function(){
+    $MedID = $(this).val();
+    $.ajax({
+      type: "POST",
+      url: "restore_record.php",
+      cache: false,
+      data: {
+        MedID: $MedID,
+        restore: 1,
+      },
+      success: function(){
+        $("#userTable").load("tbl_medical.php");
+        $.bootstrapGrowl("Restored successfully", // Messages
+          { // options
+            type: "success", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            delay: 4000,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
         });
       }
-      else if (keyword.length >= 0) {
-        $('#suggestion-info').hide();
-        $('.fa-spinner').fadeOut("slow");
-      }
     });
+    return false;
   });
-  $(document).click(function () {
-    $('#suggestion-info').hide();
-    $('.fa-spinner').fadeOut("slow");
-  })
-  //To select country name
-  function selectCountry(val) {
-    $("#search-info").val(val);
-    $('.fa-spinner').fadeOut("slow");
-    $("#suggestion-info").hide();
-  }
+});
+// AJAX call for autocomplete 
+$(document).ready(function(){
+  $('#search-info').keyup(function(){
+    var min_length = 2; // min caracters to display the autocomplete
+    var keyword = $('#search-info').val();
+    if (keyword.length >= min_length) {
+      $.ajax({
+        type: "POST",
+        url: "backend-search.php",
+        data:'keyword='+$(this).val(),
+        beforeSend: function(){
+          $(".fa-spinner").show();
+        },
+        success: function(data){
+          $("#suggestion-info").show();
+          $("#suggestion-info").html(data);
+          $('.fa-spinner').fadeOut("slow");
+        }
+      });
+    }
+    else if (keyword.length >= 0) {
+      $('#suggestion-info').hide();
+      $('.fa-spinner').fadeOut("slow");
+    }
+  });
+});
+$(document).click(function () {
+  $('#suggestion-info').hide();
+  $('.fa-spinner').fadeOut("slow");
+})
+//To select country name
+function selectCountry(val) {
+  $("#search-info").val(val);
+  $('.fa-spinner').fadeOut("slow");
+  $("#suggestion-info").hide();
+}
+
+function searchFilter(page_num) {
+  page_num = page_num?page_num:0;
+  var keywords = $('#keywords').val();
+  var sortBy = $('#sortBy').val();
+  var dept_id = $('#dept_list').val(); 
+  var archive = $('#archive').val();
+  var num_rows = $('#num_rows').val();
+  $.ajax({
+    type: 'POST',
+    url: 'tbl_medical.php',
+    data:{page:page_num,num_rows:num_rows,
+      keywords:keywords,
+      sortBy:sortBy,
+      dept_id:dept_id,
+      archive:archive},
+    beforeSend: function () {
+      $('#overlay').show();
+    },
+    success: function (data) {
+      $('#userTable').html(data);
+      $('#overlay').fadeOut("fast");
+    }
+  });
+}
+$("#option").click(function () {
+  $("#optSelect").toggle();
+  $("#optSearch").hide();
+});
+$("#exist").click(function () {
+  $("#optSearch").show();
+  $("#optSelect").hide();
+});
