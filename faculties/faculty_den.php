@@ -145,4 +145,10 @@ if (isset($_GET['FacultyID'])) {
     <?php 
   }
 }
+if(isset($errMSG)) { 
+  echo "<div class='alert alert-warning'>
+          <span class='glyphicon glyphicon-info'></span> 
+            ".$errMSG."
+        </div>";      
+}
 ?>

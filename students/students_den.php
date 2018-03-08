@@ -160,4 +160,10 @@ if (isset($_GET['StudentID'])) {
     <?php 
   }
 }
+if(isset($errMSG)) { 
+  echo "<div class='alert alert-warning'>
+          <span class='glyphicon glyphicon-info'></span> 
+            ".$errMSG."
+        </div>";      
+}
 ?>
