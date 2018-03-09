@@ -159,21 +159,24 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['yearLevel'];?></td>
                 <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
                 <td>
-                  <div class="btn-toolbar action" role="toolbar">
-                    <?php 
-                      if ($row['status'] == 'deleted') { 
-                        ?>
-                        <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['StudentID']; ?>"><i class="fa fa-undo"></i> Restore</button>
-                        <?php 
-                      }
-                      else { 
-                        ?>
-                        <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
-                        <?php 
-                      }
-                    ?>
-                  </div>
-                  <?php include 'modal-confirm-single.php';?>
+                  <?php 
+                    if ($row['status'] == 'deleted') { 
+                      ?>
+                      <button type="button" class="btn btn-default" id="restore" value="<?php echo $row['StudentID']; ?>"><i class="fa fa-undo"></i> Restore</button>
+                      <?php 
+                    }
+                    else { 
+                      ?>
+                      <div class="btn-toolbar action" role="toolbar">
+                        <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
+                        <a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
+                      </div>
+                      <div class="btn-toolbar action" role="toolbar">
+                        <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+                      </div>
+                      <?php 
+                    }
+                  ?>
                 </td>
               </tr>
             <?php } ?>
@@ -294,9 +297,11 @@ else {
               <div class="btn-toolbar action" role="toolbar">
                 <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a>
                 <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-placement="top" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
-                <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['StudentID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                <button class="btn btn-sm btn-danger" title="Delete" data-placement="top" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#confirm-delete"><span class = "glyphicon glyphicon-trash"></span></button>
               </div>
-              <?php include 'modal-confirm-single.php';?>
+              <div class="btn-toolbar action" role="toolbar">
+                <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+              </div>
             </td>
           </tr>
         <?php } ?>
@@ -366,7 +371,20 @@ $(document).ready(function() {
         $(".select-all").removeAttr("checked");
     }
   });
+
+  //Single SMS
+  $("#modal-sms-single").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#modal-sms-single #smsID").val(uid);
+  });
+
+  //Delete Single
+  $("#confirm-delete").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#confirm-delete #delID").val(uid);
+  });
 });
+
 function delete_records() {
   var id = [];       
   $('input[name="chk[]"]:checked').each(function(i){
@@ -391,7 +409,7 @@ function delete_records() {
           }
           $("#modal-confirm").modal('hide');
           $("#tbl_students").load("../students/tbl_students.php");
-          $.bootstrapGrowl("Deleted successfully", // Messages
+          $.bootstrapGrowl(id.length + " students deleted successfully", // Messages
             { // options
               type: "success", // info, success, warning and danger
               ele: "body", // parent container

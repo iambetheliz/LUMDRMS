@@ -143,20 +143,23 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['dept_name']; ?></td>
                 <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
                 <td>
-                  <div class="btn-toolbar action" role="toolbar">
-                    <?php 
-                      if ($row['status'] == 'deleted') { 
-                        ?>
-                        <button type="button" name="restore" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"><i class="fa fa-undo"></i> Restore</button>
-                        <?php 
-                      }
-                      else { 
-                        ?>
-                        <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
-                        <?php 
-                      }
-                    ?>
-                  </div>
+                  <?php 
+                    if ($row['status'] == 'deleted') { 
+                      ?>
+                      <button type="button" name="restore" class="btn btn-default" id="restore" value="<?php echo $row['FacultyID']; ?>"><i class="fa fa-undo"></i> Restore</button>
+                      <?php 
+                    }
+                    else { 
+                      ?>
+                      <div class="btn-toolbar action" role="toolbar">
+                        <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
+                      </div>
+                      <div class="btn-toolbar action" role="toolbar">
+                        <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+                      </div>
+                      <?php 
+                    }
+                  ?>
                 </td>
               </tr>
             <?php } ?>
@@ -266,19 +269,11 @@ else {
             <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
             <td>
               <div class="btn-toolbar action" role="toolbar">
-                <?php 
-                  if ($row['status'] == 'deleted') { 
-                    ?>
-                    <button type="button" name="restore" class="btn btn-success" id="restore" value="<?php echo $row['FacultyID']; ?>"><i class="fa fa-undo"></i> Restore</button>
-                    <?php 
-                  }
-                  else { 
-                    ?>
-                    <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="top" value="<?php echo $row['FacultyID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
-                    <?php 
-                      }
-                    ?>
-                </div>
+                <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
+              </div>
+              <div class="btn-toolbar action" role="toolbar">
+                <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+              </div>
             </td>
           </tr>
         <?php } ?>
@@ -348,6 +343,18 @@ $(document).ready(function() {
       $(".select-all").removeAttr("checked");
     }
   });
+
+  //Single SMS
+  $("#modal-sms-single").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#modal-sms-single #smsID").val(uid);
+  });
+
+  //Delete Single
+  $("#confirm-delete").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#confirm-delete #delID").val(uid);
+  });
 });
 
 function delete_records() {
@@ -372,8 +379,9 @@ function delete_records() {
             $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
             $('tr#table-row-'+id[i]+'').fadeOut('slow');
           }
+          $("#modal-confirm").modal('hide');
           $("#tbl_faculties").load("../faculties/tbl_faculties.php");
-          $.bootstrapGrowl(id.length + " Rows deleted successfully", // Messages
+          $.bootstrapGrowl(id.length + " rows deleted successfully", // Messages
             { // options
               type: "success", // info, success, warning and danger
               ele: "body", // parent container

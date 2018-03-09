@@ -1,4 +1,16 @@
 /*CUSTOM STYLES*/
+
+/*Modal Custom Styles*/
+#confirm-delete .modal-dialog, #modal-alert .modal-dialog, #modal-confirm .modal-dialog {
+  width: 500px;
+  margin-top: 10%;
+}
+#confirm-delete .modal-header, #modal-alert .modal-header, #modal-confirm .modal-header {
+  background: indianred;
+  color: white;
+  border-radius: 5px 5px 0 0;
+}
+
 #login-dp{
   min-width: 650px;
   padding: 15px;

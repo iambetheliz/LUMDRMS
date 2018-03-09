@@ -16,25 +16,25 @@ $row = mysqli_fetch_array($query);
 	  <div id="msg"></div>
 	  <div class="col-lg-6">
 	    <div class="form-group"> 
-	      <label for="facultyNo">Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
 	      <input type="text" class="form-control" value="<?php echo $row['facultyNo'];?>" name="facultyNo" id="facultyNo" readonly title="Cannot be edited" data-toggle="tooltip">
 	      <br>
-	      <label for="first_name">First Name: </label> <span class="error pull-right" id="errFirst"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
 	      <input type="text" class="form-control" id="first_name" value="<?php echo $row['first_name'];?>" name="first_name">
 	      <br>                        
-	      <label for="inlineFormInput">Middle Name: </label> <span class="error pull-right" id="errMid"></span>
+	      <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
 	      <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" id="middle_name">
 	      <br>
-	      <label for="inlineFormInput">Last Name: </label> <span class="error pull-right" id="errLast"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
 	      <input type="text" class="form-control" value="<?php echo $row['last_name'];?>" name="last_name" id="last_name">
 	      <br>
 	      <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
 	      <input type="text" class="form-control" placeholder="Jr" name="ext" maxlength="3" id="ext" value="<?php echo $row['ext'];?>">
 	      <br>
-	      <label class="col-2">Age:</label> <span class="error pull-right" id="errAge"></span>
+	      <label>Age:</label> <span class="error pull-right" id="errAge"></span>
 	      <input class="form-control" type="text" value="<?php echo $row['age'];?>" id="age" name="age">
 	      <br>	      
-	      <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+	      <label>Address</label> <span class="error pull-right" id="errAdd"></span>
 	      <textarea class="form-control" id="address" name="address" style="height: 80px;"><?php echo $row['address'];?>
 	      </textarea>
 	    </div>
@@ -42,7 +42,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-1"></div>
       <div class="col-lg-5">
 	    <div class="form-group">
-	      <label for="example-date-input" class="col-2 col-form-label">Gender</label> <span class="error pull-right" id="errSex"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Gender</label> <span class="error pull-right" id="errSex"></span>
 	      <select class="form-control" name="sex" id="sex">
 	      	<option value="<?php echo $row['sex'];?>"><?php echo $row['sex'];?></option>
 	        <option value="Male">Male</option>
@@ -51,7 +51,7 @@ $row = mysqli_fetch_array($query);
 	      <br>
 	      <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
           <div class="input-group date">
-            <input type="text" class="form-control" value="<?php echo $row['dob'] ;?>" name="dob" id="dob" /> 
+            <input type="text" class="form-control" value="<?php echo $row['dob'] ;?>" name="dob" id="dob_edit" /> 
             <span class="input-group-addon">
               <span class="fa fa-calendar"></span>
             </span>
@@ -65,7 +65,7 @@ $row = mysqli_fetch_array($query);
           </select>
           <br>
 <?php  } ?>
-	      <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Department</label> <span class="error pull-right" id="errProg"></span>
 	      <?php
 
             //Get all dept data
@@ -101,14 +101,14 @@ $row = mysqli_fetch_array($query);
 
 	        if(!empty($row)){
 		  ?>
-	      <label for="example-date-input" class="col-2 col-form-label">Semester</label> <span class="error pull-right" id="errSem"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Semester</label> <span class="error pull-right" id="errSem"></span>
 	      <select class="form-control" name="sem" id="sem">
 	        <option value="<?php echo $row['sem'];?>"><?php echo $row['sem'];?></option>
 	        <option value="1st">1st</option>
 	        <option value="2nd">2nd</option>
 	      </select>
 	      <br>
-	      <label for="example-date-input" class="col-2 col-form-label">Academic Year</label> <span class="error pull-right" id="errYear"></span>
+	      <label><i class="fa fa-asterisk text-danger"></i> Academic Year</label> <span class="error pull-right" id="errYear"></span>
 	      <?php
 	        $currently_selected = date('Y'); 
 	        $earliest_year = 2006; 
@@ -124,7 +124,7 @@ $row = mysqli_fetch_array($query);
 	        ?> 
 	      </select>
 	      <br>
-	      <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+	      <label>Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
 	      <input type="text" name="phone" id="phone" class="form-control" value="<?php echo $row['phone'];?>">
 	      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
 	      <br><br><br>
@@ -133,14 +133,14 @@ $row = mysqli_fetch_array($query);
 
 	  <div class="col-lg-6">
 	    <div class="form-group">
-	      <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
+	      <label>Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
 	      <input type="text" class="form-control" id="cperson" name="cperson" value="<?php echo $row['cperson'];?>">
 	    </div>
 	  </div>
 	  <div class="col-lg-1"></div>
 	  <div class="col-lg-5">
 	    <div class="form-group">
-	      <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
+	      <label>Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
 	      <input type="text" name="cphone" id="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
 	      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
 
@@ -151,7 +151,7 @@ $row = mysqli_fetch_array($query);
 <?php }}}?>
 <!-- DAtepicker -->
 <script type="text/javascript">
-  $('#dob').datetimepicker({
+  $('#dob, #dob_edit').datetimepicker({
     format:'MM/DD/YYYY',
   	useCurrent: false,
     icons: {
@@ -161,23 +161,5 @@ $row = mysqli_fetch_array($query);
 		down: "fa fa-arrow-down"
 	}
   });
-</script>
-<script type="text/javascript">
-	//Select courses            
-    $('#dept').on('change',function(){
-      var deptID = $(this).val();
-      if(deptID){
-        $.ajax({
-          type:'POST',
-          url:'courses.php',
-          data:'dept_id='+deptID,
-          success:function(html){
-            $('#prog').html(html); 
-          }
-        }); 
-      } else {
-        $('#prog').html('<option value="">Select departmentt first</option>');
-      }
-    });
 </script>
 <script src="../assets/js/form_validate_custom.js"></script> 

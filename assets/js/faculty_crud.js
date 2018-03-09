@@ -103,9 +103,9 @@ $(document).ready(function () {
       }); 
     } 
   });
-  //Delete
+  //Delete Single
   $(document).on('click', '.delete', function(){
-    $FacultyID=$(this).val();
+    $FacultyID = $("#confirm-delete #delID").val();
       $.ajax({
         type: "POST",
         url: "../faculties/delete.php",
@@ -130,6 +130,7 @@ $(document).ready(function () {
               allow_dismiss: true, // add a close button to the message
               stackup_spacing: 10
           });
+          $("#confirm-delete").modal('hide');
         }
       });
       return false;

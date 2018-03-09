@@ -138,22 +138,22 @@ $(document).ready(function () {
       $("#result").html('');
     }
   });
-	//Delete Single
-	$(document).on('click', '.delete', function(){
-		$StudentID = $(this).val();
-		$.ajax({
-			type: "POST",
-			url: "../students/delete.php",
+  //Delete Single
+  $("#confirm-delete #modal-btn-yes").click(function () {
+    $StudentID = $("#confirm-delete #delID").val();
+    $.ajax({
+      type: "POST",
+      url: "../students/delete.php",
       cache: false,
-			data: {
-				StudentID: $StudentID,
-				del: 1,
-			},
-			success: function(){
+      data: {
+        StudentID: $StudentID,
+        del: 1,
+      },
+      success: function(){
         $('tr#table-row-'+$StudentID+'').css('background-color', '#ddd');
         $('tr#table-row-'+$StudentID+'').css('border-color', 'black');
         $('tr#table-row-'+$StudentID+'').fadeOut(3000);
-				$("#tbl_students").load("../students/tbl_students.php");
+        $("#tbl_students").load("../students/tbl_students.php");
         $.bootstrapGrowl("Deleted successfully", // Messages
           { // options
             type: "success", // info, success, warning and danger
@@ -168,10 +168,11 @@ $(document).ready(function () {
             allow_dismiss: true, // add a close button to the message
             stackup_spacing: 10
         });
-			}
-		});
-		return false;
-	});
+        $("#confirm-delete").modal('hide');
+      }
+    });
+    return false;
+  });
   //View
   $(document).on('click', '#getUser', function(e){  
     e.preventDefault();
@@ -228,6 +229,54 @@ $(document).ready(function () {
       }
     });
     return false;
+  });
+  //Single SMS
+  $("#modal-sms-single #modal-btn-send").click(function () {
+    smsID = $("#modal-sms-single #smsID").val();
+    message = $("#modal-sms-single #message-text").val();
+    sender = $("#modal-sms-single #sender-name").val();
+    $.ajax({
+      url:'../students/send_sms.php',
+      method:'POST',
+      data:{smsID:smsID,message:message,sender:sender},
+      beforeSend: function () {
+        $("#modal-sms-single #modal-btn-send").html("<span class='fa fa-envelope'></span>  Sending message");  
+      },
+      success : function(response) {           
+        if(response=="ok"){
+          $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            }
+          );
+        }
+        else {
+          $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+            // options
+            type: "danger", // info, success, warning and danger
+            ele: "body", // parent container
+            offset: {
+              from: "top",
+              amount: 20
+            },
+            align: "right", // right, left or center
+            width: 300,
+            allow_dismiss: true, // add a close button to the message
+            stackup_spacing: 10
+          });
+        }
+        $("#modal-sms-single").modal('hide');
+      }
+    });
   });
 });
 

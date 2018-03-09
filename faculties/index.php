@@ -445,27 +445,76 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" id="modal-btn-send">Send</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+          <button type="button" class="btn btn-success" id="modal-btn-send">Send Message</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Confirm Bulk Modal -->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-confirm">
-    <div class="modal-dialog modal-sm" role="document">
+  <!--SIngle SMS Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms-single">
+    <div class="modal-dialog">
       <div class="modal-content">
-        <div class="modal-header" style="background-color: indianred">
+        <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel">Confirm deletion</h4>
+          <h4 class="modal-title" id="myModalLabel">Send Message</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Sender:</label>
+              <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="form-control-label">Message:</label>
+              <textarea class="form-control" name="message" id="message-text"></textarea>
+              <input type="hidden" name="smsID" id="smsID">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="modal-btn-send" name="send">Send Message</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Bulk Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-confirm">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Confirm Deletion</h4>
         </div>
         <div class="modal-body">
           <p>Are you sure you want to delete these records?</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" id="modal-btn-yes">Yes</button>
-          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-no">No</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal-btn-no">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete Single Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-delete">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Confirm Deletion</h4>
+        </div>
+        <div class="modal-body">
+          <span class="text-danger">Are you sure you want to delete this record?</span>
+          <input type="hidden" name="delete" id="delID">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success delete">Yes</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id="modal-btn-no">No</button>
         </div>
       </div>
     </div>
