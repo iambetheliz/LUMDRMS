@@ -1,4 +1,11 @@
 /*CUSTOM STYLES*/
+#notify-holder{    
+  width: 100%;    
+  top: 8%;  
+  z-index: 1031; /* Max Z-Index in Fixed Nav Menu is 1030*/
+  text-align: center;
+  position: fixed;
+}
 
 /*Modal Custom Styles*/
 #confirm-delete .modal-dialog, #modal-alert .modal-dialog, #modal-confirm .modal-dialog {

@@ -178,7 +178,7 @@
         <div class="row">
           <div class="alert alert-info" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <p><i class="glyphicon glyphicon-info-sign" aria-hidden="true"></i><strong>Info:</strong> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
+            <p><i class="fa fa-info"></i> Displaying <strong>total numbers</strong> of records added per day, week, month and year</p>
           </div>
         </div>
           
