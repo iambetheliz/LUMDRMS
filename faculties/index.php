@@ -424,6 +424,87 @@
     </div>
   </div>
 
+  <!-- SMS Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Send Message</h4>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="form-control-label">Sender:</label>
+              <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+            </div>
+            <div class="form-group">
+              <label for="message-text" class="form-control-label">Message:</label>
+              <textarea class="form-control" name="message" id="message-text"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" id="modal-btn-send">Send</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Bulk Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-confirm">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: indianred">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Confirm deletion</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete these records?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" id="modal-btn-yes">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-no">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Single Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="confirm-delete">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Confirm deletion</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-ok">Yes</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" id="modal-btn-no">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Modal -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-alert">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: indianred">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Error!</h4>
+        </div>
+        <div class="modal-body">
+          <p class="text-danger">Please select atleast one (1) checkbox!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="footer">
     <div class="container-fluid">
       <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>

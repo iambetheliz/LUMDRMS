@@ -7,8 +7,8 @@
   $id = $_POST['id'];
   $receiver = $_POST['recipient'];
 
-  if(!empty($_POST) && $receiver == 'student') {
-    $res = "SELECT phone FROM `students` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
+  if(!empty($_POST) && $receiver == 'faculty') {
+    $res = "SELECT phone FROM `faculties` WHERE `faculties`.`status` = 'active' AND FacultyID = '".$id."'";
     $result = $DB_con->query($res);
     $row = $result->fetch_array(MYSQLI_BOTH);
     $phone = $row['phone'];
@@ -24,7 +24,7 @@
     }
   }
   elseif(!empty($_POST) && $receiver == 'parent') {
-    $res = "SELECT cphone FROM `students` WHERE `students`.`status` = 'active' AND StudentID = '".$id."'";
+    $res = "SELECT cphone FROM `faculties` WHERE `faculties`.`status` = 'active' AND FacultyID = '".$id."'";
     $result = $DB_con->query($res);
     $row = $result->fetch_array(MYSQLI_BOTH);
     $phone = $row['cphone'];

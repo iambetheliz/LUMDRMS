@@ -104,7 +104,7 @@
                 <!-- Page Heading -->
                 <div class="row">
                   <div class="container-fluid">
-                    <h1 class="page-header">Faculty's Information 
+                    <h1 class="page-header">Faculty and Staff Information 
                       <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">FN: <?php echo $row['facultyNo'];?></span>
                     </h1>             
                   </div>
@@ -162,13 +162,27 @@
                             <td><label>Address:</label></td>
                             <td><?php echo $row['address'];?></td>
                             <td><label>Cellphone No.:</label></td>
-                            <td><?php echo $row['phone'];?></td>
+                            <td>
+                              <?php echo $row['phone'];
+                                if (!empty($row['phone'])) {?>
+                                  <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_faculty" id="sendSMS" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
+                                  <?php 
+                                }
+                              ?>
+                            </td>
                           </tr>
                           <tr>
                             <td><label>Contact Person:</label></td>
                             <td><?php echo $row['cperson'];?></td>
                             <td><label>Cel/Tel No.:</label></td>
-                            <td><?php echo $row['cphone'];?></td>
+                            <td>
+                              <?php echo $row['cphone']; 
+                                if (!empty($row['cphone'])) {?>
+                                  <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_parent" id="sendSMSparent" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
+                                  <?php 
+                                }
+                              ?>
+                            </td>
                           </tr>
                         </tbody>
                       </table>
@@ -224,17 +238,95 @@
   </div>
   <!-- End of Content -->
 
-  <footer class="footer">
-    <div class="container-fluid">
-        <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
-    </div>
-  </footer>
+<!-- SMS Modal for Student -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal_sms_faculty">
+  <div class="modal-dialog">
+    <form id="sendSMStoFaculty" method="post">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Send Message for Student</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Sender:</label>
+            <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-control-label">Message:</label>
+            <textarea class="form-control" name="message" id="message" autofocus></textarea>
+          </div>
+          <div class="form-group">            
+            <input type="text" name="recipient" id="recipient" value="faculty">
+            <input type="text" name="id" id="sms_id">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="modal-btn-send"><i class='fa fa-envelope'></i> Send Message</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- SMS Modal -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal_sms_parent">
+  <div class="modal-dialog">
+    <form id="sendSMStoParent">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Send Message for Guardian</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="recipient-name" class="form-control-label">Sender:</label>
+            <input type="text" class="form-control" name="sender" value="From: LU Clinic" id="sender-name" readonly >
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-control-label">Message:</label>
+            <textarea class="form-control" name="message" id="message"></textarea>
+          </div>        
+          <div class="form-group">            
+            <input type="text" name="recipient" id="recipient" value="parent">
+            <input type="text" name="id" id="sms_id">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" id="modal-btn-send-parent">Send</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-btn-cancel">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container-fluid">
+      <p class="text-muted" align="right"><a href="http://lu.edu.ph/" target="_blank">Laguna University</a> &copy; 2017</p>
+  </div>
+</footer>
     
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/custom.js"></script> 
+<!-- Growl -->
+<script src="../assets/js/jquery.bootstrap-growl.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+  $("a[data-toggle='modal'").tooltip();
+  $("#modal_sms_faculty #modal-btn-send").val();
+  $('#sendSMStoFaculty').submit(function() {
+    return false;
+    $.ajaxSetup ({
+      cache: false
+    });
+    $("#sendSMStoFaculty")[0].reset();
+    $("#message").focus();
+    $("#modal_sms_faculty #modal-btn-send").val();
+    $('#modal_sms_faculty').modal('hide'); 
+  });
   $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
     localStorage.setItem('activeTab', $(e.target).attr('href'));
   });
@@ -242,6 +334,126 @@ $(document).ready(function(){
   if(activeTab){
     $('#myTab a[href="' + activeTab + '"]').tab('show');
   }
+
+  //SMS For Student
+  $("#modal_sms_faculty").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#modal_sms_faculty #sms_id").val(uid);
+    $("#modal_sms_faculty #message").focus();
+  });
+
+  $("#modal-btn-send").click(function () {
+    var id = $("#modal_sms_faculty #sms_id").val();
+    var message = $("#modal_sms_faculty #message").val();
+    var sender = $("#modal_sms_faculty #sender-name").val();
+    var recipient = $("#modal_sms_faculty #recipient").val();
+    if (recipient) {
+      $.ajax({
+        url:'sms.php',
+        method:'POST',
+        data: 'recipient=faculty&sender='+sender+'&message='+message+'&id='+id,
+        beforeSend: function () {
+          $("#modal_sms_faculty #modal-btn-send").html("<span class='fa fa-envelope'></span>  Sending message");  
+        },
+        success : function(response) {    
+          if(response=="ok"){
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+              }
+            );
+            $("#sendSMStoFaculty")[0].reset();
+            $("#modal_sms_faculty #modal-btn-send").val();
+          }
+          else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
+          }
+          $("#modal_sms_faculty").modal('hide');
+        }
+      });
+    }
+  });
+
+  //SMS For Guardian
+  $("#modal_sms_parent").on('show.bs.modal', function (e) {    
+    var uid = $(e.relatedTarget).data('id');
+    $("#modal_sms_parent #sms_id").val(uid);
+    $("#modal_sms_parent #message").focus();
+  });
+
+  $("#modal-btn-send-parent").click(function () {
+    var id = $("#modal_sms_parent #sms_id").val();
+    var message = $("#modal_sms_parent #message").val();
+    var sender = $("#modal_sms_parent #sender-name").val();
+    var recipient = $("#modal_sms_parent #recipient").val();
+    if (recipient) {
+      $.ajax({
+        url:'sms.php',
+        method:'POST',
+        data: 'recipient=parent&sender='+sender+'&message='+message+'&id='+id,
+        beforeSend: function () {
+          $("#modal-btn-send-parent").html("<span class='fa fa-envelope'></span>  Sending message");  
+        },
+        success : function(response) {    
+          if(response=="ok"){
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+              }
+            );
+            $("#sendSMStoParent")[0].reset();
+            $("#modal-btn-send-parent").val();
+          }
+          else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
+          }
+          $("#modal_sms_parent").modal('hide');
+        }
+      });
+    }
+  });
 });
 </script>
     

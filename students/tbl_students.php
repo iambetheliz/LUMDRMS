@@ -435,6 +435,9 @@ function send_sms() {
         url:'send_sms.php',
         method:'POST',
         data:{id:id,message:message,sender:sender},
+        beforeSend: function () {
+          $("#modal-sms #modal-btn-send").html("<span class='fa fa-envelope'></span>  Sending message");  
+        },
         success : function(response) {           
           if(response=="ok"){
             $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
@@ -468,6 +471,8 @@ function send_sms() {
             });
           }
           $("#modal-sms").modal('hide');
+          $(".select-all").removeAttr("checked");
+          $(".chk-box").prop('checked', false);
         }
       });
     });

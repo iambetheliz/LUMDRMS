@@ -357,39 +357,114 @@ function delete_records() {
   });
          
   if(id.length === 0) { //tell you if the array is empty
-    alert("Please Select atleast one checkbox");
+    $("#modal-alert").modal('show');
     return false;
   }
   else {
-    confirm("Are you sure you want to delete this?");
-    $.ajax({
-      url:'delete_mul.php',
-      method:'POST',
-      data:{id:id},
-      success:function() {
-        for(var i=0; i<id.length; i++) {
-          $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
-          $('tr#table-row-'+id[i]+'').fadeOut('slow');
+    $("#modal-confirm").modal('show');
+    $("#modal-confirm #modal-btn-yes").click(function () {
+      $.ajax({
+        url:'delete_mul.php',
+        method:'POST',
+        data:{id:id},
+        success:function() {
+          for(var i=0; i<id.length; i++) {
+            $('tr#table-row-'+id[i]+'').css('background-color', '#ddd');
+            $('tr#table-row-'+id[i]+'').fadeOut('slow');
+          }
+          $("#tbl_faculties").load("../faculties/tbl_faculties.php");
+          $.bootstrapGrowl(id.length + " Rows deleted successfully", // Messages
+            { // options
+              type: "success", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              delay: 4000,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+          });
         }
-        $("#tbl_faculties").load("../faculties/tbl_faculties.php");
-        $.bootstrapGrowl(id.length + " Rows deleted successfully", // Messages
-          { // options
-            type: "success", // info, success, warning and danger
-            ele: "body", // parent container
-            offset: {
-              from: "top",
-              amount: 20
-            },
-            align: "right", // right, left or center
-            width: 300,
-            delay: 4000,
-            allow_dismiss: true, // add a close button to the message
-            stackup_spacing: 10
-        });
-      }
+      });
+    });
+    $("#modal-confirm #modal-btn-no").click(function () {
+      $(".select-all").removeAttr("checked");
+      $(".chk-box").prop('checked', false);
     });
   }  
 }
+
+//Send SMS
+function send_sms() {
+  var id = [];       
+  $('input[name="chk[]"]:checked').each(function(i){
+    id[i] = $(this).val();
+  });
+         
+  if(id.length === 0) { //tell you if the array is empty
+    $("#modal-alert").modal('show');
+    return false;
+  }
+  else {
+    $("#modal-sms").modal('show');
+    $("#modal-sms #modal-btn-send").click(function () {
+      message = $("#message-text").val();
+      sender = $("#sender-name").val();
+      $.ajax({
+        url:'send_sms.php',
+        method:'POST',
+        data:{id:id,message:message,sender:sender},
+        beforeSend: function () {
+          $("#modal-sms #modal-btn-send").html("<span class='fa fa-envelope'></span>  Sending message");  
+        },
+        success : function(response) {           
+          if(response=="ok"){
+            $.bootstrapGrowl("<span class='fa fa-check'></span> Message sent!", // Messages
+              { // options
+                type: "success", // info, success, warning and danger
+                ele: "body", // parent container
+                offset: {
+                  from: "top",
+                  amount: 20
+                },
+                align: "right", // right, left or center
+                width: 300,
+                allow_dismiss: true, // add a close button to the message
+                stackup_spacing: 10
+              }
+            );
+          }
+          else {
+            $.bootstrapGrowl("<i class='fa fa-info'></i> "+response, { // Messages
+              // options
+              type: "danger", // info, success, warning and danger
+              ele: "body", // parent container
+              offset: {
+                from: "top",
+                amount: 20
+              },
+              align: "right", // right, left or center
+              width: 300,
+              allow_dismiss: true, // add a close button to the message
+              stackup_spacing: 10
+            });
+          }
+          $("#modal-sms").modal('hide');
+          $(".select-all").removeAttr("checked");
+          $(".chk-box").prop('checked', false);
+        }
+      });
+    });
+    $("#modal-sms #modal-btn-cancel").click(function () {
+      $(".select-all").removeAttr("checked");
+      $(".chk-box").prop('checked', false);
+    });
+  }  
+}
+
 $('#close').click(function() {
   window.location.href = 'index.php';
   return false;
