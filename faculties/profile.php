@@ -103,125 +103,127 @@
     
                 <!-- Page Heading -->
                 <div class="row">
-                  <div class="container-fluid">
-                    <h1 class="page-header">Faculty and Staff Information 
-                      <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">FN: <?php echo $row['facultyNo'];?></span>
-                    </h1>             
-                  </div>
+                  <h1 class="page-header">Faculty and Staff Profile 
+                    <span class="pull-right text-success" data-toggle="tooltip" title="Student Number" data-placement="left">FN: <?php echo $row['facultyNo'];?></span>
+                  </h1>  
+                  <ol class="breadcrumb">
+                    <li><a href="/LUMDRMS/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="/LUMDRMS/faculties/">Faculty and Staff</a></li>
+                    <li class="current"><em>Profile</em></li>
+                  </ol>     
                 </div>
                 <!-- End of Page Heading -->
 
-                <div class="container-fluid">
-                  <div class="row">     
-                    <!-- Basic Info -->
-                    <div class="panel panel-success panel-table">
-                      <div class="panel-heading">
-                        <div class="panel-title">
-                          <strong>BASIC INFORMATION</strong>
-                        </div>
+                <div class="row">     
+                  <!-- Basic Info -->
+                  <div class="panel panel-success panel-table">
+                    <div class="panel-heading">
+                      <div class="panel-title">
+                        <strong>BASIC INFORMATION</strong>
                       </div>
-                      <div class="panel-body">  
-                        <div class="row">   
-                          <div class="container-fluid">               
-                            <table class="table table-bordered">
-                        <tbody>
-                          <tr>
-                            <td colspan="4"><strong>FULL NAME:</strong></td>
-                          </tr>
-                          <tr>
-                            <td><?php echo $row['first_name'] ;?><br>
-                            <span class="text-muted"><small><i>First Name</i></small></span></td>
-                            <td><?php echo $row['middle_name'] ;?><br>
-                            <span class="text-muted"><small><i>Middle Name</i></small></span></td>
-                            <td><?php echo $row['last_name'];?><br>
-                              <span class="text-muted"><small><i>Last Name</i></small></span></td>
-                            <td><?php echo $row['ext'];?><br>
-                              <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
-                          </tr>
-                          <tr>
-                            <td><label>Age:</label></td>
-                            <td><?php if (!empty($row['age'])) {
-                              echo $row['age']." years old";
-                            }?></td>
-                            <td><label>Gender:</label></td>
-                            <td><?php echo $row['sex'];?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Date of Birth:</label></td>
-                            <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
-                            <td><label>Marital Status:</label></td>
-                            <td><?php echo $row['civil'] ;?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Department:</label></td>
-                            <td><?php echo $row['dept_name'];?></td>
-                            <td><label>Semester: </label> <?php echo $row['sem'];?> Semester</td>
-                            <td><label>Academic Year:</label> <?php echo $row['acadYear'];?></td>
-                          </tr>
-                          <tr>
-                            <td><label>Address:</label></td>
-                            <td><?php echo $row['address'];?></td>
-                            <td><label>Cellphone No.:</label></td>
-                            <td>
-                              <?php echo $row['phone'];
-                                if (!empty($row['phone'])) {?>
-                                  <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_faculty" id="sendSMS" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
-                                  <?php 
-                                }
-                              ?>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td><label>Contact Person:</label></td>
-                            <td><?php echo $row['cperson'];?></td>
-                            <td><label>Cel/Tel No.:</label></td>
-                            <td>
-                              <?php echo $row['cphone']; 
-                                if (!empty($row['cphone'])) {?>
-                                  <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_parent" id="sendSMSparent" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
-                                  <?php 
-                                }
-                              ?>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                          </div>
+                    </div>
+                    <div class="panel-body">  
+                      <div class="row">   
+                        <div class="container-fluid">               
+                          <table class="table table-bordered">
+                      <tbody>
+                        <tr>
+                          <td colspan="4"><strong>FULL NAME:</strong></td>
+                        </tr>
+                        <tr>
+                          <td><?php echo $row['first_name'] ;?><br>
+                          <span class="text-muted"><small><i>First Name</i></small></span></td>
+                          <td><?php echo $row['middle_name'] ;?><br>
+                          <span class="text-muted"><small><i>Middle Name</i></small></span></td>
+                          <td><?php echo $row['last_name'];?><br>
+                            <span class="text-muted"><small><i>Last Name</i></small></span></td>
+                          <td><?php echo $row['ext'];?><br>
+                            <span class="text-muted"><small><i>Extended Name (e.g. Jr.)</i></small></span></td>
+                        </tr>
+                        <tr>
+                          <td><label>Age:</label></td>
+                          <td><?php if (!empty($row['age'])) {
+                            echo $row['age']." years old";
+                          }?></td>
+                          <td><label>Gender:</label></td>
+                          <td><?php echo $row['sex'];?></td>
+                        </tr>
+                        <tr>
+                          <td><label>Date of Birth:</label></td>
+                          <td><?php if (!empty($row['dob'])) echo date('F j, Y', strtotime($row['dob'])) ;?></td>
+                          <td><label>Marital Status:</label></td>
+                          <td><?php echo $row['civil'] ;?></td>
+                        </tr>
+                        <tr>
+                          <td><label>Department:</label></td>
+                          <td><?php echo $row['dept_name'];?></td>
+                          <td><label>Semester: </label></td>
+                          <td><?php echo $row['sem'];?> Semester</td>
+                        </tr>
+                        <tr>
+                          <td><label>Academic Year:</label></td>
+                          <td><?php echo $row['acadYear'];?></td>
+                          <td colspan="2"></td>
+                        </tr>
+                        <tr>
+                          <td><label>Address:</label></td>
+                          <td><?php echo $row['address'];?></td>
+                          <td><label>Mobile No.:</label></td>
+                          <td>
+                            <?php echo $row['phone'];
+                              if (!empty($row['phone'])) {?>
+                                <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_faculty" id="sendSMS" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
+                                <?php 
+                              }
+                            ?>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><label>Contact Person:</label></td>
+                          <td><?php echo $row['cperson'];?></td>
+                          <td><label>Mobile No.:</label></td>
+                          <td>
+                            <?php echo $row['cphone']; 
+                              if (!empty($row['cphone'])) {?>
+                                <a class="btn btn-sm" data-id="<?php echo $row['FacultyID']; ?>" data-toggle="modal" data-target="#modal_sms_parent" id="sendSMSparent" title="Message" data-placement="right"><i class="fa fa-envelope"></i></a>
+                                <?php 
+                              }
+                            ?>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                         </div>
                       </div>
                     </div>
-                    <!-- End of Basic Infor --> 
                   </div>
+                  <!-- End of Basic Infor --> 
                 </div>
 
-                <div class="container-fluid">
-                  <div class="row">
-
-                    <div class="panel with-nav-tabs panel-success">
-                      <div class="panel-heading">
-                        <strong>
-                          <ul class="nav nav-tabs panel-title" id="myTab">
-                            <li class="active">
-                              <a href="#medical" data-toggle="tab">MEDICAL</a>
-                            </li>
-                            <li>
-                              <a href="#dental" data-toggle="tab">DENTAL</a>
-                            </li>
-                          </ul>
-                        </strong>
-                      </div>
-                      <div class="panel-body">
-                        <div class="tab-content">
-                          <div class="tab-pane fade in active" id="medical">
-                            <?php include 'faculty_med.php';?>
-                          </div>
-                          <div class="tab-pane fade" id="dental">
-                            <?php include 'faculty_den.php';?>
-                          </div>
+                <div class="row">
+                  <div class="panel with-nav-tabs panel-success">
+                    <div class="panel-heading">
+                      <strong>
+                        <ul class="nav nav-tabs panel-title" id="myTab">
+                          <li class="active">
+                            <a href="#medical" data-toggle="tab">MEDICAL</a>
+                          </li>
+                          <li>
+                            <a href="#dental" data-toggle="tab">DENTAL</a>
+                          </li>
+                        </ul>
+                      </strong>
+                    </div>
+                    <div class="panel-body">
+                      <div class="tab-content">
+                        <div class="tab-pane fade in active" id="medical">
+                          <?php include 'faculty_med.php';?>
+                        </div>
+                        <div class="tab-pane fade" id="dental">
+                          <?php include 'faculty_den.php';?>
                         </div>
                       </div>
                     </div>
-
                   </div>
                 </div>
 

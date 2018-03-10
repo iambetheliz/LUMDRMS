@@ -6,13 +6,7 @@ if (isset($_GET['StudentID'])) {
   $StudentID = $_GET['StudentID'];
   $med_res = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `students_med`)"); 
 
-  if ($med_res->num_rows == 0) {
-    $errMSG = "No records found."; ?>
-    <br />
-    <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
-    <?php 
-  }
-  else { 
+  if ($med_res->num_rows > 0) {
     $query = mysqli_query($DB_con,"SELECT * FROM `students_med` WHERE StudentID = '$StudentID'");
     while ($med = $query->fetch_assoc()) { 
       $update = date('F j, Y; h:i a', strtotime($med['date_checked_up']));
@@ -22,26 +16,21 @@ if (isset($_GET['StudentID'])) {
                   <td>".$med['checked_by']."</td>
                 </tr>";
     } ?>
-
-    <div class="row">
-      <div class="container-fluid">
-        <br />
-        <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
-        <a href="/LUMDRMS/students/medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
-        <br>             
-        <br />
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Date Recorded:</label>
-            <br/><?php echo $update;?>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Physician:</label>
-            <br /><?php echo $checked;?>
-          </div>
-        </div>
+    <br />
+    <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+    <a href="/LUMDRMS/students/medical.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
+    <br>             
+    <br />
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Date Recorded:</label>
+        <br/><?php echo $update;?>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Physician:</label>
+        <br /><?php echo $checked;?>
       </div>
     </div>
 
@@ -56,7 +45,6 @@ if (isset($_GET['StudentID'])) {
       <?php
       // displaying records.
       while ($med = $med_res->fetch_assoc()) { ?>
-
         <tbody>
           <tr>
             <td colspan="2">
@@ -119,150 +107,166 @@ if (isset($_GET['StudentID'])) {
           }
         ?>
         <thead>
-<th colspan="4">E. PHYSICAL EXAMINATION I</th>
-</thead>
-<tbody>
-<tr>
-<td>
-  <label>Height:</label> 
-  <?php if (!empty($med['height'])) {
-    echo $med['height']." cm.";
-  } ?> 
-</td>
-<td>
-  <label>Weight:</label> 
-  <?php if (!empty($med['weight'])) {
-    echo $med['weight']." kg.";
-  } ?> 
-</td>
-<td><label>BMI:</label> <?php echo $med['bmi'];?></td>
-<td><label>Blood Pressure:</label> <?php echo $med['bp']; ?></td>
-</tr>
-<tr>
-<td><label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;"><?php if (!empty($med['cr'])) {
-    echo $med['cr']." bpm.";
-  } ?></span></td>
-<td><label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;"><?php if (!empty($med['rr'])) {
-    echo $med['rr']." bpm.";
-  } ?></span></td>
-<td colspan="2"><label>Temperature:</label> <?php if (!empty($med['temp'])) {
-    echo $med['temp']." &#x2103;";
-  } ?></td>
-</tr>
-</tbody>
-<thead>
-  <tr>
-    <th colspan="4">F. PHYSICAL EXAMINATION II</th>
-  </tr>
-</thead>
-<tbody>
-  <tr>
-    <th>CATEGORY</th>
-    <th style="text-align: center;">NORMAL</th>
-    <th colspan="2">ABNORMAL</th>
-  </tr>
-</tbody>
-<tbody>
-  <tr>
-    <td><label>General Survey:</label> </td>
-    <?php 
-      if ($med['gen_sur'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
+          <th colspan="4">E. PHYSICAL EXAMINATION I</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <label>Height:</label> 
+              <?php if (!empty($med['height'])) {
+                echo $med['height']." cm.";
+              } ?> 
+            </td>
+            <td>
+              <label>Weight:</label> 
+              <?php if (!empty($med['weight'])) {
+                echo $med['weight']." kg.";
+              } ?> 
+            </td>
+            <td>
+              <label>BMI:</label> 
+              <?php echo $med['bmi'];?>
+            </td>
+            <td>
+              <label>Blood Pressure:</label> 
+              <?php echo $med['bp']; ?>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <label>Cardiac Rate:</label> <span data-toggle="tooltip" title="Beats per minute" style="cursor: pointer;">
+                <?php if (!empty($med['cr'])) {
+                echo $med['cr']." bpm.";
+              } ?></span>
+            </td>
+            <td>
+              <label>Respirtory Rate:</label> <span data-toggle="tooltip" title="Breaths per minute" style="cursor: pointer;">
+                <?php if (!empty($med['rr'])) {
+                echo $med['rr']." bpm.";
+              } ?></span>
+            </td>
+            <td colspan="2">
+              <label>Temperature:</label> 
+              <?php if (!empty($med['temp'])) {
+                echo $med['temp']." &#x2103;";
+              } ?>
+            </td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="4">F. PHYSICAL EXAMINATION II</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>CATEGORY</th>
+            <th style="text-align: center;">NORMAL</th>
+            <th colspan="2">ABNORMAL</th>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr>
+            <td><label>General Survey:</label> </td>
+            <?php 
+              if ($med['gen_sur'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['gen_sur'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>Skin:</label> </td>
+            <?php 
+              if ($med['skin'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['skin'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>HEENT:</label> </td>
+            <?php 
+              if ($med['heent'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['heent'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>Lungs:</label> </td>
+            <?php 
+              if ($med['lungs'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['lungs'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>Hear:</label> </td>
+            <?php 
+              if ($med['heart'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['heart'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>Abdomen:</label> </td>
+            <?php 
+              if ($med['abdomen'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['abdomen'] ."</td>";
+              }
+            ?>
+          </tr>
+          <tr>
+            <td><label>Extremeties:</label> </td>
+            <?php 
+              if ($med['extreme'] == 'Normal') {
+                echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
+                echo "<td colspan='2'></td>";
+              }
+              else {
+                echo "<td></td>";
+                echo "<td colspan='2'>". $med['extreme'] ."</td>";
+              }
+            ?>
+          </tr>
+        </tbody>
+        <?php 
       }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['gen_sur'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>Skin:</label> </td>
-    <?php 
-      if ($med['skin'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['skin'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>HEENT:</label> </td>
-    <?php 
-      if ($med['heent'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['heent'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>Lungs:</label> </td>
-    <?php 
-      if ($med['lungs'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['lungs'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>Hear:</label> </td>
-    <?php 
-      if ($med['heart'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['heart'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>Abdomen:</label> </td>
-    <?php 
-      if ($med['abdomen'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['abdomen'] ."</td>";
-      }
-    ?>
-  </tr>
-  <tr>
-    <td><label>Extremeties:</label> </td>
-    <?php 
-      if ($med['extreme'] == 'Normal') {
-        echo "<td style='text-align:center;'><i class='fa fa-check'></i></td>";
-        echo "<td colspan='2'></td>";
-      }
-      else {
-        echo "<td></td>";
-        echo "<td colspan='2'>". $med['extreme'] ."</td>";
-      }
-    ?>
-  </tr>
-</tbody>
-</table>
+      ?>
+    </table>
     <br>
     <div class="alert alert-success">
       <strong>Previous checkups</strong>
     </div>
 
-      <?php 
-    }?>
     <table class='table table-bordered'>
       <thead>
         <tr>
@@ -284,14 +288,26 @@ if (isset($_GET['StudentID'])) {
         ?>
       </tbody>
     </table>
+    <?php 
+  }
+  else { ?>
+    <br />
+    <a href="medical_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+    <table class='table table-bordered'>
+      <thead>
+        <tr>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Attending Physician</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3">No record</td>
+        </tr>
+      </tbody>
+    </table>
     <?php
   }
-}
-
-if(isset($errMSG)) { 
-  echo "<div class='alert alert-warning'>
-          <span class='glyphicon glyphicon-info'></span> 
-            ".$errMSG."
-        </div>";      
 }
 ?>

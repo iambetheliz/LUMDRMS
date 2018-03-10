@@ -19,13 +19,7 @@ if (isset($_GET['StudentID'])) {
   $StudentID = $_GET['StudentID'];
   $den_res = mysqli_query($DB_con,"SELECT * FROM `students_den` WHERE StudentID = '$StudentID' AND date_checked IN (SELECT max(date_checked) FROM students_den)"); 
 
-  if ($den_res->num_rows == 0) {
-    $errMSG = "No records found."; ?>
-    <br />
-    <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
-    <?php 
-  }
-  else { 
+  if ($den_res->num_rows > 0) { 
     $query = mysqli_query($DB_con,"SELECT * FROM students_den WHERE StudentID = '$StudentID'");
     //Display for date and time ONLY in Toolbar
     while ($den = $query->fetch_assoc()){ 
@@ -36,23 +30,19 @@ if (isset($_GET['StudentID'])) {
                   <td>".$den['checked_by']."</td>
                 </tr>";
     } ?>
-    <div class="row">
-      <div class="container-fluid">
-        <br />
-        <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
-        <a href="/LUMDRMS/students/dental.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a><br><br>
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Date Recorded:</label>
-            <br/><?php echo $update;?>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Physician:</label>
-            <br /><?php echo $den['checked_by'];?>
-          </div>
-        </div>
+    <br />
+    <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+    <a href="/LUMDRMS/students/dental.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-primary" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a><br><br>
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Date Recorded:</label>
+        <br/><?php echo $update;?>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Physician:</label>
+        <br /><?php echo $den['checked_by'];?>
       </div>
     </div>
 
@@ -156,14 +146,26 @@ if (isset($_GET['StudentID'])) {
         ?>
       </tbody>
     </table>
-
     <?php 
   }
-}
-if(isset($errMSG)) { 
-  echo "<div class='alert alert-warning'>
-          <span class='glyphicon glyphicon-info'></span> 
-            ".$errMSG."
-        </div>";      
+  else { ?>
+    <br />
+    <a href="dental_form.php?StudentID=<?php echo $row['StudentID']; ?>" id="add_den" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+    <table class='table table-bordered'>
+      <thead>
+        <tr>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Attending Physician</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3">No records</td>
+        </tr>
+      </tbody>
+    </table>
+    <?php 
+  }
 }
 ?>
