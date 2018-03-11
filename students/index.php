@@ -114,7 +114,7 @@ label.error {
             <div class="col-lg-4 pull-right">
               <div class="form-group filter">
                 <span class="fa fa-filter"></span>
-                <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                <input type="text" class="form-control" id="keywords" placeholder="Enter Student No., Last name, First name or Middle name" onkeyup="searchFilter()"/>
               </div>
             </div>
           </h1>
@@ -281,14 +281,14 @@ label.error {
                   <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
                   <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
                   <br>
-                  <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
+                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
                   <select class="form-control" name="sex" id="sex">
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label">Address</label> <span class="error pull-right" id="errAdd"></span>
+                  <label for="example-date-input" class="col-2">Address</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                 </div>
               </div>
@@ -310,7 +310,7 @@ label.error {
                     <option value="Married">Married</option>
                   </select>
                   <br>
-                  <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
+                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
                   <?php
 
                     //Get all dept data
@@ -337,7 +337,7 @@ label.error {
                     <option value="">Select department first</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Year:</label> <span class="error pull-right" id="errLevel"></span>
+                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Year:</label> <span class="error pull-right" id="errLevel"></span>
                   <select class="form-control" name="yearLevel" id="yearLevel">
                     <option value="">Select</option>
                     <option value="1st">1st Year</option>
@@ -346,14 +346,14 @@ label.error {
                     <option value="4th">4th Year</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
+                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
                   <select class="form-control" name="sem" id="sem">
                     <option value="">Select</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
+                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
                   <?php
                     $currently_selected = date('Y'); 
                     $earliest_year = 2006; 
@@ -369,7 +369,7 @@ label.error {
                     ?> 
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
+                  <label for="example-date-input" class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                   <input type="text" name="phone" id="phone" class="form-control">
                   <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                   <br><br><br>
@@ -378,14 +378,14 @@ label.error {
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
+                  <label for="example-date-input" class="col-2">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
                   <input type="text" class="form-control" name="cperson" id="cperson">
                 </div>
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-5">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                  <label for="example-date-input" class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
                   <input type="text" name="cphone" id="cphone" class="form-control">
                   <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                 </div>

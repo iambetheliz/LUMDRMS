@@ -154,9 +154,19 @@ if(isset($_POST['page'])){
                       <div class="btn-toolbar action" role="toolbar">
                         <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
                       </div>
+                      <?php 
+                      if (!empty($row['phone'])) { ?>
                       <div class="btn-toolbar action" role="toolbar">
                         <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
                       </div>
+                      <?php 
+                       } 
+                       else { ?>
+                       <div class="btn-toolbar action" role="toolbar">
+                        <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
+                      </div>
+                      <?php 
+                       } ?>
                       <?php 
                     }
                   ?>
@@ -271,9 +281,19 @@ else {
               <div class="btn-toolbar action" role="toolbar">
                 <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
               </div>
+              <?php 
+              if (!empty($row['phone'])) { ?>
               <div class="btn-toolbar action" role="toolbar">
                 <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
               </div>
+              <?php 
+               } 
+               else { ?>
+               <div class="btn-toolbar action" role="toolbar">
+                <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
+              </div>
+              <?php 
+               } ?>
             </td>
           </tr>
         <?php } ?>

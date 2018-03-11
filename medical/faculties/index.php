@@ -123,7 +123,7 @@
             <div class="col-lg-4 pull-right">
               <div class="form-group filter">
                 <span class="fa fa-filter"></span>
-                <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                <input type="text" class="form-control" id="keywords" placeholder="Enter Faculty No." onkeyup="searchFilter()"/>
               </div>
             </div>
           </h1>
@@ -192,7 +192,6 @@
         <div class="row">
           <div id="optSelect" style="display: none;">
             <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Faculty</button>
-            <a href="/LUMDRMS/faculties/index.php#userModal" class="btn btn-warning">New Faculty</a>
           </div>
         </div>
 

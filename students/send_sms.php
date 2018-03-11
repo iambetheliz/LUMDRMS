@@ -11,14 +11,16 @@ if(isset($_POST["id"])) {
     $row = $result->fetch_array(MYSQLI_BOTH);
     $phone = $row['phone'];
     $msg = $_POST['sender']."\n\n".$message;
-    $result = itexmo($phone,$msg,"ST-SHAIR374833_X9NKY");
-    if ($result == ""){
-      echo "iTexMo: No response from server!!!";  
-    } else if ($result == 0){
-      echo "ok";
-    }
-    else { 
-      echo "Something went wrong! <br>Error #". $result . " was encountered!";
+    if ($phone != 0) {
+      $result = itexmo($phone,$msg,"ST-SHAIR374833_X9NKY");
+      if ($result == ""){
+        echo "iTexMo: No response from server!!!";  
+      } else if ($result == 0){
+        echo "ok";
+      }
+      else { 
+        echo "Something went wrong! <br>Error #". $result . " was encountered!";
+      }
     }
   }
 }

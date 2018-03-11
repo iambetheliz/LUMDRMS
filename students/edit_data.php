@@ -171,6 +171,7 @@ $row = mysqli_fetch_array($query);
 $(document).ready(function(){
   $('#dob_edit').datetimepicker({
     format:'MM/DD/YYYY',
+    useCurrent: false,
     icons: {
 		time: "fa fa-clock-o",
 		date: "fa fa-calendar",

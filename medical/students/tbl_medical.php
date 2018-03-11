@@ -24,10 +24,10 @@ if(isset($_POST['page'])){
   }
 
   if ( !empty($keywords) && !empty($prog) ) {
-    $whereSQL = " WHERE program = '".$prog."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%') ";
+    $whereSQL = " WHERE program = '".$prog."' AND `students`.`studentNo` LIKE '%".$keywords."%' ";
   }
   elseif ( !empty($keywords) ) {
-    $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+    $whereSQL = " WHERE `students`.`studentNo` LIKE '%".$keywords."%' ";
   }
   elseif ( !empty($prog) ) {
     $whereSQL = " WHERE program = '".$prog."' ";
@@ -69,7 +69,7 @@ if(isset($_POST['page'])){
   $pagination =  new Pagination($pagConfig);
   
   //get rows
-  $query = $DB_con->query("SELECT * FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
+  $query = $DB_con->query("SELECT *, `students_med`.`status` AS delStat FROM `students_med` JOIN `students` ON `students`.`StudentID`=`students_med`.`StudentID` JOIN `program` ON `students`.`program`=`program`.`program_id` $whereSQL $orderSQL LIMIT $start,$limit");
   
   if($query->num_rows > 0){ ?>
   <div class="row">
@@ -94,6 +94,7 @@ if(isset($_POST['page'])){
           <tbody>
           <?php
             while($row = $query->fetch_assoc()){ 
+              $deleted = $row['delStat'];
             $start++; ?>
             <tr id="table-row-<?php echo $row["StatsID"]; ?>">
               <td>
@@ -108,14 +109,14 @@ if(isset($_POST['page'])){
               <td style="width: 145px;">
                 <div class="btn-toolbar action" role="toolbar">
                   <?php 
-                    if ($row['status'] == 'deleted') { 
+                    if ($deleted == 'deleted') { 
                       ?>
                       <button type="button" class="btn btn-success" id="restore" value="<?php echo $row['StudentID']; ?>"><i class="fa fa-undo"></i> Restore</button>
                       <?php 
                     }
                     else { 
                       ?>
-                    <a href="/LUMDRMS/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                    <a href="/LUMDRMS/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     <?php 
                       }
                     ?>
@@ -203,7 +204,7 @@ else {
                     }
                     else { 
                       ?>
-                      <a href="/LUMDRMS/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['MedID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                      <a href="/LUMDRMS/medical/students/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                       <?php 
                       }
                     ?>

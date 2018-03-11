@@ -123,7 +123,7 @@
                 <div class="col-lg-4 pull-right">
                   <div class="form-group filter">
                     <span class="fa fa-filter"></span>
-                    <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                    <input type="text" class="form-control" id="keywords" placeholder="Enter Student No." onkeyup="searchFilter()"/>
                   </div>
                 </div>
               </h1>
@@ -162,7 +162,7 @@
                   </div>
                   <div class="btn-group">
                     <select class="form-control" name="prog_list" id="prog_list" onchange="searchFilter()" style="cursor: pointer;">  
-                      <option value="">Show By Program</option>  
+                      <option value="">All Programs</option>  
                       <?php echo fill_program($DB_con); ?>  
                     </select>
                   </div>
@@ -192,7 +192,6 @@
               <div class="">
                 <div id="optSelect" style="display: none;">
                   <button type="button" id="exist" data-toggle="collapse" data-target="#optSearch" class="btn btn-primary">Existing Student</button>
-                  <a href="/LUMDRMS/students/index.php#userModal" class="btn btn-warning">New Student</a>
                 </div>
               </div>
             </div>

@@ -25,10 +25,10 @@ if(isset($_POST['page'])){
     }
 
     if ( !empty($keywords) && !empty($prog) ) {
-      $whereSQL = " WHERE program = '".$prog."' AND last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or studentNo LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE program = '".$prog."' AND `students`.`studentNo` LIKE '%".$keywords."%' ";
     }
     elseif ( !empty($keywords) ) {
-      $whereSQL = " WHERE last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' ";
+      $whereSQL = " WHERE `students`.`studentNo` LIKE '%".$keywords."%' ";
     }
     elseif ( !empty($prog) ) {
       $whereSQL = " WHERE program = '".$prog."' ";
@@ -203,7 +203,7 @@ else {
                     }
                     else { 
                       ?>  
-                      <a href="/LUMDRMS/dental/students/dental.php?DID=<?php echo $row['DID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                      <a href="/LUMDRMS/dental/students/dental.php?DID=<?php echo $row['DID']; ?>" class="btn btn-sm btn-warning" title="View Dental" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['DID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                       <?php 
                       }
                     ?>

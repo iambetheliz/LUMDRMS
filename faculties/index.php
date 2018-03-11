@@ -122,7 +122,7 @@
             <div class="col-lg-4 pull-right">
               <div class="form-group filter">
                 <span class="fa fa-filter"></span>
-                <input type="text" class="form-control" id="keywords" placeholder="Type something to filter data" onkeyup="searchFilter()"/>
+                <input type="text" class="form-control" id="keywords" placeholder="Enter Faculty No., Last name, First name or Middle name" onkeyup="searchFilter()"/>
               </div>
             </div>
           </h1>
@@ -272,7 +272,7 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                   <label for="facultyNo"><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
-                  <input type="text" class="form-control" name="facultyNo" id="facultyNo" autofocus minlength="7" required />
+                  <input type="text" class="form-control" name="facultyNo" id="facultyNo" autofocus minlength="7" maxlength="8" required />
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
                   <input type="text" class="form-control" minlength="3" placeholder="Juan" name="first_name" id="first_name">
@@ -289,16 +289,16 @@
                   <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
                   <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
                   <br>                  
-                  <label for="example-date-input" class="col-2 col-form-label">Address:</label> <span class="error pull-right" id="errAdd"></span>
+                  <label class="col-2">Address:</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                 </div>
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-5">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Gender: </label> <span class="error pull-right" id="errSex"></span>
-                  <select class="form-control" name="sex" id="sex">
-                    <option value="undefined">Select</option>
+                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Gender: </label> <span class="error pull-right" id="errSex"></span>
+                  <select class="form-control" name="sex" id="sex" required>
+                    <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
@@ -318,7 +318,7 @@
                       <option value="Married">Married</option>
                     </select>
                     <br>
-                    <label class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Department:</label> 
+                    <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Department:</label> 
                     <span class="error pull-right" id="errProg"></span>
                     <?php
                     //Get all dept data
@@ -339,14 +339,14 @@
                     ?>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
+                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
                   <select class="form-control" name="sem" id="sem">
                     <option value="unknown">Select</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2 col-form-label"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
+                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
                     <?php
                       $currently_selected = date('Y'); 
                       $earliest_year = 2006; 
@@ -362,7 +362,7 @@
                       ?> 
                     </select>
                     <br>
-                    <label for="example-date-input" class="col-2 col-form-label">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
+                    <label class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                     <input type="text" name="phone" id="phone" class="form-control">
                     <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                     <br><br><br>
@@ -371,14 +371,14 @@
 
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
+                  <label class="col-2">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
                   <input type="text" class="form-control" name="cperson" id="cperson">
                 </div>
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-5">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2 col-form-label">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
+                  <label class="col-2">Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
                   <input type="text" name="cphone" id="cphone" class="form-control">
                   <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                 </div>

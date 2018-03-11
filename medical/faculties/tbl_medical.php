@@ -24,16 +24,16 @@ if(isset($_POST['page'])){
   }
 
   if ( !empty($keywords) ) {
-    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') ";
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(`faculties`.`facultyNo` LIKE '%".$keywords."%') ";
     }
   if ( !empty($keywords) && !empty($dept) ) {
-    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%' or facultyNo LIKE '%".$keywords."%') ";
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND dept = '".$dept."' AND CONCAT(`faculties`.`facultyNo` LIKE '%".$keywords."%') ";
   }
   if ( !empty($dept) ) {
     $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND dept = '".$dept."' ";
   }
   if ( !empty($dept) && !empty($keywords) ) {
-    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(last_name LIKE '%".$keywords."%' or first_name LIKE '%".$keywords."%' or middle_name LIKE '%".$keywords."%' or ext LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
+    $whereSQL = " WHERE `faculty_med`.`status` = 'active' AND CONCAT(`faculties`.`facultyNo` LIKE '%".$keywords."%') AND  dept = '".$dept."' ";
   }
 
   //For showing/hiding deleted rows   
@@ -118,7 +118,7 @@ if(isset($_POST['page'])){
                   }
                   else { 
                     ?>
-                    <a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                    <a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                     <?php 
                     }
                   ?>
@@ -205,7 +205,7 @@ else {
                     }
                     else { 
                       ?>
-                      <a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> | <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
+                      <a href="/LUMDRMS/medical/faculties/medical.php?MedID=<?php echo $row['MedID']; ?>" class="btn btn-sm btn-warning" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-external-link" aria-hidden="true"></i></a> <button class="btn btn-sm btn-danger delete" title="Delete" data-toggle="tooltip" data-placement="bottom" value="<?php echo $row['MedID']; ?>"><span class = "glyphicon glyphicon-trash"></span></button>
                       <?php 
                       }
                     ?>
