@@ -14,7 +14,7 @@
   {
    foreach($_POST["id"] as $id)
    {
-    $query = "UPDATE `students_med` SET status = 'deleted' WHERE `students_med`.`MedID` = '$MedID' = '".$id."'";
+    $query = "UPDATE `students_med` SET status = 'deleted', date_deleted = NOW() WHERE `students_med`.`MedID` = '$MedID' = '".$id."'";
     mysqli_query($DB_con, $query);
    }
   }

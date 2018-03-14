@@ -259,8 +259,8 @@
             <textarea class="form-control" name="message" id="message" autofocus></textarea>
           </div>
           <div class="form-group">            
-            <input type="text" name="recipient" id="recipient" value="faculty">
-            <input type="text" name="id" id="sms_id">
+            <input type="hidden" name="recipient" id="recipient" value="faculty">
+            <input type="hidden" name="id" id="sms_id">
           </div>
         </div>
         <div class="modal-footer">
@@ -291,8 +291,8 @@
             <textarea class="form-control" name="message" id="message"></textarea>
           </div>        
           <div class="form-group">            
-            <input type="text" name="recipient" id="recipient" value="parent">
-            <input type="text" name="id" id="sms_id">
+            <input type="hidden" name="recipient" id="recipient" value="parent">
+            <input type="hidden" name="id" id="sms_id">
           </div>
         </div>
         <div class="modal-footer">

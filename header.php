@@ -20,12 +20,6 @@
   }
 
 ?>
-<?php if (empty($userRow['first_name']) && empty($userRow['last_name'])) { ?>
-  <div class="alert alert-warning" role="alert" id="notify-holder" style="display: none;">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <p><i class="fa fa-warning"></i>Your first name and last name are empty. Please update your profile!</p>
-  </div>
-<?php } ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container-fluid">
 

@@ -135,11 +135,11 @@ label.error {
             <div class="btn-toolbar">
               <div class="btn-group" role="group">
                 <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> New</button>
-                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-remove"></i> Multiple</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print</a>
-                <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"><i class="fa fa-envelope"></i> Send SMS</a> 
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print Table</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print Table</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print Table</a>
+                <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"><i class="fa fa-envelope"></i> Message</a> 
               </div>           
             </div>
           </div>
@@ -215,11 +215,8 @@ label.error {
                       <th>No.</th>
                       <th>Dental</th>
                       <th>Medical</th>
-                      <th width="100px">Last Name</th>
-                      <th width="100px">First Name</th>
-                      <th>Middle</th>
-                      <th>Suffix</th>
-                      <th width="110px">Student No.</th>
+                      <th>Name</th>
+                      <th>Student No.</th>
                       <th>Program</th>
                       <th>Year</th>    
                       <th>Added</th>        
@@ -248,7 +245,7 @@ label.error {
   <!-- End of Content -->
 
   <!-- Modal HTML -->    
-  <div id="userModal" class="modal fade">
+  <div id="userModal" class="modal fade" data-backdrop="static"  data-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
       <form method="post" id="add_stud">
         <div class="modal-content">
@@ -264,31 +261,31 @@ label.error {
               <div class="col-lg-6">
                 <div class="form-group"> 
                   <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"></span>
-                  <input type="text" class="form-control" placeholder="000-0000" name="studentNo" id="studentNo" autofocus minlength="7" /><span id="result"></span>
+                  <input type="text" class="form-control" name="studentNo" id="studentNo" autofocus minlength="8" required /><span id="result"></span>
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                  <input type="text" class="form-control" minlength="3" placeholder="Juan" name="first_name" id="first_name">
+                  <input type="text" class="form-control" minlength="3"name="first_name" id="first_name">
                   <br>                        
-                  <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
-                  <input type="text" class="form-control" minlength="3" placeholder="Magdayao" name="middle_name" id="middle_name">
+                  <label>Middle Name: </label> <span class="error pull-right" id="errMid"></span>
+                  <input type="text" class="form-control" minlength="3" name="middle_name" id="middle_name" required />
                   <br>
                   <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                  <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name" minlength="3">
+                  <input type="text" class="form-control" name="last_name" id="last_name" minlength="3">
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                  <input type="text" class="form-control" placeholder="Jr" name="ext" minlength="2" maxlength="3" id="ext">
+                  <input type="text" class="form-control" name="ext" minlength="2" maxlength="3" id="ext">
                   <br>
-                  <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
-                  <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
+                  <label>Age: </label> <span class="error pull-right" id="errAge"></span>
+                  <input class="form-control" type="text" name="age" id="age" minlength="2">
                   <br>
-                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
+                  <label><i class="fa fa-asterisk text-danger"></i> Gender:</label> <span class="error pull-right" id="errSex"></span>
                   <select class="form-control" name="sex" id="sex">
                     <option value="">Select</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2">Address</label> <span class="error pull-right" id="errAdd"></span>
+                  <label>Address</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
                 </div>
               </div>
@@ -297,7 +294,7 @@ label.error {
                 <div class="form-group">
                   <label>Date of Birth:</label> <span class="error pull-right" id="errDOB"></span>
                   <div class="input-group date">
-                    <input type="text" class="form-control" name="dob" id="dob" />  
+                    <input type="text" class="form-control" name="dob" id="dob" placeholder="DD/MM/YYYY" />  
                     <span class="input-group-addon">
                       <span class="fa fa-calendar"></span>
                     </span>
@@ -310,7 +307,7 @@ label.error {
                     <option value="Married">Married</option>
                   </select>
                   <br>
-                  <label class="col-2"><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
+                  <label><i class="fa fa-asterisk text-danger"></i> Department:</label> <span class="error pull-right" id="errProg"></span>
                   <?php
 
                     //Get all dept data
@@ -337,7 +334,7 @@ label.error {
                     <option value="">Select department first</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Year:</label> <span class="error pull-right" id="errLevel"></span>
+                  <label><i class="fa fa-asterisk text-danger"></i> Year Level:</label> <span class="error pull-right" id="errLevel"></span>
                   <select class="form-control" name="yearLevel" id="yearLevel">
                     <option value="">Select</option>
                     <option value="1st">1st Year</option>
@@ -346,14 +343,14 @@ label.error {
                     <option value="4th">4th Year</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
+                  <label><i class="fa fa-asterisk text-danger"></i> Semester:</label> <span class="error pull-right" id="errSem"></span>
                   <select class="form-control" name="sem" id="sem">
                     <option value="">Select</option>
                     <option value="1st">1st</option>
                     <option value="2nd">2nd</option>
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2"><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
+                  <label><i class="fa fa-asterisk text-danger"></i> Academic Year:</label> <span class="error pull-right" id="errYear"></span>
                   <?php
                     $currently_selected = date('Y'); 
                     $earliest_year = 2006; 
@@ -369,23 +366,25 @@ label.error {
                     ?> 
                   </select>
                   <br>
-                  <label for="example-date-input" class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
+                  <label>Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                   <input type="text" name="phone" id="phone" class="form-control">
                   <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
-                  <br><br><br>
+                  <br><br>
                 </div>
               </div>
-
+            </div>
+            <label class="page-header">Contact Person in Case of Emergency:</label>
+            <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2">Contact Person in case of Emergency:</label> <span class="error pull-right" id="errPer"></span>
+                  <label>Name:</label> <span class="error pull-right" id="errPer"></span>
                   <input type="text" class="form-control" name="cperson" id="cperson">
                 </div>
               </div>
               <div class="col-lg-1"></div>
               <div class="col-lg-5">
                 <div class="form-group">
-                  <label for="example-date-input" class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
+                  <label>Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
                   <input type="text" name="cphone" id="cphone" class="form-control">
                   <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
                 </div>
@@ -403,7 +402,7 @@ label.error {
   </div>
 
   <!-- View Modal -->
-  <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true" style="display: none;">
+  <div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true" style="display: none;" data-backdrop="static"  data-keyboard="false">
     <div class="modal-dialog modal-lg"> 
       <form method="post" id="edit_stud">
         <div class="modal-content">         
@@ -488,7 +487,7 @@ label.error {
   </div>
 
   <!-- SMS Modal -->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms" data-backdrop="static"  data-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -516,7 +515,7 @@ label.error {
   </div>
 
   <!--SIngle SMS Modal -->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms-single">
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="modal-sms-single" data-backdrop="static"  data-keyboard="false">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -554,10 +553,12 @@ label.error {
 
 <script src="../assets/js/jquery.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery.validate.min.js"></script>
+
+<!-- Custom JS -->
 <script src="../assets/js/custom.js"></script> 
 <script src="../assets/js/form_validate_custom.js"></script> 
 <script src="../assets/js/students_crud.js"></script>
-<script src="../assets/js/jquery.validate.min.js"></script>
 
 <!-- Growl -->
 <script src="../assets/js/jquery.bootstrap-growl.js"></script>
@@ -566,11 +567,17 @@ label.error {
 <script src="../datepicker/js/moment-with-locales.js"></script>
 <script src="../datepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript">
-$('#dob').datetimepicker({
-  format:'MM/DD/YYYY',
-  useCurrent: false,
-  keepOpen: true
-});
+  $('#dob, #dob_edit').datetimepicker({
+    format:'MM/DD/YYYY',
+    useCurrent: false,
+    icons: {
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
+  });
+  
 var popupWindow = null;
 
 function child_open() { 

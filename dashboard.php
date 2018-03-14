@@ -135,36 +135,35 @@
               <button type="button" class="btn btn-primary"  onclick="javascript:window.print()" value="Print"><i class="fa fa-print" aria-hidden="true"></i> Print</button>
               <span class="col-1"></span>
 
-              <div class="dropdown pull-right">
-                <button type="button" class="btn btn-default" class="dropdown-toggle" data-toggle="dropdown" id="filter_date"> Filter Date<i class="col-1"></i><i class="fa fa-caret-down"></i>
+              <div class="dropdown pull-right" id="filter-dropdown">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="filter_date"> Filter Date<i class="col-1"></i><i class="fa fa-caret-down"></i>
                 </button>
                 <div id="login-dp" class="dropdown-menu">
                   <form id="daterange" method="POST">
                     <div class="row">
-                      <div class="col-lg-5">
+                      <div class="col-lg-6 date1">
                         <div class="form-group mb-1 daterange">
                           <label>Starting Date:</label>
                           <input type="text" class="form-control" id="filter_start" name="filter_start" />
                         </div>
                       </div>
-                      <div class="col-lg-5">
+                      <div class="col-lg-6 date2">
                         <div class="form-group daterange">
                           <label>Ending Date:</label>
                           <input type="text" class="form-control" id="filter_end" name="filter_end" />
                         </div>
                       </div>
-                      <div class="col-lg-2">
-                        <div class="form-group">
-                          <button type="submit" class="btn btn-primary mb-2" name="go" id="go" value="go"> Filter </button>
+                      <div class="col-lg-12">
+                        <div class="btn-toolbar">
+                          <button type="submit" class="btn btn-primary mb-2" name="go" id="go" value="go"> Filter </button>  
+                          <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default" name="day" id="day">Today</button>
+                            <button type="button" class="btn btn-default" name="week" id="week">This Week</button>
+                            <button type="button" class="btn btn-default" name="month" id="month">This Month</button>
+                            <button type="button" class="btn btn-default" name="year" id="year">This Year</button>                          
+                          </div>
                         </div>
-                        <br><br>
-                        <div class="btn-group-vertical">
-                          <button type="button" class="btn btn-default" name="day" id="day">Day</button>
-                          <button type="button" class="btn btn-default" name="week" id="week">Week</button>
-                          <button type="button" class="btn btn-default" name="month" id="month">Month</button>
-                          <button type="button" class="btn btn-default" name="year" id="year">Year</button>
-                        </div>
-                      </div>      
+                      </div>
                     </div>
                   </form>
                 </div>
@@ -682,29 +681,7 @@ $(document).ready(function() {
     editable: true,
     navLinks: true,
     eventLimit: true, // allow "more" link when too many events
-    selectable: true,
     selectHelper: true,
-    select: function(start, end) {  
-      $('#ModalAdd #start').val(moment(start).format('YYYY-MM-DD HH:mm a'));
-      $('#ModalAdd #end').val(moment(end).format('YYYY-MM-DD HH:mm a'));
-      $('#ModalAdd').modal('show');       
-    },
-    eventRender: function(event, element) {
-      element.bind('dblclick', function() {
-        $('#ModalEdit #id').val(event.id);
-        $('#ModalEdit #title').val(event.title);
-        $('#ModalEdit #color').val(event.color);
-        $('#ModalEdit #startEdit').val(moment(event.start).format('YYYY-MM-DD HH:mm a'));
-        $('#ModalEdit #endEdit').val(moment(event.end).format('YYYY-MM-DD HH:mm a'));
-        $('#ModalEdit').modal('show');
-      });
-    },
-    eventDrop: function(event, delta, revertFunc) { // by changing position
-      edit(event);
-    },
-    eventResize: function(event,dayDelta,minuteDelta,revertFunc) { // by changing length
-      edit(event);
-    },
     events: [
     <?php foreach($events as $event): 
     
@@ -731,245 +708,7 @@ $(document).ready(function() {
     <?php endforeach; ?>
     ]
   });
-
-  $('#submitButton').on('click', function(e){
-      // We don't want this to act as a link so cancel the link action
-      e.preventDefault();
-      doSubmit();
-    });
-
-    function doSubmit(event){ 
-      var id = $('#ModalAdd #id').val();
-      var title = $('#ModalAdd #title').val();
-      var color = $('#ModalAdd #color').val();
-      var start = $('#ModalAdd #start').val();
-      var end = $('#ModalAdd #end').val();
-      var category = $("#ModalAdd #public").is(':checked');
-      var guests = $('#ModalAdd #guests').val();
-      var program_id = $('#ModalAdd #prog_list').val();
-      var dept_id = $('#ModalAdd #dept_list').val();
-      var yearLabel = $('#ModalAdd #yearLabel').val();
-      if (category) {
-        $.ajax({
-          url: "add_events.php",
-          data: 'category=public&title='+title+'&start='+start+'&end='+end+'&color='+color+'&guests='+guests+'&program_id='+program_id+'&yearLabel='+yearLabel+'&dept_id='+dept_id,
-          type: "POST",
-          beforeSend:function() {  
-              $("#submitButton").html("<span class='fa fa-floppy-o'></span> &nbsp; Saving Event");  
-          },
-          success: function(json) {
-            $("#calendar").fullCalendar('addEvent', id);
-            $.bootstrapGrowl("New Event added!", // Messages
-              { // options
-                type: "success", // info, success, warning and danger
-                ele: "body", // parent container
-                offset: {
-                  from: "top",
-                  amount: 20
-                },
-                align: "right", // right, left or center
-                width: 300,
-                delay: 4000,
-                allow_dismiss: true, // add a close button to the message
-                stackup_spacing: 10
-            });    
-            $("#addEvent")[0].reset();
-            $("#ModalAdd").modal('hide');
-          }
-        });
-      }
-      else {
-        $.ajax({
-          url: "add_events.php",
-          data: 'title='+title+'&start='+start+'&end='+end+'&color='+color,
-          type: "POST",
-          beforeSend:function() { 
-              $("#submitButton").html("<span class='fa fa-floppy-o'></span> &nbsp; Saving Event");  
-            },
-          success: function(json) {
-            $("#calendar").fullCalendar('addEvent', id);
-            $.bootstrapGrowl("New Event added!", // Messages
-              { // options
-                type: "success", // info, success, warning and danger
-                ele: "body", // parent container
-                offset: {
-                  from: "top",
-                  amount: 20
-                },
-                align: "right", // right, left or center
-                width: 300,
-                delay: 4000,
-                allow_dismiss: true, // add a close button to the message
-                stackup_spacing: 10
-            });    
-            $("#addEvent")[0].reset();
-            $("#ModalAdd").fadeOut(3000);
-            $("#ModalAdd").modal('hide');
-          }
-        });
-      }  
-    }
-
-    $('#updateButton').on('click', function(e){
-      // We don't want this to act as a link so cancel the link action
-      e.preventDefault();
-      doUpdate();
-    });
-
-    function doUpdate(event){ 
-      console.log(id);
-      var id = $('#ModalEdit #id').val();
-      var title = $('#ModalEdit #title').val();
-    var color = $('#ModalEdit #color').val();
-    var start = $('#ModalEdit #startEdit').val();
-    var end = $('#ModalEdit #endEdit').val();
-    $.ajax({
-        url: "calendar/update_events.php",
-        data: 'title='+title+'&start='+start+'&end='+end+'&color='+color+'&id='+id,
-        type: "POST",
-        success: function(json) {
-          $('#calendar').fullCalendar('updateEvent',id);
-          $.bootstrapGrowl("Event updated!", // Messages
-            { // options
-              type: "success", // info, success, warning and danger
-              ele: "body", // parent container
-              offset: {
-                from: "top",
-                amount: 20
-              },
-              align: "right", // right, left or center
-              width: 300,
-              delay: 4000,
-              allow_dismiss: true, // add a close button to the message
-              stackup_spacing: 10
-          });    
-        $("#ModalEdit").modal('hide');
-        }
-      });  
-  }
-  
-  function edit(event){
-    start = event.start.format('YYYY-MM-DD HH:mm a');
-    if(event.end){
-      end = event.end.format('YYYY-MM-DD HH:mm a');
-    }else{
-      end = start;
-    }
-    
-    id =  event.id;
-    
-    Event = [];
-    Event[0] = id;
-    Event[1] = start;
-    Event[2] = end;
-    
-    $.ajax({
-      url: 'calendar/update_events.php',
-      type: "POST",
-      data: {Event:Event},
-      success: function(rep) {
-        if(rep == 'OK'){
-          $.bootstrapGrowl("Event updated!", // Messages
-            { // options
-              type: "success", // info, success, warning and danger
-              ele: "body", // parent container
-              offset: {
-                from: "top",
-                amount: 20
-              },
-              align: "right", // right, left or center
-              width: 300,
-              delay: 4000,
-              allow_dismiss: true, // add a close button to the message
-              stackup_spacing: 10
-            });
-        }
-        else {
-          $.bootstrapGrowl("Event cannot be saved!", // Messages
-                { // options
-                  type: "danger", // info, success, warning and danger
-                  ele: "body", // parent container
-                  offset: {
-                    from: "top",
-                    amount: 20
-                  },
-                  align: "right", // right, left or center
-                  width: 300,
-                  delay: 4000,
-                  allow_dismiss: true, // add a close button to the message
-                  stackup_spacing: 10
-                }); 
-        }
-      }
-    });
-  }
-
-  $('#deleteButton').on('click', function(e){
-    // We don't want this to act as a link so cancel the link action
-    e.preventDefault();
-    doDelete(event);
-  });
-
-  function doDelete(event){
-    var id = $('#ModalEdit #id').val();
-    $.ajax({
-      url: "calendar/delete_event.php",
-      data: "id="+id,
-      type: "POST",
-      success: function(json) {
-        $('#calendar').fullCalendar( 'removeEvent', event.id );  
-        $.bootstrapGrowl("Event deleted!", // Messages
-          { // options
-            type: "success", // info, success, warning and danger
-            ele: "body", // parent container
-            offset: {
-              from: "top",
-              amount: 20
-            },
-            align: "right", // right, left or center
-            width: 300,
-            delay: 4000,
-            allow_dismiss: true, // add a close button to the message
-            stackup_spacing: 10
-        });    
-      $("#ModalEdit").modal('hide');
-      }
-    });  
-  }
 });
-$('#start, #startEdit').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm a',
-  keepOpen: true,
-  icons: {
-    time: "col-1 fa fa-clock-o",
-    date: "col-1 fa fa-calendar",
-    up: "col-1 fa fa-arrow-up",
-    down: "col-1 fa fa-arrow-down"
-  }
-});
-$('#end, #endEdit').datetimepicker({
-  format: 'YYYY-MM-DD HH:mm a',
-  keepOpen: true,
-  icons: {
-    time: "col-1 fa fa-clock-o",
-    date: "col-1 fa fa-calendar",
-    up: "col-1 fa fa-arrow-up",
-    down: "col-1 fa fa-arrow-down"
-  }
-});
-$("#start").on("dp.change", function (e) {
-    $('#end').data("DateTimePicker").minDate(e.date);
-});
-$("#end").on("dp.change", function (e) {
-    $('#start').data("DateTimePicker").maxDate(e.date);
-});
-$("#startEdit").on("dp.change", function (e) {
-    $('#endEdit').data("DateTimePicker").minDate(e.date);
-});
-$("#endEdit").on("dp.change", function (e) {
-    $('#startEdit').data("DateTimePicker").maxDate(e.date);
-});
-
 </script>
     
 </body>

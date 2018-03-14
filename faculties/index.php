@@ -143,7 +143,7 @@
             <div class="btn-toolbar">
               <div class="btn-group" role="group">
                 <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> New</button>
-                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-remove"></i> Multiple</a>
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-trash"></i> Delete</a>
                 <a class='btn btn-primary' name='input' type='button' href='print_faculty.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print</a>
                 <a class='btn btn-primary' name='input' type='button' href='print_faculty_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print</a>
                 <a class='btn btn-primary' name='input' type='button' href='print_faculty_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print</a>
@@ -224,14 +224,10 @@
                       <th>No.</th>
                       <th>Dental</th>
                       <th>Medical</th>
-                      <th width="100px">Last Name</th>
-                      <th width="100px">First Name</th>
-                      <th>Middle</th>
-                      <th>Suffix</th>
-                      <th width="110px">Faculty No.</th>
+                      <th>Name</th>
+                      <th>Faculty No.</th>
                       <th>Department</th>
-                      <th>Added</th>        
-                      <th>Action</th>
+                      <th>Date Added</th>   
                     </tr>
                   </thead>
                   <tbody>
@@ -272,22 +268,22 @@
                 <div class="col-lg-6">
                   <div class="form-group">
                   <label for="facultyNo"><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
-                  <input type="text" class="form-control" name="facultyNo" id="facultyNo" autofocus minlength="7" maxlength="8" required />
+                  <input type="text" class="form-control" name="facultyNo" id="facultyNo" autofocus minlength="7" required />
                   <br>
                   <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
-                  <input type="text" class="form-control" minlength="3" placeholder="Juan" name="first_name" id="first_name">
+                  <input type="text" class="form-control" minlength="3" name="first_name" id="first_name">
                   <br>                        
                   <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
-                  <input type="text" class="form-control" minlength="3" placeholder="Magdayao" name="middle_name" id="middle_name">
+                  <input type="text" class="form-control" minlength="3" name="middle_name" id="middle_name">
                   <br>
                   <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
-                  <input type="text" class="form-control" placeholder="Dela Cruz" name="last_name" id="last_name" minlength="3">
+                  <input type="text" class="form-control" name="last_name" id="last_name" minlength="3">
                   <br>
                   <label>Extension Name: </label> <small class="text-muted pull-right">(leave if none)</small> <span class="error pull-right" id="errExt"></span>
-                  <input type="text" class="form-control" placeholder="Jr" name="ext" minlength="2" maxlength="3" id="ext">
+                  <input type="text" class="form-control" name="ext" minlength="2" maxlength="3" id="ext">
                   <br>
                   <label class="col-2">Age: </label> <span class="error pull-right" id="errAge"></span>
-                  <input class="form-control" type="text" placeholder="00" name="age" id="age" minlength="2">
+                  <input class="form-control" type="text" name="age" id="age" minlength="2">
                   <br>                  
                   <label class="col-2">Address:</label> <span class="error pull-right" id="errAdd"></span>
                   <textarea class="form-control" name="address" id="address" style="height: 80px;"></textarea>
@@ -365,13 +361,15 @@
                     <label class="col-2">Cellphone No.:</label> <span class="error pull-right" id="errPhone"></span>
                     <input type="text" name="phone" id="phone" class="form-control">
                     <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
-                    <br><br><br>
+                    <br><br>
                 </div>
               </div>
-
+            </div>
+            <label class="page-header">Contact Person in Case of Emergency:</label>
+            <div class="row">
               <div class="col-lg-6">
                 <div class="form-group">
-                  <label class="col-2">Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
+                  <label class="col-2">Name:</label> <span class="error pull-right" id="errPer"></span>
                   <input type="text" class="form-control" name="cperson" id="cperson">
                 </div>
               </div>

@@ -1,5 +1,8 @@
 <?php
 include('../includes/dbconnect.php');
+include '../includes/date_time_diff.php';
+//Include pagination class file
+include('../includes/Pagination.php');
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -44,11 +47,6 @@ include('../includes/dbconnect.php');
     </h4>
 
     <?php
-      //Include database configuration file
-      include('../includes/dbconnect.php');
-      include '../includes/date_time_diff.php';
-      //Include pagination class file
-      include('../includes/Pagination.php');
 
       $start = !empty($_POST['page'])?$_POST['page']:0;
 

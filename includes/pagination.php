@@ -20,8 +20,8 @@ class Pagination{
     var $nextLink        = 'Next &raquo;';
     var $prevLink        = '&laquo; Previous';
     var $lastLink        = 'Last';
-    var $fullTagOpen    = '<center><div class="pagination">';
-    var $fullTagClose    = '</div></center>';
+    var $fullTagOpen    = '<ul class="pagination">';
+    var $fullTagClose    = '</ul>';
     var $firstTagOpen    = '';
     var $firstTagClose    = '';
     var $lastTagOpen    = '';
@@ -76,7 +76,7 @@ class Pagination{
         // Is there only one page? will not need to continue
         if ($numPages == 1){
             if ($this->showCount){
-                $info = '<br/><strong><span class="text-muted">Showing : ' . $this->totalRows . '</span></strong>';
+                $info = '<br/><div class="page-msg"><span class="text-muted" style="text-align:center;">Showing : ' . $this->totalRows . '</span></div>';
                 return $info;
             }else{
                 return '';
@@ -90,20 +90,21 @@ class Pagination{
         
         // Links content string variable
         $output = '';
+        $output_count = '';
         
         // Showing links notification
         if ($this->showCount){
            $currentOffset = $this->currentPage;
-           $info = '<div class="text-muted">Showing ' . ( $currentOffset + 1 ) . ' to ' ;
+           $info = '<br/><div class="page-msg"><span class="text-muted" style="text-align:center;">Showing ' . ( $currentOffset + 1 ) . ' to ' ;
         
            if( ( $currentOffset + $this->perPage ) < ( $this->totalRows -1 ) )
               $info .= $currentOffset + $this->perPage;
            else
               $info .= $this->totalRows;
         
-           $info .= ' of ' . $this->totalRows . '</div> <br>';
+           $info .= ' of ' . $this->totalRows . '</span></div>';
         
-           $output .= $info;
+           $output_count .= $info;
         }
         
         $this->numLinks = (int)$this->numLinks;
@@ -170,7 +171,7 @@ class Pagination{
         $output = preg_replace("#([^:])//+#", "\\1/", $output);
 
         // Add the wrapper HTML if exists
-        $output = $this->fullTagOpen.$output.$this->fullTagClose;
+        $output = $output_count.$this->fullTagOpen.$output.$this->fullTagClose;
         
         return $output;        
     }

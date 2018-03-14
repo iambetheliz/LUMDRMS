@@ -138,8 +138,8 @@
             <div class="btn-toolbar" role="group">
               <div class="btn-group">
                 <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
-                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-remove"></i> Multiple</a>
-                <a class="btn btn-primary" name="input" type="button" href="print_medical.php" style="cursor:pointer;" id="print">Print</a>
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-trash"></i> Delete</a>
+                <a class="btn btn-primary" name="input" type="button" href="print_medical.php" style="cursor:pointer;" id="print"><i class="fa fa-print"></i> Print Table</a>
               </div>
             </div>
           </div>
@@ -169,7 +169,7 @@
               </div>
               <div class="btn-group sort">
                 <select id="sortBy" class="form-control" onchange="searchFilter()" style="cursor: pointer;">
-                  <option value="">Sort (Last Name)</option>
+                  <option value="">Sort A-Z</option>
                   <option value="asc">Ascending</option>
                   <option value="desc">Descending</option>
                 </select>
@@ -292,9 +292,6 @@
                       <br>
                       <label class="col-2 col-form-label">Department</label> <span class="error pull-right" id="errProg"></span>
                       <?php
-                        //Include database configuration file
-                        include('../../includes/dbconnect.php');
-                        $DB_con = new mysqli("localhost", "root", "", "records");
     
                         //Get all dept data
                         $query = $DB_con->query("SELECT * FROM department WHERE status = 1 AND cat = 2 ORDER BY dept_name ASC");

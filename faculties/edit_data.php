@@ -17,7 +17,7 @@ $row = mysqli_fetch_array($query);
 	  <div class="col-lg-6">
 	    <div class="form-group"> 
 	      <label><i class="fa fa-asterisk text-danger"></i> Faculty No.: </label> <span class="error pull-right" id="errFN"></span>
-	      <input type="text" class="form-control" value="<?php echo $row['facultyNo'];?>" name="facultyNo" id="facultyNo" readonly title="Cannot be edited" data-toggle="tooltip">
+	      <input type="text" class="form-control" value="<?php echo $row['facultyNo'];?>" name="facultyNo" id="facultyNo">
 	      <br>
 	      <label><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
 	      <input type="text" class="form-control" id="first_name" value="<?php echo $row['first_name'];?>" name="first_name">

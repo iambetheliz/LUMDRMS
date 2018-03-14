@@ -93,7 +93,7 @@ if(isset($_POST['page'])){
     $pagination =  new Pagination($pagConfig);
     
     //get rows
-    $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL LIMIT $start,$limit");
+    $query = $DB_con->query("SELECT *, CONCAT(last_name,', ',first_name,' ',middle_name,' ',ext) AS full_name FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` $whereSQL $orderSQL LIMIT $start,$limit");
     
     if($query->num_rows > 0){ ?>
     <div class="row">
@@ -109,11 +109,8 @@ if(isset($_POST['page'])){
                 <th>No.</th>
                 <th>Dental</th>
                 <th>Medical</th>
-                <th width="100px">Last Name</th>
-                <th width="100px">First Name</th>
-                <th>Middle</th>
-                <th>Suffix</th>
-                <th width="110px">Faculty No.</th>
+                <th>Name</th>
+                <th>Faculty No.</th>
                 <th>Department</th>   
                 <th>Date Added</th>     
                 <th>Action</th>
@@ -135,13 +132,10 @@ if(isset($_POST['page'])){
                 <td><?php echo $start;?></td>
                 <td><?php echo $row['dent']; ?></td>
                 <td><?php echo $row['med']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['last_name']; ?></span></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['middle_name']; ?></span></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['ext']; ?></span></td>
-                <td contenteditable="true" onblur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['facultyNo']; ?></span></td>
+                <td><?php echo $row['full_name']; ?></td>
+                <td><?php echo $row['facultyNo']; ?></td>
                 <td><?php echo $row['dept_name']; ?></td>
-                <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
+                <td><?php echo date('F j, Y', strtotime($row['date_registered']));?></td>
                 <td>
                   <?php 
                     if ($row['status'] == 'deleted') { 
@@ -154,19 +148,6 @@ if(isset($_POST['page'])){
                       <div class="btn-toolbar action" role="toolbar">
                         <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
                       </div>
-                      <?php 
-                      if (!empty($row['phone'])) { ?>
-                      <div class="btn-toolbar action" role="toolbar">
-                        <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
-                      </div>
-                      <?php 
-                       } 
-                       else { ?>
-                       <div class="btn-toolbar action" role="toolbar">
-                        <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
-                      </div>
-                      <?php 
-                       } ?>
                       <?php 
                     }
                   ?>
@@ -193,14 +174,10 @@ if(isset($_POST['page'])){
               <th>No.</th>
               <th>Dental</th>
               <th>Medical</th>
-              <th width="100px">Last Name</th>
-              <th width="100px">First Name</th>
-              <th>Middle</th>
-              <th>Suffix</th>
-              <th width="110px">Faculty No.</th>
+              <th>Name</th>
+              <th>Faculty No.</th>
               <th>Department</th>
-              <th>Date Added</th>        
-              <th>Action</th>
+              <th>Date Added</th>  
             </tr>
           </thead>
           <tbody>
@@ -235,7 +212,7 @@ else {
   $pagination =  new Pagination($pagConfig);
 
   //get rows
-  $query = $DB_con->query("SELECT * FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculties`.`status` = 'active' ORDER BY date_updated DESC LIMIT $limit");
+  $query = $DB_con->query("SELECT *, CONCAT(last_name,', ',first_name,' ',middle_name,' ',ext) AS full_name FROM `faculty_stats` JOIN `faculties` ON `faculties`.`facultyNo`=`faculty_stats`.`facultyNo` JOIN `department` ON `faculties`.`dept`=`department`.`dept_id` WHERE `faculties`.`status` = 'active' ORDER BY date_updated DESC LIMIT $limit");
 
   if($query->num_rows > 0){ ?>
     <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
@@ -248,11 +225,8 @@ else {
             <th>No.</th>
             <th>Dental</th>
             <th>Medical</th>
-            <th width="100px">Last Name</th>
-            <th width="100px">First Name</th>
-            <th>Middle</th>
-            <th>Suffix</th>
-            <th width="110px">Faculty No.</th>
+            <th>Name</th>
+            <th>Faculty No.</th>
             <th>Department</th>     
             <th>Date Added</th>      
             <th>Action</th>
@@ -270,30 +244,14 @@ else {
             <td><?php echo $start;?></td>
             <td><?php echo $row['dent']; ?></td>
             <td><?php echo $row['med']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'last_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['last_name']; ?></span></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'first_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><?php echo $row['first_name']; ?></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'middle_name','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['middle_name']; ?></span></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'ext','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['ext']; ?></span></td>
-            <td contenteditable="true" onblur="saveToDatabase(this,'facultyNo','<?php echo $row['StatsID']; ?>')" ondblclick="editRow(this);"><span title="Click to quick edit." data-toggle="tooltip" data-placement="right"><?php echo $row['facultyNo']; ?></span></td>
+            <td><?php echo $row['full_name']; ?></td>
+            <td><?php echo $row['facultyNo']; ?></td>
             <td><?php echo $row['dept_name']; ?></td>
-            <td><?php echo date('m/d/Y; h:i a', strtotime($row['date_registered']));?></td>
+            <td><?php echo date('F j, Y', strtotime($row['date_registered']));?></td>
             <td>
               <div class="btn-toolbar action" role="toolbar">
                 <a href="profile.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['FacultyID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a><a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
               </div>
-              <?php 
-              if (!empty($row['phone'])) { ?>
-              <div class="btn-toolbar action" role="toolbar">
-                <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['FacultyID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
-              </div>
-              <?php 
-               } 
-               else { ?>
-               <div class="btn-toolbar action" role="toolbar">
-                <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
-              </div>
-              <?php 
-               } ?>
             </td>
           </tr>
         <?php } ?>
@@ -316,14 +274,10 @@ else {
               <th>No.</th>
               <th>Dental</th>
               <th>Medical</th>
-              <th width="100px">Last Name</th>
-              <th width="100px">First Name</th>
-              <th>Middle</th>
-              <th>Suffix</th>
-              <th width="110px">Faculty No.</th>
+              <th>Name</th>
+              <th>Faculty No.</th>
               <th>Department</th>
-              <th>Date Added</th>        
-              <th>Action</th>
+              <th>Date Added</th>     
             </tr>
           </thead>
           <tbody>

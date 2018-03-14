@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  $("[data-toggle=tooltip]").tooltip();
+  $("[data-toggle=modal]").tooltip();
+  
   $(function(){
     $('#current_year').change(function(){ // when one changes
       $('#next_year').val( $(this).val() ) // they all change
@@ -17,10 +21,6 @@ $(document).ready(function () {
   $('ul[role="menu"]').on('hide.bs.collapse', function (e) {
       $(e.target).prev('a[role="menuitem"]').removeClass('active');
   });
-
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-  })
 
   $(function() {
   var Accordion = function(el, multiple) {

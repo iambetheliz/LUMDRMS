@@ -2,63 +2,58 @@ h1.stats {
   padding: 10px 20px 0 20px;
   margin: 0;
 }
-.shape{    
-  border-style: solid; 
-  border-width: 0 70px 40px 0; 
-  float:right; height: 0px; width: 0px;
+.panel{
+  background:#fff; border:1px solid #ddd; margin: 15px 0; overflow:hidden;
 }
-.offer{
-  background:#fff; border:1px solid #ddd; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); margin: 15px 0; overflow:hidden;
-}
-.offer-radius{
+.panel-radius{
   border-radius:7px;
 }
-.offer-danger { border-color: #d9534f; border-radius: 5px; }
-.offer-danger .shape{
+.panel-danger { border-color: #d9534f; border-radius: 5px; }
+.panel-danger .shape{
   border-color: transparent #d9534f transparent transparent;
 }
-.offer-danger h1.stats{
+.panel-danger h1.stats{
   background: #d9534f;
   color: white;
 }
-.offer-success { border-color: #5cb85c; border-radius: 5px; }
-.offer-success .shape{
+.panel-success { border-color: #5cb85c; border-radius: 5px; }
+.panel-success .shape{
   border-color: transparent #5cb85c transparent transparent;
 }
-.offer-success h1.stats{
+.panel-success h1.stats{
   background: #5cb85c;
   color: white;
 }
-.offer-default {  border-color: #999999; border-radius: 5px; }
-.offer-default .shape{
+.panel-default {  border-color: #999999; border-radius: 5px; }
+.panel-default .shape{
   border-color: transparent #999999 transparent transparent;
 }
-.offer-default h1.stats{
+.panel-default h1.stats{
   background: #999999;
   color: white;
 }
-.offer-primary {  border-color: #428bca; border-radius: 5px; }
-.offer-primary .shape{
+.panel-primary {  border-color: #428bca; border-radius: 5px; }
+.panel-primary .shape{
   border-color: transparent #428bca transparent transparent;
 }
-.offer-primary h1.stats{
+.panel-primary h1.stats{
   background: #428bca;
   color: white;
 }
-.offer-info { border-color: #5bc0de; border-radius: 5px; }
-.offer-info .shape{
+.panel-info { border-color: #5bc0de; border-radius: 5px; }
+.panel-info .shape{
   border-color: transparent #5bc0de transparent transparent;
 }
-.offer-info h1.stats {
+.panel-info h1.stats {
     background: #5bc0de;
     color: white;
     font-weight: bold;
 }
-.offer-warning {  border-color: #f0ad4e; border-radius: 5px; }
-.offer-warning .shape{
+.panel-warning {  border-color: #f0ad4e; border-radius: 5px; }
+.panel-warning .shape{
   border-color: transparent #f0ad4e transparent transparent;
 }
-.offer-warning h1.stats{
+.panel-warning h1.stats{
   background: #f0ad4e;
   color: white;
 }
@@ -70,7 +65,7 @@ h1.stats {
   -webkit-transform:rotate(30deg); /* Safari and Chrome */
   transform:rotate(30deg);
 } 
-.offer-content{
+.panel-body{
   padding:0 20px 20px;
   height: 90px;
 }

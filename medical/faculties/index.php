@@ -137,7 +137,7 @@
             <div class="btn-toolbar">
               <div class="btn-group" role="group">
                 <button type="button" id="option" data-toggle="collapse" data-target="#optSelect" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
-                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-remove"></i> Multiple</a>
+                <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"> <i class="glyphicon glyphicon-remove"></i> Delete</a>
                 <a class="btn btn-primary pull-right" name="input" type="button" href="print_medical.php" style="cursor:pointer;" id="print">Print</a>    
               </div>          
             </div>

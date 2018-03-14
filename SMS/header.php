@@ -68,7 +68,7 @@
                   <li><a href="/LUMDRMS/users/user_profile.php"><i class="col-1 fa fa-edit" aria-hidden="true"></i>Edit Profile</a></li>
                   <li><a href="/LUMDRMS/users/changepswd.php"><i class="col-1 fa fa-lock" aria-hidden="true"></i>Change Password</a></li>
                   <li role="separator" class="divider"></li>
-                  <li><a href="logout.php?logout"><i class="col-1 fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
+                  <li><a href="/LUMDRMS/logout.php?logout"><i class="col-1 fa fa-power-off" aria-hidden="true"></i>Logout</a></li>
                 </ul>
               </li>            
               <?php 

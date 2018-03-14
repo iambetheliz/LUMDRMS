@@ -1,4 +1,54 @@
 $(document).ready(function () {
+  // Inputt Fields
+  $('#studentNo, #studentNo_edit').keypress(function (e) {
+      $("#errSN").hide();
+
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errSN").html("Numbers Only!").show().fadeOut("slow");
+      return false;
+    } 
+
+    var curchr = this.value.length;
+    var curval = $(this).val();
+
+    if (curchr == 3 && curval.indexOf("(") <= -1) {
+      $(this).val(curval + "-");
+    } else if (curchr == 4 && curval.indexOf("(") > -1) {
+      $(this).val(curval + ")-");
+    } else if (curchr == 7) {
+      $(this).val(curval);
+      $(this).attr('maxlength', '8'); 
+      return true;
+    } else if (curchr == 8) {
+      $("#errSN").html("7 digits only!").show().fadeOut("slow");
+        return false;
+    } 
+  });
+
+  $('#facultyNo, #facultyNo_edit').keypress(function (e) {
+      $("#errFN").hide();
+
+    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+      $("#errFN").html("Numbers Only!").show().fadeOut("slow");
+      return false;
+    } 
+
+    var curchr = this.value.length;
+    var curval = $(this).val();
+
+    if (curchr == 4 && curval.indexOf("(") <= -1) {
+      $(this).val(curval + "-");
+    } else if (curchr == 4 && curval.indexOf("(") > -1) {
+      $(this).val(curval + ")-");
+    } else if (curchr == 8) {
+      $(this).val(curval);
+      $(this).attr('maxlength', '9'); 
+      return true;
+    } else if (curchr == 9) {
+      $("#errFN").html("7 digits only!").show().fadeOut("slow");
+        return false;
+    } 
+  });
   //Capitalize each word
   $("#first_name, #first_name_edit, #last_name, #last_name_edit, #middle_name, #middle_name_edit, #ext, #ext_edit, #address, #address_edit, #cperson, #cperson_edit, #med_form input[type='text']").keyup(function(e) {
     var arr = $(this).val().split(' ');

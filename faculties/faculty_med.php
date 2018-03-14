@@ -6,13 +6,7 @@ if (isset($_GET['FacultyID'])) {
   $FacultyID = $_GET['FacultyID'];
   $med_res = mysqli_query($DB_con,"SELECT * FROM `faculty_med` WHERE FacultyID = '$FacultyID' AND `date_checked_up` IN (SELECT max(`date_checked_up`) FROM `faculty_med`)"); 
 
-  if ($med_res->num_rows == 0) {
-    $errMSG = "No records found."; ?>
-    <br />
-    <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
-    <?php 
-  }
-  else { 
+  if ($med_res->num_rows > 0) { 
     $query = mysqli_query($DB_con,"SELECT * FROM `faculty_med` WHERE FacultyID = '$FacultyID'");
     while ($med = $query->fetch_assoc()) { 
       $update = date('F j, Y; h:i a', strtotime($med['date_checked_up']));
@@ -22,26 +16,21 @@ if (isset($_GET['FacultyID'])) {
                   <td>".$med['checked_by']."</td>
                 </tr>";
     } ?>
-
-    <div class="row">
-      <div class="container-fluid">
-        <br />
-        <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
-        <a href="/LUMDRMS/faculties/medical.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
-        <br>             
-        <br />
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Date Recorded:</label>
-            <br/><?php echo $update;?>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group row">
-            <label id="date_time">Physician:</label>
-            <br /><?php echo $checked;?>
-          </div>
-        </div>
+      <br />
+      <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD NEW RECORD</a>
+      <a href="/LUMDRMS/faculties/medical.php?FacultyID=<?php echo $row['FacultyID']; ?>" class="btn btn-primary" title="View Medical" data-toggle="tooltip" data-placement="bottom"> <i class="fa fa-print" aria-hidden="true"></i> Print</a>
+      <br>             
+    <br />
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Date Recorded:</label>
+        <br/><?php echo $update;?>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="form-group row">
+        <label id="date_time">Physician:</label>
+        <br /><?php echo $checked;?>
       </div>
     </div>
 
@@ -179,14 +168,26 @@ if (isset($_GET['FacultyID'])) {
         ?>
       </tbody>
     </table>
-    <?php
+    <?php 
   }
+  else { ?>
+    <br />
+    <a href="medical_form.php?FacultyID=<?php echo $row['FacultyID']; ?>" id="add_med" class="btn btn-success"> <i class="fa fa-plus"></i> ADD RECORD</a><br><br>
+    <table class='table table-bordered'>
+      <thead>
+        <tr>
+          <td>Date</td>
+          <td>Time</td>
+          <td>Attending Physician</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td colspan="3">No record</td>
+        </tr>
+      </tbody>
+    </table>
+  <?php
 }
-
-if(isset($errMSG)) { 
-  echo "<div class='alert alert-warning'>
-          <span class='glyphicon glyphicon-info'></span> 
-            ".$errMSG."
-        </div>";      
 }
 ?>

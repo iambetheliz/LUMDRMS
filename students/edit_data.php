@@ -11,17 +11,17 @@ $row = mysqli_fetch_array($query);
 	if(!empty($row)){
 ?>
    
-	<div class="row">
-	  <div id="msg"></div>
+	<div id="msg"></div>
+	  <div class="row">
 	  <div class="col-lg-6">
 	    <div class="form-group"> 
 	      <label for="studentNo"><i class="fa fa-asterisk text-danger"></i> Student No.: </label> <span class="error pull-right" id="errSN"></span>
-	      <input type="text" class="form-control" value="<?php echo $row['studentNo'];?>" name="studentNo" readonly title="Cannot be edited" data-toggle="tooltip">
+	      <input type="text" class="form-control" value="<?php echo $row['studentNo'];?>" name="studentNo" id="studentNo" minlength="8" required /><span id="result"></span>
 	      <br>
 	      <label for="first_name"><i class="fa fa-asterisk text-danger"></i> First Name: </label> <span class="error pull-right" id="errFirst"></span>
 	      <input type="text" class="form-control" id="first_name_edit" value="<?php echo $row['first_name'];?>" name="first_name">
 	      <br>                        
-	      <label>Middle Name: </label> <span class="text-muted">(Optional)</span> <span class="error pull-right" id="errMid"></span>
+	      <label>Middle Name: </label> <span class="error pull-right" id="errMid"></span>
 	      <input type="text" class="form-control" value="<?php echo $row['middle_name'];?>" name="middle_name" id="middle_name_edit">
 	      <br>
 	      <label><i class="fa fa-asterisk text-danger"></i> Last Name: </label> <span class="error pull-right" id="errLast"></span>
@@ -141,45 +141,48 @@ $row = mysqli_fetch_array($query);
 	      <label>Cellphone No.:</label> <span class="error pull-right" id="errTel"></span>
 	      <input type="text" name="phone" id="phone" class="form-control" value="<?php echo $row['phone'];?>">
 	      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
-	      <br><br><br>
+	      <br><br>
 	    </div>
 	  </div>
+	</div>
 
+    <label class="page-header">Contact Person in Case of Emergency:</label>
+	<div class="row">
 	  <div class="col-lg-6">
 	    <div class="form-group">
-	      <label>Contact Person in case of Emergency</label> <span class="error pull-right" id="errPer"></span>
+	      <label>Name:</label> <span class="error pull-right" id="errPer"></span>
 	      <input type="text" class="form-control" id="cperson" name="cperson" value="<?php echo $row['cperson'];?>">
 	    </div>
 	  </div>
 	  <div class="col-lg-1"></div>
 	  <div class="col-lg-5">
 	    <div class="form-group">
-	      <label>Cellphone/Telephone No.</label> <span class="error pull-right" id="errTel"></span>
+	      <label>Cellphone No.</label> <span class="error pull-right" id="errTel"></span>
 	      <input type="text" name="cphone" id="cphone" class="form-control" value="<?php echo $row['cphone'];?>">
 	      <small class="text-muted"><i>(Format: 09xx xxx xxxx)</i></small>
 
           <input type="hidden" name="StudentID" id="hidden_user_id" value="<?php echo $row['StudentID']; ?>"/>
 	    </div>
 	  </div>
+	</div>
 
 	</div>
-  </div>
 <?php }}}?>
 
 <!-- DAtepicker -->
 <script type="text/javascript">
-$(document).ready(function(){
-  $('#dob_edit').datetimepicker({
+  $('#dob, #dob_edit').datetimepicker({
     format:'MM/DD/YYYY',
     useCurrent: false,
     icons: {
-		time: "fa fa-clock-o",
-		date: "fa fa-calendar",
-		up: "fa fa-arrow-up",
-		down: "fa fa-arrow-down"
-	}
+    time: "fa fa-clock-o",
+    date: "fa fa-calendar",
+    up: "fa fa-arrow-up",
+    down: "fa fa-arrow-down"
+  }
   });
-	//Select courses            
+  
+$(document).ready(function(){	//Select courses            
     $('#dept_edit').on('change',function(){
       var deptID = $(this).val();
       if(deptID){

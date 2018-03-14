@@ -60,7 +60,7 @@ if(isset($_POST['page'])){
       $whereSQL = " WHERE program = '".$prog."' AND CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
 
-    //For Med/Dental
+    //For Med/Dental Status
     if ( !empty($stats) ) {
       $whereSQL = " WHERE CONCAT(med = '".$stats."' OR dent = '".$stats."') ";
     }
@@ -116,18 +116,16 @@ if(isset($_POST['page'])){
           <span class="pull-right"><strong class="text-success">Total no. of rows: <?php echo $rowCount;?></strong></span>
           <br>
           <div class="table-responsive">
-            <table class="table  table-striped table-bordered" id="student_table">
+            <table class="table  table-striped table-bordered" id="myTable">
             <thead>
               <tr>                
                 <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
                 <th>No.</th>
-                <th>Dental</th>
-                <th>Medical</th>
-                <th>Name</th>
+                <th>Dental Status</th>
+                <th>Medical Status</th>
+                <th>Full Name</th>
                 <th>Student No.</th>
-                <th>Program</th>
-                <th>Year</th>    
-                <th>Date Added</th>      
+                <th>Added</th>      
                 <th>Action</th>
               </tr>
             </thead>
@@ -149,9 +147,7 @@ if(isset($_POST['page'])){
                 <td><?php echo $row['med']; ?></td>
                 <td><?php echo $row['full_name']; ?></td>
                 <td><?php echo $row['studentNo']; ?></td>
-                <td><?php echo $row['alias'];?></td>
-                <td><?php echo $row['yearLevel'];?></td>
-                <td><?php echo date('F j, Y', strtotime($row['date_registered']));?></td>
+                <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
                 <td>
                   <?php 
                     if ($row['status'] == 'deleted') { 
@@ -165,6 +161,19 @@ if(isset($_POST['page'])){
                         <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a><a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
                         <a class="btn btn-danger btn-sm" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#confirm-delete"><i class="glyphicon glyphicon-trash"></i> </a>
                       </div>
+                      <?php 
+                      if (!empty($row['phone'])) { ?>
+                      <div class="btn-toolbar action" role="toolbar">
+                        <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+                      </div>
+                      <?php 
+                       } 
+                       else { ?>
+                       <div class="btn-toolbar action" role="toolbar">
+                        <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
+                      </div>
+                      <?php 
+                       } ?>
                       <?php 
                     }
                   ?>
@@ -189,18 +198,19 @@ if(isset($_POST['page'])){
       </span>
       <br>
       <div class="table-responsive">
-        <table class="table table-striped table-bordered" id="student_table">
+        <table class="table table-striped table-bordered" id="myTable">
           <thead>
             <tr>
               <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
               <th>No.</th>
-              <th>Dental</th>
-              <th>Medical</th>
+              <th>Dental Status</th>
+              <th>Medical Status</th>
               <th>Full Name</th>
               <th>Student No.</th>
               <th>Program</th>
               <th>Year</th>    
-              <th>Date Added</th>  
+              <th>Added</th>        
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -243,18 +253,16 @@ else {
     </span>
     <br>
     <div class="table-responsive">
-      <table class="table table-striped table-bordered" id="student_table">
+      <table class="table table-striped table-bordered" id="myTable">
         <thead>
           <tr>
             <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
             <th>No.</th>
-            <th>Dental</th>
-            <th>Medical</th>
-            <th>Name</th>
+            <th>Dental Status</th>
+            <th>Medical Status</th>
+            <th>Full Name</th>
             <th>Student No.</th>
-            <th>Program</th>
-            <th>Year</th>    
-            <th>Date Added</th>        
+            <th>Added</th>        
             <th>Action</th>
           </tr>
         </thead>
@@ -271,15 +279,26 @@ else {
             <td><?php echo $row['med']; ?></td>
             <td><?php echo $row['full_name']; ?></td>
             <td><?php echo $row['studentNo']; ?></td>
-            <td><?php echo $row['alias'];?></td>
-            <td><?php echo $row['yearLevel'];?></td>
-            <td><?php echo date('F j, Y', strtotime($row['date_registered']));?></td>
+            <td><?php echo date('m/d/Y <br/> h:i a', strtotime($row['date_registered']));?></td>
             <td>
               <div class="btn-toolbar action" role="toolbar">
                 <a href="profile.php?StudentID=<?php echo $row['StudentID']; ?>" class="btn btn-sm btn-warning" title="Profile" data-toggle="tooltip" data-placement="top"> <i class="glyphicon glyphicon-user"></i></a>
                 <a class="btn btn-sm btn-primary" title="Edit" data-toggle="modal" data-target="#view-modal" data-placement="top" data-id="<?php echo $row['StudentID']; ?>" id="getUser"> <i class="fa fa-pencil"></i></a>
                 <button class="btn btn-sm btn-danger" title="Delete" data-placement="top" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#confirm-delete"><span class = "glyphicon glyphicon-trash"></span></button>
               </div>
+              <?php 
+              if (!empty($row['phone'])) { ?>
+              <div class="btn-toolbar action" role="toolbar">
+                <a class="btn btn-success" type="button" style="cursor: pointer;" data-toggle="modal" data-id="<?php echo $row['StudentID']; ?>" data-target="#modal-sms-single"><i class="fa fa-envelope"></i> Send SMS</a> 
+              </div>
+              <?php 
+               } 
+               else { ?>
+               <div class="btn-toolbar action" role="toolbar">
+                <a class="btn btn-success" type="button" style="cursor: disabled;" href="javascript:(0)" disabled data-toggle="tooltip" title="No phone number" ><i class="fa fa-envelope"></i> Send SMS</a> 
+              </div>
+              <?php 
+               } ?>
             </td>
           </tr>
         <?php } ?>
@@ -295,23 +314,23 @@ else {
       </span>
       <br>
       <div class="table-responsive">
-        <table class="table table-striped table-bordered" id="student_table">
+        <table class="table table-striped table-bordered" id="myTable">
           <thead>
             <tr>
               <th><label class="checkbox-inline"><input type="checkbox" class="select-all form-check-input" /><span class="lbl"></span> </label></th>
               <th>No.</th>
-              <th>Dental</th>
-              <th>Medical</th>
-              <th>Full Name</th>
+              <th>Dental Status</th>
+              <th>Medical Status</th>
+              <th>Last Name</th>
               <th>Student No.</th>
               <th>Program</th>
-              <th>Year</th>    
-              <th>Date Added</th>    
+              <th>Year</th>       
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colspan="13" align="center">
+              <td colspan="8" align="center">
                 <p>No records found</p>
               </td>
             </tr>
