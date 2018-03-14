@@ -32,6 +32,7 @@ td.fc-day-number.fc-sat, td.fc-day-top.fc-sat a.fc-day-number {
 }
 #calendar {
   width: 100%;
+  margin-bottom: 20px;
 }
 .fc-unthemed td {
     border-color: #ddd;

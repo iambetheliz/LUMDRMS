@@ -316,10 +316,10 @@
                           F - <input type="text" name="dec_f" class="form-control">
                           <br>
                           <label>No. of T/Missing:</label>
-                          <input type="text" name="missing" class="form-control">
+                          <input type="text" name="missing" class="form-control" id="missing" readonly>
                           <br>
                           <label>No. of T/Filled:</label>
-                          <input type="text" name="filled" class="form-control">
+                          <input type="text" name="filled" class="form-control" id="filled" readonly>
                         </div>
                         <br>
                         <hr>
@@ -401,7 +401,21 @@
 <script>
   $(document).ready(function () {
     $(function(){
+      $('#table_tooth input:checkbox').attr('checked', 'checked');
+      filled = $('#table_tooth input:checkbox:checked');        
+      missing = $('#table_tooth input:checkbox:not(:checked)');
+
+      $("#filled").val(filled.length);
+      $("#missing").val(missing.length);
+
+      $('#table_tooth input:checkbox').on('change', function () {
         $('#table_tooth input:checkbox').attr('checked', 'checked');
+        filled = $('#table_tooth input:checkbox:checked');               
+        missing = $('#table_tooth input:checkbox:not(:checked)');
+
+        $("#filled").val(filled.length);
+        $("#missing").val(missing.length);
+      });
     });
   });
   $("input[name=per_con]").click(function () {
