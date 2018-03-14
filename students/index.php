@@ -136,9 +136,9 @@ label.error {
               <div class="btn-group" role="group">
                 <button type="button" id="add_button" data-toggle="modal" data-target="#userModal" class="btn btn-success"><i class="fa fa-plus"></i> New</button>
                 <a class="btn btn-danger" style="cursor: pointer;" onclick="delete_records();"><i class="glyphicon glyphicon-trash"></i> Delete</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print Table</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print Table</a>
-                <a class='btn btn-primary' name='input' type='button' href='print_students_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print Table</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students.php' style='cursor:pointer;' id='print'><i class="fa fa-print"></i> Print</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students_pending.php' style='cursor:pointer;display: none;' id='pen'><i class="fa fa-print"></i> Print</a>
+                <a class='btn btn-primary' name='input' type='button' href='print_students_ok.php' style='cursor:pointer;display: none;' id='ok'><i class="fa fa-print"></i> Print</a>
                 <a class="btn btn-warning" type="button" style="cursor: pointer;" onclick="send_sms();"><i class="fa fa-envelope"></i> Message</a> 
               </div>           
             </div>
