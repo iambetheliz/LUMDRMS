@@ -48,14 +48,14 @@
   } 
 ?>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <div class="panel panel-success">
+  <div class="offer offer-success">
     <?php   
       $query = mysqli_query($DB_con,"SELECT COUNT(*) FROM `students_stats` $whereTotal");
       $row = mysqli_fetch_array($query);
       $count = $row['COUNT(*)'];
     ?>            
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-    <div class="panel-body">
+    <div class="offer-body">
       <h4><i class="fa fa-graduation-cap"></i> Students</h4>  
       <?php 
         if ($count != 0) { ?> 
@@ -69,14 +69,14 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <div class="panel panel-primary">
+  <div class="offer offer-primary">
     <?php   
       $query = mysqli_query($DB_con,"SELECT COUNT(*) FROM `faculty_stats` $whereTotal");
       $row = mysqli_fetch_array($query);
       $count = $row['COUNT(*)'];
     ?>            
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-    <div class="panel-body">
+    <div class="offer-body">
       <h4><i class="fa fa-briefcase"></i> Faculty and Staff</h4>  
       <?php 
         if ($count != 0) { ?> 
@@ -90,14 +90,14 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <div class="panel panel-warning">
+  <div class="offer offer-warning">
     <?php    
       $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_den` $whereDent) AS total_students, (SELECT COUNT(*) FROM `faculty_den` $whereDent) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>          
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1> 
-    <div class="panel-body">
+    <div class="offer-body">
       <h4><i class="fa fa-file" aria-hidden="true"></i> Dental Records</h4>
       <?php 
         if ($count != 0) {?> 
@@ -111,14 +111,14 @@
   </div>
 </div>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-  <div class="panel panel-danger">
+  <div class="offer offer-danger">
     <?php    
       $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students_med` $whereMed) AS total_students, (SELECT COUNT(*) FROM `faculty_med` $whereMed) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>           
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-    <div class="panel-body">
+    <div class="offer-body">
       <h4><i class="fa fa-medkit"></i> Medical Records</h4>
       <?php 
         if ($count != 0) {?> 
@@ -132,14 +132,14 @@
   </div>
 </div>  
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" style="display: none;">
-  <div class="panel panel-info">
+  <div class="offer offer-info">
     <?php    
       $query = mysqli_query($DB_con,"SELECT (SELECT COUNT(*) FROM `students` WHERE status = 'deleted' $whereDel) AS total_students, (SELECT COUNT(*) FROM `faculties` WHERE status = 'deleted' $whereDel) AS total_faculties");
       $row = mysqli_fetch_array($query);
       $count = $row['total_students'] + $row['total_faculties'];
     ?>           
     <h1 class="stats"><strong><span class="count"><?php echo $count; ?></span></strong></h1>
-    <div class="panel-body">
+    <div class="offer-body">
       <h4><i class="fa fa-trash"></i> Deleted Records</h4>
       <?php 
         if ($count != 0) {?> 
